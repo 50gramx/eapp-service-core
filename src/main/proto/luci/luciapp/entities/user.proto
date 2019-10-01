@@ -1,0 +1,72 @@
+syntax = "proto3";
+package luciapp.entity;
+
+
+import public "google/protobuf/timestamp.proto";
+
+import "luci/luciapp/entities/constant.proto";
+import "luci/luciapp/entities/attachment.proto";
+
+
+// User
+message User {
+    string id = 1;
+    string name = 2;
+    string email = 3;
+    bool email_verified = 4;
+    string mobile = 5;
+    bool mobile_verified = 6;
+    string image_id = 7;
+    string timezone = 8;
+    string language_locale = 10;
+    string date_locale = 11;
+    luciapp.entity.Gender gender = 12;
+    string created_by = 13;
+    google.protobuf.Timestamp created_at = 14;
+}
+
+message Users {
+    map<string, User> results = 1;
+}
+
+message CreateUserCommand {
+    string name = 1;
+    string email = 2;
+    bool email_verified = 3;
+    string mobile = 4;
+    string image_id = 5;
+    string timezone = 6;
+    string language_locale = 7;
+    string number_locale = 8;
+    string date_locale = 9;
+    luciapp.entity.Gender gender = 10;
+}
+
+message UpdateUserCommand {
+    string name = 1;
+    string mobile = 2;
+    string image_id = 3;
+    string timezone = 4;
+    string language_locale = 5;
+    string number_locale = 6;
+    string date_locale = 7;
+    luciapp.entity.Gender gender = 8;
+}
+
+message ChangeUserPasswordCommand {
+    string password = 1;
+}
+
+message IsUserEmailExistCommand {
+    string email = 1;
+    string user_id = 2;
+}
+
+message GetUserByEmailCommand {
+    string email = 1;
+}
+
+message UserDetails {
+    User user = 1;
+    luciapp.entity.Attachment image = 2;
+}

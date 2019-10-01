@@ -1,0 +1,26 @@
+syntax = "proto3";
+package luciapp.services.platform;
+
+import "luci/luciapp/entities/generic.proto";
+
+message UserContext {
+    string user_id = 1;
+    string account_id = 2;
+    string app_request_type = 3;
+    // TOOD: user_agent, roles, groups, etc...
+}
+
+message GenericCall {
+    UserContext user_context = 1;
+}
+
+message GetCall {
+    UserContext user_context = 1;
+    luciapp.entity.GetCommand command = 2;
+}
+
+message MultiGetCall {
+    UserContext user_context = 1;
+    luciapp.entity.MultiGetCommand command = 2;
+}
+

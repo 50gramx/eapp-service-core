@@ -1,0 +1,21 @@
+syntax = "proto3";
+package luciapp.entity;
+
+import public "google/protobuf/timestamp.proto";
+import public "google/protobuf/struct.proto";
+
+
+message ActionResult {
+    bool result = 1;
+    google.protobuf.Value property = 2;
+}
+
+
+// Commands
+message GetCommand {
+    string id = 1;
+}
+
+message MultiGetCommand {
+    repeated string ids = 1;
+}
