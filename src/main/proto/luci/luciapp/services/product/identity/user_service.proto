@@ -1,17 +1,17 @@
 syntax = "proto3";
-package luciapp.services.platform;
+package luciapp.services.product;
 
 import "luci/luciapp/entities/user.proto";
 import "luci/luciapp/entities/generic.proto";
-import "luci/luciapp/services/platform/generic.proto";
+import "luci/luciapp/services/product/generic.proto";
 
 message CreateUserCall {
-    luciapp.services.platform.UserContext user_context = 1;
+    luciapp.services.product.UserContext user_context = 1;
     luciapp.entity.CreateUserCommand command = 2;
 }
 
 message IsUserEmailExistCall {
-    luciapp.services.platform.UserContext user_context = 1;
+    luciapp.services.product.UserContext user_context = 1;
     luciapp.entity.IsUserEmailExistCommand command = 2;
 }
 
@@ -20,5 +20,5 @@ service UserService {
 
     rpc IsUserEmailExist (IsUserEmailExistCall) returns (luciapp.entity.ActionResult);
 
-    rpc GetUserDetails (luciapp.services.platform.GetCall) returns (luciapp.entity.UserDetails);
+    rpc GetUserDetails (luciapp.services.product.GetCall) returns (luciapp.entity.UserDetails);
 }

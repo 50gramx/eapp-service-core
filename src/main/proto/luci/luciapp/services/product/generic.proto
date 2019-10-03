@@ -1,5 +1,5 @@
 syntax = "proto3";
-package luciapp.services.platform;
+package luciapp.services.product;
 
 import "luci/luciapp/entities/generic.proto";
 
