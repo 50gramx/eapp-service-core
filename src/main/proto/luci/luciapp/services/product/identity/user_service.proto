@@ -1,5 +1,5 @@
 syntax = "proto3";
-package luciapp.services.product;
+package luciapp.services.product.identity;
 
 option java_multiple_files = true;
 
@@ -18,9 +18,9 @@ message IsUserEmailExistCall {
 }
 
 service UserService {
-    rpc CreateUser (CreateUserCall) returns (luciapp.entity.User);
+    rpc CreateUser (CreateUserCall) returns (luciapp.entity.User) {}
 
-    rpc IsUserEmailExist (IsUserEmailExistCall) returns (luciapp.entity.ActionResult);
+    rpc IsUserEmailExist (IsUserEmailExistCall) returns (luciapp.entity.ActionResult) {}
 
-    rpc GetUserDetails (luciapp.services.product.GetCall) returns (luciapp.entity.UserDetails);
+    rpc GetUserDetails (luciapp.services.product.GetCall) returns (luciapp.entity.UserDetails) {}
 }
