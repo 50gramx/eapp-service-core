@@ -1,6 +1,8 @@
 syntax = "proto3";
 package luciapp.services.product;
 
+option java_multiple_files = true;
+
 import "luci/luciapp/entities/user.proto";
 import "luci/luciapp/entities/generic.proto";
 import "luci/luciapp/services/product/generic.proto";
