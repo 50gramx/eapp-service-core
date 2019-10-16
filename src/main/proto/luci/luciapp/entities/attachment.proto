@@ -6,7 +6,6 @@ option java_multiple_files = true;
 import public "google/protobuf/timestamp.proto";
 import public "google/protobuf/struct.proto";
 
-import "luci/luciapp/entities/constant.proto";
 import "luci/luciapp/entities/generic.proto";
 
 message Attachment {

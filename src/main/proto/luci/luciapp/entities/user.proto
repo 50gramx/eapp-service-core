@@ -9,7 +9,6 @@ import "luci/luciapp/entities/constant.proto";
 import "luci/luciapp/entities/attachment.proto";
 
 
-// User
 message User {
     string id = 1;
     string name = 2;
@@ -24,6 +23,7 @@ message User {
     luciapp.entity.Gender gender = 12;
     string created_by = 13;
     google.protobuf.Timestamp created_at = 14;
+    int32 avatar_index = 15;
 }
 
 message Users {
@@ -58,6 +58,10 @@ message ChangeUserPasswordCommand {
     string password = 1;
 }
 
+message ReinviteUserCommand {
+    string user_id = 1;
+}
+
 message IsUserEmailExistCommand {
     string email = 1;
     string user_id = 2;
@@ -70,4 +74,8 @@ message GetUserByEmailCommand {
 message UserDetails {
     User user = 1;
     luciapp.entity.Attachment image = 2;
+}
+
+message AuthorizationUrl {
+    string authorization_url = 1;
 }

@@ -12,15 +12,42 @@ message CreateUserCall {
     luciapp.entity.CreateUserCommand command = 2;
 }
 
+message UpdateUserCall {
+    luciapp.services.product.UserContext user_context = 1;
+    luciapp.entity.UpdateUserCommand command = 2;
+}
+
+message ChangeUserPasswordCall {
+    luciapp.services.product.UserContext user_context = 1;
+    luciapp.entity.ChangeUserPasswordCommand command = 2;
+}
+
 message IsUserEmailExistCall {
     luciapp.services.product.UserContext user_context = 1;
     luciapp.entity.IsUserEmailExistCommand command = 2;
 }
 
+message ReinviteUserCall {
+    luciapp.services.product.UserContext user_context = 1;
+    luciapp.entity.ReinviteUserCommand command = 2;
+}
+
+message GetUserByEmailCall {
+    luciapp.services.product.UserContext user_context = 1;
+    luciapp.entity.GetUserByEmailCommand command = 2;
+}
+
+
 service UserService {
     rpc CreateUser (CreateUserCall) returns (luciapp.entity.User) {}
+    rpc UpdateUser (UpdateUserCall) returns (luciapp.entity.User) {}
+    rpc ChangeUserPassword (ChangeUserPasswordCall) returns (luciapp.entity.ActionResult) {}
+    rpc ReinviteUser (ReinviteUserCall) returns (luciapp.entity.ActionResult) {}
 
     rpc IsUserEmailExist (IsUserEmailExistCall) returns (luciapp.entity.ActionResult) {}
+    rpc GetUserByEmail (GetUserByEmailCall) returns (luciapp.entity.User) {}
+    rpc GetUser (luciapp.services.product.GetCall) returns (luciapp.entity.User) {}
+    rpc GetUsers (luciapp.services.product.MultiGetCall) returns (luciapp.entity.Users) {}
 
     rpc GetUserDetails (luciapp.services.product.GetCall) returns (luciapp.entity.UserDetails) {}
 }

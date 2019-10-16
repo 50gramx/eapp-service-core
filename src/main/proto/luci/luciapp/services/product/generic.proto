@@ -4,7 +4,19 @@ package luciapp.services.product;
 option java_multiple_files = true;
 
 import "luci/luciapp/entities/generic.proto";
-// added a new line
+
+//-----------------------------------------------------------
+
+
+message Scope {
+    string account_id = 1;
+}
+
+message GenericRequest {
+    Scope scope = 1;
+}
+
+//-----------------------------------------------------------
 
 message UserContext {
     string user_id = 1;
