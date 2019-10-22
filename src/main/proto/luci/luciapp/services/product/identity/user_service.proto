@@ -39,7 +39,7 @@ message GetUserByEmailCall {
 
 
 service UserService {
-    rpc CreateUser (CreateUserCall) returns (luciapp.entity.User) {}
+    rpc CreateUser (stream CreateUserCall) returns (luciapp.entity.User) {}
     rpc UpdateUser (UpdateUserCall) returns (luciapp.entity.User) {}
     rpc ChangeUserPassword (ChangeUserPasswordCall) returns (luciapp.entity.ActionResult) {}
     rpc ReinviteUser (ReinviteUserCall) returns (luciapp.entity.ActionResult) {}
