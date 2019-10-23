@@ -1,0 +1,43 @@
+syntax = "proto3";
+package luciapp.services.product.identity;
+
+option java_multiple_files = true;
+
+import "luci/luciapp/services/product/generic.proto";
+import "luci/luciapp/entities/auth.proto";
+import "luci/luciapp/entities/user.proto";
+
+message ValidateUserCredentialCall {
+    luciapp.services.product.UserContext user_context = 1;
+    luciapp.entity.ValidateUserCredentialCommand command = 2;
+}
+
+message RequestResetUserPasswordCall {
+    luciapp.services.product.UserContext user_context = 1;
+    luciapp.entity.RequestResetUserPasswordCommand command = 2;
+}
+
+message ResetUserPasswordCall {
+    luciapp.services.product.UserContext user_context = 1;
+    luciapp.entity.ResetUserPasswordCommand command = 2;
+}
+
+//create user
+message CreateUserByEmailCall {
+    luciapp.services.product.UserContext user_context = 1;
+    luciapp.entity.CreateUserByEmailCommand command = 2;
+}
+
+service AuthService {
+    rpc ValidateUserCredential (ValidateUserCredentialCall) returns (luciapp.entity.User);
+    rpc RequestResetUserPassword (RequestResetUserPasswordCall) returns (luciapp.entity.ActionResult);
+    rpc ResetUserPassword (ResetUserPasswordCall) returns (luciapp.entity.ActionResult);
+
+    // GetUserAccountsPermissionDetails
+
+    rpc CreateUserByEmail (CreateUserByEmailCall) returns (luciapp.entity.User);
+
+    // Authorization for Social Accounts
+    // GenerateAuthorizationUrl
+    // ValidateAuthorization
+}
