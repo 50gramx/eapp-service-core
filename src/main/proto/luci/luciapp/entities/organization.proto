@@ -1,0 +1,36 @@
+syntax = "proto3";
+package luciapp.entity;
+
+import "luci/luciapp/entities/account.proto";
+
+import public "google/protobuf/timestamp.proto";
+
+message Organization {
+    string organization_id = 1;
+    string organization_name = 2;
+    string organization_space_id = 3;
+    string admin_account_id = 4;
+    bool active = 5;
+    bool billing_active = 6;
+    google.protobuf.Timestamp created_at = 7;
+}
+
+
+/* CreateOrganizationRequest represents Onboarding Organisation Request*/
+message ReserveOrganizationRequest {
+    string organization_space = 1;      // organization space reservation
+    luciapp.entity.AccountMeta account_meta = 2; // admin account meta
+    google.protobuf.Timestamp created_at = 3;   // request created at
+}
+
+/* CreateOrganizationResponse represents reservation of organisation space *
+* till the admin account verifies the email id and enables the billing */
+message ReserveOrganizationResponse {
+    string organization_space = 1;      // organization space reservation
+    bool organization_space_reserved = 2;   // was the space reservation successful?
+    string account_email_id = 3;        // admin account email id
+    bool account_email_id_verified = 4;     // admin account verification pending
+    luciapp.entity.AccountVerificationCodeDetails account_verification_code = 5;
+    string message = 6;
+}
+

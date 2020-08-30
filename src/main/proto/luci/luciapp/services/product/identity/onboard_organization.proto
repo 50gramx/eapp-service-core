@@ -1,0 +1,10 @@
+syntax = "proto3";
+package luciapp.services.product.identity;
+
+import "luci/luciapp/entities/organization.proto";
+
+service OnboardOrganizationService {
+    rpc reserve_organization_space (luciapp.entity.ReserveOrganizationRequest) returns (luciapp.entity.ReserveOrganizationResponse) {
+    };
+}
+

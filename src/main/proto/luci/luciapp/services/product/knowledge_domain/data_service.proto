@@ -1,0 +1,25 @@
+syntax = "proto3";
+package luciapp.services.product.knowledge;
+
+enum FileUploadStatusCode {
+    Unknown = 0;
+    Ok = 1;
+    Failed = 2;
+    InProgress = 3;
+}
+
+message FileUploadRequest {
+    bytes content = 1;
+    string upload_id = 2;
+    FileUploadStatusCode status_code = 3;
+}
+
+message FileUploadResponse {
+    string upload_id = 1;
+    FileUploadStatusCode status_code = 2;
+    string message = 3;
+}
+
+service FileUploadService {
+    rpc FileUpload (stream FileUploadRequest) returns (FileUploadResponse) {};
+}

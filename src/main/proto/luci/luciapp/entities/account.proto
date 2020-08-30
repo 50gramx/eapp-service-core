@@ -1,0 +1,35 @@
+syntax = "proto3";
+package luciapp.entity;
+
+import public "google/protobuf/timestamp.proto";
+
+message Account {
+    string account_id = 1;
+    string account_email_id = 2;
+    string first_name = 3;
+    string last_name = 4;
+    string organization_id = 5;
+    bool active = 6;
+    bool admin_acc = 7;
+    google.protobuf.Timestamp created_at = 8;
+}
+
+// AccountVerificationCode represents the accountability of delivery of Verification Code
+message AccountVerificationCodeDetails {
+    bool account_verification_code_sent = 1; // Was the code sent to the account?
+    google.protobuf.Timestamp sent_at = 2; // When was the last time code sent?
+}
+
+/* ClaimAccountRequest represents new Claim of Account */
+message ClaimAccountRequest {
+    string account_email_id = 1; // What is the email address?
+    google.protobuf.Timestamp requested_at = 2; // When was it requested?
+}
+
+/* ClaimAccountResponse returns about accountability of Claim */
+message ClaimAccountResponse {
+    string account_email_id = 1;
+    bool account_claimable = 2;
+    string code_token = 3;
+    google.protobuf.Timestamp code_sent_at = 4;
+}

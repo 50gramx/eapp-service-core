@@ -1,0 +1,9 @@
+syntax = "proto3";
+package luciapp.services.product.identity;
+
+import "luci/luciapp/entities/organization_space.proto";
+
+service OnboardOrganizationSpaceService {
+    rpc claim_organization_space(luciapp.entity.ClaimOrganizationSpaceRequest) returns (luciapp.entity.ClaimOrganizationSpaceResponse) {
+    };
+}
