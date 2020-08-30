@@ -1,5 +1,5 @@
 syntax = "proto3";
-package luciapp.services.product.knowledge;
+package elint.services.product.knowledge;
 
 enum FileUploadStatusCode {
     Unknown = 0;

@@ -1,8 +1,0 @@
-syntax = "proto3";
-package luciapp.services.product.identity;
-
-import "luci/luciapp/entities/account.proto";
-
-service OnboardAccountService {
-    rpc claim_account (luciapp.entity.ClaimAccountRequest) returns (luciapp.entity.ClaimAccountResponse);
-}

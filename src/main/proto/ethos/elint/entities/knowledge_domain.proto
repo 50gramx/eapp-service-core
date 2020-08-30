@@ -1,5 +1,5 @@
 syntax = "proto3";
-package luciapp.entity;
+package elint.entity;
 
 import public "google/protobuf/timestamp.proto";
 

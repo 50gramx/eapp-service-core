@@ -1,0 +1,10 @@
+syntax = "proto3";
+package elint.services.product.identity;
+
+import "ethos/elint/entities/organization.proto";
+
+service OnboardOrganizationService {
+    rpc reserve_organization_space (elint.entity.ReserveOrganizationRequest) returns (elint.entity.ReserveOrganizationResponse) {
+    };
+}
+

@@ -1,0 +1,8 @@
+syntax = "proto3";
+package elint.services.product.identity;
+
+import "ethos/elint/entities/account.proto";
+
+service OnboardAccountService {
+    rpc claim_account (elint.entity.ClaimAccountRequest) returns (elint.entity.ClaimAccountResponse);
+}
