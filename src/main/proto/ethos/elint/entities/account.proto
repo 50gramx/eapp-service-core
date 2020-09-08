@@ -19,17 +19,3 @@ message AccountVerificationCodeDetails {
     bool account_verification_code_sent = 1; // Was the code sent to the account?
     google.protobuf.Timestamp sent_at = 2; // When was the last time code sent?
 }
-
-/* ClaimAccountRequest represents new Claim of Account */
-message ClaimAccountRequest {
-    string account_email_id = 1; // What is the email address?
-    google.protobuf.Timestamp requested_at = 2; // When was it requested?
-}
-
-/* ClaimAccountResponse returns about accountability of Claim */
-message ClaimAccountResponse {
-    string account_email_id = 1;
-    bool account_claimable = 2;
-    string code_token = 3;
-    google.protobuf.Timestamp code_sent_at = 4;
-}

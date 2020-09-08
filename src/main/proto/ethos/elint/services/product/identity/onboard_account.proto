@@ -1,8 +1,67 @@
 syntax = "proto3";
-package elint.services.product.identity;
+package elint.services.product;
 
+option java_multiple_files = true;
+option java_package = "com.ethos.elint.services.product";
+
+import "google/api/annotations.proto";
 import "ethos/elint/entities/account.proto";
 
+/* ClaimAccountRequest represents new Claim of Account */
+message ClaimAccountRequest {
+    string account_email_id = 1; // What is the email address?
+    google.protobuf.Timestamp requested_at = 2; // When was it requested?
+}
+
+/* ClaimAccountResponse returns about accountability of Claim */
+message ClaimAccountResponse {
+    string account_email_id = 1;
+    bool account_claimable = 2;
+    string verification_code_token = 3;
+    string onboard_session_token = 4;
+    google.protobuf.Timestamp code_sent_at = 5;
+}
+
+message ReRequestCodeClaimingAccountRequest {
+    string account_email_id = 1;
+    string generated_verification_code_token = 2;
+    string onboard_session_token = 3;
+    google.protobuf.Timestamp requested_at = 4;
+}
+
+message ReRequestCodeClaimingAccountResponse {
+    string account_email_id = 1;
+    string verification_code_token = 2;
+    string onboard_session_token = 3;
+    google.protobuf.Timestamp code_sent_at = 4;
+}
+
+message VerifyClaimAccountRequest {
+    string account_email_id = 1;
+    string verification_code_token = 2;
+    string verification_code = 3;
+    string onboard_session_token = 4;
+    google.protobuf.Timestamp requested_at = 5;
+}
+
+message VerifyClaimAccountResponse {
+    string account_email_id = 1;
+    bool account_verified = 2;
+    string verification_message = 3;
+    string onboard_organization_name = 4;
+    google.protobuf.Timestamp verified_at = 5;
+}
+
+message AuthenticateClaimedAccountRequest {}
+message AuthenticateClaimedAccountResponse {}
+
+
 service OnboardAccountService {
-    rpc claim_account (elint.entity.ClaimAccountRequest) returns (elint.entity.ClaimAccountResponse);
+    rpc ClaimAccount (ClaimAccountRequest) returns (ClaimAccountResponse) {
+    };
+    rpc ReRequestCodeClaimingAccount (ReRequestCodeClaimingAccountRequest) returns (ReRequestCodeClaimingAccountResponse) {
+    };
+    rpc VerifyClaimedAccount (VerifyClaimAccountRequest) returns (VerifyClaimAccountResponse) {
+    };
+    rpc AuthenticateClaimedAccount (AuthenticateClaimedAccountRequest) returns (AuthenticateClaimedAccountResponse) {};
 }

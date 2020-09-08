@@ -4,6 +4,6 @@ package elint.services.product.identity;
 import "ethos/elint/entities/organization_space.proto";
 
 service OnboardOrganizationSpaceService {
-    rpc claim_organization_space(elint.entity.ClaimOrganizationSpaceRequest) returns (elint.entity.ClaimOrganizationSpaceResponse) {
+    rpc claim_organization_space (elint.entity.ClaimOrganizationSpaceRequest) returns (elint.entity.ClaimOrganizationSpaceResponse) {
     };
 }
