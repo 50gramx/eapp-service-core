@@ -55,6 +55,15 @@ message VerifyClaimAccountResponse {
 message AuthenticateClaimedAccountRequest {}
 message AuthenticateClaimedAccountResponse {}
 
+message AuthenticateWithMobileNumberRequest {
+    string account_mobile_number = 1;
+    google.protobuf.Timestamp requested_at = 2;
+}
+
+message AuthenticateWithMobileNumberResponse {
+    string verification_code_token = 1;
+    google.protobuf.Timestamp code_sent_at = 2;
+}
 
 service OnboardAccountService {
     rpc ClaimAccount (ClaimAccountRequest) returns (ClaimAccountResponse) {
@@ -64,4 +73,5 @@ service OnboardAccountService {
     rpc VerifyClaimedAccount (VerifyClaimAccountRequest) returns (VerifyClaimAccountResponse) {
     };
     rpc AuthenticateClaimedAccount (AuthenticateClaimedAccountRequest) returns (AuthenticateClaimedAccountResponse) {};
+    rpc AuthenticateWithMobileNumber (AuthenticateWithMobileNumberRequest) returns (AuthenticateWithMobileNumberResponse) {};
 }
