@@ -21,7 +21,7 @@ message ClaimOrganizationSpaceRequest {
 
 /* ClaimOrganizationSpaceResponse represents accountability of Claim */
 message ClaimOrganizationSpaceResponse {
-    bool organization_space_available = 1; // Is the organization space available?
+    bool organization_space_available = 1; // Is the organisation space available?
     string message = 2; // A short feedback message about the claim
 }
 

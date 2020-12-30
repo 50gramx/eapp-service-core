@@ -1,0 +1,117 @@
+syntax = "proto3";
+package elint.services.product.identity;
+
+option java_multiple_files = true;
+option java_package = "com.ethos.elint.services.product";
+
+
+import "ethos/elint/entities/generic.proto";
+
+
+// enum definations
+enum AccountAuthMode {
+    EMAIL_ID = 0;
+    MOBILE_NUMBER = 1;
+}
+
+enum AccountOnboardStatus {
+    ONBOARDABLE = 0;
+    ONBOARDED = 1;
+    NOT_ONBOARDABLE = 2;
+}
+
+// Generic Message Types
+message AccountDetails {
+    string account_name = 1;
+    string account_email_id = 2;
+    string account_mobile_number = 3;
+    AccountAuthMode account_auth_mode = 4;
+}
+
+// Service Message Types
+
+/* ClaimAccountRequest represents new Claim of Account */
+message OnboardAccountRequest {
+    AccountDetails account_details = 1;
+    google.protobuf.Timestamp requested_at = 2;
+}
+
+/* ClaimAccountResponse returns about accountability of Claim */
+message OnboardAccountResponse {
+    AccountDetails account_details = 1;
+    AccountOnboardStatus account_onboard_status = 2;
+    elint.entity.TemporaryTokenDetails verification_code_token_details = 3;
+    elint.entity.PersistentSessionTokenDetails onboard_session_token_details = 4;
+    google.protobuf.Timestamp code_sent_at = 5;
+}
+
+message ReRequestCodeOnboardingAccountRequest {
+    AccountDetails account_details = 1;
+    elint.entity.TemporaryTokenDetails verification_code_token_details = 2;
+    elint.entity.PersistentSessionTokenDetails onboard_session_token_details = 3;
+    google.protobuf.Timestamp requested_at = 4;
+}
+
+message ReRequestCodeOnboardingAccountResponse {
+    AccountDetails account_details = 1;
+    elint.entity.TemporaryTokenDetails verification_code_token_details = 2;
+    elint.entity.PersistentSessionTokenDetails onboard_session_token_details = 3;
+    google.protobuf.Timestamp code_sent_at = 4;
+}
+
+message VerifyOnboardingAccountRequest {
+    AccountDetails account_details = 1;
+    elint.entity.TemporaryTokenDetails verification_code_token_details = 2;
+    string verification_code = 3;
+    elint.entity.PersistentSessionTokenDetails onboard_session_token_details = 4;
+    google.protobuf.Timestamp requested_at = 5;
+}
+
+message VerifyOnboardingAccountResponse {
+    AccountDetails account_details = 1;
+    bool account_verified = 2;
+    string verification_message = 3;
+    elint.entity.PersistentSessionTokenDetails onboard_session_token_details = 4;
+    string onboard_organization_name = 5;
+    google.protobuf.Timestamp verified_at = 6;
+}
+
+message AuthenticateOnboardedAccountRequest {
+    AccountDetails account_details = 1;
+    string account_convenience_pin = 2;
+    elint.entity.PersistentSessionTokenDetails onboard_session_token_details = 3;
+    google.protobuf.Timestamp requested_at = 4;
+}
+
+message AuthenticateOnboardedAccountResponse {
+    AccountDetails account_details = 1;
+    bool account_authenticated = 2;
+    elint.entity.PersistentSessionTokenDetails onboard_session_token_details = 3;
+    google.protobuf.Timestamp authenticated_at = 4;
+}
+
+message AccessAccountEthosIdentityTokenRequest {
+    AccountDetails account_details = 1;
+    string account_convenience_pin = 2;
+    elint.entity.PersistentSessionTokenDetails onboard_session_token_details = 3;
+    google.protobuf.Timestamp requested_at = 4;
+}
+
+message AccessAccountEthosIdentityTokenResponse {
+    AccountDetails account_details = 1;
+    elint.entity.PersistentSessionTokenDetails onboard_session_token_details = 2;
+    elint.entity.PersistentSessionTokenDetails identity_access_session_token_details = 4;
+}
+
+service OnboardAccountService {
+    rpc OnboardAccount (OnboardAccountRequest) returns (OnboardAccountResponse) {
+    };
+    rpc ReRequestCodeOnboardingAccount (ReRequestCodeOnboardingAccountRequest) returns (ReRequestCodeOnboardingAccountResponse) {
+    };
+    rpc VerifyOnboardingAccount (VerifyOnboardingAccountRequest) returns (VerifyOnboardingAccountResponse) {
+    };
+    rpc AuthenticateOnboardedAccount (AuthenticateOnboardedAccountRequest) returns (AuthenticateOnboardedAccountResponse) {
+    };
+    rpc AccessAccountEthosIdentityToken (AccessAccountEthosIdentityTokenRequest) returns (AccessAccountEthosIdentityTokenResponse) {
+    };
+}

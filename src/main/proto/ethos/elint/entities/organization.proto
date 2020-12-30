@@ -18,18 +18,17 @@ message Organization {
 
 /* CreateOrganizationRequest represents Onboarding Organisation Request*/
 message ReserveOrganizationRequest {
-    string organization_space = 1;      // organization space reservation
+    string organization_space = 1;      // organisation space reservation
     google.protobuf.Timestamp created_at = 2;   // request created at
 }
 
 /* CreateOrganizationResponse represents reservation of organisation space *
 * till the admin account verifies the email id and enables the billing */
 message ReserveOrganizationResponse {
-    string organization_space = 1;      // organization space reservation
+    string organization_space = 1;      // organisation space reservation
     bool organization_space_reserved = 2;   // was the space reservation successful?
     string account_email_id = 3;        // admin account email id
     bool account_email_id_verified = 4;     // admin account verification pending
-    elint.entity.AccountVerificationCodeDetails account_verification_code = 5;
-    string message = 6;
+    string message = 5;
 }
 

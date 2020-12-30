@@ -1,0 +1,33 @@
+syntax = "proto3";
+package elint.entity;
+
+import public "google/protobuf/timestamp.proto";
+
+
+// TOKEN DETAILS
+
+message PersistentSessionTokenDetails {
+    string session_token = 1;
+    google.protobuf.Timestamp generated_at = 2;
+    google.protobuf.Timestamp last_used_at = 3;
+    google.protobuf.Timestamp valid_till = 4;
+}
+
+message TemporarySessionTokenDetails {
+    string session_token = 1;
+    google.protobuf.Timestamp generated_at = 2;
+    google.protobuf.Timestamp valid_till = 3;
+}
+
+message PersistentTokenDetails {
+    string token = 1;
+    google.protobuf.Timestamp generated_at = 2;
+    google.protobuf.Timestamp last_used_at = 3;
+    google.protobuf.Timestamp valid_till = 4;
+}
+
+message TemporaryTokenDetails {
+    string token = 1;
+    google.protobuf.Timestamp generated_at = 2;
+    google.protobuf.Timestamp valid_till = 3;
+}

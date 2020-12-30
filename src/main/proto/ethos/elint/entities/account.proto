@@ -14,8 +14,3 @@ message Account {
     google.protobuf.Timestamp created_at = 8;
 }
 
-// AccountVerificationCode represents the accountability of delivery of Verification Code
-message AccountVerificationCodeDetails {
-    bool account_verification_code_sent = 1; // Was the code sent to the account?
-    google.protobuf.Timestamp sent_at = 2; // When was the last time code sent?
-}

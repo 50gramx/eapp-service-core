@@ -1,0 +1,44 @@
+syntax = "proto3";
+package elint.services.product;
+
+option java_multiple_files = true;
+option java_package = "com.ethos.elint.services.product";
+
+import "google/api/annotations.proto";
+
+// Generic Message Types
+message Location {
+    string name = 1;
+    double latitude = 2;
+    double longitude = 3;
+}
+
+message GenericPathosAssistanceLogos {
+    string pathos_logos = 1;
+    Location pathos_location = 2;
+    google.protobuf.Timestamp assistance_needed_at = 3;
+}
+
+message GenericEthosAssistiveLogos {
+    string pathos_logos = 1;
+    string ethos_summarized_logos = 2;
+    string ethos_logos_id = 3;
+    google.protobuf.Timestamp assisted_at = 3;
+}
+
+// Service Message Types
+
+message GetGenericAssistanceRequest {
+    GenericPathosAssistanceLogos = 1;
+    string ethos_access_session_token = 3;
+    google.protobuf.Timestamp requested_at = 4;
+}
+
+message GetGenericAssistanceResponse {
+    GenericEthosAssistiveLogos = 1;
+}
+
+service GenericAssistanceService {
+    rpc GetGenericAssistance (GetGenericAssistanceRequest) returns (GetGenericAssistanceResponse) {
+    };
+}
