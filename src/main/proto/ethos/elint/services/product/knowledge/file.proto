@@ -20,6 +20,14 @@ message FileUploadResponse {
     string message = 3;
 }
 
-service FileUploadService {
-    rpc FileUpload (stream FileUploadRequest) returns (FileUploadResponse) {};
+message Chunk {
+    bytes buffer = 1;
+}
+
+message Reply {
+    int32 length = 1;
+}
+
+service FileService {
+    rpc FileUpload (stream Chunk) returns (Reply) {};
 }
