@@ -1,0 +1,25 @@
+syntax = "proto3";
+package elint.services.product.knowledge.space;
+
+
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/entities/space.proto";
+import "ethos/elint/entities/galaxy.proto";
+
+
+message CreateSpaceKnowledgeRequest {
+    // Auth Properties
+    elint.entity.Space space_details = 1;
+    elint.entity.PersistentSessionTokenDetails space_knowledge_access_session_token_details = 2;
+    // Create Properties
+    elint.entity.SpaceType space_type = 3;
+    elint.entity.SpaceIsolationType space_isolation_type = 4;
+    elint.entity.Galaxy galaxy = 5;
+    // Meta Properties
+    google.protobuf.Timestamp requested_at = 6;
+}
+
+service CreateSpaceKnowledgeService {
+    rpc CreateSpaceKnowledge (CreateSpaceKnowledgeRequest) returns (elint.entity.Space) {
+    };
+}

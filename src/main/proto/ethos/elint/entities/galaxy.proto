@@ -1,0 +1,10 @@
+syntax = "proto3";
+package elint.entity;
+
+import "ethos/elint/entities/universe.proto";
+
+message Galaxy {
+    string galaxy_id = 1;
+    string galaxy_name = 2;
+    Universe universe = 3;
+}

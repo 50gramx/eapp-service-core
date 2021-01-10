@@ -7,7 +7,6 @@ option java_package = "com.ethos.elint.services.product";
 
 import "ethos/elint/entities/generic.proto";
 
-
 // enum definations
 enum AccountAuthMode {
     EMAIL_ID = 0;
@@ -90,18 +89,6 @@ message AuthenticateOnboardedAccountResponse {
     google.protobuf.Timestamp authenticated_at = 4;
 }
 
-message AccessAccountEthosIdentityTokenRequest {
-    AccountDetails account_details = 1;
-    string account_convenience_pin = 2;
-    elint.entity.PersistentSessionTokenDetails onboard_session_token_details = 3;
-    google.protobuf.Timestamp requested_at = 4;
-}
-
-message AccessAccountEthosIdentityTokenResponse {
-    AccountDetails account_details = 1;
-    elint.entity.PersistentSessionTokenDetails onboard_session_token_details = 2;
-    elint.entity.PersistentSessionTokenDetails identity_access_session_token_details = 4;
-}
 
 service OnboardAccountService {
     rpc OnboardAccount (OnboardAccountRequest) returns (OnboardAccountResponse) {
@@ -111,7 +98,5 @@ service OnboardAccountService {
     rpc VerifyOnboardingAccount (VerifyOnboardingAccountRequest) returns (VerifyOnboardingAccountResponse) {
     };
     rpc AuthenticateOnboardedAccount (AuthenticateOnboardedAccountRequest) returns (AuthenticateOnboardedAccountResponse) {
-    };
-    rpc AccessAccountEthosIdentityToken (AccessAccountEthosIdentityTokenRequest) returns (AccessAccountEthosIdentityTokenResponse) {
     };
 }

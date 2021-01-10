@@ -1,0 +1,31 @@
+syntax = "proto3";
+package elint.services.product.identity;
+
+option java_multiple_files = true;
+option java_package = "com.ethos.elint.services.product";
+
+import "ethos/elint/entities/account.proto";
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/entities/space.proto";
+
+
+// Service Definitions
+service CreateSpaceService {
+    rpc CreateSpace (CreateSpaceRequest) returns (CreateSpaceResponse) {
+    };
+}
+
+// Service Messages
+message CreateSpaceRequest {
+    elint.entity.Account account = 1;
+    elint.entity.PersistentSessionTokenDetails space_access_session_token_details = 2;
+    elint.entity.Galaxy galaxy = 3;
+    elint.entity.SpaceType space_type = 4;
+    elint.entity.SpaceIsolationType space_isolation_type = 5;
+    google.protobuf.Timestamp requested_at = 6;
+}
+
+message CreateSpaceResponse {
+    elint.entity.Space space = 1;
+}
+

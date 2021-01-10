@@ -1,0 +1,8 @@
+syntax = "proto3";
+package elint.services.product.knowledge.space;
+
+
+import "ethos/elint/entities/generic.proto";
+
+service OnboardSpaceKnowledge {
+}

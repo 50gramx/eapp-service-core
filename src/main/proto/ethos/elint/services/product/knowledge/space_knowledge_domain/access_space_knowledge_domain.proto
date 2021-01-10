@@ -1,0 +1,36 @@
+syntax = "proto3";
+package elint.services.product.knowledge.domain;
+
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/entities/account.proto";
+
+
+// Meta Message Definitions
+message SpaceKnowledgeDomainServicesAccessAuthDetails {
+    // Auth Properties
+    elint.entity.Account account = 1; // Which account is requesting this?
+    elint.entity.PersistentSessionTokenDetails space_knowledge_domain_access_session_token_details = 2; // What is the session token wrt this request?
+    // Meta Properties
+    google.protobuf.Timestamp requested_at = 3; // When was this requested?
+}
+
+// Message Definitions
+message AccessKnowledgeDomainTokenRequest {
+    // Auth Properties
+    elint.entity.Account account = 1;
+    elint.entity.PersistentSessionTokenDetails space_knowledge_access_session_token_details = 2;
+    // Meta Properties
+    google.protobuf.Timestamp requested_at = 3;
+}
+
+
+message AccessKnowledgeDomainTokenResponse {
+    // Auth Properties
+    elint.entity.PersistentSessionTokenDetails space_knowledge_domain_access_session_token_details = 1;
+}
+
+// Service Definitions
+service AccessSpaceKnowledgeDomainService {
+    rpc AccessKnowledgeDomainToken (AccessKnowledgeDomainTokenRequest) returns (AccessKnowledgeDomainTokenResponse) {
+    };
+}

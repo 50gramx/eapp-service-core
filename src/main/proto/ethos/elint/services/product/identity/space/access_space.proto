@@ -1,0 +1,34 @@
+syntax = "proto3";
+package elint.services.product.identity;
+
+option java_multiple_files = true;
+option java_package = "com.ethos.elint.services.product";
+
+import "ethos/elint/entities/account.proto";
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/entities/space.proto";
+import "ethos/elint/services/product/identity/account/access_account.proto";
+
+
+// Service Definitions
+service AccessSpaceService {
+    rpc SpaceAccessToken (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (SpaceServicesAccessAuthDetails) {};
+}
+
+// Meta Message Definitions
+message SpaceServicesAccessAuthDetails {
+    // Auth Properties
+    elint.entity.Account account = 1; // Which account is requesting this?
+    elint.entity.PersistentSessionTokenDetails space_access_session_token_details = 2; // What is the session token wrt this request?
+    // Meta Properties
+    google.protobuf.Timestamp requested_at = 3; // When was this requested?
+}
+
+// Message Definitions
+message SpaceAccessTokenRequest {
+    // Auth Properties
+    elint.entity.Account account = 1;
+    elint.entity.PersistentSessionTokenDetails account_access_session_token_details = 2;
+    // Meta Properties
+    google.protobuf.Timestamp requested_at = 3;
+}

@@ -1,0 +1,96 @@
+syntax = "proto3";
+package elint.services.product.identity.account;
+
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/entities/account.proto";
+import "ethos/elint/services/product/identity/account/access_account.proto";
+
+// ------------------------------------
+// Service Definitions
+// ------------------------------------
+
+service CreateAccountService {
+    rpc ValidateAccountWithMobile (ValidateAccountWithMobileRequest) returns (ValidateAccountWithMobileResponse) {
+    };
+    rpc VerificationAccount (VerificationAccountRequest) returns (VerificationAccountResponse) {
+    };
+    rpc CaptureAccountMetaDetails (CaptureAccountMetaDetailsRequest) returns (CaptureAccountMetaDetailsResponse) {
+    };
+}
+
+// ------------------------------------
+// Message Definitions
+// ------------------------------------
+
+
+message ValidateAccountWithMobileRequest {
+    // Service Request Properties
+    string account_mobile_number = 1;
+    // Meta Properties
+    google.protobuf.Timestamp requested_at = 2;
+}
+
+message ValidateAccountWithMobileResponse {
+    // Auth Properties
+    AccountCreationAuthDetails account_creation_auth_details = 1;
+    // Service Response Properties
+    bool account_exists_with_mobile = 2;
+    elint.entity.TemporaryTokenDetails verification_code_token_details = 3;
+    google.protobuf.Timestamp code_sent_at = 4;
+    // Meta Properties
+    bool validate_account_with_mobile_done = 5;
+    string validate_account_with_mobile_message = 6;
+}
+
+
+message VerificationAccountRequest {
+    // Auth Properties
+    AccountCreationAuthDetails account_creation_auth_details = 1;
+    // Service Request Properties
+    bool resend_code = 2;
+    string verification_code = 3;
+    elint.entity.TemporaryTokenDetails verification_code_token_details = 4;
+    // Meta Properties
+    google.protobuf.Timestamp requested_at = 5;
+}
+
+message VerificationAccountResponse {
+    // Meta Properties
+    bool verification_done = 1;
+    string verification_message = 2;
+}
+
+
+
+message CaptureAccountMetaDetailsRequest {
+    // Auth Properties
+    AccountCreationAuthDetails account_creation_auth_details = 1;
+    // Service Request Properties
+    string account_first_name = 2;
+    string account_last_name = 3;
+    google.protobuf.Timestamp account_birth_at = 4;
+    elint.entity.AccountGender account_gender = 5;
+    // Meta Properties
+    google.protobuf.Timestamp requested_at = 6;
+}
+
+message CaptureAccountMetaDetailsResponse {
+    // Service Response Properties
+    AccountServicesAccessAuthDetails account_service_access_auth_details = 1;
+    // Meta Properties
+    bool account_creation_done = 2;
+    string account_creation_message = 3;
+}
+
+
+// ------------------------------------
+// Meta Message Definitions
+// ------------------------------------
+
+message AccountCreationAuthDetails {
+    // Auth Properties
+    string account_mobile_number = 1; // Which account email id is creating a new account?
+    elint.entity.PersistentSessionTokenDetails account_creation_session_token_details = 2; // What is the session token wrt this request?
+    // Meta Properties
+    google.protobuf.Timestamp requested_at = 3; // When was this requested?
+}
