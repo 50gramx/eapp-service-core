@@ -1,0 +1,74 @@
+syntax = "proto3";
+package elint.services.product.conversation.message.account;
+
+import public "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+
+import "ethos/elint/entities/account_assistant.proto";
+import "ethos/elint/entities/account.proto";
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/services/product/identity/account/access_account.proto";
+
+// Service Definitions
+service ReceiveAccountMessageService {
+    rpc ReceiveMessageFromAccountAssistant (MessageFromAccountAssistant) returns (MessageFromAccountAssistantReceived) {
+    };
+    rpc SyncAccountAssistantReceivedMessages (SyncReceivedMessagesRequest) returns (stream AccountAssistantReceivedMessage) {
+    }; // TODO: Complete this service
+    rpc SyncAccountReceivedMessages (SyncReceivedMessagesRequest) returns (stream AccountReceivedMessage) {
+    }; // TODO: Complete this service
+    rpc ListenForReceivedAccountAssistantMessages (ListenForReceivedAccountAssistantMessagesRequest) returns (ListenForReceivedAccountAssistantMessagesResponse) {
+    };
+}
+
+// Message Definitions
+message MessageFromAccountAssistant {
+    string account_id = 1;
+    elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2;
+    string message = 3;
+    repeated google.protobuf.Any message_source = 4;
+    string account_assistant_received_message_id = 5;
+}
+
+message MessageFromAccountAssistantReceived {
+    bool is_received = 1;
+    google.protobuf.Timestamp received_at = 2;
+}
+
+message SyncReceivedMessagesRequest {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    repeated string existing_received_message_ids = 2;
+}
+
+message ListenForReceivedAccountAssistantMessagesRequest {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2;
+    string account_assistant_received_message_id = 3;
+}
+
+message ListenForReceivedAccountAssistantMessagesResponse {
+    repeated google.protobuf.Any message_source = 3;
+    google.protobuf.Timestamp received_at = 4;
+    elint.entity.ResponseMeta response_meta = 5;
+}
+
+message AccountAssistantReceivedMessage {
+    string account_assistant_received_message_id = 1;
+    string account_assistant_id = 2;
+    string account_assistant_connection_id = 3;
+    string message = 4;
+    string message_source_space_id = 5;
+    string message_source_space_type_id = 6;
+    string message_source_space_domain_id = 7;
+    int32 message_source_space_domain_action = 8;
+    string message_source_space_domain_action_context_id = 9;
+    google.protobuf.Timestamp received_at = 10;
+}
+
+message AccountReceivedMessage {
+    string account_received_message_id = 1;
+    string account_id = 2;
+    string account_connection_id = 3;
+    string message = 4;
+    google.protobuf.Timestamp received_at = 5;
+}

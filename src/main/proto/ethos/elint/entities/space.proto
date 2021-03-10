@@ -4,24 +4,28 @@ package elint.entity;
 import "ethos/elint/entities/account.proto";
 import "ethos/elint/entities/galaxy.proto";
 
-//
-//enum SpaceKind {
-//    KNOWLEDGE = 0;
-//    PRODUCT = 1;
-//    SERVICE = 2;
-//    THING = 3;
-//}
 
-enum SpaceType {
-        CLOSED = 0;
-        OPEN = 1;
+enum SpaceKind {
+    KNOWLEDGE = 0;
+    PRODUCT = 1;
+    SERVICE = 2;
+    THING = 3;
+}
+
+enum SpaceAccessibilityType {
+    CLOSED = 0;
+    OPEN = 1;
 }
 
 enum SpaceIsolationType {
-        NOT_ISOLATED = 0;
-        ISOLATED = 1;
+    NOT_ISOLATED = 0;
+    ISOLATED = 1;
 }
 
+enum SpaceEntityType {
+    ACCOUNT = 0;
+    ORGANIZATION = 1;
+}
 
 /**
 Everything that is not a part of the space
@@ -44,6 +48,9 @@ nor energy can pass across the boundary.
 message Space {
     Galaxy galaxy = 1;
     string space_id = 2;
-    SpaceType space_type = 3;
+    SpaceAccessibilityType space_accessibility_type = 3;
     SpaceIsolationType space_isolation_type = 4;
+    SpaceEntityType space_entity_type = 5;
+    string space_admin_id = 6;
+    google.protobuf.Timestamp space_created_at = 7;
 }

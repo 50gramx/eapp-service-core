@@ -1,0 +1,10 @@
+syntax = "proto3";
+package elint.services.product.knowledge.page;
+
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/services/product/knowledge/space_knowledge_domain_file/access_space_knowledge_domain_file.proto";
+
+service DeleteSpaceKnowledgeDomainFilePageService {
+    rpc DeletePagesForFile (elint.services.product.knowledge.file.SpaceKnowledgeDomainFileServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {
+    };
+}

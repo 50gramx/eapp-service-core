@@ -1,5 +1,5 @@
 syntax = "proto3";
-package elint.services.product.identity;
+package elint.services.product.identity.space;
 
 option java_multiple_files = true;
 option java_package = "com.ethos.elint.services.product";
@@ -11,21 +11,32 @@ import "ethos/elint/entities/space.proto";
 
 // Service Definitions
 service CreateSpaceService {
-    rpc CreateSpace (CreateSpaceRequest) returns (CreateSpaceResponse) {
+    rpc CreateAccountSpace (CreateAccountSpaceRequest) returns (CreateAccountSpaceResponse) {
     };
+    // TODO: Add these rpc's
+    // rpc CreateOrganizationSpace (CreateOrganizationSpaceRequest) returns (CreateOrganizationSpaceResponse) {};
 }
 
 // Service Messages
-message CreateSpaceRequest {
-    elint.entity.Account account = 1;
-    elint.entity.PersistentSessionTokenDetails space_access_session_token_details = 2;
-    elint.entity.Galaxy galaxy = 3;
-    elint.entity.SpaceType space_type = 4;
-    elint.entity.SpaceIsolationType space_isolation_type = 5;
-    google.protobuf.Timestamp requested_at = 6;
+message CreateAccountSpaceRequest {
+    // Auth Properties
+    elint.entity.Account account = 1;   // Which account requested this?
+    // Service Properties
+    elint.entity.SpaceAccessibilityType space_accessibility_type = 4;     // The space type is open or closed ?
+    elint.entity.SpaceIsolationType space_isolation_type = 5;   // Is space isolated ?
+    // Meta Properties
+    google.protobuf.Timestamp requested_at = 6;     // When was this requested at ?
 }
 
-message CreateSpaceResponse {
+message CreateAccountSpaceResponse {
+    // Fetches the galaxy with account_id
+    // Generates the space_id
     elint.entity.Space space = 1;
+    // Meta Properties
+    bool create_account_space_done = 2;
+    string create_account_space_message = 3;
 }
 
+// TODO: Add these messages
+// message CreateOrganizationSpaceRequest {}
+// message CreateOrganizationSpaceResponse {}

@@ -1,0 +1,25 @@
+syntax = "proto3";
+package elint.services.product.identity.account.assistant;
+
+import "ethos/elint/entities/account_assistant.proto";
+import "ethos/elint/services/product/identity/account/access_account.proto";
+import "ethos/elint/services/product/identity/account_assistant/access_account_assistant.proto";
+
+// Service Definitions
+service CreateAccountAssistantService {
+    rpc CreateAccountAssistant (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (CreateAccountAssistantResponse) {
+    };
+}
+
+// Message Definitions
+message CreateAccountAssistantResponse {
+    AccountAssistantServicesAccessAuthDetails account_assistant_services_access_auth_details = 1;
+    // Meta TODO: Update from generic.proto
+    CreateMeta create_meta = 2;
+}
+
+// Meta Message Definitions
+message CreateMeta {
+    bool create_done = 1;
+    string create_message = 2;
+}

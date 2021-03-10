@@ -1,0 +1,31 @@
+syntax = "proto3";
+package elint.services.product.action.space.knowledge;
+
+import "ethos/elint/services/product/identity/account_assistant/access_account_assistant.proto";
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/entities/space_knowledge_domain.proto";
+
+// Service Definitions
+service SpaceKnowledgeActionService {
+    rpc AskQuestion (AskQuestionRequest) returns (AskQuestionResponse) {
+    }; // Finds the best answer for the question
+}
+
+// Message Definitions
+message AskQuestionRequest {
+    // Auth Properties
+    elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails access_auth_details = 1;
+    // Request Properties
+    string message = 2;
+}
+
+
+message AskQuestionResponse {
+    repeated DomainRankedAnswers domains_ranked_answers = 1;
+    elint.entity.ResponseMeta response_meta = 2;
+}
+
+message DomainRankedAnswers {
+    elint.entity.SpaceKnowledgeDomain space_knowledge_domain = 1;
+    repeated elint.entity.RankedAnswer ranked_answers = 2;
+}

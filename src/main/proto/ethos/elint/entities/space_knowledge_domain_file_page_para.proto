@@ -1,0 +1,39 @@
+syntax = "proto3";
+package elint.entity;
+
+import "ethos/elint/entities/space_knowledge_domain_file_page.proto";
+
+
+/** What is a ParaGram?
+ It's a vocabulary of paragraphs
+ in their ngram representation. Such as, "Get Ethos."
+ in uni-gram space as dictionary of ["Get", "Ethos"]
+ in bi-gram space as dictionary of ["Get Ethos"]
+**/
+
+message SpaceKnowledgeDomainFilePagePara {
+    string space_knowledge_domain_file_page_para_id = 1; // Unique id for the Para
+    elint.entity.SpaceKnowledgeDomainFilePage space_knowledge_domain_file_page = 2;
+    PageContourDimensions page_contour_dimensions = 3; // Bounding Boxes [BoundingBox]
+    repeated ParaTag para_tags = 4;
+    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp last_updated_at = 6;
+    google.protobuf.Timestamp last_accessed_at = 7;
+}
+
+message ParaText {
+    string para_id = 1;
+    string para_text = 2;
+}
+
+message PageContourDimensions {
+    int32 x = 1;
+    int32 y = 2;
+    int32 w = 3;
+    int32 h = 4;
+}
+
+message ParaTag {
+    string para_tag_id = 1;
+    string para_tag_name = 2;
+}

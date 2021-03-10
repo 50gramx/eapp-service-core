@@ -5,37 +5,34 @@ import "ethos/elint/entities/generic.proto";
 import "ethos/elint/entities/account.proto";
 import "ethos/elint/entities/space_knowledge_domain.proto";
 import "ethos/elint/entities/space_knowledge_domain_file.proto";
+import "ethos/elint/services/product/knowledge/space_knowledge_domain/access_space_knowledge_domain.proto";
 import "ethos/elint/services/product/knowledge/space_knowledge_domain_file/access_space_knowledge_domain_file.proto";
-
-
-// Message Definitions
-message CreateSpaceKnowledgeDomainFileRequest {
-    // Auth Properties
-    SpaceKnowledgeDomainFileServicesAccessAuthDetails space_knowledge_domain_file_service_access_auth_details = 1;
-    // Create Properties
-    string space_knowledge_domain_file_name = 2; // What is the name of the space_knowledge_domain_file?
-    elint.entity.SpaceKnowledgeDomain space_knowledge_domain = 3; // What is the space knowledge domain details for this space_knowledge_domain_file?
-}
-
-message UploadSpaceKnowledgeDomainFileRequest {
-    // Auth Properties
-    SpaceKnowledgeDomainFileServicesAccessAuthDetails space_knowledge_domain_file_service_access_auth_details = 1;
-    // Upload Properties
-    elint.entity.SpaceKnowledgeDomainFile file = 2; // What is the file?
-    bytes file_buffer = 3; // What is the file contents in buffer?
-}
-
-message UploadSpaceKnowledgeDomainFileResponse {
-    // Upload Properties
-    int32 length = 1; // What is the length of the file uploaded?
-    string file_id = 2; // What is the file id?
-}
 
 // Service Definitions
 service CreateSpaceKnowledgeDomainFileService {
-    rpc CreateSpaceKnowledgeDomainFile (CreateSpaceKnowledgeDomainFileRequest) returns (elint.entity.SpaceKnowledgeDomainFile) {
-    };
     rpc UploadSpaceKnowledgeDomainFile (stream UploadSpaceKnowledgeDomainFileRequest) returns (stream UploadSpaceKnowledgeDomainFileResponse) {
     };
+
 }
 
+// Message Definitions
+message UploadSpaceKnowledgeDomainFileRequest {
+    // Auth Properties
+    elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails space_knowledge_domain_services_access_auth_details = 1;
+    // Upload Properties
+    string space_knowledge_domain_file_name = 2;
+    int32 space_knowledge_domain_file_size = 3; // What is the space_knowledge_domain_file size in bytes?
+    elint.entity.ExtentionType space_knowledge_domain_file_extension_type = 4;
+    repeated elint.entity.FileTag space_knowledge_domain_file_tags = 5;
+    bytes file_buffer = 6; // What is the file contents in buffer?
+}
+
+message UploadSpaceKnowledgeDomainFileResponse {
+    // Auth Properties
+    SpaceKnowledgeDomainFileServicesAccessAuthDetails space_knowledge_domain_file_service_access_auth_details = 1;
+    // Upload Properties
+    int32 length = 2; // What is the length of the file uploaded?
+    // Meta Properties
+    bool space_knowledge_domain_file_upload_done = 3;
+    string space_knowledge_domain_file_upload_message = 4;
+}

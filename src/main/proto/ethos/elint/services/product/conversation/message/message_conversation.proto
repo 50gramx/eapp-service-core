@@ -1,0 +1,14 @@
+syntax = "proto3";
+package elint.services.product.conversation.message;
+
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/services/product/identity/account/access_account.proto";
+import "ethos/elint/services/product/identity/account_assistant/access_account_assistant.proto";
+
+
+service MessageConversationService {
+    rpc SetupAccountConversations (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {
+    };
+    rpc SetupAccountAssistantConversations (elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {
+    };
+}

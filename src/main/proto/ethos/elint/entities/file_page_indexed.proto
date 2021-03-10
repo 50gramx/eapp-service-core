@@ -1,9 +1,0 @@
-syntax = "proto3";
-package elint.entity;
-
-import "ethos/elint/entities/file_page.proto";
-
-message FilePageIndexed {
-    FilePage file_page_details = 1;
-    string file_page_indexed_id = 2;
-}

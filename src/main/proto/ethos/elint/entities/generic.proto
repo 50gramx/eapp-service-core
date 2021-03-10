@@ -3,7 +3,6 @@ package elint.entity;
 
 import public "google/protobuf/timestamp.proto";
 
-
 // TOKEN DETAILS
 
 message PersistentSessionTokenDetails {
@@ -32,4 +31,9 @@ message TemporaryTokenDetails {
     string token = 1;
     google.protobuf.Timestamp generated_at = 2;
     google.protobuf.Timestamp valid_till = 3;
+}
+
+message ResponseMeta {
+    bool meta_done = 1;
+    string meta_message = 2;
 }

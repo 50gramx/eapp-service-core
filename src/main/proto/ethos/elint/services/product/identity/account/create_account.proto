@@ -15,7 +15,7 @@ service CreateAccountService {
     rpc VerificationAccount (VerificationAccountRequest) returns (VerificationAccountResponse) {
     };
     rpc CaptureAccountMetaDetails (CaptureAccountMetaDetailsRequest) returns (CaptureAccountMetaDetailsResponse) {
-    };
+    }; // remember device token here
 }
 
 // ------------------------------------
@@ -61,7 +61,6 @@ message VerificationAccountResponse {
 }
 
 
-
 message CaptureAccountMetaDetailsRequest {
     // Auth Properties
     AccountCreationAuthDetails account_creation_auth_details = 1;
@@ -70,8 +69,9 @@ message CaptureAccountMetaDetailsRequest {
     string account_last_name = 3;
     google.protobuf.Timestamp account_birth_at = 4;
     elint.entity.AccountGender account_gender = 5;
+    elint.entity.AccountDeviceDetails account_device_details = 6;
     // Meta Properties
-    google.protobuf.Timestamp requested_at = 6;
+    google.protobuf.Timestamp requested_at = 7;
 }
 
 message CaptureAccountMetaDetailsResponse {
@@ -81,7 +81,6 @@ message CaptureAccountMetaDetailsResponse {
     bool account_creation_done = 2;
     string account_creation_message = 3;
 }
-
 
 // ------------------------------------
 // Meta Message Definitions

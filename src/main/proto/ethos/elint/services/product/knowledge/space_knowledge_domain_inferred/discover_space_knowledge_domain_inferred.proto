@@ -1,0 +1,29 @@
+syntax = "proto3";
+package elint.services.product.knowledge.inferred.domain;
+
+//import "ethos/elint/entities/space_knowledge_domain_file_page_para.proto";
+//import "ethos/elint/entities/generic.proto";
+//import "ethos/elint/services/product/knowledge/space_knowledge_domain_inferred/access_space_knowledge_domain_inferred.proto";
+
+// Service Definitions todo: remove this service after verification
+//service DiscoverSpaceKnowledgeDomainInferredService {
+//    rpc GetBestAnswers (GetBestAnswersRequest) returns (GetBestAnswersResponse) {
+//    }; // todo: write this service
+//}
+//
+//// Message Definitions
+//message GetBestAnswersRequest {
+//    // Auth Properties
+//    SpaceKnowledgeDomainInferredServicesAccessAuthDetails access_auth_details = 1;
+//    // Request Properties
+//    int32 best_answers_count = 2;
+//    string question = 3;
+//}
+//
+//message GetBestAnswersResponse {
+//    // Response Properties
+//    repeated RankedAnswer ranked_answers = 1;
+//    // Meta Properties
+//    elint.entity.ResponseMeta response_meta = 2;
+//}
+//

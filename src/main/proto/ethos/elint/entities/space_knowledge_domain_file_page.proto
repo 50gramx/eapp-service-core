@@ -1,0 +1,31 @@
+syntax = "proto3";
+package elint.entity;
+
+import public "google/protobuf/timestamp.proto";
+import "ethos/elint/entities/space_knowledge_domain_file.proto";
+
+// A PageGram is associated with A Page which are associated with a file.
+
+// Entity Definitions
+
+/** Page is an image extracted from the files with the recognition module.
+    It acts as a parent to ParaGrams which are directly linked to each other,
+    as in any update on page will be reflected among it's associated ParaGrams.
+  **/
+
+
+message SpaceKnowledgeDomainFilePage {
+    string space_knowledge_domain_file_page_id = 1;
+    int32 space_knowledge_domain_file_page_count = 2;
+    elint.entity.SpaceKnowledgeDomainFile space_knowledge_domain_file = 3;
+    repeated PageTag page_tags = 4;
+    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp last_updated_at = 6;
+    google.protobuf.Timestamp last_accessed_at = 7;
+}
+
+message PageTag {
+    string page_tag_id = 1;
+    string page_tag_name = 2;
+}
+

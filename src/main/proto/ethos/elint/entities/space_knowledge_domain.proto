@@ -2,8 +2,28 @@ syntax = "proto3";
 package elint.entity;
 
 import public "google/protobuf/timestamp.proto";
-
 import "ethos/elint/entities/space_knowledge.proto";
+
+/*
+COLLAR (COLOR RGB)
+
+WHITE: rgb(255,250,250)
+BLUE: rgb(0,191,255)
+PINK: rgb(255,192,203)
+GOLD: rgb(255,215,0)
+RED: rgb(250,128,114)
+PURPLE: rgb(128,0,128)
+NEW: rgb(230,230,250)
+NO: rgb(64,224,208)
+ORANGE: (255,165,0)
+GREEN: rgb(0.255.0)
+SCARLET: rgb(255,36,0)
+BROWN: rgb(210,105,30)
+STEEL: rgb(67,70,75)
+BLACK: rgb(0,0,0)
+GREY: rgb(105,105,105)
+*/
+
 
 enum SpaceKnowledgeDomainCollarEnum {
     WHITE_COLLAR = 0; // The term "white-collar worker" was coined in the 1930s by Upton Sinclair, an American writer who referenced the word in connection to clerical, administrative and managerial functions during the 1930s.[2] A white-collar worker is a salaried professional, typically referring to general office workers and management.
@@ -23,18 +43,34 @@ enum SpaceKnowledgeDomainCollarEnum {
     GREY_COLLAR = 14; // Grey collar – workforce that is not classified in blue collar nor white collar. It is occasionally used to describe elderly individuals working beyond the age of retirement, as well as those occupations incorporating elements of both blue- and white-collar.
 }
 
+//
+//enum SpaceKnowledgeDomainTypeEnum {
+//    ISOLATED = 0;
+//    CLOSED = 1;
+//    OPEN = 2;
+//}
+
 message SpaceKnowledgeDomain {
     string space_knowledge_domain_id = 1;
-    string space_knowledge_domain_name = 3;
-    string space_knowledge_domain_description = 4;
-    SpaceKnowledgeDomainCollarEnum space_knowledge_domain_collar_enum = 5;
-    SpaceKnowledge space_knowledge = 6;
+    string space_knowledge_domain_name = 2;
+    string space_knowledge_domain_description = 3;
+    SpaceKnowledgeDomainCollarEnum space_knowledge_domain_collar_enum = 4;
+    bool space_knowledge_domain_isolated = 5;
+    elint.entity.SpaceKnowledge space_knowledge = 6;
     google.protobuf.Timestamp created_at = 7;
     google.protobuf.Timestamp last_updated_at = 8;
 }
 
-message SpaceKnowledgeDomainAccessMeta {
-    string knowledge_domain_id = 1;
-    string knowledge_access_session_token = 2;
 
+message SpaceKnowledgeDomainInferringAccount {
+    string inferring_account_id = 1;
+    string space_knowledge_id = 2;
+    string account_id = 3;
+    google.protobuf.Timestamp inferred_at = 4;
+}
+
+message RankedAnswer {
+    string context_id = 1;
+    float para_rank = 2;
+    string answer = 3;
 }

@@ -5,7 +5,15 @@ import "ethos/elint/entities/generic.proto";
 import "ethos/elint/entities/space_knowledge_domain_file.proto";
 import "ethos/elint/entities/account.proto";
 
+// Service Definition
+service DiscoverKnowledgeDomainFileService {
+    rpc GetFileDetails (GetFileDetailsRequest) returns (elint.entity.SpaceKnowledgeDomainFile) {
+    };
+    rpc FileExistsByID (FileExistsByIDRequest) returns (FileExistsByIDResponse) {
+    };
+}
 
+// Message Definitions
 message GetFileDetailsRequest {
     elint.entity.AccountSpaceKnowledgeDomainFileAccessMeta account_knowledge_domain_file_access_meta = 1;
     string file_id = 2;
@@ -19,10 +27,4 @@ message FileExistsByIDResponse {
     bool file_exists = 1;
 }
 
-
-
-service DiscoverKnowledgeDomainFileService {
-    rpc GetFileDetails (GetFileDetailsRequest) returns (elint.entity.SpaceKnowledgeDomainFile) {};
-    rpc FileExistsByID (FileExistsByIDRequest) returns (FileExistsByIDResponse) {};
-}
 

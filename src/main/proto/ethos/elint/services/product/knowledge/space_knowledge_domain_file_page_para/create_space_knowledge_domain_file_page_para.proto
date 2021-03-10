@@ -1,0 +1,13 @@
+syntax = "proto3";
+package elint.services.product.knowledge.para;
+
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/access_space_knowledge_domain_file_page.proto";
+
+// Service Definitions
+service CreateSpaceKnowledgeDomainFilePageParaService {
+    rpc ExtractParasFromPage (elint.services.product.knowledge.page.SpaceKnowledgeDomainFilePageServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {
+    };
+}
+
+// Message Definitions

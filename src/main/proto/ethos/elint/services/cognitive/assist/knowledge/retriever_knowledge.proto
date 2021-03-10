@@ -1,0 +1,58 @@
+syntax = "proto3";
+package elint.services.cognitive.assist.knowledge.retriever;
+
+
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/entities/space_knowledge_domain_file_page.proto";
+import "ethos/elint/entities/space_knowledge_domain_file_page_para.proto";
+import "ethos/elint/services/product/knowledge/space_knowledge_domain/access_space_knowledge_domain.proto";
+
+// Service Definitions
+service RetrieverKnowledgeService {
+    rpc LearnDomainForRetriever (elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {
+    };
+    rpc LearnDomainParaForRetriever (elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {
+    };
+    rpc RetrieveClosestPages (RetrieveClosestPagesReq) returns (ClosestPages) {
+    };
+    rpc RetrieveClosestParas (RetrieveClosestParasRequest) returns (ClosestParas) {
+    };
+}
+
+// Message Definitions
+message RetrieveClosestPagesReq {
+    // Auth Properties
+    elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails access_auth_details = 1;
+    // Request Properties
+    string message = 2;
+    int32 retrieve_page_count = 3;
+}
+
+message RetrieveClosestParasRequest {
+    // Auth Properties
+    elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails access_auth_details = 1;
+    // Request Properties
+    string message = 2;
+    int32 retrieve_para_count = 3;
+}
+
+message ClosestPages {
+    repeated RankedPage ranked_pages = 1;
+    elint.entity.ResponseMeta response_meta = 2;
+}
+
+message ClosestParas {
+    repeated RankedPara ranked_paras = 1;
+    elint.entity.ResponseMeta response_meta = 2;
+}
+
+
+message RankedPage {
+    elint.entity.SpaceKnowledgeDomainFilePage page = 1;
+    float page_rank = 2;
+}
+
+message RankedPara {
+    elint.entity.SpaceKnowledgeDomainFilePagePara para = 1;
+    float para_rank = 2;
+}

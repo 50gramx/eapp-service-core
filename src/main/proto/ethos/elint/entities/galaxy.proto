@@ -7,4 +7,5 @@ message Galaxy {
     string galaxy_id = 1;
     string galaxy_name = 2;
     Universe universe = 3;
+    google.protobuf.Timestamp galaxy_created_at = 4;
 }

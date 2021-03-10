@@ -1,0 +1,60 @@
+syntax = "proto3";
+package elint.services.product.conversation.message.account;
+
+import public "google/protobuf/timestamp.proto";
+
+import "ethos/elint/entities/account.proto";
+import "ethos/elint/entities/space_knowledge.proto";
+import "ethos/elint/services/product/identity/account/access_account.proto";
+
+// Service Definitions
+service SendAccountMessageService {
+    rpc SendMessageToAccountAssistant (MessageForAccountAssistant) returns (MessageForAccountAssistantSent) {
+    }; // Identify the message space and send it to relevant space for action
+    rpc SyncAccountAssistantSentMessages (SyncSentMessagesRequest) returns (stream AccountAssistantSentMessage) {
+    }; // TODO: Complete this service
+    rpc SyncAccountSentMessages (SyncSentMessagesRequest) returns (stream AccountSentMessage) {
+    }; // TODO: Complete this service
+
+    //    rpc RecordReceivedMessage
+}
+
+// Message Definitions
+message MessageForAccountAssistant {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2;
+    elint.entity.SpaceKnowledgeAction space_knowledge_action = 3;
+    string message = 4;
+}
+
+message MessageForAccountAssistantSent {
+    string account_assistant_sent_message_id = 1;
+    bool is_sent = 2;
+    google.protobuf.Timestamp sent_at = 3;
+    google.protobuf.Timestamp received_at = 4;
+}
+
+message SyncSentMessagesRequest {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    repeated string existing_sent_message_ids = 2;
+}
+
+message AccountAssistantSentMessage {
+    string account_assistant_sent_message_id = 1;
+    string account_assistant_id = 2;
+    string account_assistant_connection_id = 3;
+    string message = 4;
+    int32 message_space = 5;
+    int32 message_space_action = 6;
+    google.protobuf.Timestamp sent_at = 7;
+    google.protobuf.Timestamp received_at = 8;
+}
+
+message AccountSentMessage {
+    string account_sent_message_id = 1;
+    string account_id = 2;
+    string account_connection_id = 3;
+    string message = 4;
+    google.protobuf.Timestamp sent_at = 5;
+    google.protobuf.Timestamp received_at = 6;
+}

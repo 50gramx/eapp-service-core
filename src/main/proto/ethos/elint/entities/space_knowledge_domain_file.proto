@@ -11,20 +11,20 @@ enum ExtentionType {
 }
 
 message FileTag {
-    int32 file_tag_id = 1;
+    string file_tag_id = 1;
     string file_tag_name = 2;
 }
 
 message SpaceKnowledgeDomainFile {
-    string space_knowledge_domain_file_name = 1;   // What is the name of the space_knowledge_domain_file?
-    int32 space_knowledge_domain_file_size = 2;    // What is the space_knowledge_domain_file size in bytes?
-    string space_knowledge_domain_file_id = 3;     // What is the unique id for the space_knowledge_domain_file?
+    string space_knowledge_domain_file_name = 1; // What is the name of the space_knowledge_domain_file?
+    int32 space_knowledge_domain_file_size = 2; // What is the space_knowledge_domain_file size in bytes?
+    string space_knowledge_domain_file_id = 3; // What is the unique id for the space_knowledge_domain_file?
     ExtentionType space_knowledge_domain_file_extension_type = 4; // What is the File type?
-    SpaceKnowledgeDomain space_knowledge_domain = 5;    // What is the space knowledge domain details for this space_knowledge_domain_file?
-    repeated FileTag space_knowledge_domain_file_tags = 6;     // What are the qualifying tags for the particular file?
-    google.protobuf.Timestamp created_at = 7;   // When was this file created?
-    google.protobuf.Timestamp last_updated_at = 8;      // When was this file last updated at?
-    google.protobuf.Timestamp last_accessed_at = 9;      // When was this file accessed at?
+    SpaceKnowledgeDomain space_knowledge_domain = 5; // What is the space knowledge domain details for this space_knowledge_domain_file?
+    repeated FileTag space_knowledge_domain_file_tags = 6; // What are the qualifying tags for the particular file?
+    google.protobuf.Timestamp created_at = 7; // When was this file created?
+    google.protobuf.Timestamp last_updated_at = 8; // When was this file last updated at?
+    google.protobuf.Timestamp last_accessed_at = 9; // When was this file accessed at?
 }
 
 /**

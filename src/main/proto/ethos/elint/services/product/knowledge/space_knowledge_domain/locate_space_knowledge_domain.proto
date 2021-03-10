@@ -1,2 +1,0 @@
-syntax = "proto3";
-package elint.services.product.knowledge.domain;

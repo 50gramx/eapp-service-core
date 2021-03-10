@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/lapp-service-core.iml" filepath="$PROJECT_DIR$/.idea/lapp-service-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/eapp-service-core.iml" filepath="$PROJECT_DIR$/.idea/eapp-service-core.iml" />
     </modules>
   </component>
 </project>

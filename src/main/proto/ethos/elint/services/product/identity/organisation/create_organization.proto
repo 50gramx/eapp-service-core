@@ -1,0 +1,26 @@
+syntax = "proto3";
+package elint.services.product.identity.organization;
+
+import "ethos/elint/entities/account.proto";
+
+
+service CreateOrganizationService {
+    rpc CreateOrganization (CreateOrganizationRequest) returns (CreateOrganizationResponse) {};
+}
+
+// Message Definitions
+message CreateOrganizationRequest {
+    // Auth Properties
+    elint.entity.Account account_id = 1;
+    // Service Properties
+    string organization_name = 2;
+    string organization_description = 3;
+    // Meta Properties
+    google.protobuf.Timestamp requested_at = 4;
+}
+
+message CreateOrganizationResponse {
+    // creates an organization id
+    // creates an organization space
+
+}

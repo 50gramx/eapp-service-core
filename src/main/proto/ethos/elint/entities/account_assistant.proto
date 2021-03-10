@@ -1,0 +1,24 @@
+syntax = "proto3";
+package elint.entity;
+
+import "ethos/elint/entities/account.proto";
+import public "google/protobuf/timestamp.proto";
+
+message AccountAssistant {
+    string account_assistant_id = 1;
+    elint.entity.Account account = 2;
+    google.protobuf.Timestamp created_at = 3;
+    google.protobuf.Timestamp last_assisted_at = 4;
+}
+
+message AccountAssistantConnectedAccount {
+    string account_connection_id = 1;
+    string account_id = 2;
+    google.protobuf.Timestamp connected_at = 3;
+}
+
+message AccountAssistantConnectedAccountAssistant {
+    string account_assistant_connection_id = 1;
+    string account_assistant_id = 2;
+    google.protobuf.Timestamp connected_at = 3;
+}

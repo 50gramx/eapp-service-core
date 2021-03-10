@@ -7,6 +7,5 @@ message Universe {
     string universe_id = 1;
     google.protobuf.Timestamp big_bang_at = 2;
     string universe_name = 3;
-    string universe_unique_name = 4;
-    string universe_description = 5;
+    string universe_description = 4;
 }

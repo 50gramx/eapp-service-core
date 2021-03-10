@@ -18,9 +18,11 @@ message Account {
     string account_mobile_number = 6;
     string account_first_name = 7;
     string account_last_name = 8;
-    google.protobuf.Timestamp account_birth_at = 9;
-    AccountGender account_gender = 10;
-    google.protobuf.Timestamp created_at = 11;
+    string account_galaxy_id = 9;
+    google.protobuf.Timestamp account_birth_at = 10;
+    AccountGender account_gender = 11;
+    google.protobuf.Timestamp created_at = 12;
+    string account_billing_active = 13;
 }
 
 message AccountSpaceKnowledgeAccessMeta {
@@ -36,7 +38,6 @@ message AccountSpaceKnowledgeDomainAccessMeta {
     string space_knowledge_id = 3;
     string space_knowledge_domain_id = 4;
     google.protobuf.Timestamp access_at = 5;
-
 }
 
 message AccountSpaceKnowledgeDomainFileAccessMeta {
@@ -46,4 +47,26 @@ message AccountSpaceKnowledgeDomainFileAccessMeta {
     string space_knowledge_domain_id = 4;
     string space_knowledge_domain_file_id = 5;
     google.protobuf.Timestamp access_at = 6;
+}
+
+message AccountConnectedAccount {
+    string account_connection_id = 1;
+    string account_id = 2;
+    google.protobuf.Timestamp connected_at = 3;
+
+}
+
+message AccountConnectedAccountAssistant {
+    string account_assistant_connection_id = 1;
+    string account_assistant_id = 2;
+    google.protobuf.Timestamp connected_at = 3;
+}
+
+message AccountDeviceDetails {
+    AccountDeviceOS account_device_os = 1;
+    string device_token = 2;
+}
+
+enum AccountDeviceOS {
+    IOS = 0;
 }
