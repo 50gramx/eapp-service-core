@@ -1,0 +1,15 @@
+syntax = "proto3";
+package elint.services.product.identity.account;
+
+service DeleteAccountService {
+    rpc DeleteAccount (DeleteAccountRequest) returns (DeleteAccountResponse) {
+    }; // TODO: Complete this service
+}
+
+message DeleteAccountRequest {
+
+}
+
+message DeleteAccountResponse {
+
+}

@@ -1,0 +1,10 @@
+syntax = "proto3";
+package elint.services.product.knowledge.space;
+
+service DeleteSpaceKnowledgeService {
+    rpc DeleteSpaceKnowledge (DeleteSpaceKnowledgeRequest) returns (DeleteSpaceKnowledgeResponse) {
+    }; // TODO: Complete this service
+}
+
+message DeleteSpaceKnowledgeRequest {}
+message DeleteSpaceKnowledgeResponse {}

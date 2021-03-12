@@ -1,0 +1,15 @@
+syntax = "proto3";
+package elint.services.product.identity.space;
+
+service DeleteSpaceService {
+    rpc DeleteSpace (DeleteSpaceRequest) returns (DeleteSpaceResponse) {
+    }; // TODO: Complete this service
+}
+
+message DeleteSpaceRequest {
+
+}
+
+message DeleteSpaceResponse {
+
+}

@@ -1,0 +1,14 @@
+syntax = "proto3";
+package elint.services.product.knowledge.domain;
+
+service DeleteSpaceKnowledgeDomainService {
+    rpc DeleteSpaceKnowledgeDomain (DeleteSpaceKnowledgeDomainRequest) returns (DeleteSpaceKnowledgeDomainResponse) {
+    }; // TODO: Complete this service
+}
+
+message DeleteSpaceKnowledgeDomainRequest {
+
+}
+
+message DeleteSpaceKnowledgeDomainResponse {
+}
