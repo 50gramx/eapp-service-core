@@ -11,6 +11,8 @@ service DiscoverAccountService {
     };
     rpc GetAccountAssistant (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.AccountAssistant) {
     }; // TODO: Complete this service
+    rpc IsAccountExistsWithMobile (IsAccountExistsWithMobileRequest) returns (elint.entity.ResponseMeta) {
+    };
 }
 
 message GetAccountByIdRequest {
@@ -20,4 +22,10 @@ message GetAccountByIdRequest {
 message GetAccountByIdResponse {
     elint.entity.Account account = 1;
     elint.entity.ResponseMeta response_meta = 2;
+}
+
+message IsAccountExistsWithMobileRequest {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    string account_country_code = 2;
+    string account_mobile_number = 3;
 }

@@ -12,7 +12,13 @@ service ConnectAccountService {
     rpc IsAccountAssistantConnected (IsAccountAssistantConnectedRequest) returns (elint.entity.ResponseMeta) {
     }; // Checks if the account assistant is connected or not
     rpc GetAllConnectedAccounts (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (ConnectedAccounts) {
-    };
+    }; // returns list of connected accounts
+    rpc IsAccountConnected (IsAccountConnectedRequest) returns (elint.entity.ResponseMeta) {
+    }; // Checks if the account is connected or not
+    rpc SyncAccountConnections (SyncAccountConnectionsRequest) returns (SyncAccountConnectionsResponse) {
+    }; // TODO: Complete this service
+    rpc ConnectAccount (ConnectAccountRequest) returns (ConnectAccountResponse) {
+    }; // TODO: Complete this service
 }
 
 // Message Definitions
@@ -29,4 +35,33 @@ message ConnectedAccounts {
 message IsAccountAssistantConnectedRequest {
     string account_id = 1;
     elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2;
+}
+
+message IsAccountConnectedRequest {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    elint.entity.AccountConnectedAccount connected_account = 2;
+}
+
+message SyncAccountConnectionsRequest {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    repeated string connecting_account_mobile_numbers = 2;
+}
+
+message SyncAccountConnectionsResponse {
+    message ConnectedAccount {
+        elint.entity.AccountConnectedAccount connected_account = 1;
+        string connecting_account_mobile_number = 2;
+    }
+    repeated ConnectedAccount connected_accounts = 1;
+    elint.entity.ResponseMeta response_meta = 2;
+}
+
+message ConnectAccountRequest {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    string connecting_account_id = 2;
+}
+
+message ConnectAccountResponse {
+    elint.entity.AccountConnectedAccount connected_account = 1;
+    elint.entity.ResponseMeta response_meta = 2;
 }
