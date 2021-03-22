@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fdd6158f-211a-4d7b-aea0-5c2fac89268b" name="Default Changelist" comment="updated contracts for beta testing">
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain/update_space_knowledge_domain.proto" afterDir="false" />
+    <list default="true" id="fdd6158f-211a-4d7b-aea0-5c2fac89268b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/account.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/account.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/account_assistant.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/account_assistant.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/access_account.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/access_account.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/connect_account.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/connect_account.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/create_account.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/create_account.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/discover_account.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/discover_account.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account_assistant/connect_account_assistant.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account_assistant/connect_account_assistant.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account_assistant/create_account_assistant.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account_assistant/create_account_assistant.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/galaxy.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/galaxy.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/generic.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/generic.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/organization.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/organization.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/organization_space.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/organization_space.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge_domain.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge_domain.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge_domain_file.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge_domain_file.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge_domain_file_page.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge_domain_file_page.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge_domain_file_page_para.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge_domain_file_page_para.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/universe.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/universe.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +49,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="com.google.cloudcode.ide_session_index" value="20210322_0007" />
+    <property name="com.google.cloudcode.ide_session_index" value="20210322_0008" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_inferred" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -104,7 +109,7 @@
       <workItem from="1615347176930" duration="26509000" />
       <workItem from="1615526994696" duration="13363000" />
       <workItem from="1615986181772" duration="1093000" />
-      <workItem from="1616362117555" duration="2568000" />
+      <workItem from="1616362117555" duration="3683000" />
     </task>
     <task id="LOCAL-00001" summary="updated contracts for beta testing">
       <created>1615349203238</created>
@@ -127,7 +132,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615528133750</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="updated account assistant name code, added java dependencies for access, create, discover account protos">
+      <created>1616401096901</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1616401096902</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,6 +161,7 @@
     <MESSAGE value="updated contracts for beta testing" />
     <MESSAGE value="added delete space, space_knowledge, space_knowledge_domain, account, account_assistant templates to the contracts." />
     <MESSAGE value="added sync account connections, connect_account, is_account_connected service to connect_account_service.&#10;added is_account_exists_with_mobile to discover_account.proto" />
-    <option name="LAST_COMMIT_MESSAGE" value="added sync account connections, connect_account, is_account_connected service to connect_account_service.&#10;added is_account_exists_with_mobile to discover_account.proto" />
+    <MESSAGE value="updated account assistant name code, added java dependencies for access, create, discover account protos" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated account assistant name code, added java dependencies for access, create, discover account protos" />
   </component>
 </project>

@@ -1,4 +1,10 @@
 syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.entity";
+option java_outer_classname = "GalaxyProto";
+
+
 package elint.entity;
 
 import "ethos/elint/entities/universe.proto";
