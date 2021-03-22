@@ -1,4 +1,9 @@
 syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.services.product.identity.account";
+option java_outer_classname = "CreateAccountProto";
+
 package elint.services.product.identity.account;
 
 import "ethos/elint/entities/generic.proto";

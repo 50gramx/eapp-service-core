@@ -2,74 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fdd6158f-211a-4d7b-aea0-5c2fac89268b" name="Default Changelist" comment="updated contracts for beta testing">
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/account_assistant.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge_domain_file_page.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge_domain_file_page_para.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/cognitive/assist/context/context_account.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/cognitive/assist/knowledge/generator_knowledge.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/cognitive/assist/knowledge/reader_knowledge.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/cognitive/assist/knowledge/retriever_knowledge.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/action/space_knowledge_action.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/conversation/message/account/receive_account_message.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/conversation/message/account/send_account_message.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/conversation/message/account_assistant/receive_account_assistant_message.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/conversation/message/account_assistant/send_account_assistant_message.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/conversation/message/message_conversation.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/connect_account.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/discover_account.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/notify_account.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account_assistant/access_account_assistant.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account_assistant/action_account_assistant.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account_assistant/connect_account_assistant.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account_assistant/create_account_assistant.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account_assistant/discover_account_assistant.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/galaxy/create_galaxy.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/organisation/create_organization.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/access_space_knowledge_domain_file_page.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/create_space_knowledge_domain_file_page.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/delete_space_knowledge_domain_file_page.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/discover_space_knowledge_domain_file_page.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/access_space_knowledge_domain_file_page_para.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/create_space_knowledge_domain_file_page_para.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/delete_space_knowledge_domain_file_page_para.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/discover_space_knowledge_domain_file_page_para.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_inferred/access_space_knowledge_domain_inferred.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_inferred/discover_space_knowledge_domain_inferred.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/lapp-service-core.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/eapp-service-core.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain/update_space_knowledge_domain.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/account.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/account.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/file_page.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/file_page_indexed.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/galaxy.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/galaxy.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/generic.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/generic.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge_domain.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge_domain.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge_domain_file.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/space_knowledge_domain_file.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/universe.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/universe.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/assistance/generic_assistance_service.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/cognitive/recognition/optical_character.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/account_assistant.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/entities/account_assistant.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/access_account.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/access_account.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/connect_account.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/connect_account.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/create_account.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/create_account.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/delete_account.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/onboard_account.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/space/access_space.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/space/access_space.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/space/create_space.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/space/create_space.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge/access_space_knowledge.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge/access_space_knowledge.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge/create_space_knowledge.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge/create_space_knowledge.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge/discover_space_knowledge.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge/discover_space_knowledge.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge/onboard_space_knowledge.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain/access_space_knowledge_domain.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain/access_space_knowledge_domain.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain/create_space_knowledge_domain.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain/create_space_knowledge_domain.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain/delete_space_knowledge_domain.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain/discover_space_knowledge_domain.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain/discover_space_knowledge_domain.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain/locate_space_knowledge_domain.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file/access_space_knowledge_domain_file.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file/access_space_knowledge_domain_file.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file/create_space_knowledge_domain_file.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file/create_space_knowledge_domain_file.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file/delete_space_knowledge_domain_file.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file/delete_space_knowledge_domain_file.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file/discover_space_knowledge_domain_file.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file/discover_space_knowledge_domain_file.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_file/extract_space_knowledge_domain_file.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/discover_account.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account/discover_account.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account_assistant/connect_account_assistant.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account_assistant/connect_account_assistant.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account_assistant/create_account_assistant.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/identity/account_assistant/create_account_assistant.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +44,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="com.google.cloudcode.ide_session_index" value="20210310_0001" />
+    <property name="com.google.cloudcode.ide_session_index" value="20210322_0007" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/proto/ethos/elint/services/product/knowledge/space_knowledge_domain_inferred" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -111,7 +52,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -160,8 +101,33 @@
       <workItem from="1615001038071" duration="4296000" />
       <workItem from="1615012612084" duration="10885000" />
       <workItem from="1615269105072" duration="591000" />
-      <workItem from="1615347176930" duration="2000000" />
+      <workItem from="1615347176930" duration="26509000" />
+      <workItem from="1615526994696" duration="13363000" />
+      <workItem from="1615986181772" duration="1093000" />
+      <workItem from="1616362117555" duration="2568000" />
     </task>
+    <task id="LOCAL-00001" summary="updated contracts for beta testing">
+      <created>1615349203238</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1615349203238</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added delete space, space_knowledge, space_knowledge_domain, account, account_assistant templates to the contracts.">
+      <created>1615527849088</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1615527849088</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added sync account connections, connect_account, is_account_connected service to connect_account_service.&#10;added is_account_exists_with_mobile to discover_account.proto">
+      <created>1615528133749</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1615528133750</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,6 +147,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="updated contracts for beta testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated contracts for beta testing" />
+    <MESSAGE value="added delete space, space_knowledge, space_knowledge_domain, account, account_assistant templates to the contracts." />
+    <MESSAGE value="added sync account connections, connect_account, is_account_connected service to connect_account_service.&#10;added is_account_exists_with_mobile to discover_account.proto" />
+    <option name="LAST_COMMIT_MESSAGE" value="added sync account connections, connect_account, is_account_connected service to connect_account_service.&#10;added is_account_exists_with_mobile to discover_account.proto" />
   </component>
 </project>

@@ -2,24 +2,37 @@ syntax = "proto3";
 package elint.services.product.identity.account.assistant;
 
 import "ethos/elint/entities/account_assistant.proto";
+import "ethos/elint/entities/generic.proto";
 import "ethos/elint/services/product/identity/account/access_account.proto";
 import "ethos/elint/services/product/identity/account_assistant/access_account_assistant.proto";
 
 // Service Definitions
 service CreateAccountAssistantService {
-    rpc CreateAccountAssistant (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (CreateAccountAssistantResponse) {
-    };
+    rpc CreateAccountAssistant (CreateAccountAssistantRequest) returns (CreateAccountAssistantResponse) {
+    }; // TODO: Modify this service
+    rpc IsAccountAssistantNameAvailable (IsAccountAssistantNameAvailableRequest) returns (IsAccountAssistantNameAvailableResponse) {
+    }; // TODO: Complete this service
 }
 
 // Message Definitions
-message CreateAccountAssistantResponse {
-    AccountAssistantServicesAccessAuthDetails account_assistant_services_access_auth_details = 1;
-    // Meta TODO: Update from generic.proto
-    CreateMeta create_meta = 2;
+message CreateAccountAssistantRequest {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    int32 account_assistant_name_code = 2;
+    string account_assistant_name = 3;
 }
 
-// Meta Message Definitions
-message CreateMeta {
-    bool create_done = 1;
-    string create_message = 2;
+message CreateAccountAssistantResponse {
+    AccountAssistantServicesAccessAuthDetails account_assistant_services_access_auth_details = 1;
+    elint.entity.ResponseMeta response_meta = 2;
+}
+
+message IsAccountAssistantNameAvailableRequest {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    string account_assistant_name = 2;
+}
+
+message IsAccountAssistantNameAvailableResponse {
+    bool is_account_assistant_name_available = 1;
+    int32 account_assistant_name_code = 2;
+    elint.entity.ResponseMeta response_meta = 3;
 }

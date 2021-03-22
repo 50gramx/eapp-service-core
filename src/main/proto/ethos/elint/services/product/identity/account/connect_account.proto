@@ -16,9 +16,9 @@ service ConnectAccountService {
     rpc IsAccountConnected (IsAccountConnectedRequest) returns (elint.entity.ResponseMeta) {
     }; // Checks if the account is connected or not
     rpc SyncAccountConnections (SyncAccountConnectionsRequest) returns (SyncAccountConnectionsResponse) {
-    }; // TODO: Complete this service
+    };
     rpc ConnectAccount (ConnectAccountRequest) returns (ConnectAccountResponse) {
-    }; // TODO: Complete this service
+    };
 }
 
 // Message Definitions
@@ -50,7 +50,8 @@ message SyncAccountConnectionsRequest {
 message SyncAccountConnectionsResponse {
     message ConnectedAccount {
         elint.entity.AccountConnectedAccount connected_account = 1;
-        string connecting_account_mobile_number = 2;
+        elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2; // TODO: Complete
+        string connecting_account_mobile_number = 3;
     }
     repeated ConnectedAccount connected_accounts = 1;
     elint.entity.ResponseMeta response_meta = 2;

@@ -3,13 +3,27 @@ package elint.services.product.identity.account.assistant;
 
 import "ethos/elint/entities/generic.proto";
 import "ethos/elint/entities/account_assistant.proto";
+import "ethos/elint/services/product/identity/account_assistant/access_account_assistant.proto";
 
 service ConnectAccountAssistantService {
     rpc IsAccountConnected (IsAccountConnectedRequest) returns (elint.entity.ResponseMeta) {
     } // Checks if the account is connected or not
+    rpc ConnectAccount (ConnectAccountRequest) returns (ConnectAccountResponse) {
+    }; // To connect an account to the account assistant
 }
 
 message IsAccountConnectedRequest {
     string account_assistant_id = 1;
     elint.entity.AccountAssistantConnectedAccount connected_account = 2;
+}
+
+
+message ConnectAccountRequest {
+    elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails access_auth_details = 1;
+    string connecting_account_id = 2;
+}
+
+message ConnectAccountResponse {
+    elint.entity.AccountAssistantConnectedAccount connected_account = 1;
+    elint.entity.ResponseMeta response_meta = 2;
 }

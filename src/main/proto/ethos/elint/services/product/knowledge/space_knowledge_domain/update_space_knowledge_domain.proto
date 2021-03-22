@@ -1,0 +1,16 @@
+syntax = "proto3";
+package elint.services.product.knowledge.domain;
+
+
+service UpdateSpaceKnowledgeDomainService {
+    rpc UpdateSpaceKnowledgeDomainName (UpdateSpaceKnowledgeDomainNameRequest) returns (UpdateSpaceKnowledgeDomainNameResponse) {
+    }; // TODO: Complete this service
+}
+
+message UpdateSpaceKnowledgeDomainNameRequest {
+
+}
+
+message UpdateSpaceKnowledgeDomainNameResponse {
+
+}

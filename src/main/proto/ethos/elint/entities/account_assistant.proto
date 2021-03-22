@@ -6,10 +6,12 @@ import public "google/protobuf/timestamp.proto";
 
 message AccountAssistant {
     string account_assistant_id = 1;
-    elint.entity.Account account = 2;
-    google.protobuf.Timestamp created_at = 3;
-    google.protobuf.Timestamp last_assisted_at = 4;
-}
+    int32 account_assistant_name_code = 2;
+    string account_assistant_name = 3;
+    elint.entity.Account account = 4;
+    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp last_assisted_at = 6;
+} // TODO: Update the changes in all the reflections
 
 message AccountAssistantConnectedAccount {
     string account_connection_id = 1;
