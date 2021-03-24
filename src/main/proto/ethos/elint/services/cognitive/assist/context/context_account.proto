@@ -1,4 +1,9 @@
 syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.services.cognitive.assist.context.account";
+option java_outer_classname = "ContextAccountProto";
+
 package elint.services.cognitive.assist.context.account;
 
 import "ethos/elint/entities/space_knowledge.proto";
