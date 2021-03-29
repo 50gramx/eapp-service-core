@@ -17,7 +17,7 @@ message AccountAssistant {
     elint.entity.Account account = 4;
     google.protobuf.Timestamp created_at = 5;
     google.protobuf.Timestamp last_assisted_at = 6;
-} // TODO: Update the changes in all the reflections
+}
 
 message AccountAssistantConnectedAccount {
     string account_connection_id = 1;
