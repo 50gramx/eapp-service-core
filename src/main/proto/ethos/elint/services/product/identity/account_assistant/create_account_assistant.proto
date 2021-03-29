@@ -9,7 +9,7 @@ import "ethos/elint/services/product/identity/account_assistant/access_account_a
 // Service Definitions
 service CreateAccountAssistantService {
     rpc CreateAccountAssistant (CreateAccountAssistantRequest) returns (CreateAccountAssistantResponse) {
-    }; // TODO: Modify this service
+    };
     rpc GetAccountAssistantNameCode (GetAccountAssistantNameCodeRequest) returns (GetAccountAssistantNameCodeResponse) {
     };
 }
@@ -17,8 +17,7 @@ service CreateAccountAssistantService {
 // Message Definitions
 message CreateAccountAssistantRequest {
     elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
-    int32 account_assistant_name_code = 2;
-    string account_assistant_name = 3;
+    string account_assistant_name = 2;
 }
 
 message CreateAccountAssistantResponse {
