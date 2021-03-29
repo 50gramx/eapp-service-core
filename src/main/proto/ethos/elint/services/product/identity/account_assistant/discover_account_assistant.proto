@@ -3,12 +3,29 @@ package elint.services.product.identity.account.assistant;
 
 import "ethos/elint/entities/account_assistant.proto";
 import "ethos/elint/entities/account.proto";
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/services/product/identity/account/access_account.proto";
 
 // Service Definitions
 service DiscoverAccountAssistantService {
     rpc GetAccountAssistantByAccount (elint.entity.Account) returns (elint.entity.AccountAssistant) {
     };
+    rpc GetAccountAssistantMetaByAccountId (GetAccountAssistantMetaByAccountIdRequest) returns (GetAccountAssistantMetaByAccountIdResponse) {
+    };
+
 
 }
 
 // Message Definitions
+
+message GetAccountAssistantMetaByAccountIdRequest {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    string account_id = 2;
+}
+
+message GetAccountAssistantMetaByAccountIdResponse {
+    string account_assistant_id = 1;
+    int32 account_assistant_name_code = 2;
+    string account_assistant_name = 3;
+    elint.entity.ResponseMeta response_meta = 4;
+}
