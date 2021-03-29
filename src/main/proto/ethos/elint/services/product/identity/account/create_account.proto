@@ -95,8 +95,9 @@ message CaptureAccountMetaDetailsResponse {
 
 message AccountCreationAuthDetails {
     // Auth Properties
-    string account_mobile_number = 1; // Which account email id is creating a new account?
-    elint.entity.PersistentSessionTokenDetails account_creation_session_token_details = 2; // What is the session token wrt this request?
+    string account_mobile_country_code = 1;
+    string account_mobile_number = 2; // Which account email id is creating a new account?
+    elint.entity.PersistentSessionTokenDetails account_creation_session_token_details = 3; // What is the session token wrt this request?
     // Meta Properties
-    google.protobuf.Timestamp requested_at = 3; // When was this requested?
+    google.protobuf.Timestamp requested_at = 4; // When was this requested?
 }
