@@ -10,8 +10,8 @@ import "ethos/elint/services/product/identity/account_assistant/access_account_a
 service CreateAccountAssistantService {
     rpc CreateAccountAssistant (CreateAccountAssistantRequest) returns (CreateAccountAssistantResponse) {
     }; // TODO: Modify this service
-    rpc IsAccountAssistantNameAvailable (IsAccountAssistantNameAvailableRequest) returns (IsAccountAssistantNameAvailableResponse) {
-    }; // TODO: Complete this service
+    rpc GetAccountAssistantNameCode (GetAccountAssistantNameCodeRequest) returns (GetAccountAssistantNameCodeResponse) {
+    };
 }
 
 // Message Definitions
@@ -26,13 +26,12 @@ message CreateAccountAssistantResponse {
     elint.entity.ResponseMeta response_meta = 2;
 }
 
-message IsAccountAssistantNameAvailableRequest {
+message GetAccountAssistantNameCodeRequest {
     elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
     string account_assistant_name = 2;
 }
 
-message IsAccountAssistantNameAvailableResponse {
-    bool is_account_assistant_name_available = 1;
-    int32 account_assistant_name_code = 2;
-    elint.entity.ResponseMeta response_meta = 3;
+message GetAccountAssistantNameCodeResponse {
+    int32 account_assistant_name_code = 1;
+    elint.entity.ResponseMeta response_meta = 2;
 }
