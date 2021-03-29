@@ -43,3 +43,19 @@ message ResponseMeta {
     bool meta_done = 1;
     string meta_message = 2;
 }
+
+// Picture
+enum PictureSize {
+    x20 = 0;
+    x29 = 1;
+    x40 = 2;
+    x60 = 3;
+    x76 = 4;
+    x83p5 = 5;
+}
+
+enum PictureScale {
+    x1 = 0;
+    x2 = 1;
+    x3 = 2;
+}

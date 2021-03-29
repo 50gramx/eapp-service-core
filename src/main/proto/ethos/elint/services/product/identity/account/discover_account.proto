@@ -33,11 +33,14 @@ message GetAccountByIdResponse {
 }
 
 message GetAccountProfilePictureByIdRequest {
-    string account_id = 1;
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    elint.entity.PictureSize picture_size = 2;
+    elint.entity.PictureScale picture_scale = 3;
 }
 
 message GetAccountProfilePictureByIdResponse {
     bytes image_data = 1;
+    elint.entity.ResponseMeta response_meta = 3;
 }
 
 message IsAccountExistsWithMobileRequest {
