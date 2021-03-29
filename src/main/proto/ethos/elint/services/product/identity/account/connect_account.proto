@@ -7,14 +7,17 @@ import "ethos/elint/services/product/identity/account/access_account.proto";
 
 // Service Definitions
 service ConnectAccountService {
+
     rpc GetAllConnectedAccountAssistants (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (ConnectedAccountAssistants) {
     }; // returns list of connected account assistants
-    rpc IsAccountAssistantConnected (IsAccountAssistantConnectedRequest) returns (elint.entity.ResponseMeta) {
-    }; // Checks if the account assistant is connected or not
     rpc GetAllConnectedAccounts (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (ConnectedAccounts) {
     }; // returns list of connected accounts
+
+    rpc IsAccountAssistantConnected (IsAccountAssistantConnectedRequest) returns (elint.entity.ResponseMeta) {
+    }; // Checks if the account assistant is connected or not
     rpc IsAccountConnected (IsAccountConnectedRequest) returns (elint.entity.ResponseMeta) {
     }; // Checks if the account is connected or not
+
     rpc SyncAccountConnections (SyncAccountConnectionsRequest) returns (SyncAccountConnectionsResponse) {
     };
     rpc ConnectAccount (ConnectAccountRequest) returns (ConnectAccountResponse) {

@@ -75,4 +75,5 @@ message AccountDeviceDetails {
 
 enum AccountDeviceOS {
     IOS = 0;
+    ANDROID = 1;
 }
