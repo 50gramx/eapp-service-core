@@ -30,9 +30,10 @@ service CreateAccountService {
 
 message ValidateAccountWithMobileRequest {
     // Service Request Properties
-    string account_mobile_number = 1;
+    string account_mobile_country_code = 1;
+    string account_mobile_number = 2;
     // Meta Properties
-    google.protobuf.Timestamp requested_at = 2;
+    google.protobuf.Timestamp requested_at = 3;
 }
 
 message ValidateAccountWithMobileResponse {
@@ -75,8 +76,9 @@ message CaptureAccountMetaDetailsRequest {
     google.protobuf.Timestamp account_birth_at = 4;
     elint.entity.AccountGender account_gender = 5;
     elint.entity.AccountDeviceDetails account_device_details = 6;
+    string account_assistant_name = 7;
     // Meta Properties
-    google.protobuf.Timestamp requested_at = 7;
+    google.protobuf.Timestamp requested_at = 8;
 }
 
 message CaptureAccountMetaDetailsResponse {
