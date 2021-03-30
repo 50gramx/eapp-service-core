@@ -58,8 +58,9 @@ message AccountSpaceKnowledgeDomainFileAccessMeta {
 message AccountConnectedAccount {
     string account_connection_id = 1;
     string account_id = 2;
-    google.protobuf.Timestamp connected_at = 3;
-
+    bool account_interested_in_connection = 3;
+    bool connected_account_interested_in_connection = 4;
+    google.protobuf.Timestamp connected_at = 5;
 }
 
 message AccountConnectedAccountAssistant {
