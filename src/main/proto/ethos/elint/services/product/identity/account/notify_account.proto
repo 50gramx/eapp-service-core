@@ -8,6 +8,8 @@ import "ethos/elint/entities/generic.proto";
 service NotifyAccountService {
     rpc NewReceivedMessageFromAccountAssistant (NewReceivedMessageFromAccountAssistantRequest) returns (elint.entity.ResponseMeta) {
     };
+    rpc NewReceivedMessageFromAccount (NewReceivedMessageFromAccountRequest) returns (elint.entity.ResponseMeta) {
+    }; // TODO: Verify this service
 }
 
 // Message Definitions
@@ -15,4 +17,8 @@ message NewReceivedMessageFromAccountAssistantRequest {
     string account_id = 1;
     elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2;
     string account_assistant_received_message_id = 3;
+}
+
+message NewReceivedMessageFromAccountRequest {
+    string account_id = 1;
 }

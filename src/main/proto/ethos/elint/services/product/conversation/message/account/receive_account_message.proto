@@ -13,12 +13,18 @@ import "ethos/elint/services/product/identity/account/access_account.proto";
 service ReceiveAccountMessageService {
     rpc ReceiveMessageFromAccountAssistant (MessageFromAccountAssistant) returns (MessageFromAccountAssistantReceived) {
     };
+    rpc ReceiveMessageFromAccount (MessageFromAccount) returns (MessageFromAccountReceived) {
+    }; // TODO: Verify this service
+
     rpc SyncAccountAssistantReceivedMessages (SyncReceivedMessagesRequest) returns (stream AccountAssistantReceivedMessage) {
     }; // TODO: Complete this service
     rpc SyncAccountReceivedMessages (SyncReceivedMessagesRequest) returns (stream AccountReceivedMessage) {
     }; // TODO: Complete this service
+
     rpc ListenForReceivedAccountAssistantMessages (ListenForReceivedAccountAssistantMessagesRequest) returns (ListenForReceivedAccountAssistantMessagesResponse) {
     };
+    rpc ListenForReceivedAccountMessages (ListenForReceivedAccountMessagesRequest) returns (ListenForReceivedAccountMessagesResponse) {
+    }; // TODO: Verify this service
 }
 
 // Message Definitions
@@ -31,6 +37,18 @@ message MessageFromAccountAssistant {
 }
 
 message MessageFromAccountAssistantReceived {
+    bool is_received = 1;
+    google.protobuf.Timestamp received_at = 2;
+}
+
+message MessageFromAccount {
+    string account_id = 1;
+    elint.entity.AccountConnectedAccount connected_account = 2;
+    string message = 3;
+    string account_received_message_id = 4;
+}
+
+message MessageFromAccountReceived {
     bool is_received = 1;
     google.protobuf.Timestamp received_at = 2;
 }
@@ -50,6 +68,15 @@ message ListenForReceivedAccountAssistantMessagesResponse {
     repeated google.protobuf.Any message_source = 3;
     google.protobuf.Timestamp received_at = 4;
     elint.entity.ResponseMeta response_meta = 5;
+}
+
+message ListenForReceivedAccountMessagesRequest {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+}
+
+message ListenForReceivedAccountMessagesResponse {
+    repeated MessageFromAccount messages_from_account = 1;
+    elint.entity.ResponseMeta response_meta = 2;
 }
 
 message AccountAssistantReceivedMessage {

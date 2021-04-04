@@ -11,6 +11,8 @@ import "ethos/elint/services/product/identity/account/access_account.proto";
 service SendAccountMessageService {
     rpc SendMessageToAccountAssistant (MessageForAccountAssistant) returns (MessageForAccountAssistantSent) {
     }; // Identify the message space and send it to relevant space for action
+    rpc SendMessageToAccount (MessageForAccount) returns (MessageForAccountSent) {
+    }; // TODO: Verify this service
     rpc SyncAccountAssistantSentMessages (SyncSentMessagesRequest) returns (stream AccountAssistantSentMessage) {
     }; // TODO: Complete this service
     rpc SyncAccountSentMessages (SyncSentMessagesRequest) returns (stream AccountSentMessage) {
@@ -29,6 +31,19 @@ message MessageForAccountAssistant {
 
 message MessageForAccountAssistantSent {
     string account_assistant_sent_message_id = 1;
+    bool is_sent = 2;
+    google.protobuf.Timestamp sent_at = 3;
+    google.protobuf.Timestamp received_at = 4;
+}
+
+message MessageForAccount {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    elint.entity.AccountConnectedAccount connected_account = 2;
+    string message = 3;
+}
+
+message MessageForAccountSent {
+    string account_sent_message_id = 1;
     bool is_sent = 2;
     google.protobuf.Timestamp sent_at = 3;
     google.protobuf.Timestamp received_at = 4;

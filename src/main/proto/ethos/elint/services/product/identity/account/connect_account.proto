@@ -41,7 +41,7 @@ message IsAccountAssistantConnectedRequest {
 }
 
 message IsAccountConnectedRequest {
-    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    string account_id = 1;
     elint.entity.AccountConnectedAccount connected_account = 2;
 }
 
