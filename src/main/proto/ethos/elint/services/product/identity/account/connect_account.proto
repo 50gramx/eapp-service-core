@@ -53,7 +53,6 @@ message SyncAccountConnectionsRequest {
 message SyncAccountConnectionsResponse {
     message ConnectedAccount {
         elint.entity.AccountConnectedAccount connected_account = 1;
-        elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2; // TODO: Complete
         string connecting_account_mobile_number = 3;
     }
     repeated ConnectedAccount connected_accounts = 1;
