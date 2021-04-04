@@ -12,7 +12,8 @@ service DiscoverAccountAssistantService {
     };
     rpc GetAccountAssistantMetaByAccountId (GetAccountAssistantMetaByAccountIdRequest) returns (GetAccountAssistantMetaByAccountIdResponse) {
     };
-
+    rpc GetAccountAssistantMetaByAccountAssistantId (GetAccountAssistantMetaByAccountAssistantIdRequest) returns (GetAccountAssistantMetaByAccountAssistantIdResponse) {
+    };
 
 }
 
@@ -24,8 +25,16 @@ message GetAccountAssistantMetaByAccountIdRequest {
 }
 
 message GetAccountAssistantMetaByAccountIdResponse {
-    string account_assistant_id = 1;
-    int32 account_assistant_name_code = 2;
-    string account_assistant_name = 3;
-    elint.entity.ResponseMeta response_meta = 4;
+    elint.entity.AccountAssistantMeta account_assistant_meta = 1;
+    elint.entity.ResponseMeta response_meta = 2;
+}
+
+message GetAccountAssistantMetaByAccountAssistantIdRequest {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    string account_assistant_id = 2;
+}
+
+message GetAccountAssistantMetaByAccountAssistantIdResponse {
+    elint.entity.AccountAssistantMeta account_assistant_meta = 1;
+    elint.entity.ResponseMeta response_meta = 2;
 }
