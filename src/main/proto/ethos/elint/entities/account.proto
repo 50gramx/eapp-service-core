@@ -74,6 +74,11 @@ message AccountDeviceDetails {
     string device_token = 2;
 }
 
+message AccountMobile {
+    string account_country_code = 1;
+    string account_mobile_number = 2;
+}
+
 enum AccountDeviceOS {
     IOS = 0;
     ANDROID = 1;

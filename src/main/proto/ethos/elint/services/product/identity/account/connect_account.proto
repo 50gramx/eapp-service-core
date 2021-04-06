@@ -18,6 +18,9 @@ service ConnectAccountService {
     rpc IsAccountConnected (IsAccountConnectedRequest) returns (elint.entity.ResponseMeta) {
     }; // Checks if the account is connected or not
 
+    rpc ParseAccountMobiles (ParseAccountMobilesRequest) returns (ParseAccountMobilesResponse) {
+    };
+
     rpc SyncAccountConnections (SyncAccountConnectionsRequest) returns (SyncAccountConnectionsResponse) {
     };
     rpc ConnectAccount (ConnectAccountRequest) returns (ConnectAccountResponse) {
@@ -45,15 +48,26 @@ message IsAccountConnectedRequest {
     elint.entity.AccountConnectedAccount connected_account = 2;
 }
 
-message SyncAccountConnectionsRequest {
+message ParseAccountMobilesRequest {
     elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
     repeated string connecting_account_mobile_numbers = 2;
+}
+
+message ParseAccountMobilesResponse {
+    repeated elint.entity.AccountMobile account_mobiles = 1;
+    elint.entity.ResponseMeta response_meta = 2;
+}
+
+
+message SyncAccountConnectionsRequest {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    repeated elint.entity.AccountMobile connecting_account_mobiles = 2;
 }
 
 message SyncAccountConnectionsResponse {
     message ConnectedAccount {
         elint.entity.AccountConnectedAccount connected_account = 1;
-        string connecting_account_mobile_number = 3;
+        elint.entity.AccountMobile connected_account_mobile = 2;
     }
     repeated ConnectedAccount connected_accounts = 1;
     elint.entity.ResponseMeta response_meta = 2;
