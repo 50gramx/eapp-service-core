@@ -21,7 +21,7 @@ service ConnectAccountService {
     rpc ParseAccountMobiles (ParseAccountMobilesRequest) returns (ParseAccountMobilesResponse) {
     };
 
-    rpc SyncAccountConnections (SyncAccountConnectionsRequest) returns (SyncAccountConnectionsResponse) {
+    rpc SyncAccountConnections (SyncAccountConnectionsRequest) returns (stream SyncAccountConnectionsResponse) {
     };
     rpc ConnectAccount (ConnectAccountRequest) returns (ConnectAccountResponse) {
     };
@@ -69,7 +69,7 @@ message SyncAccountConnectionsResponse {
         elint.entity.AccountConnectedAccount connected_account = 1;
         elint.entity.AccountMobile connected_account_mobile = 2;
     }
-    repeated ConnectedAccount connected_accounts = 1;
+    ConnectedAccount connected_account = 1;
     elint.entity.ResponseMeta response_meta = 2;
 }
 
