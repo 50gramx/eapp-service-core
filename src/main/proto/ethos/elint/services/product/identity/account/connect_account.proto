@@ -21,7 +21,7 @@ service ConnectAccountService {
     rpc ParseAccountMobiles (ParseAccountMobilesRequest) returns (ParseAccountMobilesResponse) {
     };
 
-    rpc SyncAccountConnections (SyncAccountConnectionsRequest) returns (stream SyncAccountConnectionsResponse) {
+    rpc SyncAccountConnections (SyncAccountConnectionsRequest) returns (SyncAccountConnectionsResponse) {
     };
     rpc ConnectAccount (ConnectAccountRequest) returns (ConnectAccountResponse) {
     };
@@ -61,7 +61,7 @@ message ParseAccountMobilesResponse {
 
 message SyncAccountConnectionsRequest {
     elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
-    repeated elint.entity.AccountMobile connecting_account_mobiles = 2;
+    elint.entity.AccountMobile connecting_account_mobile = 2;
 }
 
 message SyncAccountConnectionsResponse {

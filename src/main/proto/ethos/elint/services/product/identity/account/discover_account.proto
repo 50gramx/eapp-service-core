@@ -20,7 +20,7 @@ service DiscoverAccountService {
     }; // TODO: Complete this service
     rpc IsAccountExistsWithMobile (IsAccountExistsWithMobileRequest) returns (elint.entity.ResponseMeta) {
     };
-    rpc AreAccountsExistingWithMobile (AreAccountsExistingWithMobileRequest) returns (AreAccountsExistingWithMobileResponse) {
+    rpc AreAccountsExistingWithMobile (AreAccountsExistingWithMobileRequest) returns (stream AreAccountsExistingWithMobileResponse) {
     };
 
 }
@@ -62,6 +62,6 @@ message AreAccountsExistingWithMobileResponse {
         string account_mobile_number = 2;
         bool account_exists = 3;
     }
-    repeated AccountMobileExists account_mobiles_exists = 1;
+    AccountMobileExists account_mobiles_exists = 1;
     elint.entity.ResponseMeta response_meta = 2;
 }
