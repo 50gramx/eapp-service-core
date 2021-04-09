@@ -19,7 +19,7 @@ service SendAccountMessageService {
     }; // TODO: Complete this service
 
     rpc SyncAccountSentMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream SyncAccountSentMessagesResponse) {
-    }; // TODO: Verify this service at priority
+    };
 }
 
 // Message Definitions

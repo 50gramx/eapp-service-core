@@ -20,7 +20,7 @@ service ReceiveAccountMessageService {
     }; // TODO: Complete this service
 
     rpc SyncAccountReceivedMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream SyncAccountReceivedMessagesResponse) {
-    }; // TODO: Verify this service at priority
+    };
 
     rpc ListenForReceivedAccountAssistantMessages (ListenForReceivedAccountAssistantMessagesRequest) returns (ListenForReceivedAccountAssistantMessagesResponse) {
     };
