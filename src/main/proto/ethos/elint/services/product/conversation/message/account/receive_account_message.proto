@@ -14,17 +14,18 @@ service ReceiveAccountMessageService {
     rpc ReceiveMessageFromAccountAssistant (MessageFromAccountAssistant) returns (MessageFromAccountAssistantReceived) {
     };
     rpc ReceiveMessageFromAccount (MessageFromAccount) returns (MessageFromAccountReceived) {
-    }; // TODO: Verify this service
+    };
 
-    rpc SyncAccountAssistantReceivedMessages (SyncReceivedMessagesRequest) returns (stream AccountAssistantReceivedMessage) {
+    rpc SyncAccountAssistantReceivedMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream AccountAssistantReceivedMessage) {
     }; // TODO: Complete this service
-    rpc SyncAccountReceivedMessages (SyncReceivedMessagesRequest) returns (stream AccountReceivedMessage) {
-    }; // TODO: Complete this service
+
+    rpc SyncAccountReceivedMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream SyncAccountReceivedMessagesResponse) {
+    }; // TODO: Verify this service at priority
 
     rpc ListenForReceivedAccountAssistantMessages (ListenForReceivedAccountAssistantMessagesRequest) returns (ListenForReceivedAccountAssistantMessagesResponse) {
     };
     rpc ListenForReceivedAccountMessages (ListenForReceivedAccountMessagesRequest) returns (ListenForReceivedAccountMessagesResponse) {
-    }; // TODO: Verify this service
+    };
 }
 
 // Message Definitions
@@ -53,9 +54,9 @@ message MessageFromAccountReceived {
     google.protobuf.Timestamp received_at = 2;
 }
 
-message SyncReceivedMessagesRequest {
-    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
-    repeated string existing_received_message_ids = 2;
+message SyncAccountReceivedMessagesResponse {
+    AccountReceivedMessage account_received_message = 1;
+    elint.entity.ResponseMeta response_meta = 2;
 }
 
 message ListenForReceivedAccountAssistantMessagesRequest {

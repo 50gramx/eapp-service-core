@@ -5,6 +5,7 @@ import public "google/protobuf/timestamp.proto";
 
 import "ethos/elint/entities/account.proto";
 import "ethos/elint/entities/space_knowledge.proto";
+import "ethos/elint/entities/generic.proto";
 import "ethos/elint/services/product/identity/account/access_account.proto";
 
 // Service Definitions
@@ -12,13 +13,13 @@ service SendAccountMessageService {
     rpc SendMessageToAccountAssistant (MessageForAccountAssistant) returns (MessageForAccountAssistantSent) {
     }; // Identify the message space and send it to relevant space for action
     rpc SendMessageToAccount (MessageForAccount) returns (MessageForAccountSent) {
-    }; // TODO: Verify this service
-    rpc SyncAccountAssistantSentMessages (SyncSentMessagesRequest) returns (stream AccountAssistantSentMessage) {
-    }; // TODO: Complete this service
-    rpc SyncAccountSentMessages (SyncSentMessagesRequest) returns (stream AccountSentMessage) {
+    };
+
+    rpc SyncAccountAssistantSentMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream AccountAssistantSentMessage) {
     }; // TODO: Complete this service
 
-    //    rpc RecordReceivedMessage
+    rpc SyncAccountSentMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream SyncAccountSentMessagesResponse) {
+    }; // TODO: Verify this service at priority
 }
 
 // Message Definitions
@@ -49,9 +50,9 @@ message MessageForAccountSent {
     google.protobuf.Timestamp received_at = 4;
 }
 
-message SyncSentMessagesRequest {
-    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
-    repeated string existing_sent_message_ids = 2;
+message SyncAccountSentMessagesResponse {
+    AccountSentMessage account_sent_message = 1;
+    elint.entity.ResponseMeta response_meta = 2;
 }
 
 message AccountAssistantSentMessage {
