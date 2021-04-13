@@ -21,4 +21,6 @@ message NewReceivedMessageFromAccountAssistantRequest {
 
 message NewReceivedMessageFromAccountRequest {
     string account_id = 1;
+    string connecting_account_id = 2;
+    string message = 3;
 }

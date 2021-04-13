@@ -13,6 +13,7 @@ import "ethos/elint/services/product/identity/account/access_account.proto";
 service ReceiveAccountMessageService {
     rpc ReceiveMessageFromAccountAssistant (MessageFromAccountAssistant) returns (MessageFromAccountAssistantReceived) {
     };
+
     rpc ReceiveMessageFromAccount (MessageFromAccount) returns (MessageFromAccountReceived) {
     };
 
@@ -25,6 +26,8 @@ service ReceiveAccountMessageService {
     rpc ListenForReceivedAccountAssistantMessages (ListenForReceivedAccountAssistantMessagesRequest) returns (ListenForReceivedAccountAssistantMessagesResponse) {
     };
     rpc ListenForReceivedAccountMessages (ListenForReceivedAccountMessagesRequest) returns (ListenForReceivedAccountMessagesResponse) {
+    };
+    rpc ListenForReceivedAccountSpeedMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream ListenForReceivedAccountSpeedMessagesResponse) {
     };
 }
 
@@ -77,6 +80,11 @@ message ListenForReceivedAccountMessagesRequest {
 
 message ListenForReceivedAccountMessagesResponse {
     repeated MessageFromAccount messages_from_account = 1;
+    elint.entity.ResponseMeta response_meta = 2;
+}
+
+message ListenForReceivedAccountSpeedMessagesResponse {
+    MessageFromAccount messages_from_account = 1;
     elint.entity.ResponseMeta response_meta = 2;
 }
 

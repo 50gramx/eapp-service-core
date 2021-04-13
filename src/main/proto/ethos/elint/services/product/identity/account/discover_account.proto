@@ -41,7 +41,7 @@ message GetAccountProfilePictureRequest {
 }
 
 message GetAccountProfilePictureResponse {
-    bytes image_data = 1;
+    repeated bytes image_data = 1;
     elint.entity.ResponseMeta response_meta = 3;
 }
 

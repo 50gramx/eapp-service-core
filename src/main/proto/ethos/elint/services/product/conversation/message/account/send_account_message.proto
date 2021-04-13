@@ -15,6 +15,9 @@ service SendAccountMessageService {
     rpc SendMessageToAccount (MessageForAccount) returns (MessageForAccountSent) {
     };
 
+    rpc SendSpeedMessageToAccount (stream MessageForAccount) returns (stream FullMessageForAccountSent) {
+    };
+
     rpc SyncAccountAssistantSentMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream AccountAssistantSentMessage) {
     }; // TODO: Complete this service
 
@@ -48,6 +51,12 @@ message MessageForAccountSent {
     bool is_sent = 2;
     google.protobuf.Timestamp sent_at = 3;
     google.protobuf.Timestamp received_at = 4;
+}
+
+message FullMessageForAccountSent {
+    MessageForAccountSent message_for_account_sent = 1;
+    elint.entity.AccountConnectedAccount connected_account = 2;
+    string message = 3;
 }
 
 message SyncAccountSentMessagesResponse {
