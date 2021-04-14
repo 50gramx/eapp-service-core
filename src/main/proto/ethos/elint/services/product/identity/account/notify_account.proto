@@ -9,7 +9,9 @@ service NotifyAccountService {
     rpc NewReceivedMessageFromAccountAssistant (NewReceivedMessageFromAccountAssistantRequest) returns (elint.entity.ResponseMeta) {
     };
     rpc NewReceivedMessageFromAccount (NewReceivedMessageFromAccountRequest) returns (elint.entity.ResponseMeta) {
-    }; // TODO: Verify this service
+    };
+    rpc AccountConnectedAccountNotification (AccountConnectedAccountNotificationRequest) returns (elint.entity.ResponseMeta) {
+    }
 }
 
 // Message Definitions
@@ -23,4 +25,9 @@ message NewReceivedMessageFromAccountRequest {
     string account_id = 1;
     string connecting_account_id = 2;
     string message = 3;
+}
+
+message AccountConnectedAccountNotificationRequest {
+    elint.entity.Account account = 1;
+    elint.entity.AccountConnectedAccount connecting_account_connected_account = 2;
 }
