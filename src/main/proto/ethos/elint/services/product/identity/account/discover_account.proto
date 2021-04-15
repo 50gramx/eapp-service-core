@@ -22,7 +22,6 @@ service DiscoverAccountService {
     };
     rpc AreAccountsExistingWithMobile (AreAccountsExistingWithMobileRequest) returns (stream AreAccountsExistingWithMobileResponse) {
     };
-
 }
 
 message GetAccountByIdRequest {
