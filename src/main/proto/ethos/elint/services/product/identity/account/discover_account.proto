@@ -1,3 +1,23 @@
+/*************************************************************************
+*
+* AMIT KUMAR KHETAN CONFIDENTIAL
+* __________________
+*
+*  [2017] - [2021] Amit Kumar Khetan
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Amit Kumar Khetan and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Amit Kumar Khetan
+* and its suppliers and may be covered by U.S. and Foreign Patents,
+* patents in process, and are protected by trade secret or copyright law.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Amit Kumar Khetan.
+*/
+
+
 syntax = "proto3";
 
 option java_multiple_files = true;
@@ -12,55 +32,55 @@ import "ethos/elint/entities/generic.proto";
 import "ethos/elint/services/product/identity/account/access_account.proto";
 
 service DiscoverAccountService {
-    rpc GetAccountById (GetAccountByIdRequest) returns (GetAccountByIdResponse) {
-    };
-    rpc GetAccountProfilePicture (GetAccountProfilePictureRequest) returns (stream GetAccountProfilePictureResponse) {
-    }; // TODO: Complete this service https://ethos-alpha.atlassian.net/browse/NE-106
-    rpc GetAccountAssistant (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.AccountAssistant) {
-    }; // TODO: Complete this service
-    rpc IsAccountExistsWithMobile (IsAccountExistsWithMobileRequest) returns (elint.entity.ResponseMeta) {
-    };
-    rpc AreAccountsExistingWithMobile (AreAccountsExistingWithMobileRequest) returns (stream AreAccountsExistingWithMobileResponse) {
-    };
+  rpc GetAccountById (GetAccountByIdRequest) returns (GetAccountByIdResponse) {
+  };
+  rpc GetAccountProfilePicture (GetAccountProfilePictureRequest) returns (stream GetAccountProfilePictureResponse) {
+  }; // TODO: Complete this service https://ethos-alpha.atlassian.net/browse/NE-106
+  rpc GetAccountAssistant (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.AccountAssistant) {
+  }; // TODO: Complete this service
+  rpc IsAccountExistsWithMobile (IsAccountExistsWithMobileRequest) returns (elint.entity.ResponseMeta) {
+  };
+  rpc AreAccountsExistingWithMobile (AreAccountsExistingWithMobileRequest) returns (stream AreAccountsExistingWithMobileResponse) {
+  };
 }
 
 message GetAccountByIdRequest {
-    string account_id = 1;
+  string account_id = 1;
 }
 
 message GetAccountByIdResponse {
-    elint.entity.Account account = 1;
-    elint.entity.ResponseMeta response_meta = 2;
+  elint.entity.Account account = 1;
+  elint.entity.ResponseMeta response_meta = 2;
 }
 
 message GetAccountProfilePictureRequest {
-    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
-    elint.entity.PictureSize picture_size = 2;
-    elint.entity.PictureScale picture_scale = 3;
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  elint.entity.PictureSize picture_size = 2;
+  elint.entity.PictureScale picture_scale = 3;
 }
 
 message GetAccountProfilePictureResponse {
-    repeated bytes image_data = 1;
-    elint.entity.ResponseMeta response_meta = 3;
+  repeated bytes image_data = 1;
+  elint.entity.ResponseMeta response_meta = 3;
 }
 
 message IsAccountExistsWithMobileRequest {
-    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
-    string account_country_code = 2;
-    string account_mobile_number = 3;
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  string account_country_code = 2;
+  string account_mobile_number = 3;
 }
 
 message AreAccountsExistingWithMobileRequest {
-    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
-    repeated elint.entity.AccountMobile account_mobiles = 2;
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  repeated elint.entity.AccountMobile account_mobiles = 2;
 }
 
 message AreAccountsExistingWithMobileResponse {
-    message AccountMobileExists {
-        string account_country_code = 1;
-        string account_mobile_number = 2;
-        bool account_exists = 3;
-    }
-    AccountMobileExists account_mobiles_exists = 1;
-    elint.entity.ResponseMeta response_meta = 2;
+  message AccountMobileExists {
+    string account_country_code = 1;
+    string account_mobile_number = 2;
+    bool account_exists = 3;
+  }
+  AccountMobileExists account_mobiles_exists = 1;
+  elint.entity.ResponseMeta response_meta = 2;
 }
