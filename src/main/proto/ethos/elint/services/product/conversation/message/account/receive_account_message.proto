@@ -42,7 +42,8 @@ service ReceiveAccountMessageService {
   rpc SyncAccountReceivedMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream SyncAccountReceivedMessagesResponse) {
   };
 
-  rpc SyncAccountConnectedAccountReceivedMessages (SyncAccountConnectedAccountReceivedMessagesRequest) returns (stream SyncAccountConnectedAccountReceivedMessagesResponse) {};
+  rpc SyncAccountConnectedAccountReceivedMessages (SyncAccountConnectedAccountReceivedMessagesRequest) returns (stream SyncAccountConnectedAccountReceivedMessagesResponse) {
+  }; // TODO: Complete this RPC
 
   // Messaging RPC's
   rpc ListenForReceivedAccountAssistantMessages (ListenForReceivedAccountAssistantMessagesRequest) returns (ListenForReceivedAccountAssistantMessagesResponse) {
@@ -94,6 +95,7 @@ message SyncAccountConnectedAccountReceivedMessagesRequest {
 message SyncAccountConnectedAccountReceivedMessagesResponse {
   AccountReceivedMessage account_received_message = 1;
   elint.entity.ResponseMeta response_meta = 2;
+  double sync_progress = 3;
 }
 
 message ListenForReceivedAccountAssistantMessagesRequest {
