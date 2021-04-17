@@ -29,76 +29,90 @@ import "ethos/elint/services/product/identity/account/access_account.proto";
 
 // Service Definitions
 service SendAccountMessageService {
-    rpc SendMessageToAccountAssistant (MessageForAccountAssistant) returns (MessageForAccountAssistantSent) {
-    }; // Identify the message space and send it to relevant space for action
-    rpc SendMessageToAccount (MessageForAccount) returns (MessageForAccountSent) {
-    };
+  rpc SendMessageToAccountAssistant (MessageForAccountAssistant) returns (MessageForAccountAssistantSent) {
+  }; // Identify the message space and send it to relevant space for action
+  rpc SendMessageToAccount (MessageForAccount) returns (MessageForAccountSent) {
+  };
 
-    rpc SendSpeedMessageToAccount (stream MessageForAccount) returns (stream FullMessageForAccountSent) {
-    };
+  rpc SendSpeedMessageToAccount (stream MessageForAccount) returns (stream FullMessageForAccountSent) {
+  };
 
-    rpc SyncAccountAssistantSentMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream AccountAssistantSentMessage) {
-    }; // TODO: Complete this service
+  rpc SyncAccountAssistantSentMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream AccountAssistantSentMessage) {
+  }; // TODO: Complete this service
 
-    rpc SyncAccountSentMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream SyncAccountSentMessagesResponse) {
-    };
+  rpc SyncAccountSentMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream SyncAccountSentMessagesResponse) {
+  };
+  rpc SyncAccountConnectedAccountSentMessages (SyncAccountConnectedAccountSentMessagesRequest) returns (stream SyncAccountConnectedAccountSentMessagesResponse) {
+  }; // TODO: Complete this service
+
 }
 
 // Message Definitions
 message MessageForAccountAssistant {
-    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
-    elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2;
-    elint.entity.SpaceKnowledgeAction space_knowledge_action = 3;
-    string message = 4;
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2;
+  elint.entity.SpaceKnowledgeAction space_knowledge_action = 3;
+  string message = 4;
 }
 
 message MessageForAccountAssistantSent {
-    string account_assistant_sent_message_id = 1;
-    bool is_sent = 2;
-    google.protobuf.Timestamp sent_at = 3;
-    google.protobuf.Timestamp received_at = 4;
+  string account_assistant_sent_message_id = 1;
+  bool is_sent = 2;
+  google.protobuf.Timestamp sent_at = 3;
+  google.protobuf.Timestamp received_at = 4;
 }
 
 message MessageForAccount {
-    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
-    elint.entity.AccountConnectedAccount connected_account = 2;
-    string message = 3;
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  elint.entity.AccountConnectedAccount connected_account = 2;
+  string message = 3;
 }
 
 message MessageForAccountSent {
-    string account_sent_message_id = 1;
-    bool is_sent = 2;
-    google.protobuf.Timestamp sent_at = 3;
-    google.protobuf.Timestamp received_at = 4;
+  string account_sent_message_id = 1;
+  bool is_sent = 2;
+  google.protobuf.Timestamp sent_at = 3;
+  google.protobuf.Timestamp received_at = 4;
 }
 
 message FullMessageForAccountSent {
-    MessageForAccountSent message_for_account_sent = 1;
-    elint.entity.AccountConnectedAccount connected_account = 2;
-    string message = 3;
+  MessageForAccountSent message_for_account_sent = 1;
+  elint.entity.AccountConnectedAccount connected_account = 2;
+  string message = 3;
 }
 
 message SyncAccountSentMessagesResponse {
-    AccountSentMessage account_sent_message = 1;
-    elint.entity.ResponseMeta response_meta = 2;
+  AccountSentMessage account_sent_message = 1;
+  elint.entity.ResponseMeta response_meta = 2;
+}
+
+message SyncAccountConnectedAccountSentMessagesRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  elint.entity.AccountConnectedAccount connected_account = 2;
+}
+
+message SyncAccountConnectedAccountSentMessagesResponse {
+  AccountSentMessage account_sent_message = 1;
+  elint.entity.ResponseMeta response_meta = 2;
+  double sync_progress = 3;
 }
 
 message AccountAssistantSentMessage {
-    string account_assistant_sent_message_id = 1;
-    string account_assistant_id = 2;
-    string account_assistant_connection_id = 3;
-    string message = 4;
-    int32 message_space = 5;
-    int32 message_space_action = 6;
-    google.protobuf.Timestamp sent_at = 7;
-    google.protobuf.Timestamp received_at = 8;
+  string account_assistant_sent_message_id = 1;
+  string account_assistant_id = 2;
+  string account_assistant_connection_id = 3;
+  string message = 4;
+  int32 message_space = 5;
+  int32 message_space_action = 6;
+  google.protobuf.Timestamp sent_at = 7;
+  google.protobuf.Timestamp received_at = 8;
 }
 
 message AccountSentMessage {
-    string account_sent_message_id = 1;
-    string account_id = 2;
-    string account_connection_id = 3;
-    string message = 4;
-    google.protobuf.Timestamp sent_at = 5;
-    google.protobuf.Timestamp received_at = 6;
+  string account_sent_message_id = 1;
+  string account_id = 2;
+  string account_connection_id = 3;
+  string message = 4;
+  google.protobuf.Timestamp sent_at = 5;
+  google.protobuf.Timestamp received_at = 6;
 }
