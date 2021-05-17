@@ -29,6 +29,11 @@ service PayInAccountService {
   rpc CreateAccountPayIn (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
   rpc GetAccountPayInAccessKey (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountPayInAccessKey) {};
   rpc GetAccountPayInSecretKey (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountPayInSecretKey) {};
+  rpc GetAccountPayInIntent (GetAccountPayInIntentRequest) returns (GetAccountPayInIntentResponse) {};
+
+  // Payment Method: Card
+  rpc ListAllCards (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (ListAllCardsResponse) {};
+  rpc SaveCard (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (SaveCardResponse) {};
 }
 
 message AccountPayInPublishableKey {
@@ -43,4 +48,23 @@ message AccountPayInAccessKey {
 
 message AccountPayInSecretKey {
   string key = 1;
+}
+
+message GetAccountPayInIntentRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  bool prefer_billing_annually = 2;
+}
+
+message GetAccountPayInIntentResponse {
+  elint.entity.ResponseMeta response_meta = 2;
+}
+
+message ListAllCardsResponse {
+  repeated elint.entity.AccountPayInCardDetails account_pay_in_cards = 1;
+  elint.entity.ResponseMeta response_meta = 2;
+}
+
+message SaveCardResponse {
+  string save_card_secret = 1;
+  elint.entity.ResponseMeta response_meta = 2;
 }

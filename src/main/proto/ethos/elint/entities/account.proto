@@ -29,76 +29,93 @@ option java_outer_classname = "AccountProto";
 
 
 enum AccountGender {
-    UNKNOWN = 0;
-    FEMALE = 1;
-    MALE = 2;
+  UNKNOWN = 0;
+  FEMALE = 1;
+  MALE = 2;
 }
 
 message Account {
-    string account_analytics_id = 1;
-    string account_id = 2;
-    string account_personal_email_id = 3;
-    string account_work_email_id = 4;
-    string account_country_code = 5;
-    string account_mobile_number = 6;
-    string account_first_name = 7;
-    string account_last_name = 8;
-    string account_galaxy_id = 9;
-    google.protobuf.Timestamp account_birth_at = 10;
-    AccountGender account_gender = 11;
-    google.protobuf.Timestamp created_at = 12;
-    string account_billing_active = 13;
+  string account_analytics_id = 1;
+  string account_id = 2;
+  string account_personal_email_id = 3;
+  string account_work_email_id = 4;
+  string account_country_code = 5;
+  string account_mobile_number = 6;
+  string account_first_name = 7;
+  string account_last_name = 8;
+  string account_galaxy_id = 9;
+  google.protobuf.Timestamp account_birth_at = 10;
+  AccountGender account_gender = 11;
+  google.protobuf.Timestamp created_at = 12;
+  string account_billing_active = 13;
 }
 
 message AccountSpaceKnowledgeAccessMeta {
-    string account_id = 1;
-    string knowledge_space_access_session_token = 2;
-    string space_knowledge_id = 3;
-    google.protobuf.Timestamp access_at = 4;
+  string account_id = 1;
+  string knowledge_space_access_session_token = 2;
+  string space_knowledge_id = 3;
+  google.protobuf.Timestamp access_at = 4;
 }
 
 message AccountSpaceKnowledgeDomainAccessMeta {
-    string account_id = 1;
-    string knowledge_space_access_session_token = 2;
-    string space_knowledge_id = 3;
-    string space_knowledge_domain_id = 4;
-    google.protobuf.Timestamp access_at = 5;
+  string account_id = 1;
+  string knowledge_space_access_session_token = 2;
+  string space_knowledge_id = 3;
+  string space_knowledge_domain_id = 4;
+  google.protobuf.Timestamp access_at = 5;
 }
 
 message AccountSpaceKnowledgeDomainFileAccessMeta {
-    string account_id = 1;
-    string knowledge_space_access_session_token = 2;
-    string space_knowledge_id = 3;
-    string space_knowledge_domain_id = 4;
-    string space_knowledge_domain_file_id = 5;
-    google.protobuf.Timestamp access_at = 6;
+  string account_id = 1;
+  string knowledge_space_access_session_token = 2;
+  string space_knowledge_id = 3;
+  string space_knowledge_domain_id = 4;
+  string space_knowledge_domain_file_id = 5;
+  google.protobuf.Timestamp access_at = 6;
 }
 
 message AccountConnectedAccount {
-    string account_connection_id = 1;
-    string account_id = 2;
-    bool account_interested_in_connection = 3;
-    bool connected_account_interested_in_connection = 4;
-    google.protobuf.Timestamp connected_at = 5;
+  string account_connection_id = 1;
+  string account_id = 2;
+  bool account_interested_in_connection = 3;
+  bool connected_account_interested_in_connection = 4;
+  google.protobuf.Timestamp connected_at = 5;
 }
 
 message AccountConnectedAccountAssistant {
-    string account_assistant_connection_id = 1;
-    string account_assistant_id = 2;
-    google.protobuf.Timestamp connected_at = 3;
+  string account_assistant_connection_id = 1;
+  string account_assistant_id = 2;
+  google.protobuf.Timestamp connected_at = 3;
 }
 
 message AccountDeviceDetails {
-    AccountDeviceOS account_device_os = 1;
-    string device_token = 2;
+  AccountDeviceOS account_device_os = 1;
+  string device_token = 2;
 }
 
 message AccountMobile {
-    string account_country_code = 1;
-    string account_mobile_number = 2;
+  string account_country_code = 1;
+  string account_mobile_number = 2;
 }
 
 enum AccountDeviceOS {
-    IOS = 0;
-    ANDROID = 1;
+  IOS = 0;
+  ANDROID = 1;
+}
+
+
+// Payment related objects
+enum AccountPayInMethod {
+  CARD = 0;
+}
+
+message AccountPayInCardDetails {
+  string card_id = 1;
+  string brand = 2;
+  string country = 3;
+  int32 expiry_month = 4;
+  int32 expiry_year = 5;
+  string fingerprint = 6;
+  string funding = 7;
+  string last_4_digits = 8;
 }
