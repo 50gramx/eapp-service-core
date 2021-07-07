@@ -103,6 +103,26 @@ enum AccountDeviceOS {
   ANDROID = 1;
 }
 
+message AccountMeta {
+  string account_id = 2;
+  string account_first_name = 7;
+  string account_last_name = 8;
+  string account_galaxy_id = 9;
+  AccountGender account_gender = 11;
+}
+
+// AccountMessage
+enum MessageEntity {
+  ALL_ENTITY_MESSAGE = 0;
+  ENTITY_ACCOUNT = 1;
+  ENTITY_ACCOUNT_ASSISTANT = 2;
+}
+
+message MessageInfo {
+  bool is_urgent = 1;
+  bool is_important = 2;
+  bool is_sensitive = 3;
+}
 
 // Payment related objects
 enum AccountPayInMethod {
@@ -118,4 +138,10 @@ message AccountPayInCardDetails {
   string fingerprint = 6;
   string funding = 7;
   string last_4_digits = 8;
+}
+
+message AccountTransaction {
+  bool is_debited = 3;
+  double amount = 4;
+  double balance = 5;
 }
