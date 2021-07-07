@@ -32,14 +32,14 @@ import "ethos/elint/entities/generic.proto";
 // Service Definitions
 // ------------------------------------
 service AccessAccountService {
-    rpc ValidateAccount (ValidateAccountRequest) returns (ValidateAccountResponse) {
-    };
-    rpc VerifyAccount (VerifyAccountRequest) returns (VerifyAccountResponse) {
-    };
-    rpc ValidateAccountServices (AccountServicesAccessAuthDetails) returns (ValidateAccountServicesResponse) {
-    };
-    rpc ReAccountAccessToken (ReAccountAccessTokenRequest) returns (ReAccountAccessTokenResponse) {
-    }; // TODO: Write this service, update this with PIN
+  rpc ValidateAccount (ValidateAccountRequest) returns (ValidateAccountResponse) {
+  };
+  rpc VerifyAccount (VerifyAccountRequest) returns (VerifyAccountResponse) {
+  };
+  rpc ValidateAccountServices (AccountServicesAccessAuthDetails) returns (ValidateAccountServicesResponse) {
+  };
+  rpc ReAccountAccessToken (ReAccountAccessTokenRequest) returns (ReAccountAccessTokenResponse) {
+  }; // TODO: Write this service, update this with PIN
 }
 
 // ------------------------------------
@@ -48,62 +48,64 @@ service AccessAccountService {
 
 // Step One: Validate Account Created
 message ValidateAccountRequest {
-    // Service Request Properties
-    string account_mobile_number = 1;
-    // Meta Properties
-    google.protobuf.Timestamp requested_at = 2;
+  // Service Request Properties
+  string account_mobile_number = 1;
+  // Meta Properties
+  google.protobuf.Timestamp requested_at = 2;
+  // added later on (warning: not changing the number to support old ios apps)
+  string account_mobile_country_code = 3;
 }
 
 // Step One: Validate Account Created Response
 message ValidateAccountResponse {
-    // Auth Properties
-    AccountAccessAuthDetails account_access_auth_details = 1;
-    // Service Response Properties
-    bool account_exists = 2;
-    elint.entity.TemporaryTokenDetails verification_code_token_details = 3;
-    google.protobuf.Timestamp code_sent_at = 4;
-    // Meta Properties
-    bool validate_account_done = 5;
-    string validate_account_message = 6;
+  // Auth Properties
+  AccountAccessAuthDetails account_access_auth_details = 1;
+  // Service Response Properties
+  bool account_exists = 2;
+  elint.entity.TemporaryTokenDetails verification_code_token_details = 3;
+  google.protobuf.Timestamp code_sent_at = 4;
+  // Meta Properties
+  bool validate_account_done = 5;
+  string validate_account_message = 6;
 }
 
 // Step Three: Verify with OTP Request Properties (With OTP)
 message VerifyAccountRequest {
-    // Auth Properties
-    AccountAccessAuthDetails account_access_auth_details = 1;
-    // Service Request Properties
-    bool resend_code = 2;
-    elint.entity.TemporaryTokenDetails verification_code_token_details = 3;
-    string verification_code = 4;
-    elint.entity.AccountDeviceDetails account_device_details = 5;
-    // Meta Properties
-    google.protobuf.Timestamp requested_at = 6;
+  // Auth Properties
+  AccountAccessAuthDetails account_access_auth_details = 1;
+  // Service Request Properties
+  bool resend_code = 2;
+  elint.entity.TemporaryTokenDetails verification_code_token_details = 3;
+  string verification_code = 4;
+  elint.entity.AccountDeviceDetails account_device_details = 5;
+  // Meta Properties
+  google.protobuf.Timestamp requested_at = 6;
 }
 
 // Step Three: Verify with OTP Response Properties
 message VerifyAccountResponse {
-    // Service Properties
-    AccountServicesAccessAuthDetails account_service_access_auth_details = 1;
-    // Meta Properties
-    bool verification_done = 2;
-    string verification_message = 3;
+  // Service Properties
+  AccountServicesAccessAuthDetails account_service_access_auth_details = 1;
+  // Meta Properties
+  bool verification_done = 2;
+  string verification_message = 3;
 }
 
 message ValidateAccountServicesResponse {
-    bool account_service_access_validation_done = 1;
-    string account_service_access_validation_message = 2;
+  bool account_service_access_validation_done = 1;
+  string account_service_access_validation_message = 2;
 }
 
 message ReAccountAccessTokenRequest {
-    // Auth Properties
-    AccountServicesAccessAuthDetails account_service_access_auth_details = 1;
+  // Auth Properties
+  AccountServicesAccessAuthDetails account_service_access_auth_details = 1;
 }
 
 message ReAccountAccessTokenResponse {
-    // Auth Properties
-    AccountServicesAccessAuthDetails account_service_access_auth_details = 1;
-    // Response Properties
-    elint.entity.ResponseMeta response_meta = 2;
+  // Auth Properties
+  AccountServicesAccessAuthDetails account_service_access_auth_details = 1;
+  // Response Properties
+  elint.entity.ResponseMeta response_meta = 2;
 }
 
 // ------------------------------------
@@ -111,14 +113,14 @@ message ReAccountAccessTokenResponse {
 // ------------------------------------
 
 message AccountAccessAuthDetails {
-    string account_mobile_number = 1;
-    elint.entity.PersistentSessionTokenDetails account_access_auth_session_token_details = 2;
+  string account_mobile_number = 1;
+  elint.entity.PersistentSessionTokenDetails account_access_auth_session_token_details = 2;
 }
 
 message AccountServicesAccessAuthDetails {
-    // Auth Properties
-    elint.entity.Account account = 1; // Which account is requesting this?
-    elint.entity.PersistentSessionTokenDetails account_services_access_session_token_details = 2; // What is the session token wrt this request?
-    // Meta Properties
-    google.protobuf.Timestamp requested_at = 3; // When was this requested?
+  // Auth Properties
+  elint.entity.Account account = 1; // Which account is requesting this?
+  elint.entity.PersistentSessionTokenDetails account_services_access_session_token_details = 2; // What is the session token wrt this request?
+  // Meta Properties
+  google.protobuf.Timestamp requested_at = 3; // When was this requested?
 }

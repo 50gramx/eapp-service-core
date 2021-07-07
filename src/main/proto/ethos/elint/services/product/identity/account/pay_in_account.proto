@@ -21,6 +21,7 @@ syntax = "proto3";
 package elint.services.product.identity.account;
 
 import "ethos/elint/entities/account.proto";
+import "ethos/elint/entities/galaxy.proto";
 import "ethos/elint/entities/generic.proto";
 import "ethos/elint/services/product/identity/account/access_account.proto";
 
@@ -34,7 +35,24 @@ service PayInAccountService {
   // Payment Method: Card
   rpc ListAllCards (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (ListAllCardsResponse) {};
   rpc SaveCard (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (SaveCardResponse) {};
+
+  // Open Galaxy Tier
+  rpc AccountEthosCoinBalance (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountEthosCoinBalanceResponse) {};
+  rpc CreditAccountEthosCoinBalance (CreditAccountEthosCoinBalanceRequest) returns (elint.entity.ResponseMeta) {};
+  rpc CreateAccountOpenGalaxyTierSubscription (CreateAccountOpenGalaxyTierSubscriptionRequest) returns (elint.entity.ResponseMeta) {};
+
+  // Play Store Subscription
+  rpc VerifyAccountOpenGalaxyPlayStoreSubscriptionCharge (VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest) returns (elint.entity.ResponseMeta) {};
+  rpc ConfirmAccountOpenGalaxyPlayStoreSubscription (ConfirmAccountOpenGalaxyPlayStoreSubscriptionRequest) returns (elint.entity.ResponseMeta) {};
+
+  // Open Galaxy Tier Benefits
+  rpc UpdateAccountRemainingOpenGalaxyTierBenefits (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
+  rpc IsTierBenefitsRemainingForClosedDomainLaunchPerMonth (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
+  rpc IsTierBenefitsRemainingForClosedDomainPageLearningPerMonth (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
+  rpc IsTierBenefitsRemainingForClosedDomainInferencePerDay (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
+  rpc IsTierBenefitsRemainingForOpenDomainInferencePerDay (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
 }
+
 
 message AccountPayInPublishableKey {
   string key = 1;
@@ -67,4 +85,44 @@ message ListAllCardsResponse {
 message SaveCardResponse {
   string save_card_secret = 1;
   elint.entity.ResponseMeta response_meta = 2;
+}
+
+message AccountEthosCoinBalanceResponse {
+  elint.entity.ResponseMeta response_meta = 1;
+  double balance = 2;
+}
+
+message CreditAccountEthosCoinBalanceRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  double add_ethoscoin = 2;
+  string account_currency = 3;
+  string play_store_subscription_id = 4;
+  string google_play_purchase_token = 5;
+  string description = 6;
+}
+
+message CreateAccountOpenGalaxyTierSubscriptionRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  elint.entity.OpenGalaxyTierEnum open_galaxy_tier_enum = 2;
+}
+
+message VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  elint.entity.OpenGalaxyTierEnum open_galaxy_tier_enum = 2;
+  string google_play_purchase_token = 3;
+}
+
+message ConfirmAccountOpenGalaxyPlayStoreSubscriptionRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  elint.entity.OpenGalaxyTierEnum open_galaxy_tier_enum = 2;
+  string google_play_purchase_token = 3;
+}
+
+
+enum AddEthosCoinEnum {
+  ADD_100_ETHOSCOIN = 0;
+  ADD_200_ETHOSCOIN = 1;
+  ADD_400_ETHOSCOIN = 2;
+  ADD_800_ETHOSCOIN = 3;
+  ADD_1600_ETHOSCOIN = 4;
 }

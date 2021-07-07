@@ -34,6 +34,10 @@ import "ethos/elint/services/product/identity/account/access_account.proto";
 service DiscoverAccountService {
   rpc GetAccountById (GetAccountByIdRequest) returns (GetAccountByIdResponse) {
   };
+
+  rpc GetAccountMetaByAccountId (GetAccountMetaByAccountIdRequest) returns (GetAccountMetaByAccountIdResponse) {
+  }; // returns the account meta information by their ID TODO: Complete this service
+
   rpc GetAccountProfilePicture (GetAccountProfilePictureRequest) returns (stream GetAccountProfilePictureResponse) {
   }; // TODO: Complete this service https://ethos-alpha.atlassian.net/browse/NE-106
   rpc GetAccountAssistant (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.AccountAssistant) {
@@ -50,6 +54,17 @@ message GetAccountByIdRequest {
 
 message GetAccountByIdResponse {
   elint.entity.Account account = 1;
+  elint.entity.ResponseMeta response_meta = 2;
+}
+
+
+message GetAccountMetaByAccountIdRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  string account_id = 2;
+}
+
+message GetAccountMetaByAccountIdResponse {
+  elint.entity.AccountMeta account_meta = 1;
   elint.entity.ResponseMeta response_meta = 2;
 }
 
