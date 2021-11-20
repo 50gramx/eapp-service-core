@@ -21,7 +21,7 @@ syntax = "proto3";
 
 option java_multiple_files = true;
 option java_package = "elint.entity";
-option java_outer_classname = "OrganizationProto";
+option java_outer_classname = "OrganisationProto";
 
 
 package elint.entity;
@@ -30,30 +30,30 @@ import "ethos/elint/entities/account.proto";
 
 import public "google/protobuf/timestamp.proto";
 
-message Organization {
-    string organization_id = 1;
-    string organization_name = 2;
-    string organization_space_id = 3;
-    string admin_account_id = 4;
-    bool active = 5;
-    bool billing_active = 6;
-    google.protobuf.Timestamp created_at = 7;
+message Organisation {
+  string organization_id = 1;
+  string organization_name = 2;
+  string organization_space_id = 3;
+  string admin_account_id = 4;
+  bool active = 5;
+  bool billing_active = 6;
+  google.protobuf.Timestamp created_at = 7;
 }
 
 
-/* CreateOrganizationRequest represents Onboarding Organisation Request*/
-message ReserveOrganizationRequest {
-    string organization_space = 1;      // organisation space reservation
-    google.protobuf.Timestamp created_at = 2;   // request created at
+/* CreateOrganisationRequest represents Onboarding Organisation Request*/
+message ReserveOrganisationRequest {
+  string organization_space = 1;      // organisation space reservation
+  google.protobuf.Timestamp created_at = 2;   // request created at
 }
 
-/* CreateOrganizationResponse represents reservation of organisation space *
+/* CreateOrganisationResponse represents reservation of organisation space *
 * till the admin account verifies the email id and enables the billing */
-message ReserveOrganizationResponse {
-    string organization_space = 1;      // organisation space reservation
-    bool organization_space_reserved = 2;   // was the space reservation successful?
-    string account_email_id = 3;        // admin account email id
-    bool account_email_id_verified = 4;     // admin account verification pending
-    string message = 5;
+message ReserveOrganisationResponse {
+  string organization_space = 1;      // organisation space reservation
+  bool organization_space_reserved = 2;   // was the space reservation successful?
+  string account_email_id = 3;        // admin account email id
+  bool account_email_id_verified = 4;     // admin account verification pending
+  string message = 5;
 }
 

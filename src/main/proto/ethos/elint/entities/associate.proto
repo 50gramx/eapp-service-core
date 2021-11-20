@@ -1,0 +1,62 @@
+/*************************************************************************
+*
+* AMIT KUMAR KHETAN CONFIDENTIAL
+* __________________
+*
+*  [2017] - [2021] Amit Kumar Khetan
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Amit Kumar Khetan and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Amit Kumar Khetan
+* and its suppliers and may be covered by U.S. and Foreign Patents,
+* patents in process, and are protected by trade secret or copyright law.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Amit Kumar Khetan.
+*/
+
+syntax = "proto3";
+
+package elint.entity;
+
+import public "google/protobuf/timestamp.proto";
+
+import "ethos/elint/entities/account.proto";
+import "ethos/elint/entities/organisation.proto";
+
+option java_multiple_files = true;
+option java_package = "elint.entity";
+option java_outer_classname = "AssociateProto";
+
+message Associate {
+  elint.entity.Account associated_account = 1;
+  elint.entity.Organisation associated_organisation = 2;
+  int32 associate_id = 3;
+  AssociateLevel associate_level = 4;
+  AssociateDepartment associate_department = 5;
+  string associate_designation = 6;
+  int32 reports_to_associate_id = 7;
+  google.protobuf.Timestamp associated_at = 10;
+}
+
+enum AssociateLevel {
+  LEVEL_0 = 0;
+  LEVEL_1 = 1;
+  LEVEL_2 = 2;
+  LEVEL_3 = 3;
+  LEVEL_4 = 4;
+  LEVEL_5 = 5;
+}
+
+enum AssociateDepartment {
+  ACCOUNTING = 0;
+  HUMAN_RESOURCE = 1;
+  INFORMATION_TECHNOLOGY = 2;
+  LOGISTICS = 3;
+  MARKETING = 4;
+  PRODUCTION = 5;
+  SALES = 6;
+  WORKS = 7;
+}
