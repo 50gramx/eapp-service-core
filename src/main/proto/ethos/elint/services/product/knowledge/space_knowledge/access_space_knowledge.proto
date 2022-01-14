@@ -34,14 +34,13 @@ service AccessSpaceKnowledgeService {
 }
 
 // Message Definitions
-//TODO: Create Request Params
+// TODO: Create Request Params
 message SpaceKnowledgeAccessTokenResponse {
     // Service Parameters
     SpaceKnowledgeServicesAccessAuthDetails space_knowledge_services_access_auth_details = 1;
     bool space_knowledge_services_access_done = 2;
     string space_knowledge_services_access_message = 3;
 }
-
 
 message ValidateSpaceKnowledgeServicesResponse {
     bool space_knowledge_services_access_validation_done = 1;
