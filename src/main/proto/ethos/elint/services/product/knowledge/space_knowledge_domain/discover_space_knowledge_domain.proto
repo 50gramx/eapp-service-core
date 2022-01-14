@@ -28,67 +28,75 @@ import "ethos/elint/services/product/knowledge/space_knowledge_domain/access_spa
 
 // Service Definitions
 service DiscoverSpaceKnowledgeDomainService {
-    rpc GetAllDomainFiles (SpaceKnowledgeDomainServicesAccessAuthDetails) returns (GetAllDomainFilesResponse) {
-    };
-    rpc GetUpdatedDomain (SpaceKnowledgeDomainServicesAccessAuthDetails) returns (elint.entity.SpaceKnowledgeDomain) {
-    };
-    rpc GetBestAnswers (GetBestAnswersRequest) returns (GetBestAnswersResponse) {
-    };
-    rpc RetrieveMessageContextPages (RetrieveMessageContextPagesRequest) returns (RetrieveMessageContextPagesResponse) {
-    }; // TODO: Build services
-    rpc RetrieveMessageContextParas (RetrieveMessageContextPagesRequest) returns (RetrieveMessageContextPagesResponse) {
-    }; // TODO: Build contracts and services
-    rpc IsMessageContextInDomain (IsMessageContextInDomainRequest) returns (IsMessageContextInDomainResponse) {
-    }; // TODO: Build services
+  rpc GetAllDomainFiles (SpaceKnowledgeDomainServicesAccessAuthDetails) returns (GetAllDomainFilesResponse) {
+  };
+  rpc GetUpdatedDomain (SpaceKnowledgeDomainServicesAccessAuthDetails) returns (elint.entity.SpaceKnowledgeDomain) {
+  };
+  rpc GetBestAnswers (GetBestAnswersRequest) returns (GetBestAnswersResponse) {
+  };
+
+
+  rpc IsDomainEmpty (SpaceKnowledgeDomainServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
+
+  rpc RetrieveMessageContextPages (RetrieveMessageContextPagesRequest) returns (RetrieveMessageContextPagesResponse) {
+  }; // TODO: Build services
+  rpc RetrieveMessageContextParas (RetrieveMessageContextPagesRequest) returns (RetrieveMessageContextPagesResponse) {
+  }; // TODO: Build contracts and services
+  rpc IsMessageContextInDomain (IsMessageContextInDomainRequest) returns (IsMessageContextInDomainResponse) {
+  }; // TODO: Build services
+
+  // Count
+  rpc GetFileCount (SpaceKnowledgeDomainServicesAccessAuthDetails) returns (FileCountResponse) {};
+  rpc GetPageCount (SpaceKnowledgeDomainServicesAccessAuthDetails) returns (PageCountResponse) {};
 }
 
 // Message Definitions
 message GetAllDomainFilesResponse {
-    repeated elint.entity.SpaceKnowledgeDomainFile files = 1;
+  repeated elint.entity.SpaceKnowledgeDomainFile files = 1;
 }
 
 message GetBestAnswersRequest {
-    // Auth Properties
-    SpaceKnowledgeDomainServicesAccessAuthDetails access_auth_details = 1;
-    // Request Properties
-    int32 best_answers_count = 2;
-    string question = 3;
+  // Auth Properties
+  SpaceKnowledgeDomainServicesAccessAuthDetails access_auth_details = 1;
+  // Request Properties
+  int32 best_answers_count = 2;
+  string question = 3;
 }
 
 message GetBestAnswersResponse {
-    // Response Properties
-    repeated elint.entity.RankedAnswer ranked_answers = 1;
-    // Meta Properties
-    elint.entity.ResponseMeta response_meta = 2;
+  // Response Properties
+  repeated elint.entity.RankedAnswer ranked_answers = 1;
+  // Meta Properties
+  elint.entity.ResponseMeta response_meta = 2;
 }
 
 
 message RetrieveMessageContextPagesRequest {
-    // Auth Properties
-    SpaceKnowledgeDomainServicesAccessAuthDetails access_auth_details = 1;
-    // Request Properties
-    string message = 2;
+  // Auth Properties
+  SpaceKnowledgeDomainServicesAccessAuthDetails access_auth_details = 1;
+  // Request Properties
+  string message = 2;
 }
 message RetrieveMessageContextPagesResponse {
-    // response properties
-    repeated ContextPage context_page = 1;
-    // Meta Properties
-    elint.entity.ResponseMeta response_meta = 3;
+  // response properties
+  repeated ContextPage context_page = 1;
+  // Meta Properties
+  elint.entity.ResponseMeta response_meta = 3;
 }
 
 
 message IsMessageContextInDomainRequest {
-    // Auth Properties
-    SpaceKnowledgeDomainServicesAccessAuthDetails access_auth_details = 1;
-    // Request Properties
-    string message = 2;
+  // Auth Properties
+  SpaceKnowledgeDomainServicesAccessAuthDetails access_auth_details = 1;
+  // Request Properties
+  string message = 2;
 }
 message IsMessageContextInDomainResponse {
-    // response properties
-    bool message_context_in_domain = 1;
-    int32 message_context_score = 2;
-    // Meta Properties
-    elint.entity.ResponseMeta response_meta = 3;
+  // response properties
+  bool message_context_in_domain = 1;
+  int32 message_context_score = 2;
+  // Meta Properties
+  elint.entity.ResponseMeta response_meta = 3;
 }
 
 
@@ -96,9 +104,21 @@ message GetInferredDomainsResponse {
 
 }
 
+// Count RPC's messages
+message FileCountResponse {
+  int32 file_count = 1;
+  elint.entity.ResponseMeta response_meta = 2;
+}
+
+message PageCountResponse {
+  int32 page_count = 1;
+  elint.entity.ResponseMeta response_meta = 2;
+}
+
+
 // Meta Messages Definitions
 message ContextPage {
-    int32 page_rank = 1;
-    string page_id = 2;
-    int32 page_score = 3;
+  int32 page_rank = 1;
+  string page_id = 2;
+  int32 page_score = 3;
 }
