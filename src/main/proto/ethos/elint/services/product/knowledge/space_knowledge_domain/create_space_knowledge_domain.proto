@@ -32,7 +32,7 @@ service CreateSpaceKnowledgeDomainService {
     rpc CreateAccountWhiteSpaceKnowledgeDomain (elint.services.product.knowledge.space.SpaceKnowledgeServicesAccessAuthDetails) returns (CreateAccountWhiteSpaceKnowledgeDomainResponse) {
     };
     rpc CreateSpaceKnowledgeDomainTfIdf (elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {
-    }; // todo: write this service
+    }; // todo: write and verify this service
     rpc CreateSpaceKnowledgeDomain (CreateSpaceKnowledgeDomainRequest) returns (CreateSpaceKnowledgeDomainResponse) {
     };
 }
