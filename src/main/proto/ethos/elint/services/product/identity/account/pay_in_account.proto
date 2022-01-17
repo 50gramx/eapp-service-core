@@ -25,6 +25,8 @@ import "ethos/elint/entities/galaxy.proto";
 import "ethos/elint/entities/generic.proto";
 import "ethos/elint/services/product/identity/account/access_account.proto";
 
+import "ethos/elint/services/product/knowledge/space_knowledge/access_space_knowledge.proto";
+
 service PayInAccountService {
   rpc GetAccountPayInPublishableKey (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountPayInPublishableKey) {};
   rpc CreateAccountPayIn (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
@@ -45,12 +47,19 @@ service PayInAccountService {
   rpc VerifyAccountOpenGalaxyPlayStoreSubscriptionCharge (VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest) returns (elint.entity.ResponseMeta) {};
   rpc ConfirmAccountOpenGalaxyPlayStoreSubscription (ConfirmAccountOpenGalaxyPlayStoreSubscriptionRequest) returns (elint.entity.ResponseMeta) {};
 
+  // Play Store Add EthosCoin
+  rpc VerifyAccountEthosCoinBalanceAddition (VerifyAccountEthosCoinBalanceAdditionRequest) returns (elint.entity.ResponseMeta) {};
+  rpc ConfirmAccountEthosCoinBalanceAddition (ConfirmAccountEthosCoinBalanceAdditionRequest) returns (elint.entity.ResponseMeta) {};
+
   // Open Galaxy Tier Benefits
   rpc UpdateAccountRemainingOpenGalaxyTierBenefits (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
   rpc IsTierBenefitsRemainingForClosedDomainLaunchPerMonth (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
   rpc IsTierBenefitsRemainingForClosedDomainPageLearningPerMonth (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
   rpc IsTierBenefitsRemainingForClosedDomainInferencePerDay (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
   rpc IsTierBenefitsRemainingForOpenDomainInferencePerDay (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
+
+  // Charge
+  rpc ChargeForClosedDomainLaunch (elint.services.product.knowledge.space.SpaceKnowledgeServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
 }
 
 
@@ -99,6 +108,7 @@ message CreditAccountEthosCoinBalanceRequest {
   string play_store_subscription_id = 4;
   string google_play_purchase_token = 5;
   string description = 6;
+  string play_store_product_id = 7;
 }
 
 message CreateAccountOpenGalaxyTierSubscriptionRequest {
@@ -118,6 +128,17 @@ message ConfirmAccountOpenGalaxyPlayStoreSubscriptionRequest {
   string google_play_purchase_token = 3;
 }
 
+message ConfirmAccountEthosCoinBalanceAdditionRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  AddEthosCoinEnum add_ethos_coin_enum = 2;
+  string google_play_purchase_token = 3;
+}
+
+message VerifyAccountEthosCoinBalanceAdditionRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  AddEthosCoinEnum add_ethos_coin_enum = 2;
+  string google_play_purchase_token = 3;
+}
 
 enum AddEthosCoinEnum {
   ADD_100_ETHOSCOIN = 0;
@@ -125,4 +146,6 @@ enum AddEthosCoinEnum {
   ADD_400_ETHOSCOIN = 2;
   ADD_800_ETHOSCOIN = 3;
   ADD_1600_ETHOSCOIN = 4;
+  ADD_3200_ETHOSCOIN = 5;
+  ADD_6400_ETHOSCOIN = 6;
 }

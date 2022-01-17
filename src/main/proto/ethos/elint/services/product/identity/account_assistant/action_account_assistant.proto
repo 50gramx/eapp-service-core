@@ -24,6 +24,7 @@ package elint.services.product.identity.account.assistant;
 import "ethos/elint/entities/account.proto";
 import "ethos/elint/entities/account_assistant.proto";
 import "ethos/elint/entities/space_knowledge.proto";
+import "ethos/elint/entities/space_knowledge_domain.proto";
 import "ethos/elint/entities/generic.proto";
 
 import "ethos/elint/services/product/identity/account_assistant/access_account_assistant.proto";
@@ -40,4 +41,6 @@ message ActOnAccountMessageRequest {
     elint.entity.AccountAssistantConnectedAccount connected_account = 2;
     elint.entity.SpaceKnowledgeAction space_knowledge_action = 3;
     string message = 4;
+    bool act_on_particular_domain = 5;
+    elint.entity.SpaceKnowledgeDomain space_knowledge_domain = 6; // Reserve 7,8,9
 }

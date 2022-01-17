@@ -46,6 +46,8 @@ service DiscoverAccountService {
   };
   rpc AreAccountsExistingWithMobile (AreAccountsExistingWithMobileRequest) returns (stream AreAccountsExistingWithMobileResponse) {
   };
+
+  rpc IsAccountBillingActive (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
 }
 
 message GetAccountByIdRequest {

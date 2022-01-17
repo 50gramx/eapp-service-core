@@ -18,11 +18,10 @@
 */
 
 syntax = "proto3";
-package elint.services.product.identity;
+package elint.services.product.identity.organisation;
 
-import "ethos/elint/entities/organization_space.proto";
+import "ethos/elint/entities/account.proto";
 
-service OnboardOrganizationSpaceService {
-    rpc claim_organization_space (elint.entity.ClaimOrganizationSpaceRequest) returns (elint.entity.ClaimOrganizationSpaceResponse) {
-    };
+
+service CreateOrganisationService {
 }

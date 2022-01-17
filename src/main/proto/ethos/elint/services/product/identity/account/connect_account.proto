@@ -37,15 +37,19 @@ service ConnectAccountService {
   }; // returns list of connected assistants (account assistants except self connected account assistant)
 
   rpc GetAllConnectedAccountAssistants (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (ConnectedAccountAssistants) {
-  }; // returns list of connected account assistants except self connected account assistant
+  }; // returns list of connected account assistants # todo: except self connected account assistant
   rpc GetAllConnectedAccounts (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (ConnectedAccounts) {
   }; // returns list of connected accounts
 
   rpc GetConnectedAccount (GetConnectedAccountRequest) returns (GetConnectedAccountResponse) {
-  }; // returns the connected account if connection exists TODO: Complete this service
+  }; // returns the connected account if connection exists
+  rpc GetConnectedAccountAssistant (GetConnectedAccountAssistantRequest) returns (GetConnectedAccountAssistantResponse) {
+  }; // returns the connected account assistant if connection exists
 
   rpc IsAccountConnectionExists (IsAccountConnectionExistsRequest) returns (elint.entity.ResponseMeta) {
   }; // Checks if the account is connected or not
+  rpc IsAccountAssistantConnectionExists (IsAccountAssistantConnectionExistsRequest) returns (elint.entity.ResponseMeta) {
+  }; // Checks if the account assistant is connected or not
 
   rpc IsAccountAssistantConnected (IsAccountAssistantConnectedRequest) returns (elint.entity.ResponseMeta) {
   }; // Verifies if the account assistant is connected or not
@@ -54,11 +58,14 @@ service ConnectAccountService {
 
   rpc ParseAccountMobiles (ParseAccountMobilesRequest) returns (ParseAccountMobilesResponse) {
   };
+  rpc ParseStreamingAccountMobiles (stream ParseStreamingAccountMobilesRequest) returns (stream ParseStreamingAccountMobilesResponse) {
+  };
 
   rpc SyncAccountConnections (SyncAccountConnectionsRequest) returns (SyncAccountConnectionsResponse) {
   };
   rpc ConnectAccount (ConnectAccountRequest) returns (ConnectAccountResponse) {
   };
+  rpc ToggleAccountConnectAccountInterest (ToggleAccountConnectAccountInterestRequest) returns (elint.entity.ResponseMeta) {};
 }
 
 // Message Definitions
@@ -107,9 +114,24 @@ message GetConnectedAccountResponse {
   elint.entity.ResponseMeta response_meta = 2;
 }
 
+message GetConnectedAccountAssistantRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  string account_assistant_id = 2;
+}
+
+message GetConnectedAccountAssistantResponse {
+  elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 1;
+  elint.entity.ResponseMeta response_meta = 2;
+}
+
 message IsAccountConnectionExistsRequest {
   elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
   string account_id = 2;
+}
+
+message IsAccountAssistantConnectionExistsRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  string account_assistant_id = 2;
 }
 
 message IsAccountAssistantConnectedRequest {
@@ -132,6 +154,13 @@ message ParseAccountMobilesResponse {
   elint.entity.ResponseMeta response_meta = 2;
 }
 
+message ParseStreamingAccountMobilesRequest {
+  repeated string connecting_account_mobile_numbers = 2;
+}
+
+message ParseStreamingAccountMobilesResponse {
+  repeated elint.entity.AccountMobile account_mobiles = 1;
+}
 
 message SyncAccountConnectionsRequest {
   elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
@@ -152,7 +181,14 @@ message ConnectAccountRequest {
   string connecting_account_id = 2;
 }
 
+// TODO (amit & smita): Define Connection flow
+
 message ConnectAccountResponse {
   elint.entity.AccountConnectedAccount connected_account = 1;
   elint.entity.ResponseMeta response_meta = 2;
+}
+
+message ToggleAccountConnectAccountInterestRequest{
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  elint.entity.AccountConnectedAccount connected_account = 2;
 }

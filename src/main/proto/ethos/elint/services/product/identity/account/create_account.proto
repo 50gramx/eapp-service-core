@@ -34,12 +34,15 @@ import "ethos/elint/services/product/identity/account/access_account.proto";
 // ------------------------------------
 
 service CreateAccountService {
-    rpc ValidateAccountWithMobile (ValidateAccountWithMobileRequest) returns (ValidateAccountWithMobileResponse) {
-    };
-    rpc VerificationAccount (VerificationAccountRequest) returns (VerificationAccountResponse) {
-    };
-    rpc CaptureAccountMetaDetails (CaptureAccountMetaDetailsRequest) returns (CaptureAccountMetaDetailsResponse) {
-    }; // remember device token here
+  rpc ValidateAccountWithMobile (ValidateAccountWithMobileRequest) returns (ValidateAccountWithMobileResponse) {
+  };
+  rpc VerificationAccount (VerificationAccountRequest) returns (VerificationAccountResponse) {
+  };
+  rpc CaptureAccountMetaDetails (CaptureAccountMetaDetailsRequest) returns (CaptureAccountMetaDetailsResponse) {
+  }; // remember device token here
+
+  rpc ActivateAccountBilling (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
+  rpc DeactivateAccountBilling (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
 }
 
 // ------------------------------------
@@ -48,64 +51,64 @@ service CreateAccountService {
 
 
 message ValidateAccountWithMobileRequest {
-    // Service Request Properties
-    string account_mobile_country_code = 1;
-    string account_mobile_number = 2;
-    // Meta Properties
-    google.protobuf.Timestamp requested_at = 3;
+  // Service Request Properties
+  string account_mobile_country_code = 1;
+  string account_mobile_number = 2;
+  // Meta Properties
+  google.protobuf.Timestamp requested_at = 3;
 }
 
 message ValidateAccountWithMobileResponse {
-    // Auth Properties
-    AccountCreationAuthDetails account_creation_auth_details = 1;
-    // Service Response Properties
-    bool account_exists_with_mobile = 2;
-    elint.entity.TemporaryTokenDetails verification_code_token_details = 3;
-    google.protobuf.Timestamp code_sent_at = 4;
-    // Meta Properties
-    bool validate_account_with_mobile_done = 5;
-    string validate_account_with_mobile_message = 6;
+  // Auth Properties
+  AccountCreationAuthDetails account_creation_auth_details = 1;
+  // Service Response Properties
+  bool account_exists_with_mobile = 2;
+  elint.entity.TemporaryTokenDetails verification_code_token_details = 3;
+  google.protobuf.Timestamp code_sent_at = 4;
+  // Meta Properties
+  bool validate_account_with_mobile_done = 5;
+  string validate_account_with_mobile_message = 6;
 }
 
 
 message VerificationAccountRequest {
-    // Auth Properties
-    AccountCreationAuthDetails account_creation_auth_details = 1;
-    // Service Request Properties
-    bool resend_code = 2;
-    string verification_code = 3;
-    elint.entity.TemporaryTokenDetails verification_code_token_details = 4;
-    // Meta Properties
-    google.protobuf.Timestamp requested_at = 5;
+  // Auth Properties
+  AccountCreationAuthDetails account_creation_auth_details = 1;
+  // Service Request Properties
+  bool resend_code = 2;
+  string verification_code = 3;
+  elint.entity.TemporaryTokenDetails verification_code_token_details = 4;
+  // Meta Properties
+  google.protobuf.Timestamp requested_at = 5;
 }
 
 message VerificationAccountResponse {
-    // Meta Properties
-    bool verification_done = 1;
-    string verification_message = 2;
+  // Meta Properties
+  bool verification_done = 1;
+  string verification_message = 2;
 }
 
 
 message CaptureAccountMetaDetailsRequest {
-    // Auth Properties
-    AccountCreationAuthDetails account_creation_auth_details = 1;
-    // Service Request Properties
-    string account_first_name = 2;
-    string account_last_name = 3;
-    google.protobuf.Timestamp account_birth_at = 4;
-    elint.entity.AccountGender account_gender = 5;
-    elint.entity.AccountDeviceDetails account_device_details = 6;
-    string account_assistant_name = 7;
-    // Meta Properties
-    google.protobuf.Timestamp requested_at = 8;
+  // Auth Properties
+  AccountCreationAuthDetails account_creation_auth_details = 1;
+  // Service Request Properties
+  string account_first_name = 2;
+  string account_last_name = 3;
+  google.protobuf.Timestamp account_birth_at = 4;
+  elint.entity.AccountGender account_gender = 5;
+  elint.entity.AccountDeviceDetails account_device_details = 6;
+  string account_assistant_name = 7;
+  // Meta Properties
+  google.protobuf.Timestamp requested_at = 8;
 }
 
 message CaptureAccountMetaDetailsResponse {
-    // Service Response Properties
-    AccountServicesAccessAuthDetails account_service_access_auth_details = 1;
-    // Meta Properties
-    bool account_creation_done = 2;
-    string account_creation_message = 3;
+  // Service Response Properties
+  AccountServicesAccessAuthDetails account_service_access_auth_details = 1;
+  // Meta Properties
+  bool account_creation_done = 2;
+  string account_creation_message = 3;
 }
 
 // ------------------------------------
@@ -113,10 +116,10 @@ message CaptureAccountMetaDetailsResponse {
 // ------------------------------------
 
 message AccountCreationAuthDetails {
-    // Auth Properties
-    string account_mobile_country_code = 1;
-    string account_mobile_number = 2; // Which account email id is creating a new account?
-    elint.entity.PersistentSessionTokenDetails account_creation_session_token_details = 3; // What is the session token wrt this request?
-    // Meta Properties
-    google.protobuf.Timestamp requested_at = 4; // When was this requested?
+  // Auth Properties
+  string account_mobile_country_code = 1;
+  string account_mobile_number = 2; // Which account email id is creating a new account?
+  elint.entity.PersistentSessionTokenDetails account_creation_session_token_details = 3; // What is the session token wrt this request?
+  // Meta Properties
+  google.protobuf.Timestamp requested_at = 4; // When was this requested?
 }

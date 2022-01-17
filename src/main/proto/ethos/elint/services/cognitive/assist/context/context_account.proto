@@ -27,21 +27,32 @@ package elint.services.cognitive.assist.context.account;
 
 import "ethos/elint/entities/space_knowledge.proto";
 import "ethos/elint/services/product/identity/account_assistant/access_account_assistant.proto";
+import "ethos/elint/entities/generic.proto";
 
 // Service Definitions
 service ContextAccountService {
-    rpc GetAccountMessageContext (AccountMessage) returns (AccountMessageContext) {
-    }; // Understands the Message Context namely SpaceKind and SpaceAction
+  rpc GetAccountMessageContext (stream AccountMessage) returns (stream AccountMessageContext) {
+  }; // Understands the Message Context namely SpaceKind and SpaceAction
 }
 
 // Message Definitions
 message AccountMessage {
-    // Auth Properties
-    elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails access_auth_details = 1;
-    // Message Properties
-    string message = 2;
+  // Auth Properties
+  elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails access_auth_details = 1;
+  // Message Properties
+  string message = 2;
 }
 
 message AccountMessageContext {
-    repeated elint.entity.SpaceKnowledgeAction knowledge_space_actions = 1;
+  // Knowledge Space Contextual Actions
+  repeated KnowledgeContextualAction knowledge_contextual_actions = 1;
+  // Meta Parameters
+  elint.entity.ResponseMeta response_meta = 2;
+}
+
+// Meta Messages
+message KnowledgeContextualAction {
+  string knowledge_context_action_id = 1;
+  elint.entity.SpaceKnowledgeAction knowledge_space_action = 2;
+  float knowledge_context_confidence = 3;
 }
