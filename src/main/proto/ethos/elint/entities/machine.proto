@@ -27,10 +27,13 @@ package elint.entity;
 
 enum MachineClassEnum {
   GENERAL = 0;
+  ACCELERATED = 1;
 }
 
 enum MachineNameEnum {
   X2 = 0;
+  M2N = 1;
+  M2 = 2;
 }
 
 enum MachineTypeEnum {

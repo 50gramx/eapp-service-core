@@ -47,7 +47,7 @@ message Account {
   google.protobuf.Timestamp account_birth_at = 10;
   AccountGender account_gender = 11;
   google.protobuf.Timestamp created_at = 12;
-  string account_billing_active = 13;
+  bool account_billing_active = 13;
 }
 
 message AccountSpaceKnowledgeAccessMeta {
@@ -101,6 +101,9 @@ message AccountMobile {
 enum AccountDeviceOS {
   IOS = 0;
   ANDROID = 1;
+  MACOS = 2;
+  WINDOWS = 3;
+  LINUX = 4;
 }
 
 message AccountMeta {
@@ -145,3 +148,27 @@ message AccountTransaction {
   double amount = 4;
   double balance = 5;
 }
+
+// TODO (amit): discuss with team to confirm on below added entities
+
+message AccountPreferredFirstLanguage {
+  LanguageEnum preferred_language = 1;
+}
+
+message AccountPreferredSecondLanguage {
+  LanguageEnum preferred_language = 1;
+}
+
+enum LanguageEnum {
+  ENGLISH = 0;
+  HINDI = 1;
+  ODIA = 2;
+  //  Let's add more preferred languages as per the sheet
+}
+
+message AccountCurrentLocation {
+  // TODO(amit): add params and structure this with other entities
+}
+
+// TODO (amit & smita): Profiling user past experiences and education
+// TODO (amit & smita): build the structure for the skills/exams

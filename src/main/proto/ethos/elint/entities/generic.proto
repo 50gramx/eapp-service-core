@@ -31,50 +31,56 @@ import public "google/protobuf/timestamp.proto";
 // TOKEN DETAILS
 
 message PersistentSessionTokenDetails {
-    string session_token = 1;
-    string session_scope = 2;
-    google.protobuf.Timestamp generated_at = 3;
-    google.protobuf.Timestamp last_used_at = 4;
-    google.protobuf.Timestamp valid_till = 5;
+  string session_token = 1;
+  string session_scope = 2;
+  google.protobuf.Timestamp generated_at = 3;
+  google.protobuf.Timestamp last_used_at = 4;
+  google.protobuf.Timestamp valid_till = 5;
 }
 
 message TemporarySessionTokenDetails {
-    string session_token = 1;
-    string session_scope = 2;
-    google.protobuf.Timestamp generated_at = 3;
-    google.protobuf.Timestamp valid_till = 4;
+  string session_token = 1;
+  string session_scope = 2;
+  google.protobuf.Timestamp generated_at = 3;
+  google.protobuf.Timestamp valid_till = 4;
 }
 
 message PersistentTokenDetails {
-    string token = 1;
-    google.protobuf.Timestamp generated_at = 2;
-    google.protobuf.Timestamp last_used_at = 3;
-    google.protobuf.Timestamp valid_till = 4;
+  string token = 1;
+  google.protobuf.Timestamp generated_at = 2;
+  google.protobuf.Timestamp last_used_at = 3;
+  google.protobuf.Timestamp valid_till = 4;
 }
 
 message TemporaryTokenDetails {
-    string token = 1;
-    google.protobuf.Timestamp generated_at = 2;
-    google.protobuf.Timestamp valid_till = 3;
+  string token = 1;
+  google.protobuf.Timestamp generated_at = 2;
+  google.protobuf.Timestamp valid_till = 3;
 }
 
 message ResponseMeta {
-    bool meta_done = 1;
-    string meta_message = 2;
+  bool meta_done = 1;
+  string meta_message = 2;
 }
 
 // Picture
 enum PictureSize {
-    x20 = 0;
-    x29 = 1;
-    x40 = 2;
-    x60 = 3;
-    x76 = 4;
-    x83p5 = 5;
+  x20 = 0;
+  x29 = 1;
+  x40 = 2;
+  x60 = 3;
+  x76 = 4;
+  x83p5 = 5;
 }
 
 enum PictureScale {
-    x1 = 0;
-    x2 = 1;
-    x3 = 2;
+  x1 = 0;
+  x2 = 1;
+  x3 = 2;
+}
+
+// ADDRESS
+
+message PostalAddress {
+  // declare multiple params related to a postal address
 }
