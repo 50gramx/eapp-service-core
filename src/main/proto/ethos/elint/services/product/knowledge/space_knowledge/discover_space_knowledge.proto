@@ -36,6 +36,7 @@ service DiscoverSpaceKnowledgeService {
     };
     rpc GetSpaceKnowledgeDomainById (GetSpaceKnowledgeDomainByIdRequest) returns (GetSpaceKnowledgeDomainByIdResponse) {
     };
+
 }
 
 // Message Definitions

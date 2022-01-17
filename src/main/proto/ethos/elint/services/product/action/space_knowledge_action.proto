@@ -36,6 +36,8 @@ message AskQuestionRequest {
     elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails access_auth_details = 1;
     // Request Properties
     string message = 2;
+    bool ask_particular_domain = 3;
+    elint.entity.SpaceKnowledgeDomain space_knowledge_domain = 4;
 }
 
 

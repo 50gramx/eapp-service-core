@@ -23,6 +23,7 @@ package elint.services.product.conversation.message.account;
 import public "google/protobuf/timestamp.proto";
 
 import "ethos/elint/entities/account.proto";
+import "ethos/elint/entities/account_assistant.proto";
 import "ethos/elint/entities/space_knowledge.proto";
 import "ethos/elint/entities/generic.proto";
 import "ethos/elint/services/product/identity/account/access_account.proto";
@@ -35,16 +36,35 @@ service SendAccountMessageService {
   };
 
   rpc SendSpeedMessageToAccount (stream MessageForAccount) returns (stream FullMessageForAccountSent) {
-  };
+  }; // TODO: Handle streaming
 
   rpc SyncAccountAssistantSentMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream AccountAssistantSentMessage) {
-  }; // TODO: Complete this service
+  }; // TODO: Complete this service // TODO: Handle streaming
 
   rpc SyncAccountSentMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream SyncAccountSentMessagesResponse) {
-  };
-  rpc SyncAccountConnectedAccountSentMessages (SyncAccountConnectedAccountSentMessagesRequest) returns (stream SyncAccountConnectedAccountSentMessagesResponse) {
-  }; // TODO: Complete this service
+  }; // TODO: Handle streaming
 
+  // Syncing RPC's for ConnectedAccount
+  rpc SyncAccountConnectedAccountSentMessages (SyncAccountConnectedAccountSentMessagesRequest) returns (stream SyncAccountConnectedAccountSentMessagesResponse) {
+  }; // TODO: Handle streaming
+  // Syncing RPC's for ConnectedAccountAssistant
+  rpc SyncAccountConnectedAccountAssistantSentMessages (SyncAccountConnectedAccountAssistantSentMessagesRequest) returns (stream SyncAccountConnectedAccountAssistantSentMessagesResponse) {
+  }; // TODO: Handle streaming
+
+  // Get Messages
+  rpc GetLast24ProductNSentMessages (GetLast24ProductNSentMessagesRequest) returns (GetLast24ProductNSentMessagesResponse) {};
+
+  // Messages Counts
+  rpc GetAccountSentMessagesCount (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountSentMessagesCountResponse) {};
+  rpc GetAccountAssistantSentMessagesCount (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountAssistantSentMessagesCountResponse) {};
+
+  // Last Message
+  rpc GetAccountLastSentMessage (GetAccountLastSentMessageRequest) returns (GetAccountLastSentMessageResponse) {};
+  rpc GetAccountAssistantLastSentMessage (GetAccountAssistantLastSentMessageRequest) returns (GetAccountAssistantLastSentMessageResponse) {};
+
+  // CONVERSED ENTITIES
+  rpc GetSentMessagesAccounts (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (GetSentMessagesAccountsResponse) {};  // TODO: Verify this service
+  rpc GetSentMessagesAccountAssistants (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (GetSentMessagesAccountAssistantsResponse) {};  // TODO: Verify this service
 }
 
 // Message Definitions
@@ -97,6 +117,68 @@ message SyncAccountConnectedAccountSentMessagesResponse {
   double sync_progress = 3;
 }
 
+
+// Syncing RPC's messages for ConnectedAccountAssistant
+message SyncAccountConnectedAccountAssistantSentMessagesRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2;
+}
+
+message SyncAccountConnectedAccountAssistantSentMessagesResponse {
+  AccountAssistantSentMessage account_assistant_sent_message = 1;
+  elint.entity.ResponseMeta response_meta = 2;
+  double sync_progress = 3;
+}
+
+
+message GetLast24ProductNSentMessagesRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  int32 product_n = 2;
+  elint.entity.MessageEntity message_entity_enum = 3;
+  elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 4;
+  elint.entity.AccountConnectedAccount connected_account = 5;
+}
+
+message GetLast24ProductNSentMessagesResponse {
+  elint.entity.ResponseMeta response_meta = 1;
+  repeated AccountSentMessage account_sent_messages = 2;
+  repeated AccountAssistantSentMessage account_assistant_sent_messages = 3;
+}
+
+
+message GetAccountLastSentMessageRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  string connected_account_id = 2;
+}
+
+message GetAccountLastSentMessageResponse {
+  elint.entity.ResponseMeta response_meta = 1;
+  elint.services.product.conversation.message.account.AccountSentMessage last_sent_message = 2;
+}
+
+
+message GetAccountAssistantLastSentMessageRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  string connected_account_assistant_id = 2;
+}
+
+message GetAccountAssistantLastSentMessageResponse {
+  elint.entity.ResponseMeta response_meta = 1;
+  elint.services.product.conversation.message.account.AccountAssistantSentMessage last_sent_message = 2;
+}
+
+
+message GetSentMessagesAccountsResponse{
+  elint.entity.ResponseMeta response_meta = 1;
+  repeated elint.entity.Account sent_messages_accounts = 2;
+}
+
+message GetSentMessagesAccountAssistantsResponse{
+  elint.entity.ResponseMeta response_meta = 1;
+  repeated elint.entity.AccountAssistant sent_messages_account_assistants = 2;
+}
+
+// Messaging RPC's Definitions
 message AccountAssistantSentMessage {
   string account_assistant_sent_message_id = 1;
   string account_assistant_id = 2;
@@ -106,6 +188,7 @@ message AccountAssistantSentMessage {
   int32 message_space_action = 6;
   google.protobuf.Timestamp sent_at = 7;
   google.protobuf.Timestamp received_at = 8;
+  elint.entity.MessageInfo message_info = 9;
 }
 
 message AccountSentMessage {
@@ -115,4 +198,16 @@ message AccountSentMessage {
   string message = 4;
   google.protobuf.Timestamp sent_at = 5;
   google.protobuf.Timestamp received_at = 6;
+  elint.entity.MessageInfo message_info = 7;
+}
+
+// Count RPC's messages
+message AccountSentMessagesCountResponse {
+  int32 account_sent_messages_count = 1;
+  elint.entity.ResponseMeta response_meta = 2;
+}
+
+message AccountAssistantSentMessagesCountResponse {
+  int32 account_assistant_sent_messages_count = 1;
+  elint.entity.ResponseMeta response_meta = 2;
 }

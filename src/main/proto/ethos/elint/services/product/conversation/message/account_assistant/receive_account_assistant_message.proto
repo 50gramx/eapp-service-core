@@ -27,20 +27,20 @@ import "ethos/elint/entities/space_knowledge.proto";
 
 // Service Definitions
 service ReceiveAccountAssistantMessageService {
-    rpc ReceiveMessageFromAccount (MessageFromAccount) returns (MessageFromAccountReceived) {
-    };
+  rpc ReceiveMessageFromAccount (MessageFromAccount) returns (MessageFromAccountReceived) {
+  };
 }
 
 // Message Definitions
 message MessageFromAccount {
-    string account_assistant_id = 1;
-    elint.entity.AccountAssistantConnectedAccount connected_account = 2;
-    elint.entity.SpaceKnowledgeAction space_knowledge_action = 3;
-    string message = 4;
-    string account_received_message_id = 5;
+  string account_assistant_id = 1;
+  elint.entity.AccountAssistantConnectedAccount connected_account = 2;
+  elint.entity.SpaceKnowledgeAction space_knowledge_action = 3;
+  string message = 4;
+  string account_received_message_id = 5;
 }
 
 message MessageFromAccountReceived {
-    bool is_received = 1;
-    google.protobuf.Timestamp received_at = 2;
+  bool is_received = 1;
+  google.protobuf.Timestamp received_at = 2;
 }

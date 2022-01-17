@@ -38,12 +38,16 @@ service ReceiveAccountMessageService {
 
   // Syncing RPC's
   rpc SyncAccountAssistantReceivedMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream AccountAssistantReceivedMessage) {
-  }; // TODO: Complete this service
+  }; // TODO: Complete this service // TODO: Handle streaming
   rpc SyncAccountReceivedMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream SyncAccountReceivedMessagesResponse) {
-  };
+  }; // TODO: Handle streaming
 
+  // Syncing RPC's for ConnectedAccount
   rpc SyncAccountConnectedAccountReceivedMessages (SyncAccountConnectedAccountReceivedMessagesRequest) returns (stream SyncAccountConnectedAccountReceivedMessagesResponse) {
-  }; // TODO: Complete this RPC
+  }; // TODO: Handle streaming
+  // Syncing RPC's for ConnectedAccountAssistant
+  rpc SyncAccountConnectedAccountAssistantReceivedMessages (SyncAccountConnectedAccountAssistantReceivedMessagesRequest) returns (stream SyncAccountConnectedAccountAssistantReceivedMessagesResponse) {
+  }; // TODO: Handle streaming
 
   // Messaging RPC's
   rpc ListenForReceivedAccountAssistantMessages (ListenForReceivedAccountAssistantMessagesRequest) returns (ListenForReceivedAccountAssistantMessagesResponse) {
@@ -53,7 +57,25 @@ service ReceiveAccountMessageService {
 
   // Speed Messaging RPC's
   rpc ListenForReceivedAccountSpeedMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream ListenForReceivedAccountSpeedMessagesResponse) {
-  };
+  }; // TODO: Handle streaming
+  rpc ListenForReceivedAccountAssistantSpeedMessages (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (stream ListenForReceivedAccountAssistantSpeedMessagesResponse) {};
+  // TODO: Complete this service
+
+  // Get Messages
+  rpc GetLast24ProductNReceivedMessages (GetLast24ProductNReceivedMessagesRequest) returns (GetLast24ProductNReceivedMessagesResponse) {};
+
+
+  // Messages Counts
+  rpc GetAccountReceivedMessagesCount (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountReceivedMessagesCountResponse) {};
+  rpc GetAccountAssistantReceivedMessagesCount (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountAssistantReceivedMessagesCountResponse) {};
+
+  // Last Message
+  rpc GetAccountLastReceivedMessage (GetAccountLastReceivedMessageRequest) returns (GetAccountLastReceivedMessageResponse) {};
+  rpc GetAccountAssistantLastReceivedMessage (GetAccountAssistantLastReceivedMessageRequest) returns (GetAccountAssistantLastReceivedMessageResponse) {};
+
+  // CONVERSED ENTITIES
+  rpc GetReceivedMessagesAccounts (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (GetReceivedMessagesAccountsResponse) {};  // TODO: Verify this service
+  rpc GetReceivedMessagesAccountAssistants (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (GetReceivedMessagesAccountAssistantsResponse) {};  // TODO: Verify this service
 }
 
 // Message Definitions
@@ -87,6 +109,7 @@ message SyncAccountReceivedMessagesResponse {
   elint.entity.ResponseMeta response_meta = 2;
 }
 
+// Syncing RPC's messages for ConnectedAccount
 message SyncAccountConnectedAccountReceivedMessagesRequest {
   elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
   elint.entity.AccountConnectedAccount connected_account = 2;
@@ -98,6 +121,20 @@ message SyncAccountConnectedAccountReceivedMessagesResponse {
   double sync_progress = 3;
 }
 
+// Syncing RPC's messages for ConnectedAccountAssistant
+message SyncAccountConnectedAccountAssistantReceivedMessagesRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2;
+}
+
+message SyncAccountConnectedAccountAssistantReceivedMessagesResponse {
+  AccountAssistantReceivedMessage account_assistant_received_message = 1;
+  elint.entity.ResponseMeta response_meta = 2;
+  double sync_progress = 3;
+}
+
+
+// Messaging RPC's messages
 message ListenForReceivedAccountAssistantMessagesRequest {
   elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
   elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2;
@@ -124,6 +161,59 @@ message ListenForReceivedAccountSpeedMessagesResponse {
   elint.entity.ResponseMeta response_meta = 2;
 }
 
+// TODO: Complete this stream message params
+message ListenForReceivedAccountAssistantSpeedMessagesResponse {
+  MessageFromAccountAssistant message_from_account_assistant = 1;
+  elint.entity.ResponseMeta response_meta = 2;
+}
+
+message GetLast24ProductNReceivedMessagesRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  int32 product_n = 2;
+  elint.entity.MessageEntity message_entity_enum = 3;
+  elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 4;
+  elint.entity.AccountConnectedAccount connected_account = 5;
+}
+
+message GetLast24ProductNReceivedMessagesResponse {
+  elint.entity.ResponseMeta response_meta = 1;
+  repeated AccountReceivedMessage account_received_messages = 2;
+  repeated AccountAssistantReceivedMessage account_assistant_received_messages = 3;
+}
+
+
+message GetAccountLastReceivedMessageRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  string connected_account_id = 2;
+}
+
+message GetAccountLastReceivedMessageResponse {
+  elint.entity.ResponseMeta response_meta = 1;
+  elint.services.product.conversation.message.account.AccountReceivedMessage last_received_message = 2;
+}
+
+
+message GetAccountAssistantLastReceivedMessageRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  string connected_account_assistant_id = 2;
+}
+
+message GetAccountAssistantLastReceivedMessageResponse {
+  elint.entity.ResponseMeta response_meta = 1;
+  elint.services.product.conversation.message.account.AccountAssistantReceivedMessage last_received_message = 2;
+}
+
+message GetReceivedMessagesAccountsResponse{
+  elint.entity.ResponseMeta response_meta = 1;
+  repeated elint.entity.Account received_messages_accounts = 2;
+}
+
+message GetReceivedMessagesAccountAssistantsResponse{
+  elint.entity.ResponseMeta response_meta = 1;
+  repeated elint.entity.AccountAssistant received_messages_account_assistants = 2;
+}
+
+// Messaging Messages Definitions
 message AccountAssistantReceivedMessage {
   string account_assistant_received_message_id = 1;
   string account_assistant_id = 2;
@@ -143,4 +233,16 @@ message AccountReceivedMessage {
   string account_connection_id = 3;
   string message = 4;
   google.protobuf.Timestamp received_at = 5;
+}
+
+
+// Count RPC's messages
+message AccountReceivedMessagesCountResponse {
+  int32 account_received_messages_count = 1;
+  elint.entity.ResponseMeta response_meta = 2;
+}
+
+message AccountAssistantReceivedMessagesCountResponse {
+  int32 account_assistant_received_messages_count = 1;
+  elint.entity.ResponseMeta response_meta = 2;
 }

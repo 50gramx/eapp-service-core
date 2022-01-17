@@ -21,13 +21,173 @@ syntax = "proto3";
 package elint.services.product.conversation.message;
 
 import "ethos/elint/entities/generic.proto";
+import "ethos/elint/entities/account.proto";
+import "ethos/elint/entities/account_assistant.proto";
 import "ethos/elint/services/product/identity/account/access_account.proto";
 import "ethos/elint/services/product/identity/account_assistant/access_account_assistant.proto";
 
 
+import "ethos/elint/services/product/conversation/message/account/receive_account_message.proto";
+import "ethos/elint/services/product/conversation/message/account/send_account_message.proto";
+
+
 service MessageConversationService {
-    rpc SetupAccountConversations (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {
-    };
-    rpc SetupAccountAssistantConversations (elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {
-    };
+  rpc SetupAccountConversations (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {
+  };
+  rpc SetupAccountAssistantConversations (elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {
+  };
+
+  rpc GetAccountAndAssistantConversations (GetAccountAndAssistantConversationsRequest) returns (stream GetAccountAndAssistantConversationsResponse) {
+  }; // TODO: Verify this service
+  rpc GetLast24ProductNConversationMessages (GetLast24ProductNConversationMessagesRequest) returns (GetLast24ProductNConversationMessagesResponse) {
+  }; // TODO: Verify this service
+
+  // LAST MESSAGES
+  rpc GetAccountLastMessage
+      (GetAccountLastMessageRequest)
+      returns (GetAccountLastMessageResponse) {};
+  /*
+  1. Get the last sent message to account
+  2. Get the last received message from account
+  3. Map the most recent message with the account
+   */
+
+
+  rpc GetAccountAssistantLastMessage
+      (GetAccountAssistantLastMessageRequest)
+      returns (GetAccountAssistantLastMessageResponse) {};
+  /*
+  1. Get the last sent message to account assistant
+  2. Get the last received message from account assistant
+  3. Map the most recent message with the account assistant
+   */
+
+  // CONVERSED ENTITIES
+  rpc GetConversedAccounts
+      (elint.services.product.identity.account.AccountServicesAccessAuthDetails)
+      returns (GetConversedAccountsResponse) {};
+  /*
+  1. Get all the accounts with existing sent messages
+  2. Get all the accounts with existing received messages
+  3. Merge the accounts
+   */
+
+
+  rpc GetConversedAccountAssistants
+      (elint.services.product.identity.account.AccountServicesAccessAuthDetails)
+      returns (GetConversedAccountAssistantsResponse) {};
+  /*
+  1. Get all the account assistants with existing sent messages
+  2. Get all the account assistants with existing received messages
+  3. Merge the account assistants
+   */
+
+
+  rpc GetConversedAccountAndAssistants
+      (elint.services.product.identity.account.AccountServicesAccessAuthDetails)
+      returns (GetConversedAccountAndAssistantsResponse) {};
+  /*
+   1. Merge the most recent message with account and account assistant
+   2. Sort the most recent messages with their time
+   3. At this stage, we have account/assistant, last sent/received message
+   */
+}
+
+message GetAccountAndAssistantConversationsRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2;
+  bool is_account_connected = 3;
+  elint.entity.AccountConnectedAccount connected_account = 4;
+
+}
+
+message GetAccountAndAssistantConversationsResponse {
+  repeated AccountAndAssistantConversationsMessages account_and_assistant_conversations_messages = 1;
+  elint.entity.ResponseMeta response_meta = 2;
+}
+
+message AccountAndAssistantConversationsMessages {
+  bool is_message_entity_account_assistant = 1;
+  bool is_message_sent = 2;
+  elint.services.product.conversation.message.account.AccountAssistantReceivedMessage account_assistant_received_message = 3;
+  elint.services.product.conversation.message.account.AccountReceivedMessage account_received_message = 4;
+  elint.services.product.conversation.message.account.AccountAssistantSentMessage account_assistant_sent_message = 5;
+  elint.services.product.conversation.message.account.AccountSentMessage account_sent_message = 6;
+}
+
+message GetLast24ProductNConversationMessagesRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  int32 product_n = 2;
+  elint.entity.MessageEntity message_entity_enum = 3;
+  elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 4;
+  elint.entity.AccountConnectedAccount connected_account = 5;
+}
+
+message GetLast24ProductNConversationMessagesResponse {
+  elint.entity.ResponseMeta response_meta = 1;
+  repeated ConversationMessage conversation_messages = 2;
+}
+
+
+message GetAccountLastMessageRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  string connected_account_id = 2;
+}
+
+message GetAccountLastMessageResponse {
+  elint.entity.ResponseMeta response_meta = 1;
+  bool is_message_sent = 2;
+  oneof last_message {
+    elint.services.product.conversation.message.account.AccountReceivedMessage account_received_message = 3;
+    elint.services.product.conversation.message.account.AccountSentMessage account_sent_message = 4;
+  }
+}
+
+message GetAccountAssistantLastMessageRequest {
+  elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+  string connected_account_assistant_id = 2;
+}
+
+message GetAccountAssistantLastMessageResponse {
+  elint.entity.ResponseMeta response_meta = 1;
+  bool is_message_sent = 2;
+  oneof last_message {
+    elint.services.product.conversation.message.account.AccountAssistantReceivedMessage account_assistant_received_message = 3;
+    elint.services.product.conversation.message.account.AccountAssistantSentMessage account_assistant_sent_message = 4;
+  }
+}
+
+message GetConversedAccountsResponse {
+  elint.entity.ResponseMeta response_meta = 1;
+  repeated elint.entity.Account conversed_accounts = 2;
+}
+
+message GetConversedAccountAssistantsResponse {
+  elint.entity.ResponseMeta response_meta = 1;
+  repeated elint.entity.AccountAssistant conversed_account_assistants = 2;
+}
+
+
+message GetConversedAccountAndAssistantsResponse {
+  elint.entity.ResponseMeta response_meta = 1;
+  repeated ConversedEntityWithLastConversationMessage conversed_entity_with_last_conversation_message = 2;
+}
+
+message ConversedEntityWithLastConversationMessage {
+  oneof conversed_entity {
+    elint.entity.Account conversed_account = 1;
+    elint.entity.AccountAssistant conversed_account_assistant = 2;
+  }
+  ConversationMessage last_conversation_message = 3;
+}
+
+message ConversationMessage {
+  bool is_message_entity_account_assistant = 1;
+  bool is_message_sent = 2;
+  oneof conversation_message {
+    elint.services.product.conversation.message.account.AccountAssistantReceivedMessage account_assistant_received_message = 3;
+    elint.services.product.conversation.message.account.AccountReceivedMessage account_received_message = 4;
+    elint.services.product.conversation.message.account.AccountAssistantSentMessage account_assistant_sent_message = 5;
+    elint.services.product.conversation.message.account.AccountSentMessage account_sent_message = 6;
+  }
 }
