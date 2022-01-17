@@ -27,33 +27,34 @@ option java_outer_classname = "OrganisationProto";
 package elint.entity;
 
 import "ethos/elint/entities/account.proto";
+import "ethos/elint/entities/generic.proto";
 
 import public "google/protobuf/timestamp.proto";
 
 message Organisation {
-  string organization_id = 1;
-  string organization_name = 2;
-  string organization_space_id = 3;
-  string admin_account_id = 4;
-  bool active = 5;
-  bool billing_active = 6;
-  google.protobuf.Timestamp created_at = 7;
+  string organisation_analytics_id = 1; // we generate this on the go
+  string organisation_id = 2; // we generate this on the go
+  string organisation_name = 3; // we take this i/p from admin
+  string organisation_galaxy_id = 4; // create this on the go
+  string admin_account_id = 5;  // id of the account who creates the organisation
+  bool active = 6; // we set this flag on the go
+  bool billing_active = 7; // we set this flag on the go
+  BusinessDomain business_domain = 8; // we take this i/p from admin
+  repeated BusinessDirector business_directors = 9; // we take this i/p from admin, with min one director
+  elint.entity.PostalAddress postal_address = 10; // we take this i/p from admin
+  google.protobuf.Timestamp incorporated_at = 11; // we take this i/p from admin
+  google.protobuf.Timestamp created_at = 12; // we generate this OTG
 }
 
-
-/* CreateOrganisationRequest represents Onboarding Organisation Request*/
-message ReserveOrganisationRequest {
-  string organization_space = 1;      // organisation space reservation
-  google.protobuf.Timestamp created_at = 2;   // request created at
+enum BusinessDomain {
+  UNDEFINED = 0;
+  EDUCATION = 88;
+  MEDICAL = 80;
+  AUTOMATION = 70;
+  LEGAL = 51;
 }
 
-/* CreateOrganisationResponse represents reservation of organisation space *
-* till the admin account verifies the email id and enables the billing */
-message ReserveOrganisationResponse {
-  string organization_space = 1;      // organisation space reservation
-  bool organization_space_reserved = 2;   // was the space reservation successful?
-  string account_email_id = 3;        // admin account email id
-  bool account_email_id_verified = 4;     // admin account verification pending
-  string message = 5;
+message BusinessDirector {
+  string director_name = 1;
+  string director_email = 2;
 }
-
