@@ -23,24 +23,21 @@ package elint.entity;
 
 import public "google/protobuf/timestamp.proto";
 
-import "ethos/elint/entities/associate.proto";
-import "ethos/elint/entities/organisation.proto";
-
 option java_multiple_files = true;
 option java_package = "elint.entity";
-option java_outer_classname = "TeamProto";
+option java_outer_classname = "CommunityProto";
 
-message Team {
-  elint.entity.Associate admin_associate = 1;
-  elint.entity.Organisation of_organisation = 2;
-  int32 team_id = 3;
-  string team_description = 4;
-  repeated elint.entity.Associate team_members = 5;
-  repeated TeamTag team_tags = 6;
-  google.protobuf.Timestamp created_at = 10;
+
+message Community {
+  CommunityDomainCode community_domain_code = 1;
+  google.protobuf.Timestamp recognised_at = 2;
+  int64 associated_organisations_count = 3;
 }
 
-message TeamTag {
-  string team_tag_id = 1;
-  string team_tag_name = 2;
+enum CommunityDomainCode {
+  DOMAIN_CODE_UNDEFINED = 0;
+  DOMAIN_CODE_LEGAL = 51;
+  DOMAIN_CODE_AUTOMATION = 70;
+  DOMAIN_CODE_EDUCATION = 88;
+  DOMAIN_CODE_MEDICAL = 80;
 }
