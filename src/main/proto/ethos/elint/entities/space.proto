@@ -49,7 +49,7 @@ enum SpaceIsolationType {
 
 enum SpaceEntityType {
   ACCOUNT = 0;
-  ORGANIZATION = 1;
+  TEAM = 1;
 }
 
 /**

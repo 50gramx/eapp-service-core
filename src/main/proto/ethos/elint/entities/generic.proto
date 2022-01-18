@@ -78,9 +78,3 @@ enum PictureScale {
   x2 = 1;
   x3 = 2;
 }
-
-// ADDRESS
-
-message PostalAddress {
-  // declare multiple params related to a postal address
-}

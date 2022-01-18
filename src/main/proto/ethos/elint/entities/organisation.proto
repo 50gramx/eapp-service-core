@@ -27,34 +27,38 @@ option java_outer_classname = "OrganisationProto";
 package elint.entity;
 
 import "ethos/elint/entities/account.proto";
+import "ethos/elint/entities/community.proto";
+import "ethos/elint/entities/galaxy.proto";
 import "ethos/elint/entities/generic.proto";
 
 import public "google/protobuf/timestamp.proto";
 
 message Organisation {
-  string organisation_analytics_id = 1; // we generate this on the go
-  string organisation_id = 2; // we generate this on the go
-  string organisation_name = 3; // we take this i/p from admin
-  string organisation_galaxy_id = 4; // create this on the go
-  string admin_account_id = 5;  // id of the account who creates the organisation
-  bool active = 6; // we set this flag on the go
-  bool billing_active = 7; // we set this flag on the go
-  BusinessDomain business_domain = 8; // we take this i/p from admin
-  repeated BusinessDirector business_directors = 9; // we take this i/p from admin, with min one director
-  elint.entity.PostalAddress postal_address = 10; // we take this i/p from admin
-  google.protobuf.Timestamp incorporated_at = 11; // we take this i/p from admin
-  google.protobuf.Timestamp created_at = 12; // we generate this OTG
+  string analytics_id = 1; // we generate this on the go
+  string id = 2; // we generate this on the go
+  OrganisationName name = 3; // we take this i/p from admin
+  Galaxy galaxy = 4; // reserve a galaxy OTG
+  // id of the account who creates the organisation
+  // is also the first associate of the organisation
+  elint.entity.Account admin = 5;
+  elint.entity.Community associated_community = 6; // we take this i/p from admin
+  OrganisationPostalAddress postal_address = 7; // we take this i/p from admin
+  google.protobuf.Timestamp incorporated_at = 8; // we take this i/p from admin
+  bool is_active = 9; // we set this flag on the go
+  bool is_billing_active = 10; // we set this flag on the go
+  google.protobuf.Timestamp created_at = 11; // we generate this OTG
 }
 
-enum BusinessDomain {
-  UNDEFINED = 0;
-  EDUCATION = 88;
-  MEDICAL = 80;
-  AUTOMATION = 70;
-  LEGAL = 51;
+message OrganisationName {
+  string legal_name = 1;
+  string assistant_name = 2;
 }
 
-message BusinessDirector {
-  string director_name = 1;
-  string director_email = 2;
+// ADDRESS
+message OrganisationPostalAddress {
+  string address_line_1 = 1;
+  string address_line_2 = 2;
+  string city = 3;
+  string state_province_or_region = 4;
+  string zip_or_postal_code = 5;
 }

@@ -17,39 +17,36 @@
 * from Amit Kumar Khetan.
 */
 
+
 syntax = "proto3";
 
 option java_multiple_files = true;
 option java_package = "elint.entity";
-option java_outer_classname = "OrganizationSpaceProto";
+option java_outer_classname = "TeamAssistantProto";
 
 
 package elint.entity;
 
-
+import "ethos/elint/entities/team.proto";
 import public "google/protobuf/timestamp.proto";
 
-message OrganizationSpace {
-    string space_id = 1;
-    string space_name = 2;
-    string white_knowledge_domain_id = 3;
-    string white_knowledge_domain_name = 4;
-    string organization_id = 5;
-    google.protobuf.Timestamp created_at = 6;
+message TeamAssistant {
+  string id = 1;
+  string name = 2;
+  elint.entity.Team team = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp last_assisted_at = 6;
 }
 
-
-/* ClaimOrganizationRequest represents new Claim of Organization */
-message ClaimOrganizationSpaceRequest {
-    string organization_space_name = 1; // What is the Organisation being registered for?
-    google.protobuf.Timestamp requested_at = 2; // When was it requested?
+message TeamAssistantConnectedAssociate {
+  string associate_connection_id = 1;
+  string associate_id = 2;
+  google.protobuf.Timestamp connected_at = 3;
 }
 
-/* ClaimOrganizationSpaceResponse represents accountability of Claim */
-message ClaimOrganizationSpaceResponse {
-    bool organization_space_available = 1; // Is the organisation space available?
-    string message = 2; // A short feedback message about the claim
+message AccountAssistantMeta {
+  string account_assistant_id = 1;
+  int32 account_assistant_name_code = 2;
+  string account_assistant_name = 3;
+  string account_id = 4;
 }
-
-
-
