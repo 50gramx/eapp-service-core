@@ -36,5 +36,11 @@ message Team {
   int32 team_id = 3;
   string team_description = 4;
   repeated elint.entity.Associate team_members = 5;
+  repeated TeamTag team_tags = 6;
   google.protobuf.Timestamp created_at = 10;
+}
+
+message TeamTag {
+  string team_tag_id = 1;
+  string team_tag_name = 2;
 }
