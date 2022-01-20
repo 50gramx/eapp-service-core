@@ -38,8 +38,8 @@ service NotifyAccountService {
 // Message Definitions
 message NewReceivedMessageFromAccountAssistantRequest {
   string account_id = 1;
-  elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2;
-  string account_assistant_received_message_id = 3;
+  string connecting_account_assistant_id = 2;
+  string message = 3;
 }
 
 message NewReceivedMessageFromAccountRequest {
