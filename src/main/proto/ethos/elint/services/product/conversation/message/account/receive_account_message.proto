@@ -80,11 +80,19 @@ service ReceiveAccountMessageService {
 
 // Message Definitions
 message MessageFromAccountAssistant {
+  // Auth params
   string account_id = 1;
+  // Best Message Params & Sources
   elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2;
   string message = 3;
-  repeated google.protobuf.Any message_source = 4;
-  string account_assistant_received_message_id = 5;
+  string message_source_space_id = 4;
+  string message_source_space_type_id = 5;
+  string message_source_space_domain_id = 6;
+  int32 message_source_space_domain_action = 7;
+  string message_source_space_domain_action_context_id = 8;
+  // All Sources
+  repeated google.protobuf.Any message_source = 9;
+  string account_assistant_received_message_id = 10;
 }
 
 message MessageFromAccountAssistantReceived {
