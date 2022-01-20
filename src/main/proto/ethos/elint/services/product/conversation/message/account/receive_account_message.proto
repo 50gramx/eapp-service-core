@@ -142,9 +142,8 @@ message ListenForReceivedAccountAssistantMessagesRequest {
 }
 
 message ListenForReceivedAccountAssistantMessagesResponse {
-  repeated google.protobuf.Any message_source = 3;
-  google.protobuf.Timestamp received_at = 4;
-  elint.entity.ResponseMeta response_meta = 5;
+  repeated MessageFromAccountAssistant messages_from_account_assistant = 1;
+  elint.entity.ResponseMeta response_meta = 2;
 }
 
 message ListenForReceivedAccountMessagesRequest {
