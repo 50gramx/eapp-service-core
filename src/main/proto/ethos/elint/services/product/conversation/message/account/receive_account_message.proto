@@ -137,8 +137,6 @@ message SyncAccountConnectedAccountAssistantReceivedMessagesResponse {
 // Messaging RPC's messages
 message ListenForReceivedAccountAssistantMessagesRequest {
   elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
-  elint.entity.AccountConnectedAccountAssistant connected_account_assistant = 2;
-  string account_assistant_received_message_id = 3;
 }
 
 message ListenForReceivedAccountAssistantMessagesResponse {
