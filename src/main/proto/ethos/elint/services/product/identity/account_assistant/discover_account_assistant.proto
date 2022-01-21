@@ -34,6 +34,7 @@ service DiscoverAccountAssistantService {
   rpc GetAccountAssistantMetaByAccountAssistantId (GetAccountAssistantMetaByAccountAssistantIdRequest) returns (GetAccountAssistantMetaByAccountAssistantIdResponse) {
   };
   rpc GetAccountAssistantById (GetAccountAssistantByIdRequest) returns (GetAccountAssistantByIdResponse) {}; // TODO: Verify this service
+  rpc GetAccountAssistantNameCodeById (GetAccountAssistantNameCodeByIdRequest) returns (GetAccountAssistantNameCodeByIdResponse) {};
 }
 
 // Message Definitions
@@ -66,4 +67,13 @@ message GetAccountAssistantByIdRequest {
 message GetAccountAssistantByIdResponse {
   elint.entity.ResponseMeta response_meta = 1;
   elint.entity.AccountAssistant account_assistant = 2;
+}
+
+message GetAccountAssistantNameCodeByIdRequest {
+  string account_assistant_id = 1;
+}
+
+message GetAccountAssistantNameCodeByIdResponse {
+  int32 account_assistant_name_code = 2;
+  string account_assistant_name = 3;
 }
