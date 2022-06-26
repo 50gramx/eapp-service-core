@@ -1,0 +1,64 @@
+syntax = "proto3";
+package elint.services.product.identity.universe;
+
+option java_multiple_files = true;
+option java_package = "com.ethos.elint.services.product";
+
+
+import "ethos/elint/entities/universe.proto";
+import "ethos/elint/entities/generic.proto";
+
+
+/*
+Universe can accessed for these reasons - for this entity
+- To create a universe - for core developers
+- To list all the universe - for app access
+  - Provide atomic access to functionality of universe visual in different platforms for different apps
+  - for this function, individual ethos interaction should be carefully monitored,
+    - such as this interaction is supposed to be executed in web only (EthosPay) during account signup
+- To list all the universe - for core developers
+  - allow this access for read/write operation
+*/
+
+import "ethos/elint/services/product/identity/multiverse/access_multiverse.proto";
+import "ethos/elint/entities/community.proto";
+
+
+// we may need some kind of portal, where we can manage the access persona for taking access of this entities
+// for example, each Universe can be accessed by one-core developer or not,
+service AccessUniverseService {
+  rpc UniverseAccessToken (UniverseAccessTokenRequest) returns (UniverseAccessTokenResponse) {};
+  rpc ValidateUniverseServices (UniverseServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
+}
+
+// ------------------------------------
+// Request/Response Message Definitions
+// ------------------------------------
+message UniverseAccessTokenRequest {
+  // Auth Properties
+  elint.services.product.identity.multiverse.MultiverseServicesAccessAuthDetails access_auth_details = 1;
+  // Request Properties
+  elint.entity.Universe universe = 2;
+}
+message UniverseAccessTokenResponse {
+  // Service Parameters
+  UniverseServicesAccessAuthDetails universe_services_access_auth_details = 1;
+  // Response Meta
+  elint.entity.ResponseMeta meta = 2;
+}
+
+// ------------------------------------
+// Meta Message Definitions
+// ------------------------------------
+// Idea: we can set variable param to be added later in the proto message (such as after 50) and imp one below 50
+message UniverseServicesAccessAuthDetails {
+  oneof authorized_for {
+    elint.entity.CommunityCollaborator community_collaborator = 1;
+  }
+  // NOTE: we're not operating more than one multiverse
+  // only "ethosverse" is the multiverse 50gramx is operating
+  // so it is generally understood that all the request are for the entity Multiverse "ethosverse"
+  elint.entity.PersistentSessionTokenDetails universe_services_access_session_token_details = 2; // What is the session token wrt this request?
+  // Meta Properties
+  google.protobuf.Timestamp requested_at = 3; // When was this requested?
+}
