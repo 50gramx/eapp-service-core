@@ -43,6 +43,7 @@ message SpaceKnowledgeDomainFilePageParaAccessTokenResponse {
     // Auth Properties
     SpaceKnowledgeDomainFilePageParaServicesAccessAuthDetails space_knowledge_domain_file_page_para_services_access_auth_details = 1;
     // Service Properties
+    // TODO: update with response meta
     bool space_knowledge_domain_file_page_para_services_access_done = 2;
     string space_knowledge_domain_file_page_para_services_access_message = 3;
 }

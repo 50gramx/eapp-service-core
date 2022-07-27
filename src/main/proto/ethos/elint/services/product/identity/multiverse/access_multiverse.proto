@@ -6,7 +6,7 @@ option java_package = "com.ethos.elint.services.product";
 
 
 import "ethos/elint/entities/multiverse.proto";
-import "ethos/elint/entities/community.proto";
+import "ethos/elint/entities/community_collaborator.proto";
 import "ethos/elint/entities/generic.proto";
 
 service AccessMultiverseService {

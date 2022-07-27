@@ -1,0 +1,53 @@
+/*************************************************************************
+*
+* AMIT KUMAR KHETAN CONFIDENTIAL
+* __________________
+*
+*  [2017] - [2021] Amit Kumar Khetan
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Amit Kumar Khetan and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Amit Kumar Khetan
+* and its suppliers and may be covered by U.S. and Foreign Patents,
+* patents in process, and are protected by trade secret or copyright law.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Amit Kumar Khetan.
+*/
+
+syntax = "proto3";
+
+package elint.entity;
+
+import public "google/protobuf/timestamp.proto";
+import "ethos/elint/entities/community.proto";
+
+
+option java_multiple_files = true;
+option java_package = "elint.entity";
+option java_outer_classname = "CommunityCollaboratorProto";
+
+
+message CollaboratorName {
+  string first_name = 1;
+  string last_name = 2;
+}
+
+message CollaboratorContact {
+  MobileNumber personal_mobile = 1;
+}
+
+message MobileNumber {
+  string dialing_code = 1;
+  string dialing_number = 2;
+}
+
+message CommunityCollaborator {
+  string collaborator_id = 1;
+  CollaboratorName collaborator_name = 2;
+  CommunityDomainCode community_domain_code = 3;
+  CollaboratorContact collaborator_contact = 4;
+  bool is_core_collaborator = 5;
+}

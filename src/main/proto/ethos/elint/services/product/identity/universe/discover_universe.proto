@@ -1,0 +1,12 @@
+syntax = "proto3";
+package elint.services.product.identity.universe;
+
+option java_multiple_files = true;
+option java_package = "com.ethos.elint.services.product";
+
+service DiscoverUniverseService {
+  rpc GetUniverseById (GetUniverseByIdRequest) returns (GetUniverseByIdResponse) {};
+}
+
+message GetUniverseByIdRequest {}
+message GetUniverseByIdResponse {}

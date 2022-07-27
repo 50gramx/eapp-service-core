@@ -21,7 +21,7 @@ Universe can accessed for these reasons - for this entity
 */
 
 import "ethos/elint/services/product/identity/multiverse/access_multiverse.proto";
-import "ethos/elint/entities/community.proto";
+import "ethos/elint/entities/community_collaborator.proto";
 
 
 // we may need some kind of portal, where we can manage the access persona for taking access of this entities

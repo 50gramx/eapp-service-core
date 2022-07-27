@@ -1,0 +1,26 @@
+syntax = "proto3";
+package elint.services.product.identity.multiverse;
+
+option java_multiple_files = true;
+option java_package = "com.ethos.elint.services.product";
+
+
+import "ethos/elint/entities/multiverse.proto";
+import "ethos/elint/entities/universe.proto";
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/services/product/identity/multiverse/access_multiverse.proto";
+
+
+service DiscoverMultiverseService {
+  rpc ListAllUniverse (MultiverseServicesAccessAuthDetails) returns (ListAllUniverseResponse) {};
+}
+
+// ------------------------------------
+// Request/Response Message Definitions
+// ------------------------------------
+message ListAllUniverseResponse {
+  // Response Properties
+  repeated elint.entity.Universe universes = 1;
+  // Meta Properties
+  elint.entity.ResponseMeta response_meta = 2;
+}

@@ -21,7 +21,7 @@ syntax = "proto3";
 
 option java_multiple_files = true;
 option java_package = "elint.entity";
-option java_outer_classname = "UniverseProto";
+option java_outer_classname = "MultiverseProto";
 
 
 package elint.entity;
@@ -36,21 +36,9 @@ import public "google/protobuf/timestamp.proto";
 // universe, which is for now done via backend
 // but, we should do it with a process such that the distribution of certificates
 // hosting and the network IPs are configured as per the process
-message Universe {
-  string universe_id = 1;
-  google.protobuf.Timestamp big_bang_at = 2;
-  string universe_name = 3;
-  string universe_description = 4;
-  oneof universe_recognized_as {
-    UniverseRecognizedAsCountry universe_recognized_as_country = 5;
-  }
+message Multiverse {
+  string multiverse_name = 1;
 }
-
-message UniverseRecognizedAsCountry {
-  string country_dialing_code = 1;
-}
-
-
 
 // via process, we can have the funda-mental to login via core-dev
 // email id, and verifying via OTP such that core-devs can add an Universe
