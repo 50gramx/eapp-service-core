@@ -4,7 +4,9 @@ node {
         echo "done"
     }
     stage('Checkout Repository') {
-        checkout scm
+        dir('eapp-service-core') {
+            git url: 'https://github.com/50gramx/eapp-service-core.git'
+        }
         echo "done"
     }
     stage('Build for Python') {
