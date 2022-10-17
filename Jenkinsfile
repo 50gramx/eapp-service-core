@@ -25,8 +25,8 @@ node {
         echo "$(date) :: Building Python Services"
 
         # PROTO GENERATION DIR CONFIG
-        EAPP_PROTO_SRC_DIR=`pwd`/eapp-service-core/src/main/proto"
-        EAPP_PROTO_PYTHON_OUT_DIR=`pwd`/eapp-python-domain/src"
+        EAPP_PROTO_SRC_DIR=`pwd`/eapp-service-core/src/main/proto
+        EAPP_PROTO_PYTHON_OUT_DIR=`pwd`/eapp-python-domain/src
 
 
 
