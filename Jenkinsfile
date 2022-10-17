@@ -8,11 +8,17 @@ node {
         echo "done"
     }
     stage('Build for Python') {
+        sh '''
+        #!/bin/sh
         ls
+        '''
         dir('CalibrationResults') {
             git url: 'https://github.com/AtlasBID/CalibrationResults.git'
         }
+        sh '''
+        #!/bin/sh
         ls
+        '''
 //         get the version to tag
 // generate the proto compiled code
 // update the eapp-python-domain setup.py
