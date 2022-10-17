@@ -18,9 +18,11 @@ node {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'multiverse-delivery-github-50gramx', url: 'https://github.com/50gramx/eapp-python-domain.git']]])
         }
 
-        echo "$(date) :: Building Python Services"
+
         sh '''
         #!/bin/sh
+
+        echo "$(date) :: Building Python Services"
 
         # PROTO GENERATION DIR CONFIG
         EAPP_PROTO_SRC_DIR=`pwd`/eapp-service-core/src/main/proto"
