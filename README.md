@@ -10,14 +10,17 @@ When you're done, you can delete the content in this README and update the file 
 
 ## Edit a file
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+Ideally what should happen when we commit a new proto message
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+1. The proto message should be compiled each domain
+2. Such as, the message should be compiled and the generated code should be
+3. Present in eapp-python-domain
+4. This generated code for python, must be released as a package for other eapp packages to import directly in the code
+5. Similarly, for eapp-dart-domain
+6. Similarly, for eapp-node-domain
+7. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
+8. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
+9. Go back to the **Source** page.
 
 ---
 
