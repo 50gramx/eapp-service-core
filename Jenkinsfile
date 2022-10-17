@@ -61,8 +61,9 @@ node {
         cd eapp-python-domain
         git config --global user.email "amit.khetan.70@50gramx.io"
         git config --global user.name "Amit-Khetan-70"
-        git commit -a -m "Added new build"
-        git push
+        git add .
+        git commit -m "Added new build"
+        git push origin master
         '''
 //         get the version to tag
 // generate the proto compiled code
