@@ -41,12 +41,9 @@ node {
 
         # GENERATING PROTOFILES
         python3 -m grpc_tools.protoc \
-          --include_imports \
-          --include_source_info \
           --python_out=$EAPP_PROTO_PYTHON_OUT_DIR \
           --grpc_python_out=$EAPP_PROTO_PYTHON_OUT_DIR \
           -I $EAPP_PROTO_SRC_DIR \
-          -I /usr/local/include \
           --proto_path "${proto_include_folders[@]}"
 
         ls $EAPP_PROTO_PYTHON_OUT_DIR/ethos
@@ -57,6 +54,15 @@ node {
         sh '''
         #!/bin/sh
         ls eapp-python-domain
+        '''
+
+        echo "Let's try pushing the code"
+        sh '''
+        cd eapp-python-domain
+        git config --global user.email "amit.khetan.70@50gramx.io"
+        git config --global user.name "Amit-Khetan-70"
+        git commit -a -m "Added new build"
+        git push
         '''
 //         get the version to tag
 // generate the proto compiled code
