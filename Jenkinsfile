@@ -5,8 +5,7 @@ node {
     }
     stage('Checkout Repository') {
         dir('eapp-service-core') {
-            credentialsId: 'multiverse-delivery-github-50gramx'
-            git url: 'https://github.com/50gramx/eapp-service-core.git'
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'multiverse-delivery-github-50gramx', url: 'https://github.com/50gramx/eapp-service-core.git']]])
         }
         echo "done"
     }
