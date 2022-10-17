@@ -14,12 +14,12 @@ node {
         #!/bin/sh
         ls
         '''
-        dir('CalibrationResults') {
-            git url: 'https://github.com/AtlasBID/CalibrationResults.git'
+        dir('eapp-python-domain') {
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'multiverse-delivery-github-50gramx', url: 'https://github.com/50gramx/eapp-python-domain.git']]])
         }
         sh '''
         #!/bin/sh
-        ls
+        ls eapp-python-domain
         '''
 //         get the version to tag
 // generate the proto compiled code
