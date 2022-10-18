@@ -57,36 +57,16 @@ node {
             ${EAPP_PROTO_SRC_DIR}/gramx/fifty/zero/ethos/identity/multiverse/epme/*.proto"""
 
 
+        env.PROTO_INCLUDES = ""
+        env.PROTO_INCLUDE_DIRS.tokenize(',\n').each {
+            env.TEMP = "${it}"
+            env.TEMP = env.TEMP.trim()
+            env.PROTO_INCLUDES = "${PROTO_INCLUDES} ${TEMP}"
+        }
+
         echo "done"
     }
-    stage('Declare Sources') {
-        script {
-
-            sh '''
-            #!/bin/sh
-            declare -a proto_include_folders=(
-                "${EAPP_PROTO_SRC_DIR}/google/api/*.proto"
-                "${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto"
-                "${EAPP_PROTO_SRC_DIR}/gramx/fifty/zero/ethos/identity/multiverse/epme/*.proto"
-            )
-            echo $proto_include_folders[@]
-            '''
-            echo "${env.PROTO_INCLUDE_DIRS}"
-            env.PROTO_INCLUDES = ""
-            env.PROTO_INCLUDE_DIRS.tokenize(',\n').each {
-                env.TEMP = "${it}"
-                env.TEMP = env.TEMP.trim()
-                env.PROTO_INCLUDES = "${PROTO_INCLUDES} ${TEMP}"
-//                 println "dir: ${TEMP}"
-            }
-//             echo "${env.PROTO_INCLUDE_DIRS.replace(',\n', ' ')}"
-//             env.PROTO_INCLUDES = env.PROTO_INCLUDE_DIRS.replace(',\n', ' ')
-//             env.PROTO_INCLUDES = env.PROTO_INCLUDE_DIRS
-            echo "${PROTO_INCLUDES}"
-
-        }
-    }
-    stage('Build for Python') {
+    stage('Build Python Domain') {
         // Depends on
         // grpcio>=1.34.0
         // grpcio-tools>=1.34.0
