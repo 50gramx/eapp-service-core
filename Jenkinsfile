@@ -34,10 +34,12 @@ node {
         declare -a proto_include_folders=(
           $EAPP_PROTO_SRC_DIR/google/api/*.proto
           $EAPP_PROTO_SRC_DIR/ethos/elint/entities/*.proto
+          $EAPP_PROTO_SRC_DIR/gramx/fifty/zero/ethos/identity/multiverse/epme/*.proto
         )
 
         # REMOVE EXISTING GENERATED PROTOFILES
         rm -rf "$EAPP_PROTO_PYTHON_OUT_DIR/ethos"
+        rm -rf "$EAPP_PROTO_PYTHON_OUT_DIR/gramx"
 
         # GENERATING PROTOFILES
         python3 -m grpc_tools.protoc \
