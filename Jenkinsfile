@@ -63,9 +63,10 @@ node {
                 "${EAPP_PROTO_SRC_DIR}/gramx/fifty/zero/ethos/identity/multiverse/epme/*.proto"
             )
             echo $proto_include_folders
+            '''
+            echo $proto_include_folders
             env.PROTO_INCLUDE_FOLDERS = $proto_include_folders
             printenv
-            '''
         }
     }
     stage('Build for Python') {
