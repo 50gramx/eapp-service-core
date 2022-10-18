@@ -64,9 +64,10 @@ node {
             )
             echo $proto_include_folders
             '''
-            echo $proto_include_folders
-            env.PROTO_INCLUDE_FOLDERS = $proto_include_folders
             printenv
+            echo ${proto_include_folders}
+            env.PROTO_INCLUDE_FOLDERS = ${proto_include_folders}
+
         }
     }
     stage('Build for Python') {
