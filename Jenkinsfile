@@ -3,21 +3,59 @@ node {
         cleanWs()
         echo "done"
     }
-    stage('Checkout Repository') {
+    stage('Checkout Service Core') {
         dir('eapp-service-core') {
-            checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'multiverse-delivery-github-50gramx', url: 'https://github.com/50gramx/eapp-service-core.git']]])
+            checkout(
+                [
+                    $class: 'GitSCM',
+                    branches: [
+                        [
+                            name: '*/master'
+                        ]
+                    ],
+                    extensions: [],
+                    userRemoteConfigs: [
+                        [
+                            credentialsId: 'multiverse-delivery-github-50gramx',
+                            url: 'https://github.com/50gramx/eapp-service-core.git'
+                        ]
+                    ]
+                ]
+            )
         }
+        echo "done"
+    }
+    stage('Checkout Python Domain') {
+        dir('eapp-python-domain') {
+            checkout(
+                [
+                    $class: 'GitSCM',
+                    branches: [
+                        [
+                            name: '*/master'
+                        ]
+                    ],
+                    extensions: [],
+                    userRemoteConfigs: [
+                        [
+                            credentialsId: 'multiverse-delivery-github-50gramx',
+                            url: 'https://github.com/50gramx/eapp-python-domain.git'
+                        ]
+                    ]
+                ]
+            )
+        }
+        echo "done"
+    }
+    stage('Configuring Directories') {
+        env.EAPP_PROTO_SRC_DIR = `pwd`/eapp-service-core/src/main/proto
         echo "done"
     }
     stage('Build for Python') {
         // Depends on
         // grpcio>=1.34.0
         // grpcio-tools>=1.34.0
-
-        dir('eapp-python-domain') {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'multiverse-delivery-github-50gramx', url: 'https://github.com/50gramx/eapp-python-domain.git']]])
-        }
-
+        // protobuf
 
         sh '''
         #!/bin/sh
@@ -25,7 +63,7 @@ node {
         echo "$(date) :: Building Python Services"
 
         # PROTO GENERATION DIR CONFIG
-        EAPP_PROTO_SRC_DIR=`pwd`/eapp-service-core/src/main/proto
+        # EAPP_PROTO_SRC_DIR=`pwd`/eapp-service-core/src/main/proto
         EAPP_PROTO_PYTHON_OUT_DIR=`pwd`/eapp-python-domain/src
 
 
@@ -51,14 +89,9 @@ node {
         ls $EAPP_PROTO_PYTHON_OUT_DIR/ethos
         ls $EAPP_PROTO_PYTHON_OUT_DIR/ethos/elint/entities
         '''
-
-
-        sh '''
-        #!/bin/sh
-        ls eapp-python-domain
-        '''
-
-        echo "Let's try pushing the code"
+        echo "done"
+    }
+    stage('Push Python Domain') {
         sh '''
         cd eapp-python-domain
         git remote set-url origin https://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@github.com/50gramx/eapp-python-domain.git
@@ -68,13 +101,6 @@ node {
         git commit -m "Added new build"
         git push origin HEAD:master
         '''
-//         get the version to tag
-// generate the proto compiled code
-// update the eapp-python-domain setup.py
-// push the generated code to eapp-python-domain
-        echo "done"
-    }
-    stage('Build for Node.js') {
         echo "done"
     }
     stage('Clean workspace') {
