@@ -54,11 +54,18 @@ node {
     }
     stage('Declare Sources') {
         script {
+
+            sh '''
+            #!/bin/sh
             declare -a proto_include_folders=(
                 "${EAPP_PROTO_SRC_DIR}/google/api/*.proto"
                 "${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto"
                 "${EAPP_PROTO_SRC_DIR}/gramx/fifty/zero/ethos/identity/multiverse/epme/*.proto"
             )
+            echo $proto_include_folders
+            env.PROTO_INCLUDE_FOLDERS = $proto_include_folders
+            printenv
+            '''
         }
     }
     stage('Build for Python') {
