@@ -68,9 +68,14 @@ node {
             echo $proto_include_folders[@]
             '''
             echo "${env.PROTO_INCLUDE_DIRS}"
-            echo "${env.PROTO_INCLUDE_DIRS.tokenize(',')}"
+            env.PROTO_INCLUDE_DIRS.tokenize(',\n').each {
+                MYPODS.tokenize(',').each {
+                        println "dir: ${it}"
+                    }
+            }
             echo "${env.PROTO_INCLUDE_DIRS.replace(',\n', ' ')}"
-            env.PROTO_INCLUDES = "${env.PROTO_INCLUDE_DIRS.replace(',\n', ' ')}"
+            env.PROTO_INCLUDES = env.PROTO_INCLUDE_DIRS.replace(',\n', ' ')
+            env.PROTO_INCLUDES = env.PROTO_INCLUDE_DIRS
 
         }
     }
