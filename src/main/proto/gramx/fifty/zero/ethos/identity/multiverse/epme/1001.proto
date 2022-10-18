@@ -34,7 +34,7 @@ message EPME1001 {
 
   /* It is used to identify individual account in
   the network. */
-  string account_id = 2;
+  string id = 2;
 
   string account_personal_email_id = 3; // by default, optional
   string account_work_email_id = 4; // by default, optional

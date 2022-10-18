@@ -47,9 +47,20 @@ node {
         }
         echo "done"
     }
-    stage('Configuring Directories') {
+    stage('Configure Directories') {
         env.EAPP_PROTO_SRC_DIR = "${WORKSPACE}/eapp-service-core/src/main/proto"
+        env.EAPP_PROTO_PYTHON_OUT_DIR = "${WORKSPACE}/eapp-python-domain/src"
         echo "done"
+    }
+    stage('Declare Sources') {
+        sh '''
+        #!/bin/sh
+        declare -a proto_include_folders=(
+          ${EAPP_PROTO_SRC_DIR}/google/api/*.proto
+          ${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto
+          ${EAPP_PROTO_SRC_DIR}/gramx/fifty/zero/ethos/identity/multiverse/epme/*.proto
+        )
+        '''
     }
     stage('Build for Python') {
         // Depends on
@@ -59,21 +70,6 @@ node {
 
         sh '''
         #!/bin/sh
-
-        echo "$(date) :: Building Python Services"
-
-        # PROTO GENERATION DIR CONFIG
-        # EAPP_PROTO_SRC_DIR=`pwd`/eapp-service-core/src/main/proto
-        EAPP_PROTO_PYTHON_OUT_DIR=`pwd`/eapp-python-domain/src
-
-
-
-        # PROTO SOURCE DIRS
-        declare -a proto_include_folders=(
-          $EAPP_PROTO_SRC_DIR/google/api/*.proto
-          $EAPP_PROTO_SRC_DIR/ethos/elint/entities/*.proto
-          $EAPP_PROTO_SRC_DIR/gramx/fifty/zero/ethos/identity/multiverse/epme/*.proto
-        )
 
         # REMOVE EXISTING GENERATED PROTOFILES
         rm -rf "$EAPP_PROTO_PYTHON_OUT_DIR/ethos"
