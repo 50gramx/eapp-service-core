@@ -65,8 +65,8 @@ node {
             echo $proto_include_folders
             '''
             sh 'printenv'
-            echo ${proto_include_folders}
-            env.PROTO_INCLUDE_FOLDERS = ${proto_include_folders}
+            echo "${proto_include_folders}"
+            env.PROTO_INCLUDE_FOLDERS = "${proto_include_folders}"
 
         }
     }
