@@ -55,8 +55,6 @@ node {
         env.PROTO_INCLUDE_DIRS = """${EAPP_PROTO_SRC_DIR}/google/api/*.proto,
             ${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto,
             ${EAPP_PROTO_SRC_DIR}/gramx/fifty/zero/ethos/identity/multiverse/epme/*.proto"""
-
-
         env.PROTO_INCLUDES = ""
         env.PROTO_INCLUDE_DIRS.tokenize(',\n').each {
             env.TEMP = "${it}"
