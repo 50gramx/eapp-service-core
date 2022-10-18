@@ -48,7 +48,7 @@ node {
         echo "done"
     }
     stage('Configuring Directories') {
-        env.EAPP_PROTO_SRC_DIR = `pwd`/eapp-service-core/src/main/proto
+        env.EAPP_PROTO_SRC_DIR = "${WORKSPACE}/eapp-service-core/src/main/proto"
         echo "done"
     }
     stage('Build for Python') {
