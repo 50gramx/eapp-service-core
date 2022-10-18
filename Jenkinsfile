@@ -69,6 +69,7 @@ node {
             '''
             echo "${env.PROTO_INCLUDE_DIRS}"
             echo "${env.PROTO_INCLUDE_DIRS.tokenize(',')}"
+            echo "${env.PROTO_INCLUDE_DIRS.replace(',\n', ' ')}"
 
         }
     }
