@@ -50,6 +50,9 @@ node {
     stage('Configure Directories') {
         env.EAPP_PROTO_SRC_DIR = "${WORKSPACE}/eapp-service-core/src/main/proto"
         env.EAPP_PROTO_PYTHON_OUT_DIR = "${WORKSPACE}/eapp-python-domain/src"
+        env.PROTO_INCLUDE_DIRS = "${EAPP_PROTO_SRC_DIR}/google/api/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/gramx/fifty/zero/ethos/identity/multiverse/epme/*.proto"
         echo "done"
     }
     stage('Declare Sources') {
@@ -62,11 +65,9 @@ node {
                 "${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto"
                 "${EAPP_PROTO_SRC_DIR}/gramx/fifty/zero/ethos/identity/multiverse/epme/*.proto"
             )
-            echo $proto_include_folders
+            echo $proto_include_folders[@]
             '''
-            sh 'printenv'
-            echo "${proto_include_folders}"
-            env.PROTO_INCLUDE_FOLDERS = "${proto_include_folders}"
+            echo "${env.PROTO_INCLUDE_DIRS}"
 
         }
     }
