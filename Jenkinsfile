@@ -59,11 +59,12 @@ node {
         echo "Let's try pushing the code"
         sh '''
         cd eapp-python-domain
+        git remote set-url origin https://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@github.com/50gramx/eapp-python-domain.git
         git config --global user.email "amit.khetan.70@50gramx.io"
         git config --global user.name "Amit-Khetan-70"
         git add .
         git commit -m "Added new build"
-        git push origin master
+        git push origin HEAD:master
         '''
 //         get the version to tag
 // generate the proto compiled code
