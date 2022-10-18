@@ -50,11 +50,9 @@ node {
     stage('Configure Directories') {
         env.EAPP_PROTO_SRC_DIR = "${WORKSPACE}/eapp-service-core/src/main/proto"
         env.EAPP_PROTO_PYTHON_OUT_DIR = "${WORKSPACE}/eapp-python-domain/src"
-        env.PROTO_INCLUDE_DIRS = """
-            ${EAPP_PROTO_SRC_DIR}/google/api/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto
-            ${EAPP_PROTO_SRC_DIR}/gramx/fifty/zero/ethos/identity/multiverse/epme/*.proto
-        """
+        env.PROTO_INCLUDE_DIRS = "${EAPP_PROTO_SRC_DIR}/google/api/*.proto,
+            ${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto,
+            ${EAPP_PROTO_SRC_DIR}/gramx/fifty/zero/ethos/identity/multiverse/epme/*.proto"
         echo "done"
     }
     stage('Declare Sources') {
@@ -70,6 +68,7 @@ node {
             echo $proto_include_folders[@]
             '''
             echo "${env.PROTO_INCLUDE_DIRS}"
+            echo "${env.PROTO_INCLUDE_DIRS.tokenize(',')}"
 
         }
     }
@@ -91,7 +90,7 @@ node {
           --python_out=$EAPP_PROTO_PYTHON_OUT_DIR \
           --grpc_python_out=$EAPP_PROTO_PYTHON_OUT_DIR \
           -I $EAPP_PROTO_SRC_DIR \
-          --proto_path "${PROTO_INCLUDE_DIRS}"
+          --proto_path "${PROTO_INCLUDE_DIRS.tokenize(',')}"
 
         '''
         echo "done"
