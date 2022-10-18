@@ -1,0 +1,50 @@
+/*************************************************************************
+*
+* AMIT KUMAR KHETAN CONFIDENTIAL
+* __________________
+*
+*  [2017] - [2021] Amit Kumar Khetan
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Amit Kumar Khetan and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Amit Kumar Khetan
+* and its suppliers and may be covered by U.S. and Foreign Patents,
+* patents in process, and are protected by trade secret or copyright law.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Amit Kumar Khetan.
+*/
+
+syntax = "proto3";
+
+package elint.entity;
+
+import public "google/protobuf/timestamp.proto";
+
+// Account
+// An Account entity is an identifier of a user of 50gramx as an individual.
+message EPME1001 {
+
+  /* It is used to perform analytics on multiverse to
+  identify account characteristics without directly
+  pointing to any individual. */
+  string account_analytics_id = 1;
+
+  /* It is used to identify individual account in
+  the network. */
+  string account_id = 2;
+
+  string account_personal_email_id = 3; // by default, optional
+  string account_work_email_id = 4; // by default, optional
+  string account_country_code = 5; // added with new account, either with user selection or based on IP detection
+  string account_mobile_number = 6; // by default, optional
+  string account_first_name = 7; // by default, optional
+  string account_last_name = 8; // by default, optional
+  string account_galaxy_id = 9; // added with new account, either with user selection or based on adopters galaxy
+  google.protobuf.Timestamp account_birth_at = 10; // by default, optional
+//  AccountGender account_gender = 11; // by default, optional
+  google.protobuf.Timestamp created_at = 12; // added with new account
+//  AccountStatus account_status = 13; // added with new account, default to LOOSE_ACCOUNT
+}
