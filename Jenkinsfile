@@ -69,7 +69,9 @@ node {
             '''
             echo "${env.PROTO_INCLUDE_DIRS}"
             env.PROTO_INCLUDE_DIRS.tokenize(',\n').each {
-                println "dir: ${it}.trim()"
+                env.TEMP = "${it}"
+                env.TEMP = env.TEMP.trim()
+                println "dir: ${TEMP}"
             }
             echo "${env.PROTO_INCLUDE_DIRS.replace(',\n', ' ')}"
             env.PROTO_INCLUDES = env.PROTO_INCLUDE_DIRS.replace(',\n', ' ')
