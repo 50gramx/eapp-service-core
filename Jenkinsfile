@@ -69,7 +69,8 @@ node {
             '''
             echo "${env.PROTO_INCLUDE_DIRS}"
             echo "${env.PROTO_INCLUDE_DIRS.tokenize(',')}"
-            echo "${env.PROTO_INCLUDE_DIRS.replace(',\n', ' ')}"
+            echo "${env.PROTO_INCLUDE_DIRS.replace(',\n\t\t\t', ' ')}"
+            env.PROTO_INCLUDES = "${env.PROTO_INCLUDE_DIRS.replace(',\n\t\t\t', ' ')}"
 
         }
     }
@@ -91,7 +92,7 @@ node {
           --python_out=$EAPP_PROTO_PYTHON_OUT_DIR \
           --grpc_python_out=$EAPP_PROTO_PYTHON_OUT_DIR \
           -I $EAPP_PROTO_SRC_DIR \
-          --proto_path "${PROTO_INCLUDE_DIRS.tokenize(',')}"
+          --proto_path "${PROTO_INCLUDES}"
 
         '''
         echo "done"
