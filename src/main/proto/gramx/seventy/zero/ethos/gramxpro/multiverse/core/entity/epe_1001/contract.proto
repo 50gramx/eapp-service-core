@@ -27,6 +27,7 @@ enum StatusCode {
 }
 
 // Capability Context
+// Used to reflect status
 message EPE1001 {
   StatusCode code = 1;
   string message = 2;
