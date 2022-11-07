@@ -47,9 +47,36 @@ node {
         }
         echo "done"
     }
+    stage('Checkout Nodejs Domain') {
+        dir('eapp-nodejs-domain') {
+            checkout(
+                [
+                    $class: 'GitSCM',
+                    branches: [
+                        [
+                            name: '*/master'
+                        ]
+                    ],
+                    extensions: [],
+                    userRemoteConfigs: [
+                        [
+                            credentialsId: 'multiverse-delivery-github-50gramx',
+                            url: 'https://github.com/50gramx/eapp-nodejs-domain.git'
+                        ]
+                    ]
+                ]
+            )
+        }
+        echo "done"
+    }
     stage('Configure Directories') {
+
+        // Root Directories
         env.EAPP_PROTO_SRC_DIR = "${WORKSPACE}/eapp-service-core/src/main/proto"
+
+        // Dependent Directories
         env.EAPP_PROTO_PYTHON_OUT_DIR = "${WORKSPACE}/eapp-python-domain/eapp-python-domain"
+        env.EAPP_PROTO_NODEJS_OUT_DIR = "${WORKSPACE}/eapp-nodejs-domain/eapp-nodejs-domain"
 
 
         env.PROTO_INCLUDE_DIRS = """${EAPP_PROTO_SRC_DIR}/google/api/*.proto,
@@ -66,10 +93,17 @@ node {
 
 
         sh '''
-        # REMOVE EXISTING GENERATED PROTOFILES
+        # REMOVE EXISTING GENERATED CONTRACTS
+
+        # FOR PYTHON DOMAIN
         rm -rf "$EAPP_PROTO_PYTHON_OUT_DIR/ethos"
         rm -rf "$EAPP_PROTO_PYTHON_OUT_DIR/gramx"
+
+        # FOR NODEJS DOMAIN
+        rm -rf "$EAPP_PROTO_NODEJS_OUT_DIR/ethos"
+        rm -rf "$EAPP_PROTO_NODEJS_OUT_DIR/gramx"
         '''
+
 
         echo "done"
     }
@@ -105,6 +139,45 @@ node {
         sh '''
         cd eapp-python-domain
         git remote set-url origin https://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@github.com/50gramx/eapp-python-domain.git
+        git config --global user.email "amit.khetan.70@50gramx.io"
+        git config --global user.name "Amit-Khetan-70"
+        git add .
+        git commit -m "Added new build"
+        git push origin HEAD:master
+        '''
+        echo "done"
+    }
+    stage('Build Nodejs Domain') {
+        // Depends on
+        // grpc_tools_node_protoc
+
+        sh '''
+        #!/bin/sh
+
+        # GENERATING PROTOFILES
+        grpc_tools_node_protoc \
+          --js_out=import_style=commonjs,binary:$EAPP_PROTO_NODEJS_OUT_DIR \
+          --grpc_out=grpc_js:$EAPP_PROTO_NODEJS_OUT_DIR \
+          -I $EAPP_PROTO_SRC_DIR \
+          -I /usr/local/include \
+          --proto_path $PROTO_INCLUDES
+
+        '''
+
+        sh '''
+        #!/bin/sh
+
+        # FETCHING THE RELEASE VERSION
+        export RELEASE_VERSION=`echo "$releaseVersion" | sed -n -e 2p ${WORKSPACE}/eapp-service-core/release.yaml | sed 's/^.*: //'`
+        sed '3s/.*/  "version": "$RELEASE_VERSION",/' ${WORKSPACE}/eapp-nodejs-domain/package.json > ${WORKSPACE}/eapp-nodejs-domain/newpackage.json
+        mv ${WORKSPACE}/eapp-nodejs-domain/newpackage.json ${WORKSPACE}/eapp-nodejs-domain/package.json
+        '''
+        echo "done"
+    }
+    stage('Push Nodejs Domain') {
+        sh '''
+        cd eapp-nodejs-domain
+        git remote set-url origin https://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@github.com/50gramx/eapp-nodejs-domain.git
         git config --global user.email "amit.khetan.70@50gramx.io"
         git config --global user.name "Amit-Khetan-70"
         git add .
