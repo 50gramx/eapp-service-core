@@ -148,8 +148,8 @@ node {
         echo "done"
     }
     stage('Build Nodejs Domain') {
-        // Depends on
-        // grpc_tools_node_protoc
+        // Depends on node with npm packages
+        // grpc-tools
 
         sh '''
         #!/bin/sh
