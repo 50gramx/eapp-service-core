@@ -1,3 +1,10 @@
+- build: 4
+  version: 0.1.2
+  improvements:
+    major:
+    minor:
+    revision:
+      - Support for NodeJs Domain
 - build: 3
   version: 0.1.1
   improvements:
