@@ -110,8 +110,8 @@ node {
             credentialsId: 'multiverse-india-do-config',
             namespace: 'multiverse-delivery',
             serverUrl: 'https://157.245.106.167:16443') {
-            sh 'kubectl apply -f playbook/multiverse-delivery-namespace.yaml'
-            sh 'kubectl apply -f playbook/multiverse-delivery-ingress.yaml'
+            sh 'kubectl apply -f ${WORKSPACE}/eapp-service-core/playbook/multiverse-delivery-namespace.yaml'
+            sh 'kubectl apply -f ${WORKSPACE}/eapp-service-core/playbook/multiverse-delivery-ingress.yaml'
         }
         echo "done"
     }
