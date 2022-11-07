@@ -9,7 +9,7 @@ spec:
     - host: "index.delivery.50gramx.com"
       http:
         paths:
-          - path: "python"
+          - path: "/python"
             pathType: Prefix
             backend:
               service:
