@@ -19,7 +19,7 @@
 
 syntax = "proto3";
 
-package seventy.zero.ethos.gramxpro.multiverse.core.entity.epe_1002;
+package gramx.seventy.zero.ethos.gramxpro.multiverse.core.entity.epe_1002;
 
 import public "google/protobuf/empty.proto";
 
