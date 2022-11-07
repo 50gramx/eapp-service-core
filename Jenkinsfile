@@ -55,7 +55,8 @@ node {
         env.PROTO_INCLUDE_DIRS = """${EAPP_PROTO_SRC_DIR}/google/api/*.proto,
             ${EAPP_PROTO_SRC_DIR}/gramx/fifty/zero/ethos/identity/multiverse/core/entity/epme_1005/*.proto,
             ${EAPP_PROTO_SRC_DIR}/gramx/fifty/zero/ethos/identity/multiverse/core/entity/epme_1005/capability/*.proto,
-            ${EAPP_PROTO_SRC_DIR}/gramx/seventy/zero/ethos/gramxpro/multiverse/core/entity/epe_1001/*.proto"""
+            ${EAPP_PROTO_SRC_DIR}/gramx/seventy/zero/ethos/gramxpro/multiverse/core/entity/epe_1001/*.proto,
+            ${EAPP_PROTO_SRC_DIR}/gramx/seventy/zero/ethos/gramxpro/multiverse/core/entity/epe_1002/*.proto"""
         env.PROTO_INCLUDES = ""
         env.PROTO_INCLUDE_DIRS.tokenize(',\n').each {
             env.TEMP = "${it}"
