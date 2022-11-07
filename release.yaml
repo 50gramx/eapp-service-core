@@ -1,3 +1,10 @@
+- build: 3
+  version: 0.1.1
+  improvements:
+    major:
+    minor:
+    revision:
+      - 70GMx | Ethos | GRAMxpro | Added Comments
 - build: 2
   version: 0.1.0
   improvements:
