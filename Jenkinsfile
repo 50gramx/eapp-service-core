@@ -155,7 +155,7 @@ node {
         #!/bin/sh
 
         # GENERATING PROTOFILES
-        ./node_modules/.bin/grpc_tools_node_protoc \
+        npx grpc_tools_node_protoc \
           --js_out=import_style=commonjs,binary:$EAPP_PROTO_NODEJS_OUT_DIR \
           --grpc_out=grpc_js:$EAPP_PROTO_NODEJS_OUT_DIR \
           -I $EAPP_PROTO_SRC_DIR \

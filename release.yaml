@@ -1,3 +1,10 @@
+- build: 6
+  version: 0.1.5
+  improvements:
+    major:
+    minor:
+    revision:
+      - Fixed NodeJs Domain Builder dependencies
 - build: 5
   version: 0.1.4
   improvements:
