@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: multiverse-delivery-ingress
+  namespace: multiverse-delivery
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "index.delivery.50gramx.com"
+      http:
+        paths:
+          - path: "python"
+            pathType: Prefix
+            backend:
+              service:
+                name: python-package-index-svc
+                port:
+                  number: 80
