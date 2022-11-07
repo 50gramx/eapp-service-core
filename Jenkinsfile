@@ -49,7 +49,7 @@ node {
     }
     stage('Configure Directories') {
         env.EAPP_PROTO_SRC_DIR = "${WORKSPACE}/eapp-service-core/src/main/proto"
-        env.EAPP_PROTO_PYTHON_OUT_DIR = "${WORKSPACE}/eapp-python-domain/src"
+        env.EAPP_PROTO_PYTHON_OUT_DIR = "${WORKSPACE}/eapp-python-domain/eapp-python-domain"
 
 
         env.PROTO_INCLUDE_DIRS = """${EAPP_PROTO_SRC_DIR}/google/api/*.proto,
@@ -63,6 +63,13 @@ node {
             env.PROTO_INCLUDES = "${PROTO_INCLUDES} ${TEMP}"
         }
 
+
+        sh '''
+        # REMOVE EXISTING GENERATED PROTOFILES
+        rm -rf "$EAPP_PROTO_PYTHON_OUT_DIR/ethos"
+        rm -rf "$EAPP_PROTO_PYTHON_OUT_DIR/gramx"
+        '''
+
         echo "done"
     }
     stage('Build Python Domain') {
@@ -73,10 +80,6 @@ node {
 
         sh '''
         #!/bin/sh
-
-        # REMOVE EXISTING GENERATED PROTOFILES
-        rm -rf "$EAPP_PROTO_PYTHON_OUT_DIR/ethos"
-        rm -rf "$EAPP_PROTO_PYTHON_OUT_DIR/gramx"
 
         # GENERATING PROTOFILES
         python3 -m grpc_tools.protoc \
@@ -98,6 +101,18 @@ node {
         git commit -m "Added new build"
         git push origin HEAD:master
         '''
+        echo "done"
+    }
+    stage('Delivery - Multiverse - Digital Ocean Node - Host PyPi Packaging') {
+        withKubeConfig(
+            clusterName: 'microk8s-cluster',
+            contextName: 'microk8s',
+            credentialsId: 'multiverse-india-do-config',
+            namespace: 'multiverse-delivery',
+            serverUrl: 'https://157.245.106.167:16443') {
+            sh 'kubectl apply -f playbook/multiverse-delivery-namespace.yaml'
+            sh 'kubectl apply -f playbook/multiverse-delivery-ingress.yaml'
+        }
         echo "done"
     }
     stage('Clean workspace') {
