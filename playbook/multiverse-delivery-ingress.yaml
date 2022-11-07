@@ -16,3 +16,13 @@ spec:
                 name: python-package-index-svc
                 port:
                   number: 80
+    - host: "nodejs.delivery.50gramx.com"
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: nodejs-package-index-svc
+                port:
+                  number: 80
