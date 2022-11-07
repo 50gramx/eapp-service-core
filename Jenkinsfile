@@ -103,7 +103,7 @@ node {
         '''
         echo "done"
     }
-    stage('Delivery - Multiverse - Digital Ocean Node - Host PyPi Packaging') {
+    stage('Configure Multiverse - Delivery - Digital Ocean Node') {
         withKubeConfig(
             clusterName: 'microk8s-cluster',
             contextName: 'microk8s',
