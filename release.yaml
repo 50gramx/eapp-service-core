@@ -1,3 +1,10 @@
+- build: 12
+  version: 0.2.4
+  improvements:
+    major:
+    minor:
+    revision:
+      - Fixed Nodejs Domain Versioning with Escape Characters
 - build: 11
   version: 0.2.3
   improvements:
