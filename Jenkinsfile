@@ -169,7 +169,7 @@ node {
 
         # FETCHING THE RELEASE VERSION
         export RELEASE_VERSION=`echo "$releaseVersion" | sed -n -e 2p ${WORKSPACE}/eapp-service-core/release.yaml | sed 's/^.*: //'`
-        sed '3s/.*/  "version": "$RELEASE_VERSION",/' ${WORKSPACE}/eapp-nodejs-domain/package.json > ${WORKSPACE}/eapp-nodejs-domain/newpackage.json
+        sed '3s/.*/  "version": "${RELEASE_VERSION}",/' ${WORKSPACE}/eapp-nodejs-domain/package.json > ${WORKSPACE}/eapp-nodejs-domain/newpackage.json
         mv ${WORKSPACE}/eapp-nodejs-domain/newpackage.json ${WORKSPACE}/eapp-nodejs-domain/package.json
         '''
         echo "done"
