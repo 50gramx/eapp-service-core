@@ -130,7 +130,7 @@ node {
 
         # FETCHING THE RELEASE VERSION
         export RELEASE_VERSION=`echo "$releaseVersion" | sed -n -e 2p ${WORKSPACE}/eapp-service-core/release.yaml | sed 's/^.*: //'`
-        sed "5s/.*/    version='$RELEASE_VERSION',/" ${WORKSPACE}/eapp-python-domain/setup.py > ${WORKSPACE}/eapp-python-domain/newsetup.py
+        sed "10s/.*/    version='$RELEASE_VERSION',/" ${WORKSPACE}/eapp-python-domain/setup.py > ${WORKSPACE}/eapp-python-domain/newsetup.py
         mv ${WORKSPACE}/eapp-python-domain/newsetup.py ${WORKSPACE}/eapp-python-domain/setup.py
         '''
         echo "done"
