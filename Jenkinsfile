@@ -144,7 +144,7 @@ node {
         git add .
         # FETCHING THE RELEASE VERSION
         export RELEASE_VERSION=`echo "$releaseVersion" | sed -n -e 2p ${WORKSPACE}/eapp-service-core/release.yaml | sed 's/^.*: //'`
-        git commit -m "Released Build #\${RELEASE_VERSION}"
+        git commit -m "Released v\${RELEASE_VERSION}"
         git push origin HEAD:master
         '''
         echo "done"
@@ -183,7 +183,8 @@ node {
         git config --local user.email "amit.khetan.70@50gramx.io"
         git config --local user.name "Amit-Khetan-70"
         git add .
-        git commit -m "Added new build"
+        export RELEASE_VERSION=`echo "$releaseVersion" | sed -n -e 2p ${WORKSPACE}/eapp-service-core/release.yaml | sed 's/^.*: //'`
+        git commit -m "Released v\${RELEASE_VERSION}"
         git push origin HEAD:master
         '''
         echo "done"
