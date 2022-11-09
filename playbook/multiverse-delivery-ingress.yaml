@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: "python.delivery.50gramx.com"
+    - host: "pypi.50gramx.com"
       http:
         paths:
           - path: "/"
