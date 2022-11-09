@@ -1,3 +1,10 @@
+- build: 14
+  version: 0.2.6
+  improvements:
+    major:
+    minor:
+    revision:
+      - Rolled back to previous python package host name
 - build: 13
   version: 0.2.5
   improvements:
