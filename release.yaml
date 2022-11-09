@@ -1,3 +1,10 @@
+- build: 17
+  version: 0.2.9
+  improvements:
+    major:
+    minor:
+    revision:
+      - Fixed Python Package Includes
 - build: 16
   version: 0.2.8
   improvements:
