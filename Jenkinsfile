@@ -17,7 +17,7 @@ node {
                     userRemoteConfigs: [
                         [
                             credentialsId: 'multiverse-delivery-github-50gramx',
-                            url: 'https://github.com/50gramx/eapp-service-core.git'
+                            url: 'https://Amit-Khetan-70@github.com/50gramx/eapp-service-core.git'
                         ]
                     ]
                 ]
@@ -39,7 +39,7 @@ node {
                     userRemoteConfigs: [
                         [
                             credentialsId: 'multiverse-delivery-github-50gramx',
-                            url: 'https://github.com/50gramx/eapp-python-domain.git'
+                            url: 'https://Amit-Khetan-70@github.com/50gramx/eapp-python-domain.git'
                         ]
                     ]
                 ]
@@ -61,7 +61,7 @@ node {
                     userRemoteConfigs: [
                         [
                             credentialsId: 'multiverse-delivery-github-50gramx',
-                            url: 'https://github.com/50gramx/eapp-nodejs-domain.git'
+                            url: 'https://Amit-Khetan-70@github.com/50gramx/eapp-nodejs-domain.git'
                         ]
                     ]
                 ]
@@ -138,11 +138,13 @@ node {
     stage('Push Python Domain') {
         sh '''
         cd eapp-python-domain
-        git remote set-url origin https://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@github.com/50gramx/eapp-python-domain.git
-        git config --global user.email "amit.khetan.70@50gramx.io"
-        git config --global user.name "Amit-Khetan-70"
+        git remote set-url origin https://Amit-Khetan-70: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@github.com/50gramx/eapp-python-domain.git
+        git config --local user.email "amit.khetan.70@50gramx.io"
+        git config --local user.name "Amit-Khetan-70"
         git add .
-        git commit -m "Added new build"
+        # FETCHING THE RELEASE VERSION
+        export RELEASE_VERSION=`echo "$releaseVersion" | sed -n -e 2p ${WORKSPACE}/eapp-service-core/release.yaml | sed 's/^.*: //'`
+        git commit -m "Released Build #\${RELEASE_VERSION}"
         git push origin HEAD:master
         '''
         echo "done"
@@ -177,9 +179,9 @@ node {
     stage('Push Nodejs Domain') {
         sh '''
         cd eapp-nodejs-domain
-        git remote set-url origin https://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@github.com/50gramx/eapp-nodejs-domain.git
-        git config --global user.email "amit.khetan.70@50gramx.io"
-        git config --global user.name "Amit-Khetan-70"
+        git remote set-url origin https://Amit-Khetan-70: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@github.com/50gramx/eapp-nodejs-domain.git
+        git config --local user.email "amit.khetan.70@50gramx.io"
+        git config --local user.name "Amit-Khetan-70"
         git add .
         git commit -m "Added new build"
         git push origin HEAD:master
