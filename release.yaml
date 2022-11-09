@@ -1,3 +1,10 @@
+- build: 19
+  version: 0.2.11
+  improvements:
+    major:
+    minor:
+    revision:
+      - Fixed Python Package Imports
 - build: 18
   version: 0.2.10
   improvements:

@@ -75,7 +75,7 @@ node {
         env.EAPP_PROTO_SRC_DIR = "${WORKSPACE}/eapp-service-core/src/main/proto"
 
         // Dependent Directories
-        env.EAPP_PROTO_PYTHON_OUT_DIR = "${WORKSPACE}/eapp-python-domain/eapp-python-domain"
+        env.EAPP_PROTO_PYTHON_OUT_DIR = "${WORKSPACE}/eapp-python-domain/src/eapp_python_domain"
         env.EAPP_PROTO_NODEJS_OUT_DIR = "${WORKSPACE}/eapp-nodejs-domain/eapp-nodejs-domain"
 
 
