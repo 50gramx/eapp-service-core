@@ -1,3 +1,10 @@
+- build: 15
+  version: 0.2.7
+  improvements:
+    major:
+    minor:
+    revision:
+      - Fixed Issues with Python Package Publishing
 - build: 14
   version: 0.2.6
   improvements:
