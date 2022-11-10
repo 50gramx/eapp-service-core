@@ -40,7 +40,7 @@ service ReadEPME1005 {
 
   // Is Existing Account Assistant Name
   // Checks the existence of an account assistant based on its name.
-  rpc EPMXCRC3001 (
+  rpc EPMXCC3001 (
       stream gramx.fifty.zero.ethos.identity.multiverse.core.entity.epme_1005.EPME1005
       ) returns (
       stream gramx.fifty.zero.ethos.identity.multiverse.core.entity.epme_1005.EPME1005
@@ -48,7 +48,7 @@ service ReadEPME1005 {
 
   // Get All Account Assistant
   // Gets all the account assistants.
-  rpc EPMXCRC3002 (gramx.seventy.zero.ethos.gramxpro.multiverse.core.entity.epe_1001.EPE1001) returns (
+  rpc EPMXCC3002 (gramx.seventy.zero.ethos.gramxpro.multiverse.core.entity.epe_1001.EPE1001) returns (
       stream gramx.fifty.zero.ethos.identity.multiverse.core.entity.epme_1005.EPME1005
       ) {};
 }
