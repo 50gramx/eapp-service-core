@@ -1,4 +1,16 @@
 - build: 21
+  version: 0.3.0
+  improvements:
+    major:
+    minor:
+      - 70GMx:
+          organisations:
+            - Ethos:
+                eapps:
+                  - GRAMxpro:
+                      - Introduced 2 new Status codes for EPE1002
+    revision:
+- build: 21
   version: 0.2.14
   improvements:
     major:
