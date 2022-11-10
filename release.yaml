@@ -1,4 +1,17 @@
 - build: 21
+  version: 0.4.0
+  improvements:
+    major:
+    minor:
+      - 50GMx:
+          organisations:
+            - Ethos:
+                eapps:
+                  - Identity:
+                      - Implemented the Capability Contract for EPMXCRC3001
+                      - Implemented the Capability Contract for EPMXCRC3002
+    revision:
+- build: 21
   version: 0.3.0
   improvements:
     major:

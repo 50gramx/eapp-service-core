@@ -28,6 +28,7 @@ package gramx.fifty.zero.ethos.identity.multiverse.core.entity.epme_1005.chain.o
 
 // TODO: Imports (Sorted)
 import "gramx/fifty/zero/ethos/identity/multiverse/core/entity/epme_1005/contract.proto";
+import "gramx/seventy/zero/ethos/gramxpro/multiverse/core/entity/epe_1001/contract.proto";
 
 
 // TODO: File options
@@ -42,6 +43,12 @@ service ReadEPME1005 {
   rpc EPMXCRC3001 (
       stream gramx.fifty.zero.ethos.identity.multiverse.core.entity.epme_1005.EPME1005
       ) returns (
+      stream gramx.fifty.zero.ethos.identity.multiverse.core.entity.epme_1005.EPME1005
+      ) {};
+
+  // Get All Account Assistant
+  // Gets all the account assistants.
+  rpc EPMXCRC3002 (gramx.seventy.zero.ethos.gramxpro.multiverse.core.entity.epe_1001.EPE1001) returns (
       stream gramx.fifty.zero.ethos.identity.multiverse.core.entity.epme_1005.EPME1005
       ) {};
 }
