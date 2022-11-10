@@ -24,6 +24,8 @@ package gramx.seventy.zero.ethos.gramxpro.multiverse.core.entity.epe_1001;
 
 enum StatusCode {
   CANCELLED = 0;
+  UNKNOWN = 2;
+  ALREADY_EXISTS = 6;
 }
 
 // Capability Context

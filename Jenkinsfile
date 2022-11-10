@@ -134,6 +134,8 @@ node {
         mv ${WORKSPACE}/eapp-python-domain/newsetup.py ${WORKSPACE}/eapp-python-domain/setup.py
         '''
 
+        // https://stackoverflow.com/a/4935799
+        // https://stackoverflow.com/a/49180330
         sh '''
         cd ${EAPP_PROTO_PYTHON_OUT_DIR} && find . -type d -exec touch {}/__init__.py \\;
         '''
