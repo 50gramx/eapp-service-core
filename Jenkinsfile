@@ -133,6 +133,10 @@ node {
         sed "10s/.*/    version='$RELEASE_VERSION',/" ${WORKSPACE}/eapp-python-domain/setup.py > ${WORKSPACE}/eapp-python-domain/newsetup.py
         mv ${WORKSPACE}/eapp-python-domain/newsetup.py ${WORKSPACE}/eapp-python-domain/setup.py
         '''
+
+        sh '''
+        cd ${EAPP_PROTO_PYTHON_OUT_DIR} && find . -type d -exec touch {}/__init__.py \;
+        '''
         echo "done"
     }
     stage('Push Python Domain') {
