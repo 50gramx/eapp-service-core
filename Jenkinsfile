@@ -135,7 +135,7 @@ node {
         '''
 
         sh '''
-        cd ${EAPP_PROTO_PYTHON_OUT_DIR} && find . -type d -exec touch {}/__init__.py \;
+        cd ${EAPP_PROTO_PYTHON_OUT_DIR} && find . -type d -exec touch {}/__init__.py \\;
         '''
         echo "done"
     }
