@@ -1,11 +1,15 @@
 syntax = "proto3";
 package elint.services.product.identity.universe;
 
+import "ethos/elint/entities/universe.proto";
+import public "google/protobuf/empty.proto";
+
 option java_multiple_files = true;
 option java_package = "com.ethos.elint.services.product";
 
 service DiscoverUniverseService {
   rpc GetUniverseById (GetUniverseByIdRequest) returns (GetUniverseByIdResponse) {};
+  rpc GetAllUniverse (google.protobuf.Empty) returns (stream elint.entity.Universe) {};
 }
 
 message GetUniverseByIdRequest {}

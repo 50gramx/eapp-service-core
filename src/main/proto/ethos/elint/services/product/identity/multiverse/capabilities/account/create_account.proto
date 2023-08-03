@@ -20,7 +20,7 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "elint.services.product.identity.account";
+option java_package = "elint.services.product.gramxpro.account";
 option java_outer_classname = "CreateAccountProto";
 
 package elint.services.product.identity.account;
@@ -33,7 +33,7 @@ import "ethos/elint/services/product/identity/account/access_account.proto";
 // Service Definitions
 // ------------------------------------
 
-service CreateAccountService {
+service CreateAccountCapabilities {
   rpc ValidateAccountWithMobile (ValidateAccountWithMobileRequest) returns (ValidateAccountWithMobileResponse) {
   };
   rpc VerificationAccount (VerificationAccountRequest) returns (VerificationAccountResponse) {

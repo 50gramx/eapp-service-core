@@ -34,20 +34,33 @@ enum AccountGender {
   MALE = 2;
 }
 
+message LooseAccount {
+  string loose_account_analytics_id = 1;
+  string loose_account_id = 2;
+  string loose_account_galaxy_id = 9;
+  google.protobuf.Timestamp loose_account_birth_at = 10;
+}
+
+enum AccountStatus {
+  LOOSE_ACCOUNT = 0;
+  BILLING_ACTIVE = 50;
+}
+
+
 message Account {
-  string account_analytics_id = 1;
-  string account_id = 2;
-  string account_personal_email_id = 3;
-  string account_work_email_id = 4;
-  string account_country_code = 5;
-  string account_mobile_number = 6;
-  string account_first_name = 7;
-  string account_last_name = 8;
-  string account_galaxy_id = 9;
-  google.protobuf.Timestamp account_birth_at = 10;
-  AccountGender account_gender = 11;
-  google.protobuf.Timestamp created_at = 12;
-  bool account_billing_active = 13;
+  string account_analytics_id = 1;  // added with new account
+  string account_id = 2;  // added with new account
+  string account_personal_email_id = 3; // by default, optional
+  string account_work_email_id = 4; // by default, optional
+  string account_country_code = 5; // added with new account, either with user selection or based on IP detection
+  string account_mobile_number = 6; // by default, optional
+  string account_first_name = 7; // by default, optional
+  string account_last_name = 8; // by default, optional
+  string account_galaxy_id = 9; // added with new account, either with user selection or based on adopters galaxy
+  google.protobuf.Timestamp account_birth_at = 10; // by default, optional
+  AccountGender account_gender = 11; // by default, optional
+  google.protobuf.Timestamp created_at = 12; // added with new account
+  AccountStatus account_status = 13; // added with new account, default to LOOSE_ACCOUNT
 }
 
 message AccountSpaceKnowledgeAccessMeta {

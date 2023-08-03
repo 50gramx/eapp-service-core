@@ -29,9 +29,9 @@ import "ethos/elint/entities/account.proto";
 import "ethos/elint/entities/generic.proto";
 
 // ------------------------------------
-// Service Definitions
+// Capabilities Definitions
 // ------------------------------------
-service AccessAccountService {
+service AccessAccountCapabilities {
   rpc ValidateAccount (ValidateAccountRequest) returns (ValidateAccountResponse) {
   };
   rpc VerifyAccount (VerifyAccountRequest) returns (VerifyAccountResponse) {

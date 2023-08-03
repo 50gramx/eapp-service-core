@@ -18,31 +18,24 @@
 */
 
 syntax = "proto3";
+package elint.services.product.identity.account;
 
-package elint.chains.multiverse.identity;
-
-import public "google/protobuf/timestamp.proto";
 import "ethos/elint/entities/account.proto";
 import "ethos/elint/entities/generic.proto";
+import "ethos/elint/services/product/identity/account/access_account.proto";
 
-service AccountChainServices {
-  rpc IsExistingAccountEmail (IsExistingAccountEmailRequest) returns (elint.entity.ResponseMeta) {};
-  rpc IsExistingAccountMobile (IsExistingAccountMobileRequest) returns (elint.entity.ResponseMeta) {};
-  rpc AddAccount (elint.entity.Account) returns (elint.entity.ResponseMeta) {};
-  rpc GetAccount (GetAccountRequest) returns (elint.entity.Account) {};
+// Service Definitions
+service UpdateAccountCapabilities {
+    rpc UpdateAccountProfilePicture (UpdateAccountProfilePictureRequest) returns (UpdateAccountProfilePictureResponse) {
+    };
 }
 
-message IsExistingAccountEmailRequest {
-  string account_email_id = 1;
+// Message Definitions
+message UpdateAccountProfilePictureRequest {
+    elint.services.product.identity.account.AccountServicesAccessAuthDetails access_auth_details = 1;
+    repeated bytes picture_chunks = 2;
 }
 
-message IsExistingAccountMobileRequest {
-  string account_country_code = 1;
-  string account_mobile_number = 2;
-}
-
-message GetAccountRequest {
-  string account_id = 1;
-  string account_country_code = 2;
-  string account_mobile_number = 3;
+message UpdateAccountProfilePictureResponse {
+    elint.entity.ResponseMeta response_meta = 1;
 }

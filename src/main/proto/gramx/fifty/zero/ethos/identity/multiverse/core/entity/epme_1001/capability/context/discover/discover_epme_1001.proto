@@ -17,17 +17,35 @@
 * from Amit Kumar Khetan.
 */
 
+// TODO: Overview
+
+
+// TODO: Syntax
 syntax = "proto3";
 
-package elint.chains.multiverse.identity;
+// TODO: Package
+package elint.services.product.identity.account.assistant;
 
-import public "google/protobuf/timestamp.proto";
-import "ethos/elint/entities/universe.proto";
+// TODO: Imports (Sorted)
+import "ethos/elint/entities/account_assistant.proto";
+import "ethos/elint/entities/account.proto";
+import "gramx/fifty/zero/ethos/identity/multiverse/core/entity/epme_1001/contract.proto";
 import "ethos/elint/entities/generic.proto";
-import public "google/protobuf/empty.proto";
+import "ethos/elint/services/product/identity/account/access_account.proto";
 
-service UniverseChainServices {
-  rpc AddUniverse (elint.entity.Universe) returns (elint.entity.ResponseMeta) {};
-  rpc GetUniverse (elint.entity.Universe) returns (elint.entity.Universe) {};
-  rpc GetAllUniverse (google.protobuf.Empty) returns (stream elint.entity.Universe) {};
+
+// TODO: File options
+
+
+// TODO: Everything else
+
+
+
+
+// Service Definitions
+service DiscoverEPME2001 {
+  rpc EPMCC2101 (fifty.zero.ethos.identity.multiverse.core.entity.EPME1001) returns (elint.entity.AccountAssistant) {
+  };
 }
+
+// Message Definitions

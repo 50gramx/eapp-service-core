@@ -28,7 +28,7 @@ import "ethos/elint/entities/generic.proto";
 import "ethos/elint/services/product/identity/account/access_account.proto";
 
 // Service Definitions
-service ConnectAccountService {
+service ConnectAccountCapabilities {
 
   rpc GetAccountSelfConnectedAccountAssistant (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (GetAccountSelfConnectedAccountAssistantResponse) {
   }; // returns self connected account assistant

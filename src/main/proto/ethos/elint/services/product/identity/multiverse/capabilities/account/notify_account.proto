@@ -25,7 +25,7 @@ import "ethos/elint/entities/generic.proto";
 import "ethos/elint/services/product/identity/account/access_account.proto";
 
 // Service Definitions
-service NotifyAccountService {
+service NotifyAccountCapabilities {
   rpc NewReceivedMessageFromAccountAssistant (NewReceivedMessageFromAccountAssistantRequest) returns (elint.entity.ResponseMeta) {
   };
   rpc NewReceivedMessageFromAccount (NewReceivedMessageFromAccountRequest) returns (elint.entity.ResponseMeta) {

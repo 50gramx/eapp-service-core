@@ -18,16 +18,17 @@
 */
 
 syntax = "proto3";
+package elint.services.product.identity.account;
 
-package elint.chains.multiverse.identity;
+service DeleteAccountCapabilities {
+    rpc DeleteAccount (DeleteAccountRequest) returns (DeleteAccountResponse) {
+    }; // TODO: Complete this service
+}
 
-import public "google/protobuf/timestamp.proto";
-import "ethos/elint/entities/universe.proto";
-import "ethos/elint/entities/generic.proto";
-import public "google/protobuf/empty.proto";
+message DeleteAccountRequest {
 
-service UniverseChainServices {
-  rpc AddUniverse (elint.entity.Universe) returns (elint.entity.ResponseMeta) {};
-  rpc GetUniverse (elint.entity.Universe) returns (elint.entity.Universe) {};
-  rpc GetAllUniverse (google.protobuf.Empty) returns (stream elint.entity.Universe) {};
+}
+
+message DeleteAccountResponse {
+
 }

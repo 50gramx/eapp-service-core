@@ -27,7 +27,7 @@ import "ethos/elint/services/product/identity/account/access_account.proto";
 
 import "ethos/elint/services/product/knowledge/space_knowledge/access_space_knowledge.proto";
 
-service PayInAccountService {
+service PayInAccountCapabilities {
   rpc GetAccountPayInPublishableKey (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountPayInPublishableKey) {};
   rpc CreateAccountPayIn (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
   rpc GetAccountPayInAccessKey (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountPayInAccessKey) {};

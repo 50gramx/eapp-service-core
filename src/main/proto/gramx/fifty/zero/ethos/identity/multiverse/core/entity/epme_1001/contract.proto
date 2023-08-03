@@ -19,7 +19,7 @@
 
 syntax = "proto3";
 
-package elint.entity;
+package fifty.zero.ethos.identity.multiverse.core.entity;
 
 import public "google/protobuf/timestamp.proto";
 

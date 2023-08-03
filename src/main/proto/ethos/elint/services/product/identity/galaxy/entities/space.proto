@@ -70,6 +70,8 @@ unless the space is an isolated one, in which case neither information
 nor energy can pass across the boundary.
 
 */
+
+
 message Space {
   Galaxy galaxy = 1;
   string space_id = 2;
@@ -78,4 +80,5 @@ message Space {
   SpaceEntityType space_entity_type = 5;
   string space_admin_id = 6;
   google.protobuf.Timestamp space_created_at = 7;
+
 }

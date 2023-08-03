@@ -31,7 +31,7 @@ import "ethos/elint/entities/account_assistant.proto";
 import "ethos/elint/entities/generic.proto";
 import "ethos/elint/services/product/identity/account/access_account.proto";
 
-service DiscoverAccountService {
+service DiscoverAccountCapabilities {
   rpc GetAccountById (GetAccountByIdRequest) returns (GetAccountByIdResponse) {
   };
 
