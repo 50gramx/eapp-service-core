@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Development local path = /opt/ethos/apps/service/
 
 **Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
@@ -46,3 +47,36 @@ Use these steps to clone from SourceTree, our client for using the repository co
 4. Open the directory you just created to see your repository’s files.
 
 Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+=======
+# main/eapp-service-core
+
+
+
+## Getting Started
+
+Download links:
+
+SSH clone URL: ssh://git@git.jetbrains.space/50gramx/main/eapp-service-core.git
+
+HTTPS clone URL: https://git.jetbrains.space/50gramx/main/eapp-service-core.git
+
+
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+## Prerequisites
+
+What things you need to install the software and how to install them.
+
+```
+Examples
+```
+
+## Deployment
+
+Add additional notes about how to deploy this on a production system.
+
+## Resources
+
+Add links to external resources for this project, such as CI server, bug tracker, etc.
+>>>>>>> 220a5c368fd1250a2e1454e7c51bc1994378cd61
