@@ -38,6 +38,14 @@ job("Distribute Core Domain Packages") {
       text("EAPP_PROTO_PYTHON_OUT_DIR", value = "/mnt/space/work/eapp-python-domain/src/eapp_python_domain")
       text("EAPP_PROTO_NODEJS_OUT_DIR", value = "/mnt/space/work/eapp-nodejs-domain/eapp-nodejs-domain")
     }
+
+    /* 
+    env.PROTO_INCLUDE_DIRS.tokenize(',\n').each {
+                        env.TEMP = "${'$'}{it}"
+                        env.TEMP = {'$'}{TEMP}.trim()
+                        env.PROTO_INCLUDES = "${'$'}{PROTO_INCLUDES} ${'$'}{TEMP}"
+                    }
+  */
     
 	parallel {
 
@@ -57,11 +65,11 @@ job("Distribute Core Domain Packages") {
                     echo "done exporting"
                     env
                     echo "will use env"
-                    env.PROTO_INCLUDE_DIRS.tokenize(',\n').each {
-                        env.TEMP = "${'$'}{it}"
-                        env.TEMP = {'$'}{TEMP}.trim()
-                        env.PROTO_INCLUDES = "${'$'}{PROTO_INCLUDES} ${'$'}{TEMP}"
-                    }
+                    for it in $(echo $PROTO_INCLUDE_DIRS | tr "," "\n"); do
+                        TEMP="${it}"
+                        TEMP="$(echo -e "${TEMP}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+                        PROTO_INCLUDES="${PROTO_INCLUDES} ${TEMP}"
+                    done
                     env
 
                   """
