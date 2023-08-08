@@ -65,7 +65,7 @@ job("Distribute Core Domain Packages") {
                     echo "done exporting"
                     env
                     echo "will use env"
-                    for it in $(echo $PROTO_INCLUDE_DIRS | tr "," "\n"); do
+                    for it in $(echo ${'$'}{PROTO_INCLUDE_DIRS} | tr "," "\n"); do
                         TEMP="${it}"
                         TEMP="$(echo -e "${TEMP}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
                         PROTO_INCLUDES="${PROTO_INCLUDES} ${TEMP}"
