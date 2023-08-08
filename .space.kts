@@ -53,7 +53,7 @@ job("Distribute Core Domain Packages") {
                     ls -l
                     env
                     env.PROTO_INCLUDES = ""
-                    env.PROTO_INCLUDE_DIRS = ""${EAPP_PROTO_SRC_DIR}/google/api/*.proto,""
+                    env.PROTO_INCLUDE_DIRS = "${'$'}{EAPP_PROTO_SRC_DIR}/google/api/*.proto,"
                     env.PROTO_INCLUDE_DIRS.tokenize(',\n').each {
                         env.TEMP = "${it}"
                         env.TEMP = env.TEMP.trim()
