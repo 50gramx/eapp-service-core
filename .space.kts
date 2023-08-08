@@ -50,26 +50,53 @@ job("Distribute Core Domain Packages") {
 	parallel {
 
         sequential {
-            container(displayName = "Python Domain Build", image = "python:3") {
+          	 // create a parameter
+            container(displayName = "Configure Directories", image = "amazoncorretto:17-alpine") {
+
+                env["EAPP_PROTO_SRC_DIR"] = "{{ EAPP_PROTO_SRC_DIR }}"
+                env["EAPP_PROTO_PYTHON_OUT_DIR"] = "{{ EAPP_PROTO_PYTHON_OUT_DIR }}"
+              
+                kotlinScript { api ->
+
+                  	val EAPP_PROTO_SRC_DIR = System.getenv("EAPP_PROTO_SRC_DIR")
+                    val EAPP_PROTO_PYTHON_OUT_DIR = System.getenv("EAPP_PROTO_PYTHON_OUT_DIR")
+                    
+                    val PROTO_INCLUDE_DIRS = """
+                        ${EAPP_PROTO_SRC_DIR}/google/api/*.proto,
+                        ${EAPP_PROTO_SRC_DIR}/gramx/fifty/zero/ethos/identity/multiverse/core/entity/epme_1005/*.proto,
+                        ${EAPP_PROTO_SRC_DIR}/gramx/fifty/zero/ethos/identity/multiverse/core/entity/epme_1005/capability/*.proto,
+                        ${EAPP_PROTO_SRC_DIR}/gramx/seventy/zero/ethos/gramxpro/multiverse/core/entity/epe_1001/*.proto,
+                        ${EAPP_PROTO_SRC_DIR}/gramx/seventy/zero/ethos/gramxpro/multiverse/core/entity/epe_1002/*.proto
+                    """.trimIndent()
+                    
+                    var PROTO_INCLUDES = ""
+                    PROTO_INCLUDE_DIRS.split(",").forEach {
+                        var temp = it.trim()
+                        temp = temp.trim()
+                        PROTO_INCLUDES = "$PROTO_INCLUDES $temp"
+                    }
+
+                    api.parameters["PROTO_INCLUDES"] = PROTO_INCLUDES
+                }
+            }
+            
+            container(displayName = "Configure Directories", image = "python:3") {
 
               	env["EAPP_PROTO_SRC_DIR"] = "{{ EAPP_PROTO_SRC_DIR }}"
                 env["EAPP_PROTO_PYTHON_OUT_DIR"] = "{{ EAPP_PROTO_PYTHON_OUT_DIR }}"
 
                 shellScript {
                   content = """
-                    pwd
-                    ls -l
-                    env
                     export PROTO_INCLUDES=""
+                    
                     export PROTO_INCLUDE_DIRS="${'$'}{EAPP_PROTO_SRC_DIR}/google/api/*.proto,"
-                    echo "done exporting"
-                    env
-                    echo "will use env"
+                    
                     for it in $(echo ${'$'}{PROTO_INCLUDE_DIRS} | tr "," "\n"); do
                         TEMP="${'$'}{it}"
                         TEMP="$(echo -e "${'$'}{TEMP}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
                         PROTO_INCLUDES="${'$'}{PROTO_INCLUDES} ${'$'}{TEMP}"
                     done
+                    
                     env
 
                   """
@@ -83,6 +110,7 @@ job("Distribute Core Domain Packages") {
                   content = """
                     pwd
                     ls -l
+                    echo "{{ PROTO_INCLUDES }}"
                   """
                 }
             }
