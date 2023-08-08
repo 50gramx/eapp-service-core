@@ -37,28 +37,29 @@ job("Distribute Core Domain Packages") {
       text("EAPP_PROTO_SRC_DIR", value = "/mnt/space/work/eapp-service-core/src/main/proto")
       text("EAPP_PROTO_PYTHON_OUT_DIR", value = "/mnt/space/work/eapp-python-domain/src/eapp_python_domain")
       text("EAPP_PROTO_NODEJS_OUT_DIR", value = "/mnt/space/work/eapp-nodejs-domain/eapp-nodejs-domain")
-      text("PROTO_INCLUDES", value = "")
-      text(
-        "PROTO_INCLUDE_DIRS",
-        value = """${EAPP_PROTO_SRC_DIR}/google/api/*.proto,
-        	"""
-      )
     }
     
 	parallel {
 
         sequential {
             container(displayName = "Python Domain Build", image = "python:3") {
+
+              	env["EAPP_PROTO_SRC_DIR"] = "{{ EAPP_PROTO_SRC_DIR }}"
+                env["EAPP_PROTO_PYTHON_OUT_DIR"] = "{{ EAPP_PROTO_PYTHON_OUT_DIR }}"
+
                 shellScript {
                   content = """
                     pwd
                     ls -l
                     env
+                    env.PROTO_INCLUDES = ""
+                    env.PROTO_INCLUDE_DIRS = """${'$'}{EAPP_PROTO_SRC_DIR}/google/api/*.proto,"""
                     env.PROTO_INCLUDE_DIRS.tokenize(',\n').each {
                         env.TEMP = "${it}"
                         env.TEMP = env.TEMP.trim()
-                        env.PROTO_INCLUDES = "${PROTO_INCLUDES} ${TEMP}"
+                        env.PROTO_INCLUDES = "${'$'}{PROTO_INCLUDES} ${'$'}{TEMP}"
                     }
+                    env
 
                   """
                 }
