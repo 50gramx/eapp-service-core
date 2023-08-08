@@ -52,11 +52,11 @@ job("Distribute Core Domain Packages") {
                     pwd
                     ls -l
                     env
-                    env.PROTO_INCLUDES = ""
-                    env.PROTO_INCLUDE_DIRS = "${'$'}{EAPP_PROTO_SRC_DIR}/google/api/*.proto,"
+                    export PROTO_INCLUDES=""
+                    export PROTO_INCLUDE_DIRS="${'$'}{EAPP_PROTO_SRC_DIR}/google/api/*.proto,"
                     env.PROTO_INCLUDE_DIRS.tokenize(',\n').each {
                         env.TEMP = "${'$'}{it}"
-                        env.TEMP = env.TEMP.trim()
+                        env.TEMP = {'$'}{TEMP}.trim()
                         env.PROTO_INCLUDES = "${'$'}{PROTO_INCLUDES} ${'$'}{TEMP}"
                     }
                     env
