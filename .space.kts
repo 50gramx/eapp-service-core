@@ -54,6 +54,9 @@ job("Distribute Core Domain Packages") {
                     env
                     export PROTO_INCLUDES=""
                     export PROTO_INCLUDE_DIRS="${'$'}{EAPP_PROTO_SRC_DIR}/google/api/*.proto,"
+                    echo "done exporting"
+                    env
+                    echo "will use env"
                     env.PROTO_INCLUDE_DIRS.tokenize(',\n').each {
                         env.TEMP = "${'$'}{it}"
                         env.TEMP = {'$'}{TEMP}.trim()
