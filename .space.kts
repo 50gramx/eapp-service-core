@@ -76,6 +76,7 @@ job("Distribute Core Domain Packages") {
 
                 env["EAPP_PROTO_SRC_DIR"] = "{{ EAPP_PROTO_SRC_DIR }}"
                 env["EAPP_PROTO_PYTHON_OUT_DIR"] = "{{ EAPP_PROTO_PYTHON_OUT_DIR }}"
+              	env["PROTO_INCLUDES"] = "{{ PROTO_INCLUDES }}"
 
                 shellScript {
                   content = """
@@ -90,7 +91,9 @@ job("Distribute Core Domain Packages") {
                     python3 -m pip install protobuf
                     python3 -m pip install grpcio-tools
                     python3 -m pip install grpcio
-                  	
+
+
+                   	echo "Build the python domain proto client codes"
                     python3 -m grpc_tools.protoc \
                       --python_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
                       --grpc_python_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
