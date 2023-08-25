@@ -90,6 +90,7 @@ job("Distribute Core Domain Packages") {
                     python3 -m pip install protobuf
                     python3 -m pip install grpcio-tools
                     python3 -m pip install grpcio
+                    python3 -m pip install twine
 
 
                    	echo "Build the python domain proto client codes"
