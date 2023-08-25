@@ -81,10 +81,10 @@ job("Distribute Core Domain Packages") {
                   content = """
                   	pip3 install grpcio==1.34.0 grpcio-tools>=1.34.0 protobuf
                     python3 -m grpc_tools.protoc \
-                      --python_out=$EAPP_PROTO_PYTHON_OUT_DIR \
-                      --grpc_python_out=$EAPP_PROTO_PYTHON_OUT_DIR \
-                      -I $EAPP_PROTO_SRC_DIR \
-                      --proto_path $PROTO_INCLUDES
+                      --python_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
+                      --grpc_python_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
+                      -I ${'$'}EAPP_PROTO_SRC_DIR \
+                      --proto_path ${'$'}PROTO_INCLUDES
                   """
                 }
             }
