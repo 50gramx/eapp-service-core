@@ -87,7 +87,9 @@ job("Distribute Core Domain Packages") {
                     python3 -m pip install --upgrade pip setuptools wheel
 
                     echo "Install required packages for python build"
-                    python3 -m pip install grpcio==1.34.0 grpcio-tools>=1.34.0 protobuf
+                    python3 -m pip install protobuf
+                    python3 -m pip install grpcio-tools>=1.34.0
+                    python3 -m pip install grpcio==1.34.0
                   	
                     python3 -m grpc_tools.protoc \
                       --python_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
