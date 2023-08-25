@@ -100,44 +100,16 @@ job("Distribute Core Domain Packages") {
                       --proto_path ${'$'}PROTO_INCLUDES
 
                     echo "Change directory to eapp-python-domain"
-                    cd ${'$'}EAPP_PROTO_PYTHON_OUT_DIR
-                    
-					
-     //                echo "will set ssh keys"
-     //                mkdir -p ~/.ssh
-     //                echo ${'$'}SERVICE_CORE_CONTRACT_APP_SSH_PRIVATE_KEY >> ~/.ssh/id_rsa
-     //                chmod 400 ~/.ssh/id_rsa
+                    cd /mnt/space/work/eapp-python-domain
 
-     //                // rm -rf /mnt/space/work/eapp-python-domain
+                    echo "Configure pypirc"
+                    cp /mnt/space/work/eapp-python-domain/pypirc ~/.pypirc
 
-     //                echo "list dir"
-     //                ls -l
+                    echo "Build Package"
+                    python3 setup.py sdist
 
-     //                echo "clone repo"
-					// cd /mnt/space/work && git clone ssh://git@git.jetbrains.space/50gramx/main/eapp-python-domain.git
-
-     //     			echo "list dir 2"
-     // 				ls -l
-     //     			echo "list work"
-     //        		ls -l /mnt/space/work
-
-     //                git config user.email "amit.khetan.70@50gramx.io"
-     //                git config user.name "Amit Khetan"
-
-     // 				echo "will fetch"
-     //     			git fetch
-
-     //                echo "will checkout master"
-     //                git checkout master
-
-					// echo "will check git status"
-     //                git status
-
-     //                echo "will add to git"
-     //                git add .
-     //                git commit -m 'added everything via job'
-     //                git push
-                    
+                    echo "Publish Package"
+                    twine upload -r local dist/*
                     
                   """
                 }
