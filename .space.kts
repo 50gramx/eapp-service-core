@@ -39,7 +39,7 @@ job("Distribute Core Domain Packages") {
       text("EAPP_PROTO_NODEJS_OUT_DIR", value = "/mnt/space/work/eapp-nodejs-domain/eapp-nodejs-domain")
     }
 
-    container(displayName = "Configure Directories", image = "amazoncorretto:17-alpine") {
+    container(displayName = "Configure Source Directories", image = "amazoncorretto:17-alpine") {
 
         env["EAPP_PROTO_SRC_DIR"] = "{{ EAPP_PROTO_SRC_DIR }}"
         env["EAPP_PROTO_PYTHON_OUT_DIR"] = "{{ EAPP_PROTO_PYTHON_OUT_DIR }}"
@@ -79,18 +79,7 @@ job("Distribute Core Domain Packages") {
 
                 shellScript {
                   content = """
-                    export PROTO_INCLUDES=""
-                    
-                    export PROTO_INCLUDE_DIRS="${'$'}{EAPP_PROTO_SRC_DIR}/google/api/*.proto,"
-                    
-                    for it in $(echo ${'$'}{PROTO_INCLUDE_DIRS} | tr "," "\n"); do
-                        TEMP="${'$'}{it}"
-                        TEMP="$(echo -e "${'$'}{TEMP}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
-                        PROTO_INCLUDES="${'$'}{PROTO_INCLUDES} ${'$'}{TEMP}"
-                    done
-                    
                     env
-
                   """
                 }
             }
@@ -107,5 +96,6 @@ job("Distribute Core Domain Packages") {
                 }
             }
         }	// end of nodejs domain sequential build
+        
     }	// end of all domain parallel build
 }
