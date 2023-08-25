@@ -74,6 +74,7 @@ job("Distribute Core Domain Packages") {
                 env["EAPP_PROTO_SRC_DIR"] = "{{ EAPP_PROTO_SRC_DIR }}"
                 env["EAPP_PROTO_PYTHON_OUT_DIR"] = "{{ EAPP_PROTO_PYTHON_OUT_DIR }}"
               	env["PROTO_INCLUDES"] = "{{ PROTO_INCLUDES }}"
+            	env["SERVICE_CORE_CONTRACT_APP_SSH_PRIVATE_KEY"] = Secrets("SERVICE_CORE_CONTRACT_APP_SSH_PRIVATE_KEY")
 
                 shellScript {
                   content = """
@@ -103,6 +104,11 @@ job("Distribute Core Domain Packages") {
 
                     git config user.email "amit.khetan.70@50gramx.io"
                     git config user.name "Amit Khetan"
+
+                    echo "will set ssh keys"
+                    mkdir -p ~/.ssh
+                    echo ${'$'}SERVICE_CORE_CONTRACT_APP_SSH_PRIVATE_KEY >> ~/.ssh/id_rsa
+                    chmod 400 ~/.ssh/id_rsa
 
      				echo "will fetch"
          			git fetch
