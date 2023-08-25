@@ -97,20 +97,14 @@ job("Distribute Core Domain Packages") {
                       -I ${'$'}EAPP_PROTO_SRC_DIR \
                       --proto_path ${'$'}PROTO_INCLUDES
 
-                    echo "Ensure required packages for python package push"
-                    python3 -m pip install twine
-                    python3 -m pip install --upgrade build
-
                     echo "Change directory to eapp-python-domain"
                     cd ${'$'}EAPP_PROTO_PYTHON_OUT_DIR
                     cd ../..
 
-                    echo "Build python domain package"
-					echo "skipping python3 -m build"
-     				python3 setup.py sdist register -r space-mypypi upload -r eapp_python_domain
-                    
-					echo "Push the python domain proto client codes"
-                    echo "skipping python3 -m twine upload --repository eapp_python_domain dist/*"
+                    git status
+                    git add .
+                    git commit -m 'added everything via job'
+                    git push
                     
                     
                   """
