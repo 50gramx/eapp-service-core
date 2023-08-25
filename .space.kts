@@ -79,7 +79,16 @@ job("Distribute Core Domain Packages") {
 
                 shellScript {
                   content = """
-                  	pip3 install grpcio==1.34.0 grpcio-tools>=1.34.0 protobuf
+                  	echo "Ensure you can run pip from the command line"
+                  	python3 -m pip --version
+                   	python3 -m ensurepip --default-pip
+
+                    echo "Ensure pip, setuptools, and wheel are up to date"
+                    python3 -m pip install --upgrade pip setuptools wheel
+
+                    echo "Install required packages for python build"
+                    python3 -m pip install grpcio==1.34.0 grpcio-tools>=1.34.0 protobuf
+                  	
                     python3 -m grpc_tools.protoc \
                       --python_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
                       --grpc_python_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
