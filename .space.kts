@@ -31,7 +31,7 @@ job("Distribute Core Domain Packages") {
     }
 
     // check out eapp-python-domain to /mnt/space/work/eapp-python-domain
-    git("eapp-python-domain")
+    // git("eapp-python-domain")
 
 	parameters {
       text("EAPP_PROTO_SRC_DIR", value = "/mnt/space/work/eapp-service-core/src/main/proto")
@@ -84,9 +84,12 @@ job("Distribute Core Domain Packages") {
                     echo ${'$'}SERVICE_CORE_CONTRACT_APP_SSH_PRIVATE_KEY >> ~/.ssh/id_rsa
                     chmod 400 ~/.ssh/id_rsa
 
-                    rm -rf /mnt/space/work/eapp-python-domain
+                    // rm -rf /mnt/space/work/eapp-python-domain
+                    cd /mnt/space/work
+                    ls -l
 
-					git clone ssh://git@git.jetbrains.space/50gramx/main/eapp-python-domain.git /mnt/space/work/eapp-python-domain
+					git clone ssh://git@git.jetbrains.space/50gramx/main/eapp-python-domain.git
+     				ls -l
                   
                   	echo "Ensure you can run pip from the command line"
                   	python3 -m pip --version
