@@ -101,6 +101,11 @@ job("Distribute Core Domain Packages") {
                     cd ${'$'}EAPP_PROTO_PYTHON_OUT_DIR
                     ls -l
                     git status
+                    git pull
+                    git status
+                    git add .
+                    git commit -m "updated via job"
+                    git push
                     
                   """
                 }
