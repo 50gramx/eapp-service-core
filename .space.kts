@@ -72,14 +72,19 @@ job("Distribute Core Domain Packages") {
 
         sequential {
             
-            container(displayName = "Configure Directories", image = "python:3") {
+            container(displayName = "Python Domain Build", image = "python:3") {
 
                 env["EAPP_PROTO_SRC_DIR"] = "{{ EAPP_PROTO_SRC_DIR }}"
                 env["EAPP_PROTO_PYTHON_OUT_DIR"] = "{{ EAPP_PROTO_PYTHON_OUT_DIR }}"
 
                 shellScript {
                   content = """
-                    env
+                  	pip3 install grpcio==1.34.0 grpcio-tools>=1.34.0 protobuf
+                    python3 -m grpc_tools.protoc \
+                      --python_out=$EAPP_PROTO_PYTHON_OUT_DIR \
+                      --grpc_python_out=$EAPP_PROTO_PYTHON_OUT_DIR \
+                      -I $EAPP_PROTO_SRC_DIR \
+                      --proto_path $PROTO_INCLUDES
                   """
                 }
             }
