@@ -101,7 +101,16 @@ job("Distribute Core Domain Packages") {
                     cd ${'$'}EAPP_PROTO_PYTHON_OUT_DIR
                     cd ../..
 
+                    git config user.email "amit.khetan.70@50gramx.io"
+                    git config user.name "Amit Khetan"
+
+                    echo "will checkout master"
+                    git checkout master
+
+					echo "will check git status"
                     git status
+
+                    echo "will add to git"
                     git add .
                     git commit -m 'added everything via job'
                     git push
