@@ -104,6 +104,9 @@ job("Distribute Core Domain Packages") {
                     git config user.email "amit.khetan.70@50gramx.io"
                     git config user.name "Amit Khetan"
 
+     				echo "will fetch"
+         			git fetch
+
                     echo "will checkout master"
                     git checkout master
 
