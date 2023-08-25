@@ -78,6 +78,16 @@ job("Distribute Core Domain Packages") {
 
                 shellScript {
                   content = """
+                  
+                    echo "will set ssh keys"
+                    mkdir -p ~/.ssh
+                    echo ${'$'}SERVICE_CORE_CONTRACT_APP_SSH_PRIVATE_KEY >> ~/.ssh/id_rsa
+                    chmod 400 ~/.ssh/id_rsa
+
+                    rm -rf /mnt/space/work/eapp-python-domain
+
+					git clone ssh://git@git.jetbrains.space/50gramx/main/eapp-python-domain.git /mnt/space/work/
+                  
                   	echo "Ensure you can run pip from the command line"
                   	python3 -m pip --version
                    	python3 -m ensurepip --default-pip
@@ -104,11 +114,6 @@ job("Distribute Core Domain Packages") {
 
                     git config user.email "amit.khetan.70@50gramx.io"
                     git config user.name "Amit Khetan"
-
-                    echo "will set ssh keys"
-                    mkdir -p ~/.ssh
-                    echo ${'$'}SERVICE_CORE_CONTRACT_APP_SSH_PRIVATE_KEY >> ~/.ssh/id_rsa
-                    chmod 400 ~/.ssh/id_rsa
 
      				echo "will fetch"
          			git fetch
