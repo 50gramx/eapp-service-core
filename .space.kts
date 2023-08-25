@@ -106,10 +106,11 @@ job("Distribute Core Domain Packages") {
                     cd ../..
 
                     echo "Build python domain package"
-					python3 -m build
+					echo "skipping python3 -m build"
+     				python3 setup.py sdist register -r space-mypypi upload -r eapp_python_domain
                     
 					echo "Push the python domain proto client codes"
-                    python3 -m twine upload --repository eapp_python_domain dist/*
+                    echo "skipping python3 -m twine upload --repository eapp_python_domain dist/*"
                     
                     
                   """
