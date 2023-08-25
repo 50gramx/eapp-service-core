@@ -86,7 +86,7 @@ job("Distribute Core Domain Packages") {
 
                     rm -rf /mnt/space/work/eapp-python-domain
 
-					git clone ssh://git@git.jetbrains.space/50gramx/main/eapp-python-domain.git /mnt/space/work/
+					git clone ssh://git@git.jetbrains.space/50gramx/main/eapp-python-domain.git /mnt/space/work/eapp-python-domain
                   
                   	echo "Ensure you can run pip from the command line"
                   	python3 -m pip --version
