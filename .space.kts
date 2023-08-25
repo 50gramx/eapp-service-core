@@ -85,11 +85,17 @@ job("Distribute Core Domain Packages") {
                     chmod 400 ~/.ssh/id_rsa
 
                     // rm -rf /mnt/space/work/eapp-python-domain
-                    cd /mnt/space/work
+
+                    echo "list dir"
                     ls -l
 
-					git clone ssh://git@git.jetbrains.space/50gramx/main/eapp-python-domain.git
+                    echo "clone repo"
+					cd /mnt/space/work && git clone ssh://git@git.jetbrains.space/50gramx/main/eapp-python-domain.git
+
+         			echo "list dir 2"
      				ls -l
+         			echo "list work"
+            		ls -l /mnt/space/work
                   
                   	echo "Ensure you can run pip from the command line"
                   	python3 -m pip --version
