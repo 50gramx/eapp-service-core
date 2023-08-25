@@ -31,7 +31,7 @@ job("Distribute Core Domain Packages") {
     }
 
     // check out eapp-python-domain to /mnt/space/work/eapp-python-domain
-    // git("eapp-python-domain")
+    git("eapp-python-domain")
 
 	parameters {
       text("EAPP_PROTO_SRC_DIR", value = "/mnt/space/work/eapp-service-core/src/main/proto")
@@ -79,24 +79,6 @@ job("Distribute Core Domain Packages") {
                 shellScript {
                   content = """
                   
-                    echo "will set ssh keys"
-                    mkdir -p ~/.ssh
-                    echo ${'$'}SERVICE_CORE_CONTRACT_APP_SSH_PRIVATE_KEY >> ~/.ssh/id_rsa
-                    chmod 400 ~/.ssh/id_rsa
-
-                    // rm -rf /mnt/space/work/eapp-python-domain
-
-                    echo "list dir"
-                    ls -l
-
-                    echo "clone repo"
-					cd /mnt/space/work && git clone ssh://git@git.jetbrains.space/50gramx/main/eapp-python-domain.git
-
-         			echo "list dir 2"
-     				ls -l
-         			echo "list work"
-            		ls -l /mnt/space/work
-                  
                   	echo "Ensure you can run pip from the command line"
                   	python3 -m pip --version
                    	python3 -m ensurepip --default-pip
@@ -121,22 +103,43 @@ job("Distribute Core Domain Packages") {
                     cd ${'$'}EAPP_PROTO_PYTHON_OUT_DIR
                     cd ../..
 
-                    git config user.email "amit.khetan.70@50gramx.io"
-                    git config user.name "Amit Khetan"
+              		ls -l 
 
-     				echo "will fetch"
-         			git fetch
+					
+     //                echo "will set ssh keys"
+     //                mkdir -p ~/.ssh
+     //                echo ${'$'}SERVICE_CORE_CONTRACT_APP_SSH_PRIVATE_KEY >> ~/.ssh/id_rsa
+     //                chmod 400 ~/.ssh/id_rsa
 
-                    echo "will checkout master"
-                    git checkout master
+     //                // rm -rf /mnt/space/work/eapp-python-domain
 
-					echo "will check git status"
-                    git status
+     //                echo "list dir"
+     //                ls -l
 
-                    echo "will add to git"
-                    git add .
-                    git commit -m 'added everything via job'
-                    git push
+     //                echo "clone repo"
+					// cd /mnt/space/work && git clone ssh://git@git.jetbrains.space/50gramx/main/eapp-python-domain.git
+
+     //     			echo "list dir 2"
+     // 				ls -l
+     //     			echo "list work"
+     //        		ls -l /mnt/space/work
+
+     //                git config user.email "amit.khetan.70@50gramx.io"
+     //                git config user.name "Amit Khetan"
+
+     // 				echo "will fetch"
+     //     			git fetch
+
+     //                echo "will checkout master"
+     //                git checkout master
+
+					// echo "will check git status"
+     //                git status
+
+     //                echo "will add to git"
+     //                git add .
+     //                git commit -m 'added everything via job'
+     //                git push
                     
                     
                   """
