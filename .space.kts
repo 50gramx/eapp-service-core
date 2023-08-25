@@ -24,7 +24,7 @@ job("Distribute Core Domain Packages") {
 	startOn {
         gitPush {
             anyBranchMatching {
-                +"release-*"
+                +"release/*"
                 +"master"
             }
         }
