@@ -101,10 +101,7 @@ job("Distribute Core Domain Packages") {
 
                     echo "Change directory to eapp-python-domain"
                     cd ${'$'}EAPP_PROTO_PYTHON_OUT_DIR
-                    cd ../..
-
-              		ls -l 
-
+                    
 					
      //                echo "will set ssh keys"
      //                mkdir -p ~/.ssh
