@@ -96,6 +96,12 @@ job("Distribute Core Domain Packages") {
                       --grpc_python_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
                       -I ${'$'}EAPP_PROTO_SRC_DIR \
                       --proto_path ${'$'}PROTO_INCLUDES
+
+                    echo "Push the python domain proto client codes"
+                    cd ${'$'}EAPP_PROTO_PYTHON_OUT_DIR
+                    ls -l
+                    git status
+                    
                   """
                 }
             }
