@@ -109,6 +109,7 @@ job("Distribute Core Domain Packages") {
 
                     echo "Build Package"
                     python3 setup.py sdist
+                    ls -R /mnt/space/work/eapp-python-domain
 
                     echo "Publish Package"
                     twine upload -r local dist/*
