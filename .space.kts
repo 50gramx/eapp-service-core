@@ -111,6 +111,9 @@ job("Distribute Core Domain Packages") {
                     python3 setup.py sdist
                     ls -R /mnt/space/work/eapp-python-domain
 
+                    echo "Inspect Package"
+                    tar -tvf /mnt/space/work/eapp-python-domain/dist/eapp_python_domain-0.2.18.tar.gz
+
                     echo "Publish Package"
                     twine upload -r local dist/*
                     
