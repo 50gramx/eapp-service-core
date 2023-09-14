@@ -107,7 +107,7 @@ job("Distribute Core Domain Packages") {
                     cp /mnt/space/work/eapp-python-domain/pypirc ~/.pypirc
 
                     echo "Build Package"
-                    python3 setup.py sdist
+                    python3 setup.py bdist_wheel
 
                     echo "Publish Package"
                     twine upload -r local dist/*
