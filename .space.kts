@@ -102,6 +102,7 @@ job("Distribute Core Domain Packages") {
 
                     echo "Change directory to eapp-python-domain"
                     cd /mnt/space/work/eapp-python-domain
+                    ls -R /mnt/space/work/eapp-python-domain
 
                     echo "Configure pypirc"
                     cp /mnt/space/work/eapp-python-domain/pypirc ~/.pypirc
