@@ -94,6 +94,7 @@ job("Distribute Core Domain Packages") {
 
 
                    	echo "Build the python domain proto client codes"
+                    echo ${'$'}PROTO_INCLUDES
                     python3 -m grpc_tools.protoc \
                       --python_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
                       --grpc_python_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
