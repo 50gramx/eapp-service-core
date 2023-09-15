@@ -52,6 +52,7 @@ job("Distribute Core Domain Packages") {
             val PROTO_INCLUDE_DIRS = """
                 ${EAPP_PROTO_SRC_DIR}/google/api/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/account/*.proto,
             """.trimIndent()
             
             var PROTO_INCLUDES = ""
