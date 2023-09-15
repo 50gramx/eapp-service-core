@@ -117,7 +117,7 @@ job("Distribute Core Domain Packages") {
                     ls -R /mnt/space/work/eapp-python-domain/dist
 
                     echo "Inspect Package"
-                    tar -tvf /mnt/space/work/eapp-python-domain/dist/eapp_python_domain-0.2.22.tar.gz
+                    tar -tvf /mnt/space/work/eapp-python-domain/dist/eapp_python_domain-0.2.23.tar.gz
 
                     echo "Publish Package"
                     du -sh /mnt/space/work/eapp-python-domain/dist
