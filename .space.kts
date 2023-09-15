@@ -107,21 +107,17 @@ job("Distribute Core Domain Packages") {
 
                     echo "Change directory to eapp-python-domain"
                     cd /mnt/space/work/eapp-python-domain
-                    cat /mnt/space/work/eapp-python-domain/src/eapp_python_domain/ethos/elint/entities/account_assistant_pb2.py
-                    cat /mnt/space/work/eapp-python-domain/src/eapp_python_domain/ethos/elint/entities/account_pb2.py
 
                     echo "Configure pypirc"
                     cp /mnt/space/work/eapp-python-domain/pypirc ~/.pypirc
 
                     echo "Build Package"
                     python3 setup.py sdist
-                    ls -R /mnt/space/work/eapp-python-domain/dist
 
                     echo "Inspect Package"
-                    tar -tvf /mnt/space/work/eapp-python-domain/dist/eapp_python_domain-0.2.23.tar.gz
+                    # tar -tvf /mnt/space/work/eapp-python-domain/dist/eapp_python_domain-0.2.23.tar.gz
 
                     echo "Publish Package"
-                    du -sh /mnt/space/work/eapp-python-domain/dist
                     twine upload -r local dist/*
                     
                   """
