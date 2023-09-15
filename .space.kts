@@ -69,7 +69,7 @@ job("Distribute Core Domain Packages") {
 
         sequential {
             
-            container(displayName = "Python Domain Build", image = "python:3") {
+            container(displayName = "Python Domain Build", image = "python:3.9.16") {
 
                 env["EAPP_PROTO_SRC_DIR"] = "{{ EAPP_PROTO_SRC_DIR }}"
                 env["EAPP_PROTO_PYTHON_OUT_DIR"] = "{{ EAPP_PROTO_PYTHON_OUT_DIR }}"
