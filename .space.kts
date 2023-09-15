@@ -92,8 +92,11 @@ job("Distribute Core Domain Packages") {
                     python3 -m pip install grpcio
                     python3 -m pip install twine
 
-
-                   	echo "Build the python domain proto client codes"
+                   	# FOR PYTHON DOMAIN
+                   	rm -rf ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/ethos
+                   	rm -rf ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/gramx
+                   	
+                    echo "Build the python domain proto client codes"
                     echo ${'$'}PROTO_INCLUDES
                     python3 -m grpc_tools.protoc \
                       --python_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
@@ -111,13 +114,12 @@ job("Distribute Core Domain Packages") {
 
                     echo "Build Package"
                     python3 setup.py sdist
-                    ls -R /mnt/space/work/eapp-python-domain
+                    ls -R /mnt/space/work/eapp-python-domain/dist
 
                     echo "Inspect Package"
                     tar -tvf /mnt/space/work/eapp-python-domain/dist/eapp_python_domain-0.2.22.tar.gz
 
                     echo "Publish Package"
-                    ls -R /mnt/space/work/eapp-python-domain
                     du -sh /mnt/space/work/eapp-python-domain/dist
                     twine upload -r local dist/*
                     
