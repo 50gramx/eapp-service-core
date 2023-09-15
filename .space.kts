@@ -119,6 +119,8 @@ job("Distribute Core Domain Packages") {
                     sed "10s/.*/    version='${"$"}CURRENT_YEAR.${"$"}CURRENT_MONTH.${"$"}JB_SPACE_EXECUTION_NUMBER',/" /mnt/space/work/eapp-python-domain/setup.py > /mnt/space/work/eapp-python-domain/newsetup.py
                     mv /mnt/space/work/eapp-python-domain/newsetup.py /mnt/space/work/eapp-python-domain/setup.py
 
+                    find . -type d -exec touch {}/__init__.py \\;
+
                     echo "Build Package"
                     python3 setup.py sdist
 
