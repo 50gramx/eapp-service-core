@@ -87,10 +87,10 @@ job("Distribute Core Domain Packages") {
                     python3 -m pip install --upgrade pip setuptools wheel
 
                     echo "Install required packages for python build"
-                    python3 -m pip install protobuf
-                    python3 -m pip install grpcio-tools
-                    python3 -m pip install grpcio
-                    python3 -m pip install twine
+                    python3 -m pip install protobuf==3.14.0
+                    python3 -m pip install grpcio-tools==1.34.0
+                    python3 -m pip install grpcio==1.34.0
+                    python3 -m pip install twine==4.0.1
 
                    	# FOR PYTHON DOMAIN
                    	rm -rf ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/ethos
