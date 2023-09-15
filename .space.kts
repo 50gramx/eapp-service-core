@@ -111,6 +111,14 @@ job("Distribute Core Domain Packages") {
                     echo "Configure pypirc"
                     cp /mnt/space/work/eapp-python-domain/pypirc ~/.pypirc
 
+                    echo "Setup Updated Version"
+                    CURRENT_YEAR=$(date +'%y')
+                    CURRENT_MONTH=$(date +'%m')
+                    VERSION_NUMBER=${"$"}CURRENT_YEAR.${"$"}CURRENT_MONTH.${"$"}JB_SPACE_EXECUTION_NUMBER
+                    echo ${"$"}VERSION_NUMBER
+                    sed "10s/.*/    version='${"$"}CURRENT_YEAR.${"$"}CURRENT_MONTH.${"$"}JB_SPACE_EXECUTION_NUMBER',/" /mnt/space/work/eapp-python-domain/setup.py > /mnt/space/work/eapp-python-domain/newsetup.py
+                    mv /mnt/space/work/eapp-python-domain/newsetup.py /mnt/space/work/eapp-python-domain/setup.py
+
                     echo "Build Package"
                     python3 setup.py sdist
 
