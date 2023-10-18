@@ -53,6 +53,7 @@ job("Distribute Core Domain Packages") {
                 ${EAPP_PROTO_SRC_DIR}/google/api/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/account/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/action/*.proto,
             """.trimIndent()
             
             var PROTO_INCLUDES = ""
@@ -118,8 +119,6 @@ job("Distribute Core Domain Packages") {
                     echo ${"$"}VERSION_NUMBER
                     sed "10s/.*/    version='${"$"}CURRENT_YEAR.${"$"}CURRENT_MONTH.${"$"}JB_SPACE_EXECUTION_NUMBER',/" /mnt/space/work/eapp-python-domain/setup.py > /mnt/space/work/eapp-python-domain/newsetup.py
                     mv /mnt/space/work/eapp-python-domain/newsetup.py /mnt/space/work/eapp-python-domain/setup.py
-
-                    find . -type d -exec touch {}/__init__.py \\;
 
                     echo "Build Package"
                     python3 setup.py sdist

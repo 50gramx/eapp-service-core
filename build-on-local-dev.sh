@@ -10,6 +10,21 @@ EAPP_PROTO_PYTHON_OUT_DIR="${WORKSPACE}/eapp-python-domain/src/eapp_python_domai
 declare -a proto_include_folders=(
                 "${EAPP_PROTO_SRC_DIR}/google/api/*.proto"
                 "${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/account/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/account_assistant/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/galaxy/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/machine/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/organisation/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/space/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/action/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/conversation/message/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/conversation/message/account/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/conversation/message/account_assistant/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/*.proto"
             )
 
 echo ${proto_include_folders[@]}
@@ -21,3 +36,5 @@ python3 -m grpc_tools.protoc \
   --grpc_python_out=$EAPP_PROTO_PYTHON_OUT_DIR \
   -I $EAPP_PROTO_SRC_DIR \
   --proto_path ${proto_include_folders[@]}
+
+find ${EAPP_PROTO_PYTHON_OUT_DIR}/ethos/elint -type d -exec touch {}/__init__.py \;
