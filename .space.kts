@@ -154,15 +154,20 @@ job("Distribute Core Domain Packages") {
                 env["EAPP_CORE_DOMAIN_DIR"] = "{{ EAPP_CORE_DOMAIN_DIR }}"
                 env["EAPP_PYTHON_DOMAIN_DIR"] = "{{ EAPP_PYTHON_DOMAIN_DIR }}"
 
-                // install the environment dependencies
+                // start execution
                 shellScript {
-                  content = "pip install ${'$'}EAPP_PYTHON_DOMAIN_DIR/requirements.txt"
-                }   // end of installing the environment dependencies
+                  content = """
 
-                // execute the tests
-                shellScript {
-                  content = "behave -i ${'$'}EAPP_CORE_DOMAIN_DIR/src/main/features/ethos/elint/services/product/identity/account/access_account/validateAccount.feature"
-                }   // end of installing the environment dependencies
+                    echo "install the environment dependencies"
+                    pip install ${'$'}EAPP_PYTHON_DOMAIN_DIR/requirements.txt
+                    // end of execution installing the environment dependencies
+
+                    echo ""start tests"
+                    behave -i ${'$'}EAPP_CORE_DOMAIN_DIR/src/main/features/ethos/elint/services/product/identity/account/access_account/validateAccount.feature
+                    // end of running tests
+
+                  """
+                }   // end of execution
 
             }   // end of running Python Domain Capability Contract Behaviour Tests
         }	// end of python domain implemented capability contract behaviour acceptance
