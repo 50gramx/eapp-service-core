@@ -159,7 +159,7 @@ job("Distribute Core Domain Packages") {
                   content = """
 
                     echo "install the environment dependencies"
-                    pip install ${'$'}EAPP_PYTHON_DOMAIN_DIR/requirements.txt
+                    pip install -r ${'$'}EAPP_PYTHON_DOMAIN_DIR/requirements.txt
                     // end of execution installing the environment dependencies
 
                     echo ""start tests"
