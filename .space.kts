@@ -106,7 +106,7 @@ job("Distribute Core Domain Packages") {
                       -I ${'$'}EAPP_PROTO_SRC_DIR \
                       --proto_path ${'$'}PROTO_INCLUDES
 
-                    find ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/ethos/elint -type d -exec touch {}/__init__.py \;
+                    find ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/ethos -type d -exec touch {}/__init__.py \;
 
                     echo "Change directory to eapp-python-domain"
                     cd /mnt/space/work/eapp-python-domain
