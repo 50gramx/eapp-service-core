@@ -1,0 +1,32 @@
+flowchart TD
+    A[Start Building Domain Contracts] -->|Build Python Domain Contracts| B(Checkout Capability Core Contracts)
+    B -->|Done| C(Checkout Python Domain Contracts)
+    C -->|Done| D(Configure Python Domain Directories)
+    D -->|Done| E(Build Python Domain Contracts)
+    E -->|Done| F(Push Python Domain Contracts)
+    F -->|Done| G(Ensure Hosted Python Package Index)
+    G -->|Done| H(Build Python Domain Contracts Package)
+    H -->|Done| XA(Publish Python Domain Contracts Package)
+    XA -->|Done| I[Start Contractual Capability Behaviour Acceptance]
+
+    A -->|Build Nodejs Domain Contracts| NA(Checkout Capability Core Contracts)
+    NA -->|Done| NB(Checkout Nodejs Domain Contracts)
+    NB -->|Done| NC(Configure Nodejs Domain Directories)
+    NC -->|Done| ND(Build Nodejs Domain Contracts)
+    ND -->|Done| NE(Push Nodejs Domain Contracts)
+    NE -->|Done| NF(Ensure Hosted Nodejs Package Index)
+    NF -->|Done| NG(Build Nodejs Domain Contracts Package)
+    NG -->|Done| NH(Publish Nodejs Domain Contracts Package)
+    NH -->|Done| I[Start Contractual Capability Behaviour Acceptance]
+
+    I -->|Accept Python Implemented Capabilities Behaviours| PA(Checkout Capability Core Contract Scenarios)
+    PA -->|Done| PB(Checkout Python Domain Capability Contract Steps)
+    PB -->|Done| PC(Run Python Domain Capability Contract Behaviour Tests)
+    PC -->|Done| PD(Publish Python Domain Capability Contract Behaviour Results)
+    PD -->|Done| PE(End)
+
+    I -->|Accept Nodejs Implemented Capabilities Behaviours| NA1(Checkout Capability Core Contract Scenarios)
+    NA1 -->|Done| NA2(Checkout Nodejs Domain Capability Contract Steps)
+    NA2 -->|Done| NA3(Run Nodejs Domain Capability Contract Behaviour Tests)
+    NA3 -->|Done| NA4(Publish Nodejs Domain Capability Contract Behaviour Results)
+    NA4 -->|Done| PE(End)

@@ -1,24 +1,3 @@
-/*
-flowchart TD
-    A[Start] -->|Python Domain Build| B(Checkout Service Core)
-    B -->|Done| C(Checkout Python Domain)
-    C -->|Done| D(Configure Domain Directories)
-    D -->|Done| E(Build Python Domain)
-    E -->|Done| F(Push Python Domain)
-    F -->|Done| G(Ensure Hosted Python Index)
-    G -->|Done| H(Build & Publish Python Package)
-    H -->|Done| I[End]
-    A -->|Nodejs Domain Build| N(Checkout Service Core)
-    N -->|Done| O(Checkout Nodejs Domain)
-    O -->|Done| P(Configure Domain Directories)
-    P -->|Done| Q(Build Nodejs Domain)
-    Q -->|Done| R(Push Nodejs Domain)
-    R -->|Done| S(Ensure Hosted Nodejs Index)
-    S -->|Done| T(Build & Publish NPM Package)
-    T -->|Done| I[End]
-
-*/
-
 job("Distribute Core Domain Packages") {
   
 	startOn {
@@ -37,6 +16,9 @@ job("Distribute Core Domain Packages") {
       text("EAPP_PROTO_SRC_DIR", value = "/mnt/space/work/eapp-service-core/src/main/proto")
       text("EAPP_PROTO_PYTHON_OUT_DIR", value = "/mnt/space/work/eapp-python-domain/src/eapp_python_domain")
       text("EAPP_PROTO_NODEJS_OUT_DIR", value = "/mnt/space/work/eapp-nodejs-domain/eapp-nodejs-domain")
+
+      text("EAPP_CORE_DOMAIN_DIR", value = "/mnt/space/work/eapp-service-core")
+      text("EAPP_PYTHON_DOMAIN_DIR", value = "/mnt/space/work/eapp-python-domain")
     }
 
     container(displayName = "Configure Source Directories", image = "amazoncorretto:17-alpine") {
@@ -162,5 +144,27 @@ job("Distribute Core Domain Packages") {
             }
         }	// end of nodejs domain sequential build
         
+    }	// end of all domain parallel build
+
+    parallel {
+        sequential {
+            container(displayName = "Run Python Domain Capability Contract Behaviour Tests", image = "python:3.9.16") {
+
+                // load up all required paths in environments
+                env["EAPP_CORE_DOMAIN_DIR"] = "{{ EAPP_CORE_DOMAIN_DIR }}"
+                env["EAPP_PYTHON_DOMAIN_DIR"] = "{{ EAPP_PYTHON_DOMAIN_DIR }}"
+
+                // install the environment dependencies
+                shellScript {
+                  content = "pip install ${'$'}EAPP_PYTHON_DOMAIN_DIR/requirements.txt"
+                }   // end of installing the environment dependencies
+
+                // execute the tests
+                shellScript {
+                  content = "behave -i ${'$'}EAPP_CORE_DOMAIN_DIR/src/main/features/ethos/elint/services/product/identity/account/access_account/validateAccount.feature"
+                }   // end of installing the environment dependencies
+
+            }   // end of running Python Domain Capability Contract Behaviour Tests
+        }	// end of python domain implemented capability contract behaviour acceptance
     }	// end of all domain parallel build
 }
