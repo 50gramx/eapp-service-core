@@ -106,6 +106,8 @@ job("Distribute Core Domain Packages") {
                       -I ${'$'}EAPP_PROTO_SRC_DIR \
                       --proto_path ${'$'}PROTO_INCLUDES
 
+                    find ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/ethos/elint -type d -exec touch {}/__init__.py \;
+
                     echo "Change directory to eapp-python-domain"
                     cd /mnt/space/work/eapp-python-domain
 
@@ -117,6 +119,7 @@ job("Distribute Core Domain Packages") {
                     CURRENT_MONTH=$(date +'%m')
                     VERSION_NUMBER=${"$"}CURRENT_YEAR.${"$"}CURRENT_MONTH.${"$"}JB_SPACE_EXECUTION_NUMBER
                     echo ${"$"}VERSION_NUMBER
+
                     sed "10s/.*/    version='${"$"}CURRENT_YEAR.${"$"}CURRENT_MONTH.${"$"}JB_SPACE_EXECUTION_NUMBER',/" /mnt/space/work/eapp-python-domain/setup.py > /mnt/space/work/eapp-python-domain/newsetup.py
                     mv /mnt/space/work/eapp-python-domain/newsetup.py /mnt/space/work/eapp-python-domain/setup.py
 
