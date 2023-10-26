@@ -127,7 +127,7 @@ job("Distribute Core Domain Packages") {
                     python3 setup.py sdist
 
                     echo "Inspect Package"
-                    # tar -tvf /mnt/space/work/eapp-python-domain/dist/eapp_python_domain-0.2.23.tar.gz
+                    tar -tvf /mnt/space/work/eapp-python-domain/dist/ethos-${"$"}VERSION_NUMBER.tar.gz
 
                     echo "Publish Package"
                     twine upload -r local dist/*
