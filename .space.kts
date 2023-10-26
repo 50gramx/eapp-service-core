@@ -53,7 +53,20 @@ job("Distribute Core Domain Packages") {
                 ${EAPP_PROTO_SRC_DIR}/google/api/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/account/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/account_assistant/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/galaxy/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/machine/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/organisation/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/space/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/action/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/conversation/message/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/conversation/message/account/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/conversation/message/account_assistant/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/*.proto,
             """.trimIndent()
             
             var PROTO_INCLUDES = ""
