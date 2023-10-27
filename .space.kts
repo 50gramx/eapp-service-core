@@ -62,6 +62,20 @@ job("Distribute Core Domain Packages") {
         }
     }
 
+    container(displayName = "Setup Version", image = "amazoncorretto:17-alpine") {
+        kotlinScript { api ->
+            // Get the current year and month
+            val currentYear = (LocalDate.now().year % 100).toString().padStart(2, '0')
+            val currentMonth = LocalDate.now().monthValue.toString()
+
+            // Get the execution number from environment variables
+            val currentExecution = System.getenv("JB_SPACE_EXECUTION_NUMBER")
+
+            // Set the VERSION_NUMBER parameter
+            api.parameters["VERSION_NUMBER"] = "$currentYear.$currentMonth.$currentExecution"
+        }
+    }
+
     parallel {
 
         sequential {
@@ -109,12 +123,6 @@ job("Distribute Core Domain Packages") {
                     echo "Configure pypirc"
                     cp /mnt/space/work/eapp-python-domain/pypirc ~/.pypirc
 
-                    echo "Setup Updated Version"
-                    CURRENT_YEAR=$(date +'%y')
-                    CURRENT_MONTH=$(date +'%m')
-                    VERSION_NUMBER=${"$"}CURRENT_YEAR.${"$"}CURRENT_MONTH.${"$"}JB_SPACE_EXECUTION_NUMBER
-                    echo ${"$"}VERSION_NUMBER
-
                     sed "10s/.*/    version='${"$"}CURRENT_YEAR.${"$"}CURRENT_MONTH.${"$"}JB_SPACE_EXECUTION_NUMBER',/" /mnt/space/work/eapp-python-domain/setup.py > /mnt/space/work/eapp-python-domain/newsetup.py
                     mv /mnt/space/work/eapp-python-domain/newsetup.py /mnt/space/work/eapp-python-domain/setup.py
 
@@ -122,7 +130,7 @@ job("Distribute Core Domain Packages") {
                     python3 setup.py sdist
 
                     echo "Inspect Package"
-                    tar -tvf /mnt/space/work/eapp-python-domain/dist/ethos-${"$"}VERSION_NUMBER.tar.gz
+                    tar -tvf /mnt/space/work/eapp-python-domain/dist/ethos-{{ VERSION_NUMBER }}.tar.gz
 
                     echo "Publish Package"
                     twine upload -r local dist/*
@@ -164,7 +172,7 @@ job("Distribute Core Domain Packages") {
 
                     echo "start tests"
                     export PYTHONPATH="${'$'}EAPP_PYTHON_DOMAIN_DIR/src/tests/ethos/elint/services/product/identity/account/access_account/steps:${'$'}PYTHONPATH"
-                    behave ${'$'}EAPP_CORE_DOMAIN_DIR/src/main/features/ethos/elint/services/product/identity/account/access_account/validateAccount.feature
+                    behave ${'$'}EAPP_CORE_DOMAIN_DIR/src/main/features/ethos/elint/services/product/identity/account/access_account
                     # end of running tests
 
                   """
