@@ -162,7 +162,7 @@ job("Distribute Core Domain Packages") {
                     pip install -r ${'$'}EAPP_PYTHON_DOMAIN_DIR/requirements.txt
                     // end of execution installing the environment dependencies
 
-                    echo ""start tests"
+                    echo "start tests"
                     behave -i ${'$'}EAPP_CORE_DOMAIN_DIR/src/main/features/ethos/elint/services/product/identity/account/access_account/validateAccount.feature
                     // end of running tests
 
