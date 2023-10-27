@@ -83,6 +83,7 @@ job("Distribute Core Domain Packages") {
             
             container(displayName = "Python Domain Build", image = "python:3.9.16") {
 
+                env["EAPP_PYTHON_DOMAIN_DIR"] = "{{ EAPP_PYTHON_DOMAIN_DIR }}"
                 env["EAPP_PROTO_SRC_DIR"] = "{{ EAPP_PROTO_SRC_DIR }}"
                 env["EAPP_PROTO_PYTHON_OUT_DIR"] = "{{ EAPP_PROTO_PYTHON_OUT_DIR }}"
               	env["PROTO_INCLUDES"] = "{{ PROTO_INCLUDES }}"
@@ -124,8 +125,8 @@ job("Distribute Core Domain Packages") {
                     echo "Configure pypirc"
                     cp /mnt/space/work/eapp-python-domain/pypirc ~/.pypirc
 
-                    sed "10s/.*/    version='${"$"}CURRENT_YEAR.${"$"}CURRENT_MONTH.${"$"}JB_SPACE_EXECUTION_NUMBER',/" /mnt/space/work/eapp-python-domain/setup.py > /mnt/space/work/eapp-python-domain/newsetup.py
-                    mv /mnt/space/work/eapp-python-domain/newsetup.py /mnt/space/work/eapp-python-domain/setup.py
+                    sed "10s/.*/    version='{{ VERSION_NUMBER }}',/" ${'$'}EAPP_PYTHON_DOMAIN_DIR/setup.py > ${'$'}EAPP_PYTHON_DOMAIN_DIR/newsetup.py
+                    mv ${'$'}EAPP_PYTHON_DOMAIN_DIR/newsetup.py ${'$'}EAPP_PYTHON_DOMAIN_DIR/setup.py
 
                     echo "Build Package"
                     python3 setup.py sdist
