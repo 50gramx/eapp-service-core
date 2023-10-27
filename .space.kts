@@ -160,11 +160,12 @@ job("Distribute Core Domain Packages") {
 
                     echo "install the environment dependencies"
                     pip install -r ${'$'}EAPP_PYTHON_DOMAIN_DIR/requirements.txt
-                    // end of execution installing the environment dependencies
+                    # end of execution installing the environment dependencies
 
                     echo "start tests"
-                    behave -i ${'$'}EAPP_CORE_DOMAIN_DIR/src/main/features/ethos/elint/services/product/identity/account/access_account/validateAccount.feature
-                    // end of running tests
+                    export PYTHONPATH="${'$'}EAPP_PYTHON_DOMAIN_DIR/src/tests/ethos/elint/services/product/identity/account/access_account/steps:${'$'}PYTHONPATH"
+                    behave ${'$'}EAPP_CORE_DOMAIN_DIR/src/main/features/ethos/elint/services/product/identity/account/access_account/validateAccount.feature
+                    # end of running tests
 
                   """
                 }   // end of execution
