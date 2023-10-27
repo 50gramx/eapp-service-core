@@ -172,8 +172,13 @@ job("Distribute Core Domain Packages") {
                     pip install -r ${'$'}EAPP_PYTHON_DOMAIN_DIR/requirements.txt
                     # end of execution installing the environment dependencies
 
+                    echo "copy steps"
+                    cp -rf \
+                        ${'$'}EAPP_PYTHON_DOMAIN_DIR/src/tests/ethos/elint/services/product/identity/account/access_account \
+                        ${'$'}EAPP_CORE_DOMAIN_DIR/src/main/features/ethos/elint/services/product/identity/account/access_account
+                    # end of copying steps
+
                     echo "start tests"
-                    export PYTHONPATH="${'$'}EAPP_PYTHON_DOMAIN_DIR/src/tests/ethos/elint/services/product/identity/account/access_account/steps:${'$'}PYTHONPATH"
                     behave ${'$'}EAPP_CORE_DOMAIN_DIR/src/main/features/ethos/elint/services/product/identity/account/access_account
                     # end of running tests
 
