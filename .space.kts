@@ -1,3 +1,5 @@
+import java.time.LocalDate
+
 job("Distribute Core Domain Packages") {
   
 	startOn {
@@ -29,7 +31,6 @@ job("Distribute Core Domain Packages") {
         kotlinScript { api ->
 
             val EAPP_PROTO_SRC_DIR = System.getenv("EAPP_PROTO_SRC_DIR")
-            val EAPP_PROTO_PYTHON_OUT_DIR = System.getenv("EAPP_PROTO_PYTHON_OUT_DIR")
             
             val PROTO_INCLUDE_DIRS = """
                 ${EAPP_PROTO_SRC_DIR}/google/api/*.proto,
