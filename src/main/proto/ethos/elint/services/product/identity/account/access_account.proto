@@ -28,11 +28,17 @@ package elint.services.product.identity.account;
 import "ethos/elint/entities/account.proto";
 import "ethos/elint/entities/generic.proto";
 
+import "google/api/annotations.proto";
+
 // ------------------------------------
 // Service Definitions
 // ------------------------------------
 service AccessAccountService {
   rpc ValidateAccount (ValidateAccountRequest) returns (ValidateAccountResponse) {
+    option (google.api.http) = {
+        post: "/v1/gramx/fifty/zero/ethos/identity/multiverse/core/entity/account/capabilities/access/validate-account"
+        body: "*"
+    };
   };
   rpc VerifyAccount (VerifyAccountRequest) returns (VerifyAccountResponse) {
   };
