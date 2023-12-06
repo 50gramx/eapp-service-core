@@ -111,6 +111,15 @@ job("Distribute Core Domain Packages") {
                    	rm -rf ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/ethos
                    	rm -rf ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/gramx
 
+                    echo "Listing Mount Directory"
+                   	ls /mnt
+
+                   	echo "Listing Mounted Space Directory"
+                   	ls /mnt/space
+
+                   	echo "Listing Mounted Space Work Directory"
+                   	ls /mnt/space/work
+
                    	echo "Listing Python Out Directory"
                    	ls ${'$'}EAPP_PROTO_PYTHON_OUT_DIR
 
