@@ -110,7 +110,13 @@ job("Distribute Core Domain Packages") {
                    	# FOR PYTHON DOMAIN
                    	rm -rf ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/ethos
                    	rm -rf ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/gramx
-                   	
+
+                   	echo "Listing Python Out Directory"
+                   	ls ${'$'}EAPP_PROTO_PYTHON_OUT_DIR
+
+                   	echo "Listing Python Out Directory"
+                   	ls ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/ethos
+
                     echo "Build the python domain proto client codes"
                     echo ${'$'}PROTO_INCLUDES
                     python3 -m grpc_tools.protoc \
