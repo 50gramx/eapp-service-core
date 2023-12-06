@@ -50,6 +50,8 @@ job("Distribute Core Domain Packages") {
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/cognitive/assist/context/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/cognitive/assist/knowledge/*.proto,
             """.trimIndent()
             
             var PROTO_INCLUDES = ""

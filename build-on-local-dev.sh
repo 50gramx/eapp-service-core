@@ -7,6 +7,8 @@ EAPP_PROTO_SRC_DIR="${WORKSPACE}/eapp-service-core/src/main/proto"
 # Dependent Directories
 EAPP_PROTO_PYTHON_OUT_DIR="${WORKSPACE}/eapp-python-domain/src/eapp_python_domain"
 
+rm -rf $EAPP_PROTO_PYTHON_OUT_DIR/*
+
 declare -a proto_include_folders=(
                 "${EAPP_PROTO_SRC_DIR}/google/api/*.proto"
                 "${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto"
@@ -25,6 +27,8 @@ declare -a proto_include_folders=(
                 "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file/*.proto"
                 "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/*.proto"
                 "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/cognitive/assist/context/*.proto"
+                "${EAPP_PROTO_SRC_DIR}/ethos/elint/services/cognitive/assist/knowledge/*.proto"
             )
 
 echo ${proto_include_folders[@]}
@@ -37,4 +41,4 @@ python3 -m grpc_tools.protoc \
   -I $EAPP_PROTO_SRC_DIR \
   --proto_path ${proto_include_folders[@]}
 
-find ${EAPP_PROTO_PYTHON_OUT_DIR}/ethos/elint -type d -exec touch {}/__init__.py \;
+find ${EAPP_PROTO_PYTHON_OUT_DIR}/ethos/ -type d -exec touch {}/__init__.py \;
