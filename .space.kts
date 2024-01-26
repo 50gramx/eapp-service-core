@@ -380,6 +380,13 @@ job("Distribute Core Domain Packages") {
                       -I ${'$'}EAPP_PROTO_SRC_DIR \
                       --proto_path ${'$'}PROTO_INCLUDES
                     echo "--------------------------------------------------------------------"
+
+                    echo "--------------------------------------------------------------------"
+                    echo "Change directory to eapp-dart-domain"
+                    echo "--------------------------------------------------------------------"
+                    cd /mnt/space/work/eapp-dart-domain
+                    tree -h
+                    echo "--------------------------------------------------------------------"
                   """
                 }
 
