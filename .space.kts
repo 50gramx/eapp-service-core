@@ -26,7 +26,7 @@ job("Distribute Core Domain Packages") {
       text("EAPP_PROTO_SRC_DIR", value = "/mnt/space/work/eapp-service-core/src/main/proto")
       text("EAPP_PROTO_PYTHON_OUT_DIR", value = "/mnt/space/work/eapp-python-domain/src/eapp_python_domain")
       text("EAPP_PROTO_NODEJS_OUT_DIR", value = "/mnt/space/work/eapp-nodejs-domain/eapp-nodejs-domain")
-      text("EAPP_PROTO_DART_OUT_DIR", value = "/mnt/space/work/eapp-dart-domain/eapp_dart_domain")
+      text("EAPP_PROTO_DART_OUT_DIR", value = "/mnt/space/work/eapp-dart-domain/src/eapp_dart_domain")
       text("EAPP_PROTO_KOTLIN_OUT_DIR", value = "/mnt/space/work/eapp-kotlin-domain/eapp-nodejs-domain")
       text("EAPP_PROTO_SWIFT_OUT_DIR", value = "/mnt/space/work/eapp-swift-domain/eapp-nodejs-domain")
 
