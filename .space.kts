@@ -399,7 +399,10 @@ job("Distribute Core Domain Packages") {
                     echo "--------------------------------------------------------------------"
                     echo "Publish Dart Package"
                     echo "--------------------------------------------------------------------"
-                    dart pub token add --env-var ${'$'}SERVICE_CORE_CONTRACT_APP_SSH_PRIVATE_KEY https://dart.pkg.jetbrains.space/50gramx/p/main/dart-delivery
+                    dart pub token list
+                    dart pub token add https://dart.pkg.jetbrains.space/50gramx/p/main/dart-delivery --env-var ${'$'}SERVICE_CORE_CONTRACT_APP_SSH_PRIVATE_KEY
+                    dart pub token add https://dart.pkg.jetbrains.space/50gramx/p/main/dart-delivery --env-var SERVICE_CORE_CONTRACT_APP_SSH_PRIVATE_KEY
+                    dart pub token list
                     dart pub publish --skip-validation
                     echo "--------------------------------------------------------------------"
                   """
