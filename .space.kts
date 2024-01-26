@@ -390,7 +390,7 @@ job("Distribute Core Domain Packages") {
                     echo "--------------------------------------------------------------------"
                     echo "Configure pubspec.yaml"
                     echo "--------------------------------------------------------------------"
-                    sed "3s/.*/    version: {{ VERSION_NUMBER }}/" ${'$'}EAPP_PROTO_DART_OUT_DIR/pubspec.yaml > ${'$'}EAPP_PROTO_DART_OUT_DIR/newpubspec.yaml
+                    sed "3s/.*/version: {{ VERSION_NUMBER }}/" ${'$'}EAPP_PROTO_DART_OUT_DIR/pubspec.yaml > ${'$'}EAPP_PROTO_DART_OUT_DIR/newpubspec.yaml
                     mv ${'$'}EAPP_PROTO_DART_OUT_DIR/newpubspec.yaml ${'$'}EAPP_PROTO_DART_OUT_DIR/pubspec.yaml
                     echo "--------------------------------------------------------------------"
 
