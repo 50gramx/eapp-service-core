@@ -376,7 +376,7 @@ job("Distribute Core Domain Packages") {
                     echo ${'$'}PROTO_INCLUDES
                     echo "--------------------------------------------------------------------"
                     protoc \
-                      --dart_out=grpc:${'$'}EAPP_PROTO_DART_OUT_DIR \
+                      --dart_out=grpc:${'$'}EAPP_PROTO_DART_OUT_DIR/lib \
                       -I ${'$'}EAPP_PROTO_SRC_DIR \
                       --proto_path ${'$'}PROTO_INCLUDES
                     echo "--------------------------------------------------------------------"
