@@ -329,6 +329,7 @@ job("Distribute Core Domain Packages") {
                     echo "--------------------------------------------------------------------"
                     echo "Ensure protocol compiler version is 3+"
                     echo "--------------------------------------------------------------------"
+                    apt install -y protobuf-compiler
                     protoc --version
                     echo "--------------------------------------------------------------------"
 
