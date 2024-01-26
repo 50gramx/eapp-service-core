@@ -26,7 +26,7 @@ job("Distribute Core Domain Packages") {
       text("EAPP_PROTO_SRC_DIR", value = "/mnt/space/work/eapp-service-core/src/main/proto")
       text("EAPP_PROTO_PYTHON_OUT_DIR", value = "/mnt/space/work/eapp-python-domain/src/eapp_python_domain")
       text("EAPP_PROTO_NODEJS_OUT_DIR", value = "/mnt/space/work/eapp-nodejs-domain/eapp-nodejs-domain")
-      text("EAPP_PROTO_DART_OUT_DIR", value = "/mnt/space/work/eapp-dart-domain/src")
+      text("EAPP_PROTO_DART_OUT_DIR", value = "/mnt/space/work/eapp-dart-domain/eapp_dart_domain")
       text("EAPP_PROTO_KOTLIN_OUT_DIR", value = "/mnt/space/work/eapp-kotlin-domain/eapp-nodejs-domain")
       text("EAPP_PROTO_SWIFT_OUT_DIR", value = "/mnt/space/work/eapp-swift-domain/eapp-nodejs-domain")
 
@@ -384,8 +384,20 @@ job("Distribute Core Domain Packages") {
                     echo "--------------------------------------------------------------------"
                     echo "Change directory to eapp-dart-domain"
                     echo "--------------------------------------------------------------------"
-                    cd /mnt/space/work/eapp-dart-domain
-                    tree -h
+                    cd /mnt/space/work/eapp-dart-domain/eapp_dart_domain
+                    echo "--------------------------------------------------------------------"
+
+                    echo "--------------------------------------------------------------------"
+                    echo "Configure pubspec.yaml"
+                    echo "--------------------------------------------------------------------"
+                    sed "3s/.*/    version: '{{ VERSION_NUMBER }}',/" ${'$'}EAPP_PROTO_DART_OUT_DIR/pubspec.yaml > ${'$'}EAPP_PROTO_DART_OUT_DIR/newpubspec.yaml
+                    mv ${'$'}EAPP_PROTO_DART_OUT_DIR/newpubspec.yaml ${'$'}EAPP_PROTO_DART_OUT_DIR/pubspec.yaml
+                    echo "--------------------------------------------------------------------"
+
+                    echo "--------------------------------------------------------------------"
+                    echo "Publish Dart Package"
+                    echo "--------------------------------------------------------------------"
+                    dart pub publish
                     echo "--------------------------------------------------------------------"
                   """
                 }
