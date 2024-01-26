@@ -384,7 +384,7 @@ job("Distribute Core Domain Packages") {
                     echo "--------------------------------------------------------------------"
                     echo "Change directory to eapp-dart-domain"
                     echo "--------------------------------------------------------------------"
-                    cd /mnt/space/work/eapp-dart-domain/eapp_dart_domain
+                    cd ${'$'}EAPP_PROTO_DART_OUT_DIR
                     echo "--------------------------------------------------------------------"
 
                     echo "--------------------------------------------------------------------"
