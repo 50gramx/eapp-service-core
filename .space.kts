@@ -26,7 +26,7 @@ job("Distribute Core Domain Packages") {
       text("EAPP_PROTO_SRC_DIR", value = "/mnt/space/work/eapp-service-core/src/main/proto")
       text("EAPP_PROTO_PYTHON_OUT_DIR", value = "/mnt/space/work/eapp-python-domain/src/eapp_python_domain")
       text("EAPP_PROTO_NODEJS_OUT_DIR", value = "/mnt/space/work/eapp-nodejs-domain/eapp-nodejs-domain")
-      text("EAPP_PROTO_DART_OUT_DIR", value = "/mnt/space/work/eapp-dart-domain/eapp-nodejs-domain")
+      text("EAPP_PROTO_DART_OUT_DIR", value = "/mnt/space/work/eapp-dart-domain/src")
       text("EAPP_PROTO_KOTLIN_OUT_DIR", value = "/mnt/space/work/eapp-kotlin-domain/eapp-nodejs-domain")
       text("EAPP_PROTO_SWIFT_OUT_DIR", value = "/mnt/space/work/eapp-swift-domain/eapp-nodejs-domain")
 
@@ -301,7 +301,7 @@ job("Distribute Core Domain Packages") {
         }	// end of nodejs domain sequential build
 
         sequential {
-             container(displayName = "Dart Domain Build", image = "node") {
+             container(displayName = "Dart Domain Build", image = "50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/web-base:latest") {
 
                 env["EAPP_DART_DOMAIN_DIR"] = "{{ EAPP_DART_DOMAIN_DIR }}"
                 env["EAPP_PROTO_SRC_DIR"] = "{{ EAPP_PROTO_SRC_DIR }}"
@@ -311,6 +311,19 @@ job("Distribute Core Domain Packages") {
 
                 shellScript {
                   content = """
+
+                  	echo "--------------------------------------------------------------------"
+                  	echo "Ensure you can run dart from the command line"
+                  	echo "--------------------------------------------------------------------"
+                  	which dart
+                   	echo "--------------------------------------------------------------------"
+
+                    echo "--------------------------------------------------------------------"
+                    echo "Install the protocol compiler plugin for Dart"
+                    echo "--------------------------------------------------------------------"
+                    dart pub global activate protoc_plugin
+                    echo "--------------------------------------------------------------------"
+
                    	echo "--------------------------------------------------------------------"
                    	echo "Remove previous DART DOMAIN"
                    	echo "--------------------------------------------------------------------"
