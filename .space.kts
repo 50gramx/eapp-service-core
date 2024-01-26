@@ -322,6 +322,7 @@ job("Distribute Core Domain Packages") {
                     echo "Install the protocol compiler plugin for Dart"
                     echo "--------------------------------------------------------------------"
                     dart pub global activate protoc_plugin
+                    export PATH="${'$'}PATH":"${'$'}HOME/.pub-cache/bin"
                     echo "--------------------------------------------------------------------"
 
                    	echo "--------------------------------------------------------------------"
