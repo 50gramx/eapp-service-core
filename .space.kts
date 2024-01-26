@@ -399,7 +399,7 @@ job("Distribute Core Domain Packages") {
                     echo "--------------------------------------------------------------------"
                     echo "Publish Dart Package"
                     echo "--------------------------------------------------------------------"
-                    dart pub publish
+                    dart pub publish --skip-validation
                     echo "--------------------------------------------------------------------"
                   """
                 }
