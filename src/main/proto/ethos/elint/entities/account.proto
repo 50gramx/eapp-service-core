@@ -104,6 +104,7 @@ enum AccountDeviceOS {
   MACOS = 2;
   WINDOWS = 3;
   LINUX = 4;
+  WEB = 5;
 }
 
 message AccountMeta {
