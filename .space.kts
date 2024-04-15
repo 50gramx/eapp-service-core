@@ -184,6 +184,7 @@ job("Distribute Core Domain Packages") {
                     python3 -m grpc_tools.protoc \
                       --python_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
                       --grpc_python_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
+                      --pyi_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
                       -I ${'$'}EAPP_PROTO_SRC_DIR \
                       --proto_path ${'$'}PROTO_INCLUDES
                     echo "--------------------------------------------------------------------"
