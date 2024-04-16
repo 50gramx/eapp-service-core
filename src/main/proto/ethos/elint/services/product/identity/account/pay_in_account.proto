@@ -26,6 +26,7 @@ import "ethos/elint/entities/generic.proto";
 import "ethos/elint/services/product/identity/account/access_account.proto";
 
 import "ethos/elint/services/product/knowledge/space_knowledge/access_space_knowledge.proto";
+import "ethos/elint/services/product/knowledge/space_knowledge_domain/create_space_knowledge_domain.proto";
 
 service PayInAccountService {
   rpc GetAccountPayInPublishableKey (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountPayInPublishableKey) {};
@@ -58,8 +59,12 @@ service PayInAccountService {
   rpc IsTierBenefitsRemainingForClosedDomainInferencePerDay (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
   rpc IsTierBenefitsRemainingForOpenDomainInferencePerDay (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
 
-  // Charge
-  rpc ChargeForClosedDomainLaunch (elint.services.product.knowledge.space.SpaceKnowledgeServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
+
+  // -------------------------
+  // Charge Domain Licence APIs
+  // -------------------------
+  // Charge Space Knowledge Domain Licence APIs
+  rpc ChargeForClosedDomainLaunch (elint.services.product.knowledge.domain.CreateSpaceKnowledgeDomainRequest) returns (elint.entity.ResponseMeta) {};
 }
 
 
