@@ -76,6 +76,7 @@ enum SpaceKnowledgeDomainCollarEnum {
     STEEL_COLLAR = 12; // Steel collar - Robots, particularly in manufacturing that typically replace blue collar jobs.
     BLACK_COLLAR = 13; // Black collar – Manual laborers in industries in which workers generally become very dirty, such as mining or oil-drilling;[9][13] has also been used to describe workers in illegal professions.
     GREY_COLLAR = 14; // Grey collar – workforce that is not classified in blue collar nor white collar. It is occasionally used to describe elderly individuals working beyond the age of retirement, as well as those occupations incorporating elements of both blue- and white-collar.
+    SKD_I_AM_COLLAR = 15; // TODO: add doc
 }
 
 //
