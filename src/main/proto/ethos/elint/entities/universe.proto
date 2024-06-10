@@ -29,8 +29,9 @@ package elint.entity;
 import public "google/protobuf/timestamp.proto";
 
 message Universe {
-    string universe_id = 1;
-    google.protobuf.Timestamp big_bang_at = 2;
-    string universe_name = 3;
-    string universe_description = 4;
-}
+    string id = 1; // UUID
+    string name = 2; // String
+    google.protobuf.Timestamp created_at = 3; // DateTime
+    string description = 4; // String
+    google.protobuf.Timestamp modified_at = 5; // DateTime
+  }
