@@ -786,7 +786,7 @@ job("Distribute Core Dev Domain Packages") {
                     echo "--------------------------------------------------------------------"
                     echo "Inspect Package"
                     echo "--------------------------------------------------------------------"
-                    tar -tvf /mnt/space/work/eapp-python-domain/dist/ethos_dev-{{ VERSION_NUMBER }}.tar.gz
+                    tar -tvf /mnt/space/work/eapp-python-domain/dist/ethosdev-{{ VERSION_NUMBER }}.tar.gz
                     echo "--------------------------------------------------------------------"
 
                     echo "--------------------------------------------------------------------"
