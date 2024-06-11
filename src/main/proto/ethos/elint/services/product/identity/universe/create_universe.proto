@@ -1,0 +1,62 @@
+/*************************************************************************
+*
+* AMIT KUMAR KHETAN CONFIDENTIAL
+* __________________
+*
+*  [2017] - [2021] Amit Kumar Khetan
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Amit Kumar Khetan and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Amit Kumar Khetan
+* and its suppliers and may be covered by U.S. and Foreign Patents,
+* patents in process, and are protected by trade secret or copyright law.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Amit Kumar Khetan.
+*/
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.services.product.identity.universe";
+option java_outer_classname = "CreateUniverseProto";
+
+package elint.services.product.identity.universe;
+
+import "ethos/elint/entities/universe.proto";
+import "ethos/elint/entities/generic.proto";
+
+// import "eapp-service-core/src/main/proto/ethos/elint/entities/universe.proto";
+
+message Universe {
+    string universe_id = 1; // UUID
+    string universe_name = 2; // String
+    google.protobuf.Timestamp universe_created_at = 3; // DateTime
+    string universe_description = 4; // String
+    google.protobuf.Timestamp universe_updated_at = 5; // DateTime
+  }
+
+// ------------------------------------
+// Service Definitions
+// ------------------------------------
+service CreateUniverseService {
+  rpc CreateUniverse (CreateUniverseRequest) returns (CreateUniverseResponse);
+}
+
+// ------------------------------------
+// Message Definitions
+// ------------------------------------
+
+
+message CreateUniverseRequest {
+    string universe_description = 1;
+  }
+  
+  message CreateUniverseResponse {
+    string universe_name = 1;
+    google.protobuf.Timestamp universe_created_at = 2;
+    string universe_description = 3;
+    google.protobuf.Timestamp universe_updated_at = 4;
+  }
