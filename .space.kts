@@ -56,6 +56,7 @@ job("Distribute Core Domain Packages") {
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/machine/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/organisation/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/space/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/universe/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/action/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/conversation/message/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/conversation/message/account/*.proto,
@@ -592,3 +593,229 @@ job("Distribute Core Domain Packages") {
         }	// end of python domain implemented capability contract behaviour acceptance
     }	// end of all domain parallel build
 }
+
+
+
+
+
+import java.time.LocalDate
+
+job("Distribute Core Dev Domain Packages") {
+  
+	startOn {
+        gitPush {
+            anyBranchMatching {
+                +"entities/*"
+            }
+        }
+    }
+
+    // check out eapp-python-domain to /mnt/space/work/eapp-python-domain
+    git("eapp-python-domain")
+
+	parameters {
+      text("EAPP_PROTO_SRC_DIR", value = "/mnt/space/work/eapp-service-core/src/main/proto")
+      text("EAPP_PROTO_PYTHON_OUT_DIR", value = "/mnt/space/work/eapp-python-domain/src/eapp_python_domain")
+
+      text("EAPP_CORE_DOMAIN_DIR", value = "/mnt/space/work/eapp-service-core")
+      text("EAPP_PYTHON_DOMAIN_DIR", value = "/mnt/space/work/eapp-python-domain")
+    }
+
+    container(displayName = "Configure Source Directories", image = "amazoncorretto:17-alpine") {
+
+        env["EAPP_PROTO_SRC_DIR"] = "{{ EAPP_PROTO_SRC_DIR }}"
+        env["EAPP_PROTO_PYTHON_OUT_DIR"] = "{{ EAPP_PROTO_PYTHON_OUT_DIR }}"
+      
+        kotlinScript { api ->
+
+            val EAPP_PROTO_SRC_DIR = System.getenv("EAPP_PROTO_SRC_DIR")
+            
+            val PROTO_INCLUDE_DIRS = """
+                ${EAPP_PROTO_SRC_DIR}/google/api/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/account/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/account_assistant/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/galaxy/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/machine/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/organisation/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/space/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/universe/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/action/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/conversation/message/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/conversation/message/account/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/conversation/message/account_assistant/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/cognitive/assist/context/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/cognitive/assist/knowledge/*.proto,
+            """.trimIndent()
+            
+            var PROTO_INCLUDES = ""
+            PROTO_INCLUDE_DIRS.split(",").forEach {
+                var temp = it.trim()
+                temp = temp.trim()
+                PROTO_INCLUDES = "$PROTO_INCLUDES $temp"
+            }
+
+            api.parameters["PROTO_INCLUDES"] = PROTO_INCLUDES
+        }
+
+        requirements {
+            workerTags("windows-pool")
+        }
+    }
+
+    container(displayName = "Setup Version", image = "amazoncorretto:17-alpine") {
+        kotlinScript { api ->
+            // Get the current year and month
+            val currentYear = (LocalDate.now().year % 100).toString().padStart(2, '0')
+            val currentMonth = LocalDate.now().monthValue.toString()
+
+            // Get the execution number from environment variables
+            val currentExecution = System.getenv("JB_SPACE_EXECUTION_NUMBER")
+
+            // Set the VERSION_NUMBER parameter
+            api.parameters["VERSION_NUMBER"] = "$currentYear.$currentMonth.$currentExecution"
+        }
+
+        requirements {
+            workerTags("windows-pool")
+        }
+    }
+
+    parallel {
+
+        sequential {
+            
+            container(displayName = "Python Dev Domain Build", image = "python:3.9.16") {
+
+                env["EAPP_PYTHON_DOMAIN_DIR"] = "{{ EAPP_PYTHON_DOMAIN_DIR }}"
+                env["EAPP_PROTO_SRC_DIR"] = "{{ EAPP_PROTO_SRC_DIR }}"
+                env["EAPP_PROTO_PYTHON_OUT_DIR"] = "{{ EAPP_PROTO_PYTHON_OUT_DIR }}"
+              	env["PROTO_INCLUDES"] = "{{ PROTO_INCLUDES }}"
+            	env["SERVICE_CORE_CONTRACT_APP_SSH_PRIVATE_KEY"] = Secrets("SERVICE_CORE_CONTRACT_APP_SSH_PRIVATE_KEY")
+
+                shellScript {
+                  content = """
+                  
+                  	echo "--------------------------------------------------------------------"
+                  	echo "Ensure you can run pip from the command line"
+                  	echo "--------------------------------------------------------------------"
+                  	python3 -m pip --version
+                   	python3 -m ensurepip --default-pip
+                   	echo "--------------------------------------------------------------------"
+
+                    echo "--------------------------------------------------------------------"
+                    echo "Ensure pip, setuptools, and wheel are up to date"
+                    echo "--------------------------------------------------------------------"
+                    python3 -m pip install --upgrade pip setuptools wheel
+                    echo "--------------------------------------------------------------------"
+
+                    echo "--------------------------------------------------------------------"
+                    echo "Install required packages for python build"
+                    echo "--------------------------------------------------------------------"
+                    python3 -m pip install protobuf
+                    python3 -m pip install grpcio-tools
+                    python3 -m pip install grpcio
+                    python3 -m pip install twine
+                    echo "--------------------------------------------------------------------"
+
+                   	echo "--------------------------------------------------------------------"
+                   	echo "Remove previous PYTHON DOMAIN"
+                   	echo "--------------------------------------------------------------------"
+                   	rm -rf ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/ethos
+                   	rm -rf ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/gramx
+                   	echo "--------------------------------------------------------------------"
+
+                    echo "--------------------------------------------------------------------"
+                    echo "Listing Mount Directory"
+                    echo "--------------------------------------------------------------------"
+                   	ls /mnt
+                   	echo "--------------------------------------------------------------------"
+
+                   	echo "--------------------------------------------------------------------"
+                   	echo "Listing Mounted Space Directory"
+                   	echo "--------------------------------------------------------------------"
+                   	ls /mnt/space
+                   	echo "--------------------------------------------------------------------"
+
+                   	echo "--------------------------------------------------------------------"
+                   	echo "Listing Mounted Space Work Directory"
+                   	echo "--------------------------------------------------------------------"
+                   	ls /mnt/space/work
+                   	echo "--------------------------------------------------------------------"
+
+                   	echo "--------------------------------------------------------------------"
+                   	echo "Listing Python Out Directory"
+                   	echo "--------------------------------------------------------------------"
+                   	ls ${'$'}EAPP_PROTO_PYTHON_OUT_DIR
+                   	echo "--------------------------------------------------------------------"
+
+                   	echo "--------------------------------------------------------------------"
+                   	echo "Listing Python Out Directory"
+                   	echo "--------------------------------------------------------------------"
+                   	ls ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/ethos
+                   	echo "--------------------------------------------------------------------"
+
+                    echo "--------------------------------------------------------------------"
+                    echo "Build the python domain proto client codes"
+                    echo "--------------------------------------------------------------------"
+                    echo ${'$'}PROTO_INCLUDES
+                    echo "--------------------------------------------------------------------"
+                    python3 -m grpc_tools.protoc \
+                      --python_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
+                      --grpc_python_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
+                      --pyi_out=${'$'}EAPP_PROTO_PYTHON_OUT_DIR \
+                      -I ${'$'}EAPP_PROTO_SRC_DIR \
+                      --proto_path ${'$'}PROTO_INCLUDES
+                    echo "--------------------------------------------------------------------"
+                    find ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/ethos -type d -exec touch {}/__init__.py \;
+                    echo "--------------------------------------------------------------------"
+
+                    echo "--------------------------------------------------------------------"
+                    echo "Change directory to eapp-python-domain"
+                    echo "--------------------------------------------------------------------"
+                    cd /mnt/space/work/eapp-python-domain
+                    echo "--------------------------------------------------------------------"
+
+                    echo "--------------------------------------------------------------------"
+                    echo "Configure pypirc"
+                    echo "--------------------------------------------------------------------"
+                    cp /mnt/space/work/eapp-python-domain/pypirc ~/.pypirc
+                    sed "10s/.*/    version='{{ VERSION_NUMBER }}',/" ${'$'}EAPP_PYTHON_DOMAIN_DIR/setup_dev.py > ${'$'}EAPP_PYTHON_DOMAIN_DIR/newsetup.py
+                    mv ${'$'}EAPP_PYTHON_DOMAIN_DIR/newsetup.py ${'$'}EAPP_PYTHON_DOMAIN_DIR/setup.py
+                    echo "--------------------------------------------------------------------"
+
+                    echo "--------------------------------------------------------------------"
+                    echo "Build Package"
+                    echo "--------------------------------------------------------------------"
+                    python3 setup.py sdist
+                    echo "--------------------------------------------------------------------"
+
+                    echo "--------------------------------------------------------------------"
+                    echo "Inspect Package"
+                    echo "--------------------------------------------------------------------"
+                    tar -tvf /mnt/space/work/eapp-python-domain/dist/ethos-dev-{{ VERSION_NUMBER }}.tar.gz
+                    echo "--------------------------------------------------------------------"
+
+                    echo "--------------------------------------------------------------------"
+                    echo "Publish Package"
+                    echo "--------------------------------------------------------------------"
+                    twine upload -r local dist/*
+                    echo "--------------------------------------------------------------------"
+                    
+                  """
+                }
+
+                requirements {
+                    workerTags("windows-pool")
+                }
+            }
+        }	 // end of python dev domain sequential build
+        
+    }	// end of all domain parallel build
+}
+
