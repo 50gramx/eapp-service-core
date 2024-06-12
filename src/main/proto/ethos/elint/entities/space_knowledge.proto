@@ -46,4 +46,5 @@ message SpaceKnowledgeInferredDomain {
 
 enum SpaceKnowledgeAction {
     ASK_QUESTION = 0;
+    SHOW_URL_PAGE = 1;
 }
