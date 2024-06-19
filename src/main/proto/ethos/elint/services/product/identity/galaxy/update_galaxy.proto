@@ -8,7 +8,7 @@ import "ethos/elint/services/product/identity/account/create_account.proto";
 import "ethos/elint/entities/galaxy.proto";
 
 // Service Definitions
-service UpdateGalaxy {
+service UpdateGalaxyService {
   rpc ModifyGalaxy (ModifyGalaxyRequest) returns (ModifyGalaxyResponse);
 }
 

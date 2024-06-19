@@ -7,7 +7,7 @@ import "ethos/elint/entities/machine.proto";
 import "ethos/elint/services/product/identity/account/create_account.proto";
 
 // Service Definitions
-service DeleteGalaxy {
+service DeleteGalaxyService {
   rpc RemoveGalaxy (RemoveGalaxyRequest) returns (RemoveGalaxyResponse);
 }
 
