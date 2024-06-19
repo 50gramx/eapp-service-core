@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package elint.services.product.identity.galaxy;
+
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/entities/machine.proto";
+import "ethos/elint/services/product/identity/account/create_account.proto";
+
+// Service Definitions
+service DeleteGalaxy {
+  rpc RemoveGalaxy (RemoveGalaxyRequest) returns (RemoveGalaxyResponse);
+}
+
+// Message Definitions
+
+message RemoveGalaxyRequest {
+  string galaxy_id = 1;
+}
+
+message RemoveGalaxyResponse {
+  string galaxy_id = 1;
+  string galaxy_name = 2;
+  elint.entity.ResponseMeta response_meta = 2;
+}
