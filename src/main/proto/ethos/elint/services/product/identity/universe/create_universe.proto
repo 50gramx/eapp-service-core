@@ -51,7 +51,8 @@ service CreateUniverseService {
 
 
 message CreateUniverseRequest {
-    string universe_description = 1;
+  string universe_name = 1;
+  string universe_description = 2;
   }
   
   message CreateUniverseResponse {

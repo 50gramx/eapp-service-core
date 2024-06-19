@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package elint.services.product.identity.galaxy;
+
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/entities/machine.proto";
+import "ethos/elint/services/product/identity/account/create_account.proto";
+import "ethos/elint/entities/galaxy.proto";
+
+// Service Definitions
+service UpdateGalaxyService {
+  rpc ModifyGalaxy (ModifyGalaxyRequest) returns (ModifyGalaxyResponse);
+}
+
+// Message Definitions
+
+message ModifyGalaxyRequest {
+  string galaxy_id = 1;
+  string new_galaxy_name = 2;
+  elint.entity.Machine new_identity_pod = 3;
+  elint.entity.Machine new_conversations_pod = 4;
+  elint.entity.Machine new_knowledge_pod = 5;
+}
+
+message ModifyGalaxyResponse {
+  elint.entity.Galaxy galaxy = 1;
+  elint.entity.ResponseMeta response_meta = 2;
+}
