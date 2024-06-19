@@ -17,30 +17,31 @@
 * from Amit Kumar Khetan.
 */
 
-
 syntax = "proto3";
+package elint.services.product.identity.galaxy;
 
-option java_multiple_files = true;
-option java_package = "elint.entity";
-option java_outer_classname = "GalaxyProto";
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/entities/machine.proto";
 
-
-package elint.entity;
-
-import "ethos/elint/entities/universe.proto";
-
-message Galaxy {
-  string galaxy_id = 1;
-  string galaxy_name = 2;
-  Universe universe = 3;
-  google.protobuf.Timestamp galaxy_created_at = 4;
-  google.protobuf.Timestamp galaxy_updated_at = 5;
-  string domain = 6;
+// ------------------------------------
+// Service Definitions
+// ------------------------------------
+service ReadGalaxyService {
+    rpc ReadGalaxy(ReadGalaxyRequest) returns (ReadGalaxyResponse);
 }
 
-enum OpenGalaxyTierEnum {
-  FREE_TIER = 0;
-  BASIC_TIER = 1;
-  STANDARD_TIER = 2;
-  PROFESSIONAL_TIER = 3;
+
+message CheckAvailableGalaxyNameResponse {
+  elint.entity.ResponseMeta response_meta = 1;
+  bool is_name_available = 2;
+}
+
+// Response message for reading a Galaxy
+message ReadGalaxyResponse {
+    string galaxy_id = 1;
+    string galaxy_name = 2;
+    google.protobuf.Timestamp galaxy_created_at = 3;
+    string galaxy_description = 4;
+    google.protobuf.Timestamp galaxy_updated_at = 5;
+    string domain = 6;
 }
