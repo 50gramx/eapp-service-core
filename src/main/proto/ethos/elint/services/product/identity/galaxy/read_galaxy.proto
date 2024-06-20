@@ -2,23 +2,20 @@ syntax = "proto3";
 
 package elint.services.product.identity.galaxy;
 
-import "ethos/elint/entities/generic.proto";
-import "ethos/elint/entities/machine.proto";
-import "ethos/elint/services/product/identity/account/create_account.proto";
+import "ethos/elint/entities/universe.proto";
 import "ethos/elint/entities/galaxy.proto";
+import "google/protobuf/timestamp.proto";
 
 // Service Definitions
 service ReadGalaxyService {
-  rpc GetGalaxy (GetGalaxyRequest) returns (GetGalaxyResponse);
+  rpc ReadGalaxy (ReadGalaxyRequest) returns (ReadGalaxyResponse);
 }
 
 // Message Definitions
-
-message GetGalaxyRequest {
+message ReadGalaxyRequest {
   string galaxy_id = 1;
 }
 
-message GetGalaxyResponse {
-  elint.entity.Galaxy galaxy = 1;
-  elint.entity.ResponseMeta response_meta = 2;
+message ReadGalaxyResponse {
+  Galaxy galaxy = 1;
 }
