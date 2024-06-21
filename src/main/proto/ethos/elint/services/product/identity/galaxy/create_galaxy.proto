@@ -34,11 +34,11 @@ service CreateGalaxyService {
 // Message Definitions
 message CreateGalaxyRequest {
   string galaxy_name = 1;
-  Universe universe = 2;
+  elint.entity.Universe universe = 2;
   string domain = 3;
   string galaxy_description = 4;
 }
 
 message CreateGalaxyResponse {
-  Galaxy galaxy = 1;
+  elint.entity.Galaxy galaxy = 1;
 }

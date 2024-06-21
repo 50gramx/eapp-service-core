@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package elint.services.product.identity.galaxy;
 
+import "ethos/elint/entities/account.proto";
+import "ethos/elint/entities/universe.proto";
 import "ethos/elint/entities/galaxy.proto";
 
 // Service Definitions
@@ -13,11 +15,11 @@ service UpdateGalaxyService {
 message UpdateGalaxyRequest {
   string galaxy_id = 1;
   string galaxy_name = 2;
-  Universe universe = 3;
+  elint.entity.Universe universe = 3;
   string domain = 4;
   string galaxy_description = 5;
 }
 
 message UpdateGalaxyResponse {
-  Galaxy galaxy = 1;
+  elint.entity.Galaxy galaxy = 1;
 }

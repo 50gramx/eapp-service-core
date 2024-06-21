@@ -28,7 +28,6 @@ option java_outer_classname = "GalaxyProto";
 package elint.entity;
 
 import "ethos/elint/entities/universe.proto";
-import "google/protobuf/timestamp.proto";
 
 message Galaxy {
   string galaxy_id = 1;
