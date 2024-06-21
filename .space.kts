@@ -143,8 +143,8 @@ job("Distribute Core Domain Packages") {
                    	echo "--------------------------------------------------------------------"
                    	echo "Remove previous PYTHON DOMAIN"
                    	echo "--------------------------------------------------------------------"
-                   	rm -rf ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/ethos
-                   	rm -rf ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/gramx
+                   	# rm -rf ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/ethos
+                   	# rm -rf ${'$'}EAPP_PROTO_PYTHON_OUT_DIR/gramx
                    	echo "--------------------------------------------------------------------"
 
                     echo "--------------------------------------------------------------------"
