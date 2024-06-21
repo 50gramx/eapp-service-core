@@ -18,40 +18,27 @@
 */
 
 syntax = "proto3";
+
 package elint.services.product.identity.galaxy;
 
-import "ethos/elint/entities/generic.proto";
-import "ethos/elint/entities/machine.proto";
-import "ethos/elint/services/product/identity/account/create_account.proto";
+import "ethos/elint/entities/universe.proto";
+import "ethos/elint/entities/galaxy.proto";
+import  "google/protobuf/timestamp.proto";
 
-// Service Definitions warning: Incomplete services
-service CreateGalaxy {
-  rpc CheckAvailableGalaxyName (CheckAvailableGalaxyNameRequest) returns (CheckAvailableGalaxyNameResponse) {};
-  rpc StartCreatingAccountGalaxy (StartCreatingAccountGalaxyRequest) returns (StartCreatingAccountGalaxyResponse) {};
+
+// Service Definitions
+service CreateGalaxyService {
+  rpc CreateGalaxy (CreateGalaxyRequest) returns (CreateGalaxyResponse);
 }
 
-message CheckAvailableGalaxyNameRequest {
-  // auth 1
-  string proposed_galaxy_name = 2;
+// Message Definitions
+message CreateGalaxyRequest {
+  string galaxy_name = 1;
+  Universe universe = 2;
+  string domain = 3;
+  string galaxy_description = 4;
 }
 
-message CheckAvailableGalaxyNameResponse {
-  elint.entity.ResponseMeta response_meta = 1;
-  bool is_name_available = 2;
-}
-
-message StartCreatingAccountGalaxyRequest{
-  elint.services.product.identity.account.AccountCreationAuthDetails account_creation_auth_details = 1;
-  elint.entity.Machine identity_pod = 2;
-  elint.entity.Machine conversations_pod = 3;
-  elint.entity.Machine knowledge_pod = 4;
-}
-
-// TODO: add universe key in data store
-// TODO: add galaxy key in data store
-
-
-message StartCreatingAccountGalaxyResponse{
-  elint.entity.ResponseMeta response_meta = 1;
-//  bool
+message CreateGalaxyResponse {
+  Galaxy galaxy = 1;
 }
