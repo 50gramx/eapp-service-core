@@ -40,9 +40,9 @@ message Galaxy {
   string galaxy_description = 7;
 }
 
-// enum OpenGalaxyTierEnum {
-//   FREE_TIER = 0;
-//   BASIC_TIER = 1;
-//   STANDARD_TIER = 2;
-//   PROFESSIONAL_TIER = 3;
-// }
+enum OpenGalaxyTierEnum {
+  FREE_TIER = 0;
+  BASIC_TIER = 1;
+  STANDARD_TIER = 2;
+  PROFESSIONAL_TIER = 3;
+}
