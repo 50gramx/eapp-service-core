@@ -22,7 +22,6 @@ syntax = "proto3";
 package elint.services.product.identity.galaxy;
 
 import "ethos/elint/entities/galaxy.proto";
-import  "google/protobuf/timestamp.proto";
 
 
 // Service Definitions
