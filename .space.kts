@@ -1,4 +1,9 @@
+@file:DependsOn("com.slack.api:slack-api-client:1.1.1")
+import com.slack.api.Slack
 import java.time.LocalDate
+import java.io.File // For working with file paths
+import java.lang.ProcessBuilder // To execute commands
+
 
 job("Distribute Core Domain Packages") {
   
