@@ -187,9 +187,9 @@ job("Distribute Core Domain Packages") {
                     echo "--------------------------------------------------------------------"
                     echo "Install required packages for python build"
                     echo "--------------------------------------------------------------------"
-                    python3 -m pip install protobuf
-                    python3 -m pip install grpcio-tools
-                    python3 -m pip install grpcio
+                    python3 -m pip install protobuf==4.25.1
+                    python3 -m pip install grpcio-tools==1.60.0
+                    python3 -m pip install grpcio==1.60.0
                     python3 -m pip install twine
                     echo "--------------------------------------------------------------------"
 
@@ -883,9 +883,9 @@ job("Distribute Core Dev Domain Packages") {
                     echo "--------------------------------------------------------------------"
                     echo "Install required packages for python build"
                     echo "--------------------------------------------------------------------"
-                    python3 -m pip install protobuf
-                    python3 -m pip install grpcio-tools
-                    python3 -m pip install grpcio
+                    python3 -m pip install protobuf==4.25.1
+                    python3 -m pip install grpcio-tools==1.60.0
+                    python3 -m pip install grpcio==1.60.0
                     python3 -m pip install twine
                     echo "--------------------------------------------------------------------"
 
