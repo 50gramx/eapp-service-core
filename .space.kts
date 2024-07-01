@@ -682,7 +682,7 @@ job("Distribute Core Domain Packages") {
         kotlinScript { api ->
             api.space().projects.automation.deployments.finish(
                 project = api.projectIdentifier(),
-                targetIdentifier = TargetIdentifier.Key("python-implementation-deployment"),
+                 targetIdentifier = TargetIdentifier.Key("ethos-core-contracts-deployment-l1-50gramx"),
                 version = api.parameters["VERSION_NUMBER"],
             )
             val slack = Slack.getInstance()
