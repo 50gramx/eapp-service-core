@@ -75,7 +75,7 @@ job("Distribute Core Domain Packages") {
             val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
             val version = api.parameters["VERSION_NUMBER"]
             val response = slack.methods(token).chatPostMessage { req ->
-                req.channel("#product-dev").text("👋 50GRAMx Developers, ⚠️ Scheduled Layer One Protocols (Core Contracts) v$version Internal Distribution 🙏")
+                req.channel("#product-dev").text("👋 ⚠️ Scheduled Layer One Protocols (Core Contracts) v$version Internal Distribution 🙏")
             }
         }
 
@@ -146,7 +146,7 @@ job("Distribute Core Domain Packages") {
             val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
             val version = api.parameters["VERSION_NUMBER"]
             val response = slack.methods(token).chatPostMessage { req ->
-                req.channel("#product-dev").text("👋 50GRAMx Developers, 🚨️ Started Layer One Protocols (Core Contracts) v$version Internal Distribution 🙏")
+                req.channel("#product-dev").text("👋 🚨️ Started Layer One Protocols (Core Contracts) v$version Internal Distribution 🙏")
             }
         }
 
@@ -294,7 +294,7 @@ job("Distribute Core Domain Packages") {
                     val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
                     val version = api.parameters["VERSION_NUMBER"]
                     val response = slack.methods(token).chatPostMessage { req ->
-                        req.channel("#product-dev").text("👋 50GRAMx Developers, Internally Distributed new v$version of Python Layer One Protocols (Ethos Core Contracts) 🙏")
+                        req.channel("#product-dev").text("👋 Internally Distributed new v$version of Python Layer One Protocols (Ethos Core Contracts) 🙏")
                     }
                 }
             }
@@ -376,7 +376,7 @@ job("Distribute Core Domain Packages") {
                     val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
                     val version = api.parameters["VERSION_NUMBER"]
                     val response = slack.methods(token).chatPostMessage { req ->
-                        req.channel("#product-dev").text("👋 50GRAMx Developers, Internally Distributed new v$version of NodeJs Layer One Protocols (Ethos Core Contracts) 🙏")
+                        req.channel("#product-dev").text("👋 Internally Distributed new v$version of NodeJs Layer One Protocols (Ethos Core Contracts) 🙏")
                     }
                 }
             }   // end of slack update
@@ -502,7 +502,7 @@ job("Distribute Core Domain Packages") {
                     val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
                     val version = api.parameters["VERSION_NUMBER"]
                     val response = slack.methods(token).chatPostMessage { req ->
-                        req.channel("#product-dev").text("👋 50GRAMx Developers, Internally Distributed new v$version of Dart Layer One Protocols (Ethos Core Contracts) 🙏")
+                        req.channel("#product-dev").text("👋 Internally Distributed new v$version of Dart Layer One Protocols (Ethos Core Contracts) 🙏")
                     }
                 }
             }   // end of slack update
@@ -584,7 +584,7 @@ job("Distribute Core Domain Packages") {
                     val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
                     val version = api.parameters["VERSION_NUMBER"]
                     val response = slack.methods(token).chatPostMessage { req ->
-                        req.channel("#product-dev").text("👋 50GRAMx Developers, Internally Distributed new v$version of Kotlin Layer One Protocols (Ethos Core Contracts) 🙏")
+                        req.channel("#product-dev").text("👋 Internally Distributed new v$version of Kotlin Layer One Protocols (Ethos Core Contracts) 🙏")
                     }
                 }
             }   // end of slack update
@@ -668,7 +668,7 @@ job("Distribute Core Domain Packages") {
                     val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
                     val version = api.parameters["VERSION_NUMBER"]
                     val response = slack.methods(token).chatPostMessage { req ->
-                        req.channel("#product-dev").text("👋 50GRAMx Developers, Internally Distributed new v$version of Swift Layer One Protocols (Ethos Core Contracts) 🙏")
+                        req.channel("#product-dev").text("👋 Internally Distributed new v$version of Swift Layer One Protocols (Ethos Core Contracts) 🙏")
                     }
                 }
             }   // end of slack update
@@ -689,7 +689,7 @@ job("Distribute Core Domain Packages") {
             val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
             val version = api.parameters["VERSION_NUMBER"]
             val response = slack.methods(token).chatPostMessage { req ->
-                req.channel("#product-dev").text("👋 50GRAMx Developers, Successfully Distributed Layer One Protocols (Core Contracts) v$version Internally 🙏")
+                req.channel("#product-dev").text("👋 Successfully Distributed Layer One Protocols (Core Contracts) v$version Internally 🙏")
             }
             // to fail the deployment, use ...deployments.fail()
         }
@@ -710,7 +710,7 @@ job("Distribute Core Domain Packages") {
                     val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
                     val version = api.parameters["VERSION_NUMBER"]
                     val response = slack.methods(token).chatPostMessage { req ->
-                        req.channel("#product-dev").text("👋 50GRAMx Developers, Started Testing Python Behaviour Acceptance Scenarios for Layer One Protocols (Ethos Core Contracts) 🙏")
+                        req.channel("#product-dev").text("👋 Started Testing Python Behaviour Acceptance Scenarios for Layer One Protocols (Ethos Core Contracts) 🙏")
                     }
                 }
             }   // end of slack update
@@ -757,7 +757,7 @@ job("Distribute Core Domain Packages") {
                     val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
                     val version = api.parameters["VERSION_NUMBER"]
                     val response = slack.methods(token).chatPostMessage { req ->
-                        req.channel("#product-dev").text("👋 50GRAMx Developers, Finished Testing Python Behaviour Acceptance Scenarios for Layer One Protocols (Ethos Core Contracts) 🙏")
+                        req.channel("#product-dev").text("👋 Finished Testing Python Behaviour Acceptance Scenarios for Ethos Core Contracts ✅")
                     }
                 }
             }   // end of slack update
