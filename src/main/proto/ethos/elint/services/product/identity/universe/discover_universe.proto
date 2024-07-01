@@ -31,24 +31,6 @@ import "ethos/elint/entities/generic.proto";
 // ------------------------------------
 // Service Definitions
 // ------------------------------------
-service ReadUniverseService {
-    rpc ReadUniverse(ReadUniverseRequest) returns (ReadUniverseResponse);
-}
-
-// ------------------------------------
-// Message Definitions
-// ------------------------------------
-
-// Request message for reading a Universe
-message ReadUniverseRequest {
-    string universe_name = 1;
-}
-
-// Response message for reading a Universe
-message ReadUniverseResponse {
-    string universe_id = 1;
-    string universe_name = 2;
-    google.protobuf.Timestamp universe_created_at = 3;
-    string universe_description = 4;
-    google.protobuf.Timestamp universe_updated_at = 5;
+service DiscoverUniverseService {
+  rpc ByID(elint.entity.Universe) returns (elint.entity.Universe);
 }
