@@ -291,6 +291,7 @@ job("Distribute Core Domain Packages") {
                     val response = slack.methods(token).chatPostMessage { req ->
                         req.channel("#product-dev").text("👋 50GRAMx Developers, Internally Distributed new v$version of Python Layer One Protocols (Ethos Core Contracts) 🙏")
                     }
+                }
             }
         }	 // end of python domain sequential build
 
@@ -372,6 +373,7 @@ job("Distribute Core Domain Packages") {
                     val response = slack.methods(token).chatPostMessage { req ->
                         req.channel("#product-dev").text("👋 50GRAMx Developers, Internally Distributed new v$version of NodeJs Layer One Protocols (Ethos Core Contracts) 🙏")
                     }
+                }
             }   // end of slack update
         }	// end of nodejs domain sequential build
 
@@ -497,6 +499,7 @@ job("Distribute Core Domain Packages") {
                     val response = slack.methods(token).chatPostMessage { req ->
                         req.channel("#product-dev").text("👋 50GRAMx Developers, Internally Distributed new v$version of Dart Layer One Protocols (Ethos Core Contracts) 🙏")
                     }
+                }
             }   // end of slack update
         }	// end of dart domain sequential build
 
@@ -578,6 +581,7 @@ job("Distribute Core Domain Packages") {
                     val response = slack.methods(token).chatPostMessage { req ->
                         req.channel("#product-dev").text("👋 50GRAMx Developers, Internally Distributed new v$version of Kotlin Layer One Protocols (Ethos Core Contracts) 🙏")
                     }
+                }
             }   // end of slack update
         }	// end of kotlin domain sequential build
 
@@ -661,6 +665,7 @@ job("Distribute Core Domain Packages") {
                     val response = slack.methods(token).chatPostMessage { req ->
                         req.channel("#product-dev").text("👋 50GRAMx Developers, Internally Distributed new v$version of Swift Layer One Protocols (Ethos Core Contracts) 🙏")
                     }
+                }
             }   // end of slack update
         }	// end of swift domain sequential build
         
@@ -679,6 +684,7 @@ job("Distribute Core Domain Packages") {
                     val response = slack.methods(token).chatPostMessage { req ->
                         req.channel("#product-dev").text("👋 50GRAMx Developers, Started Testing Python Behaviour Acceptance Scenarios for Layer One Protocols (Ethos Core Contracts) 🙏")
                     }
+                }
             }   // end of slack update
 
             container(displayName = "Run Python Domain Capability Contract Behaviour Tests", image = "python:3.9.16") {
@@ -725,6 +731,7 @@ job("Distribute Core Domain Packages") {
                     val response = slack.methods(token).chatPostMessage { req ->
                         req.channel("#product-dev").text("👋 50GRAMx Developers, Finished Testing Python Behaviour Acceptance Scenarios for Layer One Protocols (Ethos Core Contracts) 🙏")
                     }
+                }
             }   // end of slack update
         }	// end of python domain implemented capability contract behaviour acceptance
     }	// end of all domain parallel build
