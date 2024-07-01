@@ -676,6 +676,29 @@ job("Distribute Core Domain Packages") {
         
     }	// end of all domain parallel build
 
+    container("Finish Distribution", image = "amazoncorretto:17-alpine") {
+        env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
+
+        kotlinScript { api ->
+            api.space().projects.automation.deployments.finish(
+                project = api.projectIdentifier(),
+                targetIdentifier = TargetIdentifier.Key("python-implementation-deployment"),
+                version = api.parameters["VERSION_NUMBER"],
+            )
+            val slack = Slack.getInstance()
+            val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
+            val version = api.parameters["VERSION_NUMBER"]
+            val response = slack.methods(token).chatPostMessage { req ->
+                req.channel("#product-dev").text("👋 50GRAMx Developers, Successfully Distributed Layer One Protocols (Core Contracts) v$version Internally 🙏")
+            }
+            // to fail the deployment, use ...deployments.fail()
+        }
+
+        requirements {
+            workerTags("windows-pool")
+        }
+    }
+
     parallel {
         sequential {
 
