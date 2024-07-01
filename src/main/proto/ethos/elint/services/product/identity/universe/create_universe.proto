@@ -28,16 +28,6 @@ package elint.services.product.identity.universe;
 import "ethos/elint/entities/universe.proto";
 import "ethos/elint/entities/generic.proto";
 
-// import "eapp-service-core/src/main/proto/ethos/elint/entities/universe.proto";
-
-message Universe {
-    string universe_id = 1; // UUID
-    string universe_name = 2; // String
-    google.protobuf.Timestamp universe_created_at = 3; // DateTime
-    string universe_description = 4; // String
-    google.protobuf.Timestamp universe_updated_at = 5; // DateTime
-  }
-
 // ------------------------------------
 // Service Definitions
 // ------------------------------------
