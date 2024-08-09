@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.entity";
+option java_outer_classname = "AccountAssistantProto";
+
+
+package elint.entity;
+
+import public "google/protobuf/timestamp.proto";
+
+message ThingsSpaceDomain {
+    string name = 1;
+    string description = 2;
+    map<string, string> properties = 3;
+}
+
+message NodesCollar {
+    string machine_class = 1;
+    repeated string sub_machine_classes = 2;
+    int32 vcpu = 3;
+    int32 ram_gib = 4;
+    string machine_type = 5;
+    string machine_category = 6;
+    string storage_class = 7;
+    repeated string sub_storage_classes = 8;
+    string fast_storage = 9;
+    string standard_storage = 10;
+    string slow_storage = 11;
+    string bandwidth_class = 12;
+    repeated string sub_bandwidth_classes = 13;
+    string locale_network_bandwidth_class = 14;
+    string main_network_bandwidth_class = 15;
+    bool main_network_bandwidth_static_address = 16;
+    string operator_class = 17;
+    repeated string sub_operator_classes = 18;
+    string human_operator_class = 19;
+    string collaborator_operator_class = 20;
+    string certified_operator_class = 21;
+    string hashing_class = 22;
+    repeated string sub_hashing_classes = 23;
+    string chain_hash_generation_class = 24;
+    bool community_collaborator = 25;
+    string community_code = 26;
+    string collaborator_first_name = 27;
+    string collaborator_second_name = 28;
+    string universe = 29;
+    string galaxy = 30;
+    string personal_space_id = 31;
+    string primary_team_id = 32;
+    string base_os = 33;
+    string base_os_arch = 34;
+    string orchestrator_os = 35;
+    string orchestrator_version = 36;
+    string node_liability = 37;
+    string node_liability_license_id = 38;
+}
+
+message ThingsSpaceDomainWithNodes {
+    ThingsSpaceDomain base = 1;
+    NodesCollar nodes_collar = 2;
+}
