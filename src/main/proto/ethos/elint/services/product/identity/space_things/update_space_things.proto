@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.services.product.identity.space";
+option java_outer_classname = "UpdateProto";
+
+package elint.services.product.identity.space;
+
+import "ethos/elint/entities/space_things.proto";
+// ------------------------------------
+// Service Definitions
+// ------------------------------------
+service UpdateService {
+  rpc UpdateThingsSpaceDomain (UpdateThingsSpaceDomainRequest) returns (UpdateThingsSpaceDomainResponse);
+  rpc UpdateNodesCollar (UpdateNodesCollarRequest) returns (UpdateNodesCollarResponse);
+}
+
+// ------------------------------------
+// Message Definitions
+// ------------------------------------
+message UpdateThingsSpaceDomainRequest {
+  string name = 1;
+  string description = 2;
+  map<string, string> properties = 3;
+}
+
+message UpdateThingsSpaceDomainResponse {
+  ThingsSpaceDomain domain = 1;
+}
+
+message UpdateNodesCollarRequest {
+  string machine_class = 1;
+  int32 vcpu = 2;
+  int32 ram_gib = 3;
+  // Other fields as needed
+}
+
+message UpdateNodesCollarResponse {
+  NodesCollar collar = 1;
+}

@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.services.product.identity.space";
+option java_outer_classname = "ReadProto";
+
+package elint.services.product.identity.space;
+
+import "ethos/elint/entities/space_things.proto";
+
+// ------------------------------------
+// Service Definitions
+// ------------------------------------
+service ReadService {
+  rpc ReadThingsSpaceDomain (ReadThingsSpaceDomainRequest) returns (ReadThingsSpaceDomainResponse);
+  rpc ReadNodesCollar (ReadNodesCollarRequest) returns (ReadNodesCollarResponse);
+}
+
+// ------------------------------------
+// Message Definitions
+// ------------------------------------
+message ReadThingsSpaceDomainRequest {
+  string name = 1;
+}
+
+message ReadThingsSpaceDomainResponse {
+  ThingsSpaceDomain domain = 1;
+}
+
+message ReadNodesCollarRequest {
+  string machine_class = 1;
+}
+
+message ReadNodesCollarResponse {
+  NodesCollar collar = 1;
+}

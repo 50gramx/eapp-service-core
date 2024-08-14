@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.services.product.identity.space";
+option java_outer_classname = "CreateProto";
+
+package elint.services.product.identity.space;
+
+import "ethos/elint/entities/space_things.proto";
+
+// ------------------------------------
+// Service Definitions
+// ------------------------------------
+service CreateService {
+  rpc CreateThingsSpaceDomain (CreateThingsSpaceDomainRequest) returns (CreateThingsSpaceDomainResponse);
+  rpc CreateNodesCollar (CreateNodesCollarRequest) returns (CreateNodesCollarResponse);
+}
+
+// ------------------------------------
+// Message Definitions
+// ------------------------------------
+message CreateThingsSpaceDomainRequest {
+  string name = 1;
+  string description = 2;
+  map<string, string> properties = 3;
+}
+
+message CreateThingsSpaceDomainResponse {
+  ThingsSpaceDomain domain = 1;
+}
+
+message CreateNodesCollarRequest {
+  NodesCollar collar = 1;
+}
+
+message CreateNodesCollarResponse {
+  NodesCollar collar = 1;
+}
