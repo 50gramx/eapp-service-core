@@ -1,0 +1,107 @@
+/*************************************************************************
+*
+* AMIT KUMAR KHETAN CONFIDENTIAL
+* __________________
+*
+*  [2017] - [2021] Amit Kumar Khetan
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Amit Kumar Khetan and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Amit Kumar Khetan
+* and its suppliers and may be covered by U.S. and Foreign Patents,
+* patents in process, and are protected by trade secret or copyright law.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Amit Kumar Khetan.
+*/
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.collars";
+option java_outer_classname = "Things50DC500000000Proto";
+
+
+package elint.collars;
+
+import public "google/protobuf/timestamp.proto";
+import "ethos/elint/entities/space_things.proto";
+
+message Things50DC500000000 {
+  string node_id = 1;
+  string name = 2;
+  MachineClass machine_class = 3;
+  StorageClass storage_class = 4;
+  BandwidthClass bandwidth_class = 5;
+  OperatorClass operator_class = 6;
+  HashingClass hashing_class = 7;
+  BaseOS base_os = 8;
+  OrchestratorOS orchestrator_os = 9;
+  NodeLiability node_liability = 10;
+  int64 created_at = 11;
+}
+
+
+message MachineClass {
+  string id = 1;
+  string main_class = 2;
+  string sub_classes = 3;
+  int32 vcpu = 4;
+  float ram_gib = 5;
+  string machine_type = 6;
+  string machine_category = 7;
+}
+
+message StorageClass {
+  string id = 1;
+  string main_class = 2;
+  string sub_classes = 3;
+  float fast_storage = 4;
+  float standard_storage = 5;
+  float slow_storage = 6;
+}
+
+message BandwidthClass {
+  string id = 1;
+  string main_class = 2;
+  string sub_classes = 3;
+  float locale_network_bandwidth_class = 4;
+  float main_network_bandwidth_class = 5;
+  bool main_network_bandwidth_static_address = 6;
+}
+
+message OperatorClass {
+  string id = 1;
+  string main_class = 2;
+  string sub_classes = 3;
+  bool human_operator_class = 4;
+  bool collaborator_operator_class = 5;
+  bool certified_operator_class = 6;
+}
+
+message HashingClass {
+  string id = 1;
+  string main_class = 2;
+  string sub_classes = 3;
+  bool chain_hash_generation_class = 4;
+}
+
+message BaseOS {
+  string id = 1;
+  string name = 2;
+  string arch = 3;
+}
+
+message OrchestratorOS {
+  string id = 1;
+  string name = 2;
+  string version = 3;
+}
+
+message NodeLiability {
+  string id = 1;
+  string liability = 2;
+  string license_id = 3;
+}
