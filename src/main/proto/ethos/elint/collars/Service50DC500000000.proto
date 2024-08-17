@@ -1,0 +1,117 @@
+/*************************************************************************
+*
+* AMIT KUMAR KHETAN CONFIDENTIAL
+* __________________
+*
+*  [2017] - [2021] Amit Kumar Khetan
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Amit Kumar Khetan and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Amit Kumar Khetan
+* and its suppliers and may be covered by U.S. and Foreign Patents,
+* patents in process, and are protected by trade secret or copyright law.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Amit Kumar Khetan.
+*/
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.collars";
+option java_outer_classname = "Service50DC500000000Proto";
+
+
+package elint.collars;
+
+import public "google/protobuf/timestamp.proto";
+
+
+// Main message for the AI Personality
+message Service50DC500000000 {
+  string id = 1;// Unique ID for the AI Personality
+  string name = 2;// Name of the AI Personality (e.g., "Irani 88")
+  string description = 3;// Brief description (e.g., "Digital Human Assistant for ML Researchers")
+
+  Appearance appearance = 4;// Visual appearance attributes
+  PersonalityTraits personality_traits = 5;// Personality traits of the AI Personality
+  CommunicationStyle communication_style = 6;// Communication style details
+  Expertise expertise = 7;// Specific areas of expertise
+  Capabilities capabilities = 8;// Functional capabilities of the AI Personality
+  UniqueSellingPoints usps = 9;// Unique selling points of the AI Personality
+  UseCases use_cases = 10;// Example use cases where the AI Personality is useful
+
+  LearningData learning_data = 11;// Dynamic data that evolves over time
+  InteractionHistory interaction_history = 12;// Record of past interactions with the user
+  PersonalizationData personalization_data = 13;// Data specific to the AI's current user
+
+  google.protobuf.Timestamp created_at = 14;// Timestamp when the AI Personality was created
+  google.protobuf.Timestamp updated_at = 15;// Timestamp of the last update to the AI Personality
+}
+
+
+
+message Appearance {
+  string avatar = 1;// Description of the AI's avatar appearance
+}
+
+message PersonalityTraits {
+  repeated string traits = 1;// List of personality traits (e.g., Friendly, Empathetic)
+}
+
+message CommunicationStyle {
+  string style = 1;// Description of the communication style (e.g., Warm and approachable)
+}
+
+message Expertise {
+  string domain = 1;// Primary domain of expertise (e.g., ML Research)
+  repeated string skills = 2;// List of specific skills or knowledge areas (e.g., Docker, Kubernetes)
+}
+
+message Capabilities {
+  repeated string key_functions = 1;// Key functions the AI Personality can perform
+}
+
+message UniqueSellingPoints {
+  repeated string points = 1;// Unique selling points (e.g., Real-Time Support, Personalized Guidance)
+}
+
+message UseCases {
+  repeated string cases = 1;// Specific use cases (e.g., Automating Docker Environment Deployment)
+}
+
+
+// Message for storing dynamic learning data
+message LearningData {
+  map<string, float> skill_proficiency = 1;// Tracks proficiency levels in different skills (e.g., "Docker": 0.8)
+  repeated InteractionPatterns interaction_patterns = 2;// Common patterns in user interactions
+  repeated string goals = 3;// Current goals the AI is working on for the user
+}
+
+// Message for interaction history
+message InteractionHistory {
+  repeated Interaction interactions = 1;// List of past interactions
+
+  message Interaction {
+    string type = 1;// Type of interaction (e.g., query, recommendation)
+    string content = 2;// Content of the interaction
+    google.protobuf.Timestamp timestamp = 3;// When the interaction occurred
+    string outcome = 4;// Result of the interaction
+  }
+}
+
+// Message for storing personalization data
+message PersonalizationData {
+  map<string, string> preferences = 1;// User preferences (e.g., "preferred_language": "Python")
+  map<string, string> context = 2;// Current context in which the AI is operating
+  string current_task = 3;// Current task the AI is assisting with
+  string preferred_communication_mode = 4;// Preferred communication mode (e.g., "text", "voice")
+}
+
+// Message for common interaction patterns
+message InteractionPatterns {
+  string pattern = 1;// Description of the interaction pattern
+  int32 frequency = 2;// Frequency of this pattern
+}
