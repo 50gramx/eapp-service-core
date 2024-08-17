@@ -1,61 +1,39 @@
+/*************************************************************************
+*
+* AMIT KUMAR KHETAN CONFIDENTIAL
+* __________________
+*
+*  [2017] - [2021] Amit Kumar Khetan
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Amit Kumar Khetan and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Amit Kumar Khetan
+* and its suppliers and may be covered by U.S. and Foreign Patents,
+* patents in process, and are protected by trade secret or copyright law.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Amit Kumar Khetan.
+*/
+
 syntax = "proto3";
 
 option java_multiple_files = true;
 option java_package = "elint.entity";
-option java_outer_classname = "AccountAssistantProto";
+option java_outer_classname = "SpaceThingsProto";
+
 
 package elint.entity;
 
-import "google/protobuf/timestamp.proto";
+import "ethos/elint/entities/space.proto";
+import "ethos/elint/entities/account.proto";
+import public "google/protobuf/timestamp.proto";
 
-message ThingsSpaceDomain {
+message SpaceThings {
     string name = 1;
-    string description = 2;
-    map<string, string> properties = 3;
-}
-
-message NodesCollar {
-    string machine_class = 1;
-    repeated string sub_machine_classes = 2;
-    int32 vcpu = 3;
-    int32 ram_gib = 4;
-    string machine_type = 5;
-    string machine_category = 6;
-    string storage_class = 7;
-    repeated string sub_storage_classes = 8;
-    string fast_storage = 9;
-    string standard_storage = 10;
-    string slow_storage = 11;
-    string bandwidth_class = 12;
-    repeated string sub_bandwidth_classes = 13;
-    string locale_network_bandwidth_class = 14;
-    string main_network_bandwidth_class = 15;
-    bool main_network_bandwidth_static_address = 16;
-    string operator_class = 17;
-    repeated string sub_operator_classes = 18;
-    string human_operator_class = 19;
-    string collaborator_operator_class = 20;
-    string certified_operator_class = 21;
-    string hashing_class = 22;
-    repeated string sub_hashing_classes = 23;
-    string chain_hash_generation_class = 24;
-    bool community_collaborator = 25;
-    string community_code = 26;
-    string collaborator_first_name = 27;
-    string collaborator_second_name = 28;
-    string universe = 29;
-    string galaxy = 30;
-    string personal_space_id = 31;
-    string primary_team_id = 32;
-    string base_os = 33;
-    string base_os_arch = 34;
-    string orchestrator_os = 35;
-    string orchestrator_version = 36;
-    string node_liability = 37;
-    string node_liability_license_id = 38;
-}
-
-message ThingsSpaceDomainWithNodes {
-    ThingsSpaceDomain base = 1;
-    NodesCollar nodes_collar = 2;
+    string id = 2;
+    Account admin = 3;
+    Space space = 4;
+    google.protobuf.Timestamp created_at = 5;
 }
