@@ -1,0 +1,132 @@
+/*************************************************************************
+*
+* AMIT KUMAR KHETAN CONFIDENTIAL
+* __________________
+*
+*  [2017] - [2021] Amit Kumar Khetan
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Amit Kumar Khetan and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Amit Kumar Khetan
+* and its suppliers and may be covered by U.S. and Foreign Patents,
+* patents in process, and are protected by trade secret or copyright law.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Amit Kumar Khetan.
+*/
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.entity";
+option java_outer_classname = "SpaceThingsDomainDeviceProto";
+
+
+package elint.entity;
+
+import "ethos/elint/entities/space_knowledge_thing.proto";
+
+
+message SpaceThingsDomainDevice {
+    string id = 1;
+    string name = 2;
+    SpaceThingsDomain domain = 3;
+    google.protobuf.Timestamp created_at = 4;
+    google.protobuf.Timestamp last_updated_at = 5;
+    google.protobuf.Timestamp last_accessed_at = 6;
+    DeviceType type = 7;
+    DeviceSpecs specs = 8;
+    DeviceStatus status = 9;
+    repeated DeviceLog logs = 10;
+    repeated string tags = 11;
+    DeviceConfiguration config = 12;
+    repeated DeviceMetric metrics = 13;
+    repeated DeviceAction actions = 14;
+    repeated DeviceActionLog action_logs = 15;
+}
+
+
+enum DeviceType {
+  UNKNOWN = 0;
+  SENSOR = 1;
+  ACTUATOR = 2;
+  CAMERA = 3;
+  ROBOT = 4;
+  COMPUTER = 5;
+  // Add more types as needed
+}
+
+message DeviceSpecs {
+  string manufacturer = 1;
+  string model = 2;
+  string firmware_version = 3;
+  int64 memory_gb = 4;
+  int64 storage_gb = 5;
+  double cpu_ghz = 6;
+  repeated NetworkInterface network_interfaces = 7;
+  // Add more specifications as needed
+}
+
+message NetworkInterface {
+  string mac_address = 1;
+  string ip_address = 2;
+  string interface_type = 3; // e.g., Ethernet, Wi-Fi, etc.
+}
+
+message DeviceStatus {
+  bool is_online = 1;
+  string last_checked = 2; // Timestamp as a string
+  repeated string alerts = 3;
+  // Add more status fields as needed
+}
+
+message DeviceLog {
+  string timestamp = 1;
+  string message = 2;
+  LogLevel level = 3;
+  // Add more log fields as needed
+}
+
+enum LogLevel {
+  INFO = 0;
+  WARNING = 1;
+  ERROR = 2;
+  CRITICAL = 3;
+}
+
+message DeviceConfiguration {
+  string config_name = 1;
+  string config_value = 2;
+  // Add more configuration fields as needed
+}
+
+message DeviceMetric {
+  string metric_name = 1;
+  double value = 2;
+  string timestamp = 3; // Timestamp as a string
+  // Add more metric fields as needed
+}
+
+message DeviceAction {
+  string action_id = 1;
+  string action_name = 2;
+  ActionType action_type = 3;
+  repeated string parameters = 4;
+  // Add more action fields as needed
+}
+
+enum ActionType {
+  RESTART = 0;
+  SHUTDOWN = 1;
+  UPDATE_FIRMWARE = 2;
+  // Add more action types as needed
+}
+
+message DeviceActionLog {
+  string action_id = 1;
+  string timestamp = 2; // Timestamp as a string
+  string result = 3;
+  // Add more action log fields as needed
+}
