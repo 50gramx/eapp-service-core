@@ -39,7 +39,7 @@ message Things50DC500000000 {
   BaseOS base_os = 8;
   OrchestratorOS orchestrator_os = 9;
   NodeLiability node_liability = 10;
-  int64 created_at = 11;
+  google.protobuf.Timestamp created_at = 11;
 }
 
 
