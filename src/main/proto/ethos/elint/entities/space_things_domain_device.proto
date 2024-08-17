@@ -26,7 +26,7 @@ option java_outer_classname = "SpaceThingsDomainDeviceProto";
 
 package elint.entity;
 
-import "ethos/elint/entities/space_knowledge_thing.proto";
+import "ethos/elint/entities/space_things_domain.proto";
 
 
 message SpaceThingsDomainDevice {
