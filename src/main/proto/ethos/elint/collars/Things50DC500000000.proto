@@ -27,7 +27,6 @@ option java_outer_classname = "Things50DC500000000Proto";
 package elint.collars;
 
 import public "google/protobuf/timestamp.proto";
-import "ethos/elint/entities/space_things.proto";
 
 message Things50DC500000000 {
   string node_id = 1;

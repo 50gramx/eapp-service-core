@@ -32,7 +32,7 @@ import "ethos/elint/entities/space_things_domain.proto";
 message SpaceThingsDomainDevice {
     string id = 1;
     string name = 2;
-    SpaceThingsDomain domain = 3;
+    elint.entity.SpaceThingsDomain domain = 3;
     google.protobuf.Timestamp created_at = 4;
     google.protobuf.Timestamp last_updated_at = 5;
     google.protobuf.Timestamp last_accessed_at = 6;
