@@ -29,19 +29,20 @@ package elint.entity;
 import public "google/protobuf/timestamp.proto";
 import "ethos/elint/entities/space_service.proto";
 
-enum SpaceServiceDomainCollarEnum {
-    // A SALARIED PROFESSIONAL
-    SERVICE_DEFAULT_COLLAR = 0;
-}
+import "ethos/elint/collars/Service50DC500000000.proto";
 
 
 message SpaceServiceDomain {
-    string space_service_domain_id = 1;
-    string space_service_domain_name = 2;
-    string space_service_domain_description = 3;
-    SpaceServiceDomainCollarEnum space_service_domain_collar_enum = 4;
-    bool space_service_domain_isolated = 5;
-    elint.entity.SpaceService space_service = 6;
-    google.protobuf.Timestamp created_at = 7;
-    google.protobuf.Timestamp last_updated_at = 8;
+  string id = 1;
+  string name = 2;
+  string description = 3;
+
+  oneof collar {
+    elint.collars.Service50DC500000000 service50dc500000000 = 1;// Persona Collar
+  }
+
+  bool is_isolated = 6;
+  elint.entity.SpaceService space_service = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp last_updated_at = 8;
 }
