@@ -37,7 +37,7 @@ message SpaceThingsDomain {
   string description = 3;
 
   oneof collar {
-    Things50DC500000000 things50dc500000000 = 1;
+    elint.collars.Things50DC500000000 things50dc500000000 = 1;// Nodes Collar
   }
 
   bool is_isolated = 6;
