@@ -35,13 +35,14 @@ message SpaceThingsDomain {
   string id = 1;
   string name = 2;
   string description = 3;
+  bool is_isolated = 4;
+  elint.entity.SpaceThings space_things = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp last_updated_at = 7;
 
   oneof collar {
-    elint.collars.Things50DC500000000 things50dc500000000 = 1;// Nodes Collar
+    elint.collars.Things50DC500000000 things50dc500000000 = 10;// Nodes Collar
   }
 
-  bool is_isolated = 6;
-  elint.entity.SpaceThings space_things = 7;
-  google.protobuf.Timestamp created_at = 8;
-  google.protobuf.Timestamp last_updated_at = 9;
+
 }
