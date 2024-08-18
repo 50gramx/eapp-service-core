@@ -36,13 +36,13 @@ message SpaceServiceDomain {
   string id = 1;
   string name = 2;
   string description = 3;
+  bool is_isolated = 4;
+  elint.entity.SpaceService space_service = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp last_updated_at = 7;
 
   oneof collar {
-    elint.collars.Service50DC500000000 service50dc500000000 = 1;// Persona Collar
+    elint.collars.Service50DC500000000 service50dc500000000 = 10;// Persona Collar
   }
 
-  bool is_isolated = 6;
-  elint.entity.SpaceService space_service = 6;
-  google.protobuf.Timestamp created_at = 7;
-  google.protobuf.Timestamp last_updated_at = 8;
 }
