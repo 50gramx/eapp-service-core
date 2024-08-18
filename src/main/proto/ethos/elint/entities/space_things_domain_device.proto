@@ -23,11 +23,9 @@ option java_multiple_files = true;
 option java_package = "elint.entity";
 option java_outer_classname = "SpaceThingsDomainDeviceProto";
 
-
 package elint.entity;
 
 import "ethos/elint/entities/space_things_domain.proto";
-
 
 message SpaceThingsDomainDevice {
     string id = 1;
@@ -47,86 +45,85 @@ message SpaceThingsDomainDevice {
     repeated DeviceActionLog action_logs = 15;
 }
 
-
 enum DeviceType {
-  UNKNOWN = 0;
-  SENSOR = 1;
-  ACTUATOR = 2;
-  CAMERA = 3;
-  ROBOT = 4;
-  COMPUTER = 5;
-  // Add more types as needed
+    DEVICE_TYPE_UNKNOWN = 0;  // Renamed to avoid conflict
+    SENSOR = 1;
+    ACTUATOR = 2;
+    CAMERA = 3;
+    ROBOT = 4;
+    COMPUTER = 5;
+    // Add more types as needed
 }
 
 message DeviceSpecs {
-  string manufacturer = 1;
-  string model = 2;
-  string firmware_version = 3;
-  int64 memory_gb = 4;
-  int64 storage_gb = 5;
-  double cpu_ghz = 6;
-  repeated NetworkInterface network_interfaces = 7;
-  // Add more specifications as needed
+    string manufacturer = 1;
+    string model = 2;
+    string firmware_version = 3;
+    int64 memory_gb = 4;
+    int64 storage_gb = 5;
+    double cpu_ghz = 6;
+    repeated NetworkInterface network_interfaces = 7;
+    // Add more specifications as needed
 }
 
 message NetworkInterface {
-  string mac_address = 1;
-  string ip_address = 2;
-  string interface_type = 3; // e.g., Ethernet, Wi-Fi, etc.
+    string mac_address = 1;
+    string ip_address = 2;
+    string interface_type = 3; // e.g., Ethernet, Wi-Fi, etc.
 }
 
 message DeviceStatus {
-  bool is_online = 1;
-  string last_checked = 2; // Timestamp as a string
-  repeated string alerts = 3;
-  // Add more status fields as needed
+    bool is_online = 1;
+    string last_checked = 2; // Timestamp as a string
+    repeated string alerts = 3;
+    // Add more status fields as needed
 }
 
 message DeviceLog {
-  string timestamp = 1;
-  string message = 2;
-  LogLevel level = 3;
-  // Add more log fields as needed
+    string timestamp = 1;
+    string message = 2;
+    LogLevel level = 3;
+    // Add more log fields as needed
 }
 
 enum LogLevel {
-  INFO = 0;
-  WARNING = 1;
-  ERROR = 2;
-  CRITICAL = 3;
+    INFO = 0;
+    WARNING = 1;
+    ERROR = 2;
+    CRITICAL = 3;
 }
 
 message DeviceConfiguration {
-  string config_name = 1;
-  string config_value = 2;
-  // Add more configuration fields as needed
+    string config_name = 1;
+    string config_value = 2;
+    // Add more configuration fields as needed
 }
 
 message DeviceMetric {
-  string metric_name = 1;
-  double value = 2;
-  string timestamp = 3; // Timestamp as a string
-  // Add more metric fields as needed
+    string metric_name = 1;
+    double value = 2;
+    string timestamp = 3; // Timestamp as a string
+    // Add more metric fields as needed
 }
 
 message DeviceAction {
-  string action_id = 1;
-  string action_name = 2;
-  ActionType action_type = 3;
-  repeated string parameters = 4;
-  // Add more action fields as needed
+    string action_id = 1;
+    string action_name = 2;
+    ActionType action_type = 3;
+    repeated string parameters = 4;
+    // Add more action fields as needed
 }
 
 enum ActionType {
-  RESTART = 0;
-  SHUTDOWN = 1;
-  UPDATE_FIRMWARE = 2;
-  // Add more action types as needed
+    RESTART = 0;
+    SHUTDOWN = 1;
+    UPDATE_FIRMWARE = 2;
+    // Add more action types as needed
 }
 
 message DeviceActionLog {
-  string action_id = 1;
-  string timestamp = 2; // Timestamp as a string
-  string result = 3;
-  // Add more action log fields as needed
+    string action_id = 1;
+    string timestamp = 2; // Timestamp as a string
+    string result = 3;
+    // Add more action log fields as needed
 }
