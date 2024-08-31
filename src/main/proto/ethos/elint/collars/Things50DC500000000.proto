@@ -104,3 +104,19 @@ message NodeLiability {
   string liability = 2;
   string license_id = 3;
 }
+
+message OVPNConfig {
+  string config_id = 1;
+  string server_address = 2;
+  string port = 3;
+  string protocol = 4;
+  string ca_cert = 5;
+  string cert = 6;
+  string key = 7;
+  string dh_param = 8;
+  string tls_auth_key = 9;
+  repeated string allowed_ips = 10;
+  google.protobuf.Timestamp created_at = 11;
+  google.protobuf.Timestamp updated_at = 12;
+  string description = 13;
+}
