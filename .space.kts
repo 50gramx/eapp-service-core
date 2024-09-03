@@ -96,6 +96,7 @@ job("Distribute Core Domain Packages") {
             val PROTO_INCLUDE_DIRS = """
                 ${EAPP_PROTO_SRC_DIR}/google/api/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/collars/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/account/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/account_assistant/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/galaxy/*.proto,
@@ -799,6 +800,7 @@ job("Distribute Core Dev Domain Packages") {
             val PROTO_INCLUDE_DIRS = """
                 ${EAPP_PROTO_SRC_DIR}/google/api/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/collars/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/account/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/account_assistant/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/galaxy/*.proto,
