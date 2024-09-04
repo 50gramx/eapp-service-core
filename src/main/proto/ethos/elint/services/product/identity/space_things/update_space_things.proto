@@ -6,7 +6,9 @@ option java_outer_classname = "UpdateProto";
 
 package elint.services.product.identity.space;
 
-import "ethos/elint/entities/space_things.proto";
+import "ethos/elint/entities/space_things_domain.proto";
+import "ethos/elint/collars/Things50DC500000000.proto";
+
 // ------------------------------------
 // Service Definitions
 // ------------------------------------
@@ -25,16 +27,16 @@ message UpdateThingsSpaceDomainRequest {
 }
 
 message UpdateThingsSpaceDomainResponse {
-  ThingsSpaceDomain domain = 1;
+  elint.entity.SpaceThingsDomain domain = 1; 
 }
 
 message UpdateNodesCollarRequest {
   string machine_class = 1;
   int32 vcpu = 2;
   int32 ram_gib = 3;
-  // Other fields as needed
+  // Add other fields as needed
 }
 
 message UpdateNodesCollarResponse {
-  NodesCollar collar = 1;
+  elint.collars.Things50DC500000000 collar = 1;
 }

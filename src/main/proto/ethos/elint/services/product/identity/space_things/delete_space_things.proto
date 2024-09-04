@@ -6,7 +6,8 @@ option java_outer_classname = "DeleteProto";
 
 package elint.services.product.identity.space;
 
-import "ethos/elint/entities/space_things.proto";
+import "ethos/elint/entities/space_things_domain.proto";
+import "ethos/elint/collars/Things50DC500000000.proto";
 
 // ------------------------------------
 // Service Definitions
