@@ -6,7 +6,8 @@ option java_outer_classname = "CreateProto";
 
 package elint.services.product.identity.space;
 
-import "ethos/elint/entities/space_things.proto";
+import "ethos/elint/entities/space_things_domain.proto";
+import "ethos/elint/collars/Things50DC500000000.proto";
 
 // ------------------------------------
 // Service Definitions
@@ -26,13 +27,13 @@ message CreateThingsSpaceDomainRequest {
 }
 
 message CreateThingsSpaceDomainResponse {
-  ThingsSpaceDomain domain = 1;
+  elint.entity.SpaceThingsDomain domain = 1;
 }
 
 message CreateNodesCollarRequest {
-  NodesCollar collar = 1;
+  elint.collars.Things50DC500000000 collar = 1;
 }
 
 message CreateNodesCollarResponse {
-  NodesCollar collar = 1;
+  elint.collars.Things50DC500000000 collar = 1;
 }
