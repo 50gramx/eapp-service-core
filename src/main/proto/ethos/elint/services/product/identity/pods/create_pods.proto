@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package elint.services.product.identity.pods;
+
+import "ethos/elint/collars/Service50DC499999999.proto" as collars;  // Use alias 'collars'
+
+// Service to manage pods
+service CreatePodsService {
+  rpc CreatePod(CreatePodRequest) returns (CreatePodResponse);
+  rpc GetPods(GetPodsRequest) returns (GetPodsResponse);
+  rpc GetSSHPodCredentials(GetSSHPodCredentialsRequest) returns (GetSSHPodCredentialsResponse);
+  rpc GetNodes(GetNodesRequest) returns (GetNodesResponse);
+}
+
+// Request for creating a pod
+message CreatePodRequest {
+  collars.Pod pod = 1;  // Use the alias for Pod
+}
+
+// Response for pod creation
+message CreatePodResponse {
+  string message = 1;
+}
+
+// Request for getting the list of pods
+message GetPodsRequest {}
+
+// Response containing a list of pods
+message GetPodsResponse {
+  repeated collars.Pod pods = 1;  // Use the alias for Pod
+}
+
+// Request for getting SSH credentials
+message GetSSHPodCredentialsRequest {
+  string pod_name = 1;
+}
+
+// Response for getting SSH credentials
+message GetSSHPodCredentialsResponse {
+  collars.SSHPodCredentials credentials = 1;  // Use the alias for SSHPodCredentials
+}
+
+// Request for getting nodes information
+message GetNodesRequest {}
+
+// Response containing a list of nodes
+message GetNodesResponse {
+  repeated collars.NodeInfo nodes = 1;  // Use the alias for NodeInfo
+}

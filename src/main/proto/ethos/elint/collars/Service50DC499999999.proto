@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.entity";
+option java_outer_classname = "PodsProto";
+
+
+package elint.collars;
+
+// Message representing a container environment variable
+message EnvVar {
+  string name = 1;
+  string value = 2;
+}
+
+// Message representing a single container within a pod
+message Container {
+  string name = 1;
+  string image = 2;
+  repeated int32 container_ports = 3;
+  repeated EnvVar env_vars = 4;
+}
+
+// Message representing the pod specification
+message Pod {
+  string name = 1;
+  string image = 2;
+  repeated int32 container_ports = 3;
+  repeated EnvVar env_vars = 4;
+  string expiration_time = 5;
+}
+
+// Message representing the SSH credentials for a pod
+message SSHPodCredentials {
+  string user_name = 1;
+  string node_ip = 2;
+  string ssh_command = 3;
+}
+
+// Message representing the node information
+message NodeInfo {
+  string name = 1;
+  map<string, string> addresses = 2;  // key: address type, value: address
+  map<string, string> labels = 3;
+  map<string, string> annotations = 4;
+  string status = 5;
+}
