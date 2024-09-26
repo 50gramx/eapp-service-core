@@ -2,7 +2,8 @@ syntax = "proto3";
 
 package elint.services.product.identity.pods;
 
-import "ethos/elint/collars/Service50DC499999999.proto" as collars;  // Use alias 'collars'
+// Importing the Service50DC499999999.proto
+import "ethos/elint/collars/Service50DC499999999.proto" as collars;
 
 // Service to manage pods
 service CreatePodsService {
@@ -14,7 +15,7 @@ service CreatePodsService {
 
 // Request for creating a pod
 message CreatePodRequest {
-  collars.Pod pod = 1;  // Use the alias for Pod
+  collars.Pod pod = 1;  // Referring to the Pod message from Service50DC499999999.proto
 }
 
 // Response for pod creation
@@ -27,7 +28,7 @@ message GetPodsRequest {}
 
 // Response containing a list of pods
 message GetPodsResponse {
-  repeated collars.Pod pods = 1;  // Use the alias for Pod
+  repeated collars.Pod pods = 1;  // Referring to the Pod message from Service50DC499999999.proto
 }
 
 // Request for getting SSH credentials
@@ -37,7 +38,7 @@ message GetSSHPodCredentialsRequest {
 
 // Response for getting SSH credentials
 message GetSSHPodCredentialsResponse {
-  collars.SSHPodCredentials credentials = 1;  // Use the alias for SSHPodCredentials
+  collars.SSHPodCredentials credentials = 1;  // Referring to the SSHPodCredentials message from Service50DC499999999.proto
 }
 
 // Request for getting nodes information
@@ -45,5 +46,5 @@ message GetNodesRequest {}
 
 // Response containing a list of nodes
 message GetNodesResponse {
-  repeated collars.NodeInfo nodes = 1;  // Use the alias for NodeInfo
+  repeated collars.NodeInfo nodes = 1;  // Referring to the NodeInfo message from Service50DC499999999.proto
 }

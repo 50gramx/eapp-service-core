@@ -4,6 +4,7 @@ option java_multiple_files = true;
 option java_package = "elint.entity";
 option java_outer_classname = "PodsProto";
 
+import "google/protobuf/timestamp.proto";
 
 package elint.collars;
 
@@ -19,6 +20,7 @@ message Container {
   string image = 2;
   repeated int32 container_ports = 3;
   repeated EnvVar env_vars = 4;
+  google.protobuf.Timestamp created_at = 5;
 }
 
 // Message representing the pod specification
@@ -27,7 +29,7 @@ message Pod {
   string image = 2;
   repeated int32 container_ports = 3;
   repeated EnvVar env_vars = 4;
-  string expiration_time = 5;
+  google.protobuf.Timestamp expiration_time = 5;
 }
 
 // Message representing the SSH credentials for a pod
@@ -35,6 +37,7 @@ message SSHPodCredentials {
   string user_name = 1;
   string node_ip = 2;
   string ssh_command = 3;
+  google.protobuf.Timestamp last_login = 4;  // When the SSH was last logged in
 }
 
 // Message representing the node information

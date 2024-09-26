@@ -104,6 +104,7 @@ job("Distribute Core Domain Packages") {
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/organisation/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/space/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/space_things/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/pods/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/universe/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/action/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/conversation/message/*.proto,
