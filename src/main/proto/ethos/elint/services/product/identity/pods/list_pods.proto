@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.entity";
+option java_outer_classname = "CreatePodsProto";
+
+package elint.services.product.identity.pods;
+
+// Importing the Service50DC499999999.proto
+import "ethos/elint/collars/Service50DC499999999.proto";
+
+// Service definition for managing pods
+service PodService {
+    // RPC method to list pods
+    rpc ListPods(ListPodsRequest) returns (ListPodsResponse);
+}
+
+// Message representing a request to list pods
+message ListPodsRequest {
+    string namespace = 1;  // Optional: specify the namespace for filtering pods
+}
+
+// Message representing a response to list pods
+message ListPodsResponse {
+    repeated elint.collars.Pod pods = 1;  // List of pods retrieved
+}
