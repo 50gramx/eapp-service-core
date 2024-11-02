@@ -8,6 +8,8 @@ import "google/protobuf/timestamp.proto";
 
 package elint.collars;
 
+// https://www.linkedin.com/in/amit-khetan
+
 // Main message for the Podeage VM 
 message Service50DC499999998 {
 
@@ -19,8 +21,8 @@ message Service50DC499999998 {
   UsageMetric usage_metric = 53;
   Alert alert = 44;
 
-  google.protobuf.Timestamp created_at = 14;// Timestamp when the AI Personality was created
-  google.protobuf.Timestamp updated_at = 15;// Timestamp of the last update to the AI Personality
+  google.protobuf.Timestamp created_at = 14;
+  google.protobuf.Timestamp updated_at = 15;
 }
 
 // VM Instance information
