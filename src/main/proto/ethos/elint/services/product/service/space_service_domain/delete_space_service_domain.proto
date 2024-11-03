@@ -18,6 +18,6 @@
 */
 
 syntax = "proto3";
-package elint.services.product.knowledge.domain;
+package elint.services.product.service.domain;
 
 service DeleteSpaceServiceDomainService {}

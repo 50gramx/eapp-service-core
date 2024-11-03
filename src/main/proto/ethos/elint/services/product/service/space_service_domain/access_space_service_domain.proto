@@ -18,7 +18,7 @@
 */
 
 syntax = "proto3";
-package elint.services.product.knowledge.domain;
+package elint.services.product.service.domain;
 
 import "ethos/elint/entities/generic.proto";
 import "ethos/elint/entities/space_service_domain.proto";
