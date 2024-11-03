@@ -29,40 +29,37 @@ import "ethos/elint/services/product/knowledge/space_knowledge_domain/access_spa
 
 
 service CreateSpaceKnowledgeDomainService {
-    rpc CreateAccountWhiteSpaceKnowledgeDomain (elint.services.product.knowledge.space.SpaceKnowledgeServicesAccessAuthDetails) returns (CreateAccountWhiteSpaceKnowledgeDomainResponse) {
-    };
-    rpc CreateSpaceKnowledgeDomainTfIdf (elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {
-    }; // todo: write and verify this service
-    rpc CreateSpaceKnowledgeDomain (CreateSpaceKnowledgeDomainRequest) returns (CreateSpaceKnowledgeDomainResponse) {
-    };
+  rpc CreateAccountWhiteSpaceKnowledgeDomain(elint.services.product.knowledge.space.SpaceKnowledgeServicesAccessAuthDetails) returns (CreateAccountWhiteSpaceKnowledgeDomainResponse) {
+  };
+  rpc CreateSpaceKnowledgeDomainTfIdf(elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {
+  };// todo: write and verify this service
+  rpc CreateSpaceKnowledgeDomain(CreateSpaceKnowledgeDomainRequest) returns (CreateSpaceKnowledgeDomainResponse) {
+  };
 }
 
 // Message Definitions
 message CreateAccountWhiteSpaceKnowledgeDomainResponse {
-    // Service Response Properties
-    elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails space_knowledge_domain_services_access_auth_details = 1;
-    // Meta Properties
-    bool create_account_white_space_knowledge_domain_done = 2;
-    string create_account_white_space_knowledge_domain_message = 3;
+  // Service Response Properties
+  elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails space_knowledge_domain_services_access_auth_details = 1;
+  // Meta Properties
+  bool create_account_white_space_knowledge_domain_done = 2;
+  string create_account_white_space_knowledge_domain_message = 3;
 }
 
 
 message CreateSpaceKnowledgeDomainRequest {
-    // Auth Properties
-    elint.services.product.knowledge.space.SpaceKnowledgeServicesAccessAuthDetails space_knowledge_services_access_auth_details = 1;
-    // Create Properties
-    string space_knowledge_domain_name = 2;
-    string space_knowledge_domain_description = 3;
-    elint.entity.SpaceKnowledgeDomainCollarEnum space_knowledge_domain_collar_enum = 4;
-    bool space_knowledge_domain_isolated = 5;
+  // Auth Properties
+  elint.services.product.knowledge.space.SpaceKnowledgeServicesAccessAuthDetails space_knowledge_services_access_auth_details = 1;
+  // Create Properties
+  string space_knowledge_domain_name = 2;
+  string space_knowledge_domain_description = 3;
+  elint.entity.SpaceKnowledgeDomainCollarEnum space_knowledge_domain_collar_enum = 4;
+  bool space_knowledge_domain_isolated = 5;
 }
 
 message CreateSpaceKnowledgeDomainResponse {
-    // Service Response Properties
-    elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails space_knowledge_domain_services_access_auth_details = 1;
-    // Meta Properties
-    elint.entity.ResponseMeta response_meta = 2;
+  // Service Response Properties
+  elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails space_knowledge_domain_services_access_auth_details = 1;
+  // Meta Properties
+  elint.entity.ResponseMeta response_meta = 2;
 }
-
-
-
