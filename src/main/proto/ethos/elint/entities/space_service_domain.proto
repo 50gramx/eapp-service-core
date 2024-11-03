@@ -30,6 +30,7 @@ import public "google/protobuf/timestamp.proto";
 import "ethos/elint/entities/space_service.proto";
 
 import "ethos/elint/collars/Service50DC500000000.proto";
+import "ethos/elint/collars/Service50DC499999998.proto";
 
 
 message SpaceServiceDomain {
@@ -42,7 +43,8 @@ message SpaceServiceDomain {
   google.protobuf.Timestamp last_updated_at = 7;
 
   oneof collar {
-    elint.collars.Service50DC500000000 service50dc500000000 = 10;// Persona Collar
+    elint.collars.Service50DC500000000 service50dc500000000 = 10;
+    elint.collars.Service50DC499999998 service50dc499999998 = 12;
   }
 
 }
