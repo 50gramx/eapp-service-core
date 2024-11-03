@@ -8,21 +8,17 @@ import "google/protobuf/timestamp.proto";
 
 package elint.collars;
 
-// https://www.linkedin.com/in/amit-khetan
-
 // Main message for the Podeage VM 
 message Service50DC499999998 {
-
   string id = 1;
   string name = 2;
   string description = 3;
 
-  VMInstance vm_instance = 4;// Visual appearance attributes
-  UsageMetric usage_metric = 53;
-  Alert alert = 44;
+  // One-to-One relationship with VMInstance
+  VMInstance vm_instance = 4;
 
-  google.protobuf.Timestamp created_at = 14;
-  google.protobuf.Timestamp updated_at = 15;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
 }
 
 // VM Instance information
@@ -36,9 +32,13 @@ message VMInstance {
   string status = 7;
   string created_at = 8;
   string updated_at = 9;
+
+  // One-to-Many relationships
+  repeated UsageMetric usage_metrics = 10;
+  repeated Alert alerts = 11;
 }
 
-
+// Usage Metrics for the VM Instance
 message UsageMetric {
   string vm_instance_id = 1;
   float cpu_usage = 2;
@@ -47,6 +47,7 @@ message UsageMetric {
   string timestamp = 5;
 }
 
+// Alerts for the VM Instance
 message Alert {
   string vm_instance_id = 1;
   string alert_type = 2;
@@ -54,8 +55,6 @@ message Alert {
   string created_at = 4;
   string resolved_at = 5;
 }
-
-
 
 // Requests and responses for VM instance
 message GetVMInstanceRequest {

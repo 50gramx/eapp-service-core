@@ -115,6 +115,8 @@ job("Distribute Core Domain Packages") {
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/service/space_service/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/service/space_service_domain/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/cognitive/assist/context/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/cognitive/assist/knowledge/*.proto,
             """.trimIndent()
@@ -820,6 +822,8 @@ job("Distribute Core Dev Domain Packages") {
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/service/space_service/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/service/space_service_domain/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/cognitive/assist/context/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/cognitive/assist/knowledge/*.proto,
             """.trimIndent()
