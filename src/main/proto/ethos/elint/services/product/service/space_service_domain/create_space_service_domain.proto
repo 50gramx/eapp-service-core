@@ -1,0 +1,51 @@
+/*************************************************************************
+*
+* AMIT KUMAR KHETAN CONFIDENTIAL
+* __________________
+*
+*  [2017] - [2021] Amit Kumar Khetan
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Amit Kumar Khetan and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Amit Kumar Khetan
+* and its suppliers and may be covered by U.S. and Foreign Patents,
+* patents in process, and are protected by trade secret or copyright law.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Amit Kumar Khetan.
+*/
+
+syntax = "proto3";
+package elint.services.product.knowledge.domain;
+
+import public "google/protobuf/timestamp.proto";
+
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/entities/space_knowledge_domain.proto";
+import "ethos/elint/services/product/knowledge/space_knowledge/access_space_knowledge.proto";
+import "ethos/elint/services/product/knowledge/space_knowledge_domain/access_space_knowledge_domain.proto";
+
+
+service CreateSpaceServiceDomainService {
+  rpc Create50DC499999998SpaceServiceDomain(Create50DC499999998SpaceServiceDomainRequest) returns (Create50DC499999998SpaceServiceDomainResponse) {
+  };
+}
+
+message Create50DC499999998SpaceServiceDomainRequest {
+  // Auth Properties
+  elint.services.product.knowledge.space.SpaceServiceServicesAccessAuthDetails auth = 1;
+  // Create Properties
+  string space_knowledge_domain_name = 2;
+  string space_knowledge_domain_description = 3;
+  elint.entity.SpaceKnowledgeDomainCollarEnum space_knowledge_domain_collar_enum = 4;
+  bool space_knowledge_domain_isolated = 5;
+}
+
+message Create50DC499999998SpaceServiceDomainResponse {
+  // Service Response Properties
+  elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails space_knowledge_domain_services_access_auth_details = 1;
+  // Meta Properties
+  elint.entity.ResponseMeta response_meta = 2;
+}
