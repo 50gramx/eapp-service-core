@@ -489,7 +489,7 @@ job("Distribute Core Domain Packages") {
                     dart pub token list
                     dart pub token add https://dart.pkg.jetbrains.space/50gramx/p/main/dart-delivery --env-var JB_SPACE_CLIENT_TOKEN
                     dart pub token list
-                    dart pub publish --skip-validation
+                    dart pub publish --force --skip-validation
                     echo "--------------------------------------------------------------------"
                   """
                 }
