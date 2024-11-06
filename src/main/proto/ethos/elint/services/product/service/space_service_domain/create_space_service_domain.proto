@@ -18,7 +18,7 @@
 */
 
 syntax = "proto3";
-package elint.services.product.knowledge.domain;
+package elint.services.product.service.domain;
 
 import public "google/protobuf/timestamp.proto";
 
