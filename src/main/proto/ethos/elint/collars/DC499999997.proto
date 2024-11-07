@@ -21,14 +21,13 @@ syntax = "proto3";
 
 option java_multiple_files = true;
 option java_package = "elint.collars";
-option java_outer_classname = "Things50DC500000000Proto";
 
 
 package elint.collars;
 
 import public "google/protobuf/timestamp.proto";
 
-message Things50DC500000000 {
+message DC499999997 {
   string node_id = 1;
   string name = 2;
   MachineClass machine_class = 3;

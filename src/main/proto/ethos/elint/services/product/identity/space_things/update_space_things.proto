@@ -7,14 +7,14 @@ option java_outer_classname = "UpdateProto";
 package elint.services.product.identity.space;
 
 import "ethos/elint/entities/space_things_domain.proto";
-import "ethos/elint/collars/Things50DC500000000.proto";
+import "ethos/elint/collars/DC499999997.proto";
 
 // ------------------------------------
 // Service Definitions
 // ------------------------------------
 service UpdateService {
-  rpc UpdateThingsSpaceDomain (UpdateThingsSpaceDomainRequest) returns (UpdateThingsSpaceDomainResponse);
-  rpc UpdateNodesCollar (UpdateNodesCollarRequest) returns (UpdateNodesCollarResponse);
+  rpc UpdateThingsSpaceDomain(UpdateThingsSpaceDomainRequest) returns (UpdateThingsSpaceDomainResponse);
+  rpc UpdateNodesCollar(UpdateNodesCollarRequest) returns (UpdateNodesCollarResponse);
 }
 
 // ------------------------------------
@@ -27,7 +27,7 @@ message UpdateThingsSpaceDomainRequest {
 }
 
 message UpdateThingsSpaceDomainResponse {
-  elint.entity.SpaceThingsDomain domain = 1; 
+  elint.entity.SpaceThingsDomain domain = 1;
 }
 
 message UpdateNodesCollarRequest {
@@ -38,5 +38,5 @@ message UpdateNodesCollarRequest {
 }
 
 message UpdateNodesCollarResponse {
-  elint.collars.Things50DC500000000 collar = 1;
+  elint.collars.DC499999997 collar = 1;
 }

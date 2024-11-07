@@ -7,31 +7,31 @@ option java_outer_classname = "ReadProto";
 package elint.services.product.identity.space;
 
 import "ethos/elint/entities/space_things_domain.proto";
-import "ethos/elint/collars/Things50DC500000000.proto";
+import "ethos/elint/collars/DC499999997.proto";
 
 // ------------------------------------
 // Service Definitions
 // ------------------------------------
 service ReadService {
-  rpc ReadThingsSpaceDomain (ReadThingsSpaceDomainRequest) returns (ReadThingsSpaceDomainResponse);
-  rpc ReadNodesCollar (ReadNodesCollarRequest) returns (ReadNodesCollarResponse);
+  rpc ReadThingsSpaceDomain(ReadThingsSpaceDomainRequest) returns (ReadThingsSpaceDomainResponse);
+  rpc ReadNodesCollar(ReadNodesCollarRequest) returns (ReadNodesCollarResponse);
 }
 
 // ------------------------------------
 // Message Definitions
 // ------------------------------------
 message ReadThingsSpaceDomainRequest {
-  string name = 1; // Assuming 'name' is used to identify the domain to read
+  string name = 1;// Assuming 'name' is used to identify the domain to read
 }
 
 message ReadThingsSpaceDomainResponse {
-  elint.entity.SpaceThingsDomain domain = 1; // Correctly referencing the SpaceThingsDomain type
+  elint.entity.SpaceThingsDomain domain = 1;// Correctly referencing the SpaceThingsDomain type
 }
 
 message ReadNodesCollarRequest {
-  string collar_id = 1; // Renamed for consistency with deletion request
+  string collar_id = 1;// Renamed for consistency with deletion request
 }
 
 message ReadNodesCollarResponse {
-  elint.collars.Things50DC500000000 collar = 1; // Correctly referencing the Things50DC500000000 type
+  elint.collars.DC499999997 collar = 1;// Correctly referencing the DC499999997 type
 }

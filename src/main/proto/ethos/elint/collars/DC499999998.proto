@@ -1,0 +1,163 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.entity";
+option java_outer_classname = "PodsProto";
+
+import "google/protobuf/timestamp.proto";
+import "ethos/elint/entities/space_service_domain.proto";
+
+package elint.collars;
+
+// Main message for the Podeage VM 
+message DC499999998 {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  elint.entity.SpaceServiceDomain domain = 4;
+
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // -------------------------------------------------------
+
+  // One-to-One relationship with VMInstance
+  VMInstance vm_instance = 5000;// EPME
+
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // ---------------- 6000+ contact @support ---------------
+  // -------------------------------------------------------
+
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+// VM Instance information
+message VMInstance {
+  string id = 1;
+  string collar_id = 2;
+  string pod_id = 3;
+  int32 cpu_cores = 4;
+  float ram_gb = 5;
+  float storage_gb = 6;
+  string status = 7;
+  string created_at = 8;
+  string updated_at = 9;
+
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // -------------------------------------------------------
+
+  // One-to-Many relationships
+  repeated UsageMetric usage_metrics = 5001;//EPME
+  repeated Alert alerts = 5002;//EPME
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // ---------------- 6000+ contact @support ---------------
+  // -------------------------------------------------------
+  // -------------------------------------------------------
+  // ------------ EPME - Ethos Pods Multiverse Entity ------
+  // ------------ EPOGE - Ethos Pods Open Galaxy Entity ----
+  // ------------ EPPGE - Ethos Pods Private Galaxy Entity -
+  // ------------ EPSE - Ethos Pods Space Entity -----------
+  // ------------ EPDE - Ethos Pods Domain Entity -----------
+  // -------------------------------------------------------
+  // -------------------------------------------------------
+
+
+}
+
+// Usage Metrics for the VM Instance
+message UsageMetric {
+  string vm_instance_id = 1;
+  float cpu_usage = 2;
+  float memory_usage = 3;
+  float disk_io = 4;
+  string timestamp = 5;
+}
+
+// Alerts for the VM Instance
+message Alert {
+  string vm_instance_id = 1;
+  string alert_type = 2;
+  string alert_message = 3;
+  string created_at = 4;
+  string resolved_at = 5;
+}
+
+// -------------------------------------------------------
+// gRPC Service Definition
+// -------------------------------------------------------
+
+service DC499999998Caps {
+  rpc LaunchVM(LaunchVMRequest) returns (LaunchVMResponse);
+}
+
+service DC499999998CapsEPME5000 {
+  rpc GetVMInstance(GetVMInstanceRequest) returns (GetVMInstanceResponse);
+  rpc ListVMInstances(ListVMInstancesRequest) returns (ListVMInstancesResponse);
+}
+
+service DC499999998CapsEPME5001 {
+  rpc GetUsageMetrics(GetUsageMetricsRequest) returns (GetUsageMetricsResponse);
+}
+
+service DC499999998CapsEPME5002 {
+  rpc GetAlerts(GetAlertsRequest) returns (GetAlertsResponse);
+}
+
+message LaunchVMRequest {
+
+}
+message LaunchVMResponse {}
+
+// Requests and responses for VM instance
+message GetVMInstanceRequest {
+  string id = 1;
+}
+
+message GetVMInstanceResponse {
+  VMInstance vm_instance = 1;
+}
+
+message ListVMInstancesRequest {
+  string customer_id = 1;
+}
+
+message ListVMInstancesResponse {
+  repeated VMInstance vm_instances = 1;
+}
+
+// Requests and responses for Usage Metrics
+message GetUsageMetricsRequest {
+  string vm_instance_id = 1;
+}
+
+message GetUsageMetricsResponse {
+  repeated UsageMetric usage_metrics = 1;
+}
+
+// Requests and responses for Alerts
+message GetAlertsRequest {
+  string vm_instance_id = 1;
+  bool unresolved_only = 2;// Optional flag for filtering unresolved alerts
+}
+
+message GetAlertsResponse {
+  repeated Alert alerts = 1;
+}
+

@@ -1,0 +1,201 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.entity";
+option java_outer_classname = "PodsProto";
+
+import "google/protobuf/timestamp.proto";
+import "ethos/elint/entities/space_service_domain.proto";
+
+package elint.collars;
+
+message DC499999999 {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  elint.entity.SpaceServiceDomain domain = 4;
+
+
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // -------------------------------------------------------
+
+  Deployment deployment = 5000;
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // ---------------- 6000+ contact @support ---------------
+  // -------------------------------------------------------
+
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+
+// Main deployment message
+message Deployment {
+  DeploymentMetadata metadata = 1;// Deployment metadata
+  ReplicaConfig replica_config = 2;// Replica configuration
+  LabelSelector selector = 3;// Label selector
+  PodTemplate pod_template = 4;// Pod template specification
+  RolloutSettings rollout_settings = 5;// Rollout settings
+  NetworkingConfig networking_config = 6;// Networking configuration
+  repeated AffinityRule affinity_rules = 7;// Affinity rules
+  NodeSelector node_selector = 8;// Node selector
+  repeated Toleration tolerations = 9;// Tolerations
+  LifecycleHook lifecycle_hooks = 10;// Lifecycle hooks
+  PriorityClass priority_class = 11;// Priority class
+}
+
+// Metadata for the deployment
+message DeploymentMetadata {
+  string name = 1;// Deployment name
+  string namespace = 2;// Kubernetes namespace
+  map<string, string> labels = 3;// Labels for organization and selection
+  map<string, string> annotations = 4;// Annotations for metadata
+}
+
+// Replica configuration
+message ReplicaConfig {
+  int32 replicas = 1;// Number of replicas
+  string strategy = 2;// Deployment strategy (e.g., RollingUpdate, Recreate)
+  int32 min_ready_seconds = 3;// Minimum ready seconds
+}
+
+// Label selector configuration
+message LabelSelector {
+  map<string, string> match_labels = 1;// Labels to match
+  repeated string match_expressions = 2;// Additional match expressions
+}
+
+// Container port configuration
+message ContainerPort {
+  string name = 1;// Name of the port
+  int32 container_port = 2;// Port number
+  string protocol = 3;// Protocol (TCP/UDP)
+}
+
+// Environment variable configuration
+message EnvVar {
+  string name = 1;// Name of the environment variable
+  string value = 2;// Value of the environment variable
+}
+
+// Resource requirements
+message ResourceConfig {
+  string cpu = 1;// CPU allocation
+  string memory = 2;// Memory allocation
+}
+
+// Volume mount configuration
+message VolumeMount {
+  string name = 1;// Name of the volume
+  string mount_path = 2;// Path to mount the volume
+  bool read_only = 3;// Whether the volume is read-only
+}
+
+// Probe configuration
+message Probe {
+  string type = 1;// Type of probe (liveness, readiness, startup)
+  string exec_command = 2;// Command to execute for the probe
+  string http_path = 3;// HTTP path to check
+  int32 initial_delay_seconds = 4;// Initial delay before probing
+  int32 period_seconds = 5;// Period between probes
+  int32 timeout_seconds = 6;// Timeout for the probe
+  int32 success_threshold = 7;// Success threshold
+  int32 failure_threshold = 8;// Failure threshold
+}
+
+// Security context
+message SecurityContext {
+  int64 run_as_user = 1;// User ID to run as
+  int64 run_as_group = 2;// Group ID to run as
+  bool read_only_root_filesystem = 3;// Whether root filesystem is read-only
+  bool privileged = 4;// Privileged mode
+}
+
+// Volume configuration
+message Volume {
+  string name = 1;// Volume name
+  string type = 2;// Volume type (e.g., ConfigMap, Secret)
+  string source = 3;// Source of the volume
+}
+
+// Container configuration
+message Container {
+  string name = 1;// Container name
+  string image = 2;// Container image
+  repeated string command = 3;// Command to run
+  repeated string args = 4;// Arguments for the command
+  repeated ContainerPort ports = 5;// Container ports
+  repeated EnvVar env_vars = 6;// Environment variables
+  ResourceConfig resource_requests = 7;// Resource requests
+  ResourceConfig resource_limits = 8;// Resource limits
+  repeated VolumeMount volume_mounts = 9;// Volume mounts
+  string working_directory = 10;// Working directory
+  Probe liveness_probe = 11;// Liveness probe
+  Probe readiness_probe = 12;// Readiness probe
+  Probe startup_probe = 13;// Startup probe
+  SecurityContext security_context = 14;// Security context
+}
+
+// Pod template specification
+message PodTemplate {
+  map<string, string> labels = 1;// Labels for pods
+  map<string, string> annotations = 2;// Annotations for pods
+  repeated Container containers = 3;// List of containers
+  repeated Volume volumes = 4;// Volumes used by the pods
+}
+
+// Networking configuration
+message NetworkingConfig {
+  bool host_network = 1;// Use host network
+  string dns_policy = 2;// DNS policy
+  string service_account_name = 3;// Service account name
+}
+
+// Affinity/Anti-affinity rules
+message AffinityRule {
+  string type = 1;// Type of rule (affinity or anti-affinity)
+  repeated string expressions = 2;// Placement expressions
+}
+
+// Node selector and tolerations
+message NodeSelector {
+  map<string, string> match_labels = 1;// Node labels to match
+}
+
+message Toleration {
+  string key = 1;// Taint key to tolerate
+  string operator = 2;// Operator (Exists/Equal)
+  string value = 3;// Taint value
+  int64 effect = 4;// Effect (NoSchedule, PreferNoSchedule, NoExecute)
+}
+
+// Rollout settings
+message RolloutSettings {
+  string max_surge = 1;// Max surge during rollout
+  string max_unavailable = 2;// Max unavailable during rollout
+}
+
+// Lifecycle hooks
+message LifecycleHook {
+  string pre_stop_command = 1;// Command before stopping
+  string post_start_command = 2;// Command after starting
+}
+
+// Priority class
+message PriorityClass {
+  string name = 1;// Priority class name
+}
+
+
+// -------------------------------------------------------
+// gRPC Service Definition
+// -------------------------------------------------------

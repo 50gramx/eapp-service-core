@@ -6,8 +6,8 @@ option java_outer_classname = "CreatePodsProto";
 
 package elint.services.product.identity.pods;
 
-// Importing the Service50DC499999999.proto
-import "ethos/elint/collars/Service50DC499999999.proto";
+// Importing the DC499999999.proto
+import "ethos/elint/collars/DC499999999.proto";
 
 // Service to manage pods
 service CreatePodsService {
@@ -19,12 +19,12 @@ service CreatePodsService {
 
 // Request for creating a pod
 message CreatePodRequest {
-  elint.collars.Pod pod = 1;  // Pod message from Service50DC499999999.proto
+  elint.collars.Pod pod = 1;// Pod message from DC499999999.proto
 }
 
 // Response for pod creation
 message CreatePodResponse {
-  string message = 1;  // Response message indicating the result of pod creation
+  string message = 1;// Response message indicating the result of pod creation
 }
 
 // Request for getting the list of pods
@@ -32,17 +32,17 @@ message GetPodsRequest {}
 
 // Response containing a list of pods
 message GetPodsResponse {
-  repeated elint.collars.Pod pods = 1;  // List of pods from Service50DC499999999.proto
+  repeated elint.collars.Pod pods = 1;// List of pods from DC499999999.proto
 }
 
 // Request for getting SSH credentials
 message GetSSHPodCredentialsRequest {
-  string pod_name = 1;  // Name of the pod for which to get SSH credentials
+  string pod_name = 1;// Name of the pod for which to get SSH credentials
 }
 
 // Response for getting SSH credentials
 message GetSSHPodCredentialsResponse {
-  elint.collars.SSHPodCredentials credentials = 1;  // SSH credentials for the specified pod
+  elint.collars.SSHPodCredentials credentials = 1;// SSH credentials for the specified pod
 }
 
 // Request for getting nodes information
@@ -50,5 +50,5 @@ message GetNodesRequest {}
 
 // Response containing a list of nodes
 message GetNodesResponse {
-  repeated elint.collars.NodeInfo nodes = 1;  // List of node information from Service50DC499999999.proto
+  repeated elint.collars.NodeInfo nodes = 1;// List of node information from DC499999999.proto
 }

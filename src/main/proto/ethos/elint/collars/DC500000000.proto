@@ -21,7 +21,6 @@ syntax = "proto3";
 
 option java_multiple_files = true;
 option java_package = "elint.collars";
-option java_outer_classname = "Service50DC500000000Proto";
 
 
 package elint.collars;
@@ -30,7 +29,7 @@ import public "google/protobuf/timestamp.proto";
 
 
 // Main message for the AI Personality
-message Service50DC500000000 {
+message DC500000000 {
   string id = 1;// Unique ID for the AI Personality
   string name = 2;// Name of the AI Personality (e.g., "Irani 88")
   string description = 3;// Brief description (e.g., "Digital Human Assistant for ML Researchers")

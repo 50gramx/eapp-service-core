@@ -28,7 +28,7 @@ package elint.entity;
 
 import public "google/protobuf/timestamp.proto";
 import "ethos/elint/entities/space_things.proto";
-import "ethos/elint/collars/Things50DC500000000.proto";
+import "ethos/elint/collars/DC499999997.proto";
 
 
 message SpaceThingsDomain {
@@ -41,7 +41,7 @@ message SpaceThingsDomain {
   google.protobuf.Timestamp last_updated_at = 7;
 
   oneof collar {
-    elint.collars.Things50DC500000000 things50dc500000000 = 10;// Nodes Collar
+    elint.collars.DC499999997 dc499999997 = 10;// Nodes Collar
   }
 
 

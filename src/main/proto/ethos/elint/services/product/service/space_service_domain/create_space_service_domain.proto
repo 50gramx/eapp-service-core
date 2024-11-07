@@ -26,23 +26,23 @@ import "ethos/elint/entities/generic.proto";
 import "ethos/elint/entities/space_service_domain.proto";
 import "ethos/elint/services/product/service/space_service/access_space_service.proto";
 import "ethos/elint/services/product/service/space_service_domain/access_space_service_domain.proto";
-import "ethos/elint/collars/Service50DC499999998.proto";
+import "ethos/elint/collars/DC499999998.proto";
 
 service CreateSpaceServiceDomainService {
-  rpc Create50DC499999998SpaceServiceDomain(Create50DC499999998SpaceServiceDomainRequest) returns (Create50DC499999998SpaceServiceDomainResponse) {};
+  rpc CreateDC499999998SpaceServiceDomain(CreateDC499999998SpaceServiceDomainRequest) returns (CreateDC499999998SpaceServiceDomainResponse) {};
 }
 
-message Create50DC499999998SpaceServiceDomainRequest {
+message CreateDC499999998SpaceServiceDomainRequest {
   // Auth Properties
   elint.services.product.service.space.SpaceServiceServicesAccessAuthDetails auth = 1;
   // Create Properties
   string name = 2;
   string description = 3;
   bool is_isolated = 4;
-  elint.collars.Service50DC499999998 service50dc499999998 = 5;
+  elint.collars.DC499999998 dc499999998 = 5;
 }
 
-message Create50DC499999998SpaceServiceDomainResponse {
+message CreateDC499999998SpaceServiceDomainResponse {
   // Service Response Properties
   elint.services.product.service.domain.SpaceServiceDomainServicesAccessAuthDetails space_service_domain_services_access_auth_details = 1;
   // Meta Properties

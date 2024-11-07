@@ -7,14 +7,14 @@ option java_outer_classname = "DeleteProto";
 package elint.services.product.identity.space;
 
 import "ethos/elint/entities/space_things_domain.proto";
-import "ethos/elint/collars/Things50DC500000000.proto";
+import "ethos/elint/collars/DC499999997.proto";
 
 // ------------------------------------
 // Service Definitions
 // ------------------------------------
 service DeleteService {
-  rpc DeleteThingsSpaceDomain (DeleteThingsSpaceDomainRequest) returns (DeleteThingsSpaceDomainResponse);
-  rpc DeleteNodesCollar (DeleteNodesCollarRequest) returns (DeleteNodesCollarResponse);
+  rpc DeleteThingsSpaceDomain(DeleteThingsSpaceDomainRequest) returns (DeleteThingsSpaceDomainResponse);
+  rpc DeleteNodesCollar(DeleteNodesCollarRequest) returns (DeleteNodesCollarResponse);
 }
 
 // ------------------------------------
