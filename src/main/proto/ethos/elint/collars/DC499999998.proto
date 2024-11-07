@@ -5,7 +5,6 @@ option java_package = "elint.entity";
 option java_outer_classname = "PodsProto";
 
 import "google/protobuf/timestamp.proto";
-import "ethos/elint/entities/space_service_domain.proto";
 
 package elint.collars;
 
@@ -14,7 +13,6 @@ message DC499999998 {
   string id = 1;
   string name = 2;
   string description = 3;
-  elint.entity.SpaceServiceDomain domain = 4;
 
   // -------------------------------------------------------
   // ----------- COLLAR ENTITIES STARTS --------------------
