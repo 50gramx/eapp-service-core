@@ -197,3 +197,12 @@ message PriorityClass {
 // -------------------------------------------------------
 // gRPC Service Definition
 // -------------------------------------------------------
+service DC499999999EPME5000Capabilities {
+  rpc NewDeployment(NewDeploymentRequest) returns (NewDeploymentResponse);
+}
+
+message NewDeploymentRequest {
+  Deployment deployment = 1;
+}
+
+message NewDeploymentResponse {}
