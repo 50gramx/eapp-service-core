@@ -1,5 +1,4 @@
-@file:DependsOn("com.slack.api:slack-api-client:1.1.1")
-import com.slack.api.Slack
+
 import java.time.LocalDate
 import java.io.File // For working with file paths
 import java.lang.ProcessBuilder // To execute commands
@@ -63,7 +62,6 @@ job("Distribute Core Domain Packages") {
     }
 
     container("Schedule Distribution", image = "amazoncorretto:17-alpine") {
-        env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
 
         kotlinScript { api ->
             api.space().projects.automation.deployments.schedule(
@@ -71,12 +69,6 @@ job("Distribute Core Domain Packages") {
                 targetIdentifier = TargetIdentifier.Key("ethos-core-contracts-deployment-l1-50gramx"),
                 version = api.parameters["VERSION_NUMBER"],
             )
-            val slack = Slack.getInstance()
-            val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-            val version = api.parameters["VERSION_NUMBER"]
-            val response = slack.methods(token).chatPostMessage { req ->
-                req.channel("#product-dev").text("👋 ⚠️ Scheduled Layer One Protocols (Core Contracts) v$version Internal Distribution 🙏")
-            }
         }
 
         requirements {
@@ -136,7 +128,6 @@ job("Distribute Core Domain Packages") {
     }
 
     container("Start Distribution", image = "amazoncorretto:17-alpine") {
-        env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
 
         kotlinScript { api ->
             api.space().projects.automation.deployments.start(
@@ -146,12 +137,6 @@ job("Distribute Core Domain Packages") {
                 // automatically update deployment status based on a status of a job
                 syncWithAutomationJob = true
             )
-            val slack = Slack.getInstance()
-            val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-            val version = api.parameters["VERSION_NUMBER"]
-            val response = slack.methods(token).chatPostMessage { req ->
-                req.channel("#product-dev").text("👋 🚨️ Started Layer One Protocols (Core Contracts) v$version Internal Distribution 🙏")
-            }
         }
 
         requirements {
@@ -289,19 +274,6 @@ job("Distribute Core Domain Packages") {
                 }
             }
 
-
-            container("Python Distribution Slack Update", image = "amazoncorretto:17-alpine") {
-                env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
-
-                kotlinScript { api ->
-                    val slack = Slack.getInstance()
-                    val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-                    val version = api.parameters["VERSION_NUMBER"]
-                    val response = slack.methods(token).chatPostMessage { req ->
-                        req.channel("#product-dev").text("👋 Internally Distributed new v$version of Python Layer One Protocols (Ethos Core Contracts) 🙏")
-                    }
-                }
-            }
         }	 // end of python domain sequential build
 
         sequential {
@@ -372,18 +344,6 @@ job("Distribute Core Domain Packages") {
                 }
             }	// end of container job
 
-            container("Node JavaScript Distribution Slack Update", image = "amazoncorretto:17-alpine") {
-                env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
-
-                kotlinScript { api ->
-                    val slack = Slack.getInstance()
-                    val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-                    val version = api.parameters["VERSION_NUMBER"]
-                    val response = slack.methods(token).chatPostMessage { req ->
-                        req.channel("#product-dev").text("👋 Internally Distributed new v$version of NodeJs Layer One Protocols (Ethos Core Contracts) 🙏")
-                    }
-                }
-            }   // end of slack update
         }	// end of nodejs domain sequential build
 
         sequential {
@@ -498,18 +458,6 @@ job("Distribute Core Domain Packages") {
                 }
             }   // end of dart domain build job
 
-             container("Flutter/Dart Distribution Slack Update", image = "amazoncorretto:17-alpine") {
-                env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
-
-                kotlinScript { api ->
-                    val slack = Slack.getInstance()
-                    val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-                    val version = api.parameters["VERSION_NUMBER"]
-                    val response = slack.methods(token).chatPostMessage { req ->
-                        req.channel("#product-dev").text("👋 Internally Distributed new v$version of Dart Layer One Protocols (Ethos Core Contracts) 🙏")
-                    }
-                }
-            }   // end of slack update
         }	// end of dart domain sequential build
 
 
@@ -580,18 +528,6 @@ job("Distribute Core Domain Packages") {
                 }
             }   // end of kotlin domain job
 
-            container("Android/Kotlin Distribution Slack Update", image = "amazoncorretto:17-alpine") {
-                env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
-
-                kotlinScript { api ->
-                    val slack = Slack.getInstance()
-                    val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-                    val version = api.parameters["VERSION_NUMBER"]
-                    val response = slack.methods(token).chatPostMessage { req ->
-                        req.channel("#product-dev").text("👋 Internally Distributed new v$version of Kotlin Layer One Protocols (Ethos Core Contracts) 🙏")
-                    }
-                }
-            }   // end of slack update
         }	// end of kotlin domain sequential build
 
         sequential {
@@ -663,25 +599,11 @@ job("Distribute Core Domain Packages") {
                 }
             }   // end of Swift Domain build
 
-
-            container("Swift Distribution Slack Update", image = "amazoncorretto:17-alpine") {
-                env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
-
-                kotlinScript { api ->
-                    val slack = Slack.getInstance()
-                    val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-                    val version = api.parameters["VERSION_NUMBER"]
-                    val response = slack.methods(token).chatPostMessage { req ->
-                        req.channel("#product-dev").text("👋 Internally Distributed new v$version of Swift Layer One Protocols (Ethos Core Contracts) 🙏")
-                    }
-                }
-            }   // end of slack update
         }	// end of swift domain sequential build
         
     }	// end of all domain parallel build
 
     container("Finish Distribution", image = "amazoncorretto:17-alpine") {
-        env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
 
         kotlinScript { api ->
             api.space().projects.automation.deployments.finish(
@@ -689,12 +611,6 @@ job("Distribute Core Domain Packages") {
                  targetIdentifier = TargetIdentifier.Key("ethos-core-contracts-deployment-l1-50gramx"),
                 version = api.parameters["VERSION_NUMBER"],
             )
-            val slack = Slack.getInstance()
-            val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-            val version = api.parameters["VERSION_NUMBER"]
-            val response = slack.methods(token).chatPostMessage { req ->
-                req.channel("#product-dev").text("👋 Successfully Distributed Layer One Protocols (Core Contracts) v$version Internally 🙏")
-            }
             // to fail the deployment, use ...deployments.fail()
         }
 
@@ -705,19 +621,6 @@ job("Distribute Core Domain Packages") {
 
     parallel {
         sequential {
-
-            container("Python Behaviour Acceptance Testing Start", image = "amazoncorretto:17-alpine") {
-                env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
-
-                kotlinScript { api ->
-                    val slack = Slack.getInstance()
-                    val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-                    val version = api.parameters["VERSION_NUMBER"]
-                    val response = slack.methods(token).chatPostMessage { req ->
-                        req.channel("#product-dev").text("👋 Started Testing Python Behaviour Acceptance Scenarios for Layer One Protocols (Ethos Core Contracts) 🙏")
-                    }
-                }
-            }   // end of slack update
 
             container(displayName = "Run Python Domain Capability Contract Behaviour Tests", image = "python:3.9.16") {
 
@@ -752,19 +655,6 @@ job("Distribute Core Domain Packages") {
 
             }   // end of running Python Domain Capability Contract Behaviour Tests
 
-
-            container("Python Behaviour Acceptance Testing Finish", image = "amazoncorretto:17-alpine") {
-                env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
-
-                kotlinScript { api ->
-                    val slack = Slack.getInstance()
-                    val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-                    val version = api.parameters["VERSION_NUMBER"]
-                    val response = slack.methods(token).chatPostMessage { req ->
-                        req.channel("#product-dev").text("👋 Finished Testing Python Behaviour Acceptance Scenarios for Ethos Core Contracts ✅")
-                    }
-                }
-            }   // end of slack update
         }	// end of python domain implemented capability contract behaviour acceptance
     }	// end of all domain parallel build
 }
