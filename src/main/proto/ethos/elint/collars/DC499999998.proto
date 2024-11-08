@@ -116,9 +116,8 @@ service DC499999998EPME5002Capabilities {
   rpc GetAlerts(GetAlertsRequest) returns (GetAlertsResponse);
 }
 
-message LaunchVMRequest {
+message LaunchVMRequest {}
 
-}
 message LaunchVMResponse {}
 
 // Requests and responses for VM instance
