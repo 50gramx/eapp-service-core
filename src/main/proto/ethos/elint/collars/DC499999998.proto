@@ -102,17 +102,17 @@ message Alert {
 // -------------------------------------------------------
 
 
-service EPME5000Caps {
+service DC499999998EPME5000Capabilities {
   rpc LaunchVM(LaunchVMRequest) returns (LaunchVMResponse);
   rpc GetVMInstance(GetVMInstanceRequest) returns (GetVMInstanceResponse);
   rpc ListVMInstances(ListVMInstancesRequest) returns (ListVMInstancesResponse);
 }
 
-service EPME5001Caps {
+service DC499999998EPME5001Capabilities {
   rpc GetUsageMetrics(GetUsageMetricsRequest) returns (GetUsageMetricsResponse);
 }
 
-service EPME5002Caps {
+service DC499999998EPME5002Capabilities {
   rpc GetAlerts(GetAlertsRequest) returns (GetAlertsResponse);
 }
 
