@@ -101,20 +101,18 @@ message Alert {
 // gRPC Service Definition
 // -------------------------------------------------------
 
-service DC499999998Caps {
-  rpc LaunchVM(LaunchVMRequest) returns (LaunchVMResponse);
-}
 
-service DC499999998CapsEPME5000 {
+service EPME5000Caps {
+  rpc LaunchVM(LaunchVMRequest) returns (LaunchVMResponse);
   rpc GetVMInstance(GetVMInstanceRequest) returns (GetVMInstanceResponse);
   rpc ListVMInstances(ListVMInstancesRequest) returns (ListVMInstancesResponse);
 }
 
-service DC499999998CapsEPME5001 {
+service EPME5001Caps {
   rpc GetUsageMetrics(GetUsageMetricsRequest) returns (GetUsageMetricsResponse);
 }
 
-service DC499999998CapsEPME5002 {
+service EPME5002Caps {
   rpc GetAlerts(GetAlertsRequest) returns (GetAlertsResponse);
 }
 
