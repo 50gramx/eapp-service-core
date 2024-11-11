@@ -34,6 +34,8 @@ service DiscoverSpaceServiceService {
   };
   rpc GetSpaceServiceDomainById(GetSpaceServiceDomainByIdRequest) returns (GetSpaceServiceDomainByIdResponse) {
   };
+  rpc GetDomainsByCollarCode(GetDomainsByCollarCodeRequest) returns (GetDomainsByCollarCodeResponse) {
+  };
 
 }
 
@@ -54,6 +56,21 @@ message GetSpaceServiceDomainByIdRequest {
 message GetSpaceServiceDomainByIdResponse {
   // Response Properties
   elint.entity.SpaceServiceDomain space_service_domain = 1;
+  // Meta Properties
+  elint.entity.ResponseMeta response_meta = 2;
+}
+
+
+message GetDomainsByCollarCodeRequest {
+  // Auth Properties
+  SpaceServiceServicesAccessAuthDetails access_auth = 1;
+  // Request Properties
+  string collar_code = 2;
+}
+
+message GetDomainsByCollarCodeResponse {
+  // Response Properties
+  repeated elint.entity.SpaceServiceDomain space_service_domains = 1;
   // Meta Properties
   elint.entity.ResponseMeta response_meta = 2;
 }
