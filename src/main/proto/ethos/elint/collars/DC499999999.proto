@@ -38,17 +38,44 @@ message DC499999999 {
 
 // Main deployment message
 message Deployment {
+  // One-to-One relationships
   DeploymentMetadata metadata = 1;// Deployment metadata
   ReplicaConfig replica_config = 2;// Replica configuration
-  LabelSelector selector = 3;// Label selector
-  PodTemplate pod_template = 4;// Pod template specification
   RolloutSettings rollout_settings = 5;// Rollout settings
   NetworkingConfig networking_config = 6;// Networking configuration
-  repeated AffinityRule affinity_rules = 7;// Affinity rules
-  NodeSelector node_selector = 8;// Node selector
-  repeated Toleration tolerations = 9;// Tolerations
-  LifecycleHook lifecycle_hooks = 10;// Lifecycle hooks
-  PriorityClass priority_class = 11;// Priority class
+
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // -------------------------------------------------------
+
+  // One-to-Many relationships  
+  LabelSelector selector = 5001;//EPME
+  PodTemplate pod_template = 5002;//EPME
+  repeated AffinityRule affinity_rules = 5003;//EPME
+  NodeSelector node_selector = 5004;//EPME
+  repeated Toleration tolerations = 5005;//EPME
+  LifecycleHook lifecycle_hooks = 5006;//EPME
+  PriorityClass priority_class = 5007;//EPME
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // ---------------- 6000+ contact @support ---------------
+  // -------------------------------------------------------
+  // -------------------------------------------------------
+  // ------------ EPME - Ethos Pods Multiverse Entity ------
+  // ------------ EPOGE - Ethos Pods Open Galaxy Entity ----
+  // ------------ EPPGE - Ethos Pods Private Galaxy Entity -
+  // ------------ EPSE - Ethos Pods Space Entity -----------
+  // ------------ EPDE - Ethos Pods Domain Entity -----------
+  // -------------------------------------------------------
+  // -------------------------------------------------------
+
 }
 
 // Metadata for the deployment
@@ -200,6 +227,15 @@ message PriorityClass {
 service DC499999999EPME5000Capabilities {
   rpc NewDeployment(NewDeploymentRequest) returns (NewDeploymentResponse);
 }
+
+service DC499999999EPME5001Capabilities {}
+service DC499999999EPME5002Capabilities {}
+service DC499999999EPME5003Capabilities {}
+service DC499999999EPME5004Capabilities {}
+service DC499999999EPME5005Capabilities {}
+service DC499999999EPME5006Capabilities {}
+service DC499999999EPME5007Capabilities {}
+
 
 message NewDeploymentRequest {
   Deployment deployment = 1;
