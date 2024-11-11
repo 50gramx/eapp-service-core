@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.entity";
+
+import "google/protobuf/timestamp.proto";
+
+package elint.collars;
+
+// Main message for the collar entity
+// TODO: add the collar code
+message DC49999XXXX {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // -------------------------------------------------------
+
+  // One-to-One relationship with VMInstance
+  // TODO: add the collar entities
+  CollarFirstEntity collar_first_entity = 5000;// EPME
+
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // ---------------- 6000+ contact @support ---------------
+  // -------------------------------------------------------
+
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+// Collar Entity information
+// TODO: replace with actual entity
+message CollarFirstEntity {
+  // TODO: replace with entity required parameters
+  string id = 1;
+  string dummy = 2;
+
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // -------------------------------------------------------
+
+  // TODO: replace with required collar entity parameters
+  repeated YetAnotherCollarEntity yet_another_collar_entity = 5001;//EPME
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // ---------------- 6000+ contact @support ---------------
+  // -------------------------------------------------------
+  // -------------------------------------------------------
+  // ------------ EPME - Ethos Pods Multiverse Entity ------
+  // ------------ EPOGE - Ethos Pods Open Galaxy Entity ----
+  // ------------ EPPGE - Ethos Pods Private Galaxy Entity -
+  // ------------ EPSE - Ethos Pods Space Entity -----------
+  // ------------ EPDE - Ethos Pods Domain Entity -----------
+  // -------------------------------------------------------
+  // -------------------------------------------------------
+
+
+}
+
+// Usage Metrics for the VM Instance
+message YetAnotherCollarEntity {
+  string id = 1;
+}
+
+// -------------------------------------------------------
+// gRPC Service Definition
+// -------------------------------------------------------
+
+
+// TODO: replace with collar code and entity services
+service DC49999XXXXEPME5000Capabilities {
+
+}
+
+service DC49999XXXXEPME5001Capabilities {
+}
+
+service DC49999XXXXEPME5002Capabilities {
+
+}
