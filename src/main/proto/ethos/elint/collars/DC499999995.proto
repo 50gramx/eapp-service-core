@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "elint.entity";
+option java_outer_classname = "PodsProto";
+
+import "ethos/elint/collars/DC499999999.proto";
+import "google/protobuf/timestamp.proto";
+
+package elint.collars;
+
+// Main message for the Monthly Pod Deployment
+message DC499999995 {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  MonthlyDeployment monthly_deployment = 4;// EPME
+
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // -------------------------------------------------------
+
+
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // ---------------- 6000+ contact @support ---------------
+  // -------------------------------------------------------
+
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+// VM Instance information
+message MonthlyDeployment {
+  string id = 1;
+
+
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // -------------------------------------------------------
+
+
+
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // ---------------- 6000+ contact @support ---------------
+  // -------------------------------------------------------
+  // -------------------------------------------------------
+  // ------------ EPME - Ethos Pods Multiverse Entity ------
+  // ------------ EPOGE - Ethos Pods Open Galaxy Entity ----
+  // ------------ EPPGE - Ethos Pods Private Galaxy Entity -
+  // ------------ EPSE - Ethos Pods Space Entity -----------
+  // ------------ EPDE - Ethos Pods Domain Entity -----------
+  // -------------------------------------------------------
+  // -------------------------------------------------------
+
+}
+
+// -------------------------------------------------------
+// gRPC Service Definition
+// -------------------------------------------------------
+
+
+service DC499999995EPME5000Capabilities {
+  rpc DeployMonthly(DeployMonthlyRequest) returns (DeployMonthlyResponse);
+}
+
+
+message DeployMonthlyRequest {
+  elint.collars.Deployment deployment = 1;
+}
+
+message DeployMonthlyResponse {}
