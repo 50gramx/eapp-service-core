@@ -5,6 +5,7 @@ option java_package = "elint.entity";
 option java_outer_classname = "PodsProto";
 
 import "google/protobuf/timestamp.proto";
+import "ethos/elint/entities/space_service.proto";
 
 package elint.collars;
 
@@ -238,7 +239,9 @@ service DC499999999EPME5007Capabilities {}
 
 
 message NewDeploymentRequest {
-  Deployment deployment = 1;
+  string domain_id = 1;
+  elint.entity.SpaceService space_service = 2;
+  Deployment deployment = 3;
 }
 
 message NewDeploymentResponse {}
