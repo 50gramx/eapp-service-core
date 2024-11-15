@@ -1,9 +1,5 @@
 syntax = "proto3";
 
-option java_multiple_files = true;
-option java_package = "elint.entity";
-option java_outer_classname = "PodsProto";
-
 import "ethos/elint/collars/DC499999999.proto";
 import "google/protobuf/timestamp.proto";
 

@@ -1,9 +1,5 @@
 syntax = "proto3";
 
-option java_multiple_files = true;
-option java_package = "elint.entity";
-option java_outer_classname = "PodsProto";
-
 import "google/protobuf/timestamp.proto";
 import "ethos/elint/entities/space_service.proto";
 
@@ -152,7 +148,7 @@ message Container {
 // Volume configuration
 message Volume {
   string id = 1;
-  String pod_template_id = 2;
+  string pod_template_id = 2;
   string name = 3;// Volume name
   string type = 4;// Volume type (e.g., ConfigMap, Secret)
   string source = 5;// Source of the volume
@@ -161,7 +157,7 @@ message Volume {
 // Container port configuration
 message ContainerPort {
   string id = 1;
-  String container_id = 2;
+  string container_id = 2;
   string name = 3;// Name of the port
   int32 container_port = 4;// Port number
   string protocol = 5;// Protocol (TCP/UDP)
@@ -170,7 +166,7 @@ message ContainerPort {
 // Environment variable configuration
 message EnvVar {
   string id = 1;
-  String container_id = 2;
+  string container_id = 2;
   string name = 3;// Name of the environment variable
   string value = 4;// Value of the environment variable
 }
@@ -178,14 +174,14 @@ message EnvVar {
 // Resource requirements
 message ResourceRequests {
   string id = 1;
-  String container_id = 2;
+  string container_id = 2;
   string cpu = 4;// CPU allocation
   string memory = 5;// Memory allocation
 }
 
 message ResourceLimits {
   string id = 1;
-  String container_id = 2;
+  string container_id = 2;
   string cpu = 4;// CPU allocation
   string memory = 5;// Memory allocation
 }
