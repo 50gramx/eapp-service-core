@@ -40,11 +40,6 @@ message DC499999999 {
 // Main deployment message
 message Deployment {
   string id = 1;
-  // One-to-One relationships
-  DeploymentMetadata metadata = 2;// Deployment metadata
-  ReplicaConfig replica_config = 3;// Replica configuration
-  RolloutSettings rollout_settings = 5;// Rollout settings
-  NetworkingConfig networking_config = 6;// Networking configuration
 
   // -------------------------------------------------------
   // ----------- COLLAR ENTITIES STARTS --------------------
@@ -52,6 +47,12 @@ message Deployment {
   // ---------------- ONLY 1000 ENTITIES -------------------
   // ---------------- RANGES 5000 to 6000 ------------------
   // -------------------------------------------------------
+
+  // One-to-One relationships
+  DeploymentMetadata metadata = 5008;// Deployment metadata
+  ReplicaConfig replica_config = 5009;// Replica configuration
+  RolloutSettings rollout_settings = 5010;// Rollout settings
+  NetworkingConfig networking_config = 5011;// Networking configuration
 
   // One-to-Many relationships  
   LabelSelector selector = 5001;//EPME
