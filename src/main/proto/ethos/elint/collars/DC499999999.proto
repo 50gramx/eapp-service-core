@@ -39,9 +39,10 @@ message DC499999999 {
 
 // Main deployment message
 message Deployment {
+  string id = 1;
   // One-to-One relationships
-  DeploymentMetadata metadata = 1;// Deployment metadata
-  ReplicaConfig replica_config = 2;// Replica configuration
+  DeploymentMetadata metadata = 2;// Deployment metadata
+  ReplicaConfig replica_config = 3;// Replica configuration
   RolloutSettings rollout_settings = 5;// Rollout settings
   NetworkingConfig networking_config = 6;// Networking configuration
 
