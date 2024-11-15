@@ -29,42 +29,42 @@ import "ethos/elint/services/product/knowledge/space_knowledge/access_space_know
 import "ethos/elint/services/product/knowledge/space_knowledge_domain/create_space_knowledge_domain.proto";
 
 service PayInAccountService {
-  rpc GetAccountPayInPublishableKey (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountPayInPublishableKey) {};
-  rpc CreateAccountPayIn (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
-  rpc GetAccountPayInAccessKey (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountPayInAccessKey) {};
-  rpc GetAccountPayInSecretKey (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountPayInSecretKey) {};
-  rpc GetAccountPayInIntent (GetAccountPayInIntentRequest) returns (GetAccountPayInIntentResponse) {};
+  rpc GetAccountPayInPublishableKey(elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountPayInPublishableKey) {};
+  rpc CreateAccountPayIn(elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
+  rpc GetAccountPayInAccessKey(elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountPayInAccessKey) {};
+  rpc GetAccountPayInSecretKey(elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountPayInSecretKey) {};
+  rpc GetAccountPayInIntent(GetAccountPayInIntentRequest) returns (GetAccountPayInIntentResponse) {};
 
   // Payment Method: Card
-  rpc ListAllCards (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (ListAllCardsResponse) {};
-  rpc SaveCard (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (SaveCardResponse) {};
+  rpc ListAllCards(elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (ListAllCardsResponse) {};
+  rpc SaveCard(elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (SaveCardResponse) {};
 
   // Open Galaxy Tier
-  rpc AccountEthosCoinBalance (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountEthosCoinBalanceResponse) {};
-  rpc CreditAccountEthosCoinBalance (CreditAccountEthosCoinBalanceRequest) returns (elint.entity.ResponseMeta) {};
-  rpc CreateAccountOpenGalaxyTierSubscription (CreateAccountOpenGalaxyTierSubscriptionRequest) returns (elint.entity.ResponseMeta) {};
+  rpc AccountEthosCoinBalance(elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (AccountEthosCoinBalanceResponse) {};
+  rpc CreditAccountEthosCoinBalance(CreditAccountEthosCoinBalanceRequest) returns (elint.entity.ResponseMeta) {};
+  rpc CreateAccountOpenGalaxyTierSubscription(CreateAccountOpenGalaxyTierSubscriptionRequest) returns (elint.entity.ResponseMeta) {};
 
   // Play Store Subscription
-  rpc VerifyAccountOpenGalaxyPlayStoreSubscriptionCharge (VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest) returns (elint.entity.ResponseMeta) {};
-  rpc ConfirmAccountOpenGalaxyPlayStoreSubscription (ConfirmAccountOpenGalaxyPlayStoreSubscriptionRequest) returns (elint.entity.ResponseMeta) {};
+  rpc VerifyAccountOpenGalaxyPlayStoreSubscriptionCharge(VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest) returns (elint.entity.ResponseMeta) {};
+  rpc ConfirmAccountOpenGalaxyPlayStoreSubscription(ConfirmAccountOpenGalaxyPlayStoreSubscriptionRequest) returns (elint.entity.ResponseMeta) {};
 
   // Play Store Add EthosCoin
-  rpc VerifyAccountEthosCoinBalanceAddition (VerifyAccountEthosCoinBalanceAdditionRequest) returns (elint.entity.ResponseMeta) {};
-  rpc ConfirmAccountEthosCoinBalanceAddition (ConfirmAccountEthosCoinBalanceAdditionRequest) returns (elint.entity.ResponseMeta) {};
+  rpc VerifyAccountEthosCoinBalanceAddition(VerifyAccountEthosCoinBalanceAdditionRequest) returns (elint.entity.ResponseMeta) {};
+  rpc ConfirmAccountEthosCoinBalanceAddition(ConfirmAccountEthosCoinBalanceAdditionRequest) returns (elint.entity.ResponseMeta) {};
 
   // Open Galaxy Tier Benefits
-  rpc UpdateAccountRemainingOpenGalaxyTierBenefits (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
-  rpc IsTierBenefitsRemainingForClosedDomainLaunchPerMonth (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
-  rpc IsTierBenefitsRemainingForClosedDomainPageLearningPerMonth (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
-  rpc IsTierBenefitsRemainingForClosedDomainInferencePerDay (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
-  rpc IsTierBenefitsRemainingForOpenDomainInferencePerDay (elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
+  rpc UpdateAccountRemainingOpenGalaxyTierBenefits(elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
+  rpc IsTierBenefitsRemainingForClosedDomainLaunchPerMonth(elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
+  rpc IsTierBenefitsRemainingForClosedDomainPageLearningPerMonth(elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
+  rpc IsTierBenefitsRemainingForClosedDomainInferencePerDay(elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
+  rpc IsTierBenefitsRemainingForOpenDomainInferencePerDay(elint.services.product.identity.account.AccountServicesAccessAuthDetails) returns (elint.entity.ResponseMeta) {};
 
 
   // -------------------------
   // Charge Domain Licence APIs
   // -------------------------
   // Charge Space Knowledge Domain Licence APIs
-  rpc ChargeForClosedDomainLaunch (elint.services.product.knowledge.domain.CreateSpaceKnowledgeDomainRequest) returns (elint.entity.ResponseMeta) {};
+  rpc ChargeForClosedDomainLaunch(elint.services.product.knowledge.domain.CreateSpaceKnowledgeDomainRequest) returns (elint.entity.ResponseMeta) {};
 }
 
 
