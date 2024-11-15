@@ -83,10 +83,12 @@ message Deployment {
 
 // Metadata for the deployment
 message DeploymentMetadata {
-  string name = 1;// Deployment name
-  string namespace = 2;// Kubernetes namespace
-  map<string, string> labels = 3;// Labels for organization and selection
-  map<string, string> annotations = 4;// Annotations for metadata
+  string id = 1;
+  string deployment_id = 2;
+  string name = 3;// Deployment name
+  string namespace = 4;// Kubernetes namespace
+  map<string, string> labels = 5;// Labels for organization and selection
+  map<string, string> annotations = 6;// Annotations for metadata
 }
 
 // Replica configuration
