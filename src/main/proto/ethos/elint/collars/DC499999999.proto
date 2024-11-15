@@ -87,40 +87,107 @@ message DeploymentMetadata {
   string deployment_id = 2;
   string name = 3;// Deployment name
   string namespace = 4;// Kubernetes namespace
-  map<string, string> labels = 5;// Labels for organization and selection
-  map<string, string> annotations = 6;// Annotations for metadata
+  map<string, string> labels = 5012;// Labels for organization and selection
+  map<string, string> annotations = 5013;// Annotations for metadata
 }
 
 // Replica configuration
 message ReplicaConfig {
-  int32 replicas = 1;// Number of replicas
-  string strategy = 2;// Deployment strategy (e.g., RollingUpdate, Recreate)
-  int32 min_ready_seconds = 3;// Minimum ready seconds
+  string id = 1;
+  string deployment_id = 2;
+  int32 replicas = 3;// Number of replicas
+  string strategy = 4;// Deployment strategy (e.g., RollingUpdate, Recreate)
+  int32 min_ready_seconds = 5;// Minimum ready seconds
+}
+
+
+// Networking configuration
+message NetworkingConfig {
+  string id = 1;
+  string deployment_id = 2;
+  bool host_network = 3;// Use host network
+  string dns_policy = 4;// DNS policy
+  string service_account_name = 5;// Service account name
 }
 
 // Label selector configuration
 message LabelSelector {
-  map<string, string> match_labels = 1;// Labels to match
-  repeated string match_expressions = 2;// Additional match expressions
+  string id = 1;
+  string deployment_id = 2;
+  map<string, string> match_labels = 5014;// Labels to match
+  repeated string match_expressions = 5015;// Additional match expressions
+}
+
+// Pod template specification
+message PodTemplate {
+  string id = 1;
+  string deployment_id = 2;
+  map<string, string> labels = 5016;// Labels for pods
+  map<string, string> annotations = 5017;// Annotations for pods
+  repeated Container containers = 5018;// List of containers
+  repeated Volume volumes = 5019;// Volumes used by the pods
+}
+
+// Container configuration
+message Container {
+  string id = 15;
+  string pod_template_id = 16;
+  string name = 1;// Container name
+  string image = 2;// Container image
+  repeated string command = 5020;// Command to run
+  repeated string args = 5021;// Arguments for the command
+  repeated ContainerPort ports = 5022;// Container ports
+  repeated EnvVar env_vars = 5023;// Environment variables
+  ResourceRequests resource_requests = 5024;// Resource requests
+  ResourceLimits resource_limits = 5025;// Resource limits
+  repeated VolumeMount volume_mounts = 5026;// Volume mounts
+  string working_directory = 10;// Working directory
+  Probe liveness_probe = 11;// Liveness probe
+  Probe readiness_probe = 12;// Readiness probe
+  Probe startup_probe = 13;// Startup probe
+  SecurityContext security_context = 14;// Security context
+}
+
+
+// Volume configuration
+message Volume {
+  string id = 1;
+  String pod_template_id = 2;
+  string name = 3;// Volume name
+  string type = 4;// Volume type (e.g., ConfigMap, Secret)
+  string source = 5;// Source of the volume
 }
 
 // Container port configuration
 message ContainerPort {
-  string name = 1;// Name of the port
-  int32 container_port = 2;// Port number
-  string protocol = 3;// Protocol (TCP/UDP)
+  string id = 1;
+  String container_id = 2;
+  string name = 3;// Name of the port
+  int32 container_port = 4;// Port number
+  string protocol = 5;// Protocol (TCP/UDP)
 }
 
 // Environment variable configuration
 message EnvVar {
-  string name = 1;// Name of the environment variable
-  string value = 2;// Value of the environment variable
+  string id = 1;
+  String container_id = 2;
+  string name = 3;// Name of the environment variable
+  string value = 4;// Value of the environment variable
 }
 
 // Resource requirements
-message ResourceConfig {
-  string cpu = 1;// CPU allocation
-  string memory = 2;// Memory allocation
+message ResourceRequests {
+  string id = 1;
+  String container_id = 2;
+  string cpu = 4;// CPU allocation
+  string memory = 5;// Memory allocation
+}
+
+message ResourceLimits {
+  string id = 1;
+  String container_id = 2;
+  string cpu = 4;// CPU allocation
+  string memory = 5;// Memory allocation
 }
 
 // Volume mount configuration
@@ -150,45 +217,7 @@ message SecurityContext {
   bool privileged = 4;// Privileged mode
 }
 
-// Volume configuration
-message Volume {
-  string name = 1;// Volume name
-  string type = 2;// Volume type (e.g., ConfigMap, Secret)
-  string source = 3;// Source of the volume
-}
 
-// Container configuration
-message Container {
-  string name = 1;// Container name
-  string image = 2;// Container image
-  repeated string command = 3;// Command to run
-  repeated string args = 4;// Arguments for the command
-  repeated ContainerPort ports = 5;// Container ports
-  repeated EnvVar env_vars = 6;// Environment variables
-  ResourceConfig resource_requests = 7;// Resource requests
-  ResourceConfig resource_limits = 8;// Resource limits
-  repeated VolumeMount volume_mounts = 9;// Volume mounts
-  string working_directory = 10;// Working directory
-  Probe liveness_probe = 11;// Liveness probe
-  Probe readiness_probe = 12;// Readiness probe
-  Probe startup_probe = 13;// Startup probe
-  SecurityContext security_context = 14;// Security context
-}
-
-// Pod template specification
-message PodTemplate {
-  map<string, string> labels = 1;// Labels for pods
-  map<string, string> annotations = 2;// Annotations for pods
-  repeated Container containers = 3;// List of containers
-  repeated Volume volumes = 4;// Volumes used by the pods
-}
-
-// Networking configuration
-message NetworkingConfig {
-  bool host_network = 1;// Use host network
-  string dns_policy = 2;// DNS policy
-  string service_account_name = 3;// Service account name
-}
 
 // Affinity/Anti-affinity rules
 message AffinityRule {
