@@ -30,11 +30,11 @@ import "ethos/elint/collars/DC499999998.proto";
 import "ethos/elint/collars/DC499999999.proto";
 
 service CreateSpaceServiceDomainService {
-  rpc CreateDC499999998SpaceServiceDomain(CreateDC499999998SpaceServiceDomainRequest) returns (CreateServiceDomainResponse) {};
-  rpc CreateDC499999999SpaceServiceDomain(CreateDC499999999SpaceServiceDomainRequest) returns (CreateServiceDomainResponse) {};
+  rpc CreateDC499999998(CreateDC499999998SSDRequest) returns (elint.entity.ResponseMeta) {};
+  rpc CreateDC499999999(CreateDC499999999SSDRequest) returns (elint.entity.ResponseMeta) {};
 }
 
-message CreateDC499999998SpaceServiceDomainRequest {
+message CreateDC499999998SSDRequest {
   // Auth Properties
   elint.services.product.service.space.SpaceServiceServicesAccessAuthDetails auth = 1;
   // Create Properties
@@ -44,7 +44,7 @@ message CreateDC499999998SpaceServiceDomainRequest {
   elint.collars.DC499999998 dc499999998 = 5;
 }
 
-message CreateDC499999999SpaceServiceDomainRequest {
+message CreateDC499999999SSDRequest {
   // Auth Properties
   elint.services.product.service.space.SpaceServiceServicesAccessAuthDetails auth = 1;
   // Create Properties
@@ -52,11 +52,4 @@ message CreateDC499999999SpaceServiceDomainRequest {
   string description = 3;
   bool is_isolated = 4;
   elint.collars.DC499999999 dc499999999 = 5;
-}
-
-message CreateServiceDomainResponse {
-  // Service Response Properties
-  elint.services.product.service.domain.SpaceServiceDomainServicesAccessAuthDetails space_service_domain_services_access_auth_details = 1;
-  // Meta Properties
-  elint.entity.ResponseMeta response_meta = 2;
 }
