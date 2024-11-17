@@ -35,3 +35,8 @@ message RepeatedDC499999999 {
   elint.entity.ResponseMeta meta = 1;
   repeated elint.collars.DC499999999 collars = 2;
 }
+
+message AuthWithCollarID {
+  elint.services.product.service.domain.SpaceServiceDomainServicesAccessAuthDetails auth = 1;
+  string collar_id = 2;
+}
