@@ -13,6 +13,7 @@ package elint.collars;
 service DC499999999EPME5000Capabilities {
   rpc Create(AuthWithDeployment) returns (elint.entity.ResponseMeta);
   rpc List(elint.services.product.service.domain.SpaceServiceDomainServicesAccessAuthDetails) returns (RepeatedDC499999999);
+  rpc Get(AuthWithCollarID) returns (elint.collars.Deployment);
 }
 
 service DC499999999EPME5001Capabilities {}
