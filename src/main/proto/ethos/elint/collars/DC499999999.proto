@@ -58,7 +58,7 @@ message Deployment {
   repeated Toleration tolerations = 5005;//EPME
   LifecycleHook lifecycle_hooks = 5006;//EPME
   PriorityClass priority_class = 5007;//EPME
-  DeploymentStatus status = 5012;
+  DeploymentStatus status = 5027;
 
   // -------------------------------------------------------
   // ----------------- COLLAR ENTITIES ENDS ----------------
