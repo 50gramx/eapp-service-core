@@ -58,6 +58,7 @@ message Deployment {
   repeated Toleration tolerations = 5005;//EPME
   LifecycleHook lifecycle_hooks = 5006;//EPME
   PriorityClass priority_class = 5007;//EPME
+  DeploymentStatus status = 5012;
 
   // -------------------------------------------------------
   // ----------------- COLLAR ENTITIES ENDS ----------------
@@ -248,4 +249,24 @@ message LifecycleHook {
 // Priority class
 message PriorityClass {
   string name = 1;// Priority class name
+}
+
+message DeploymentStatus {
+  string id = 1;
+  string deployment_id = 2;// Reference to the deployment
+  int32 replicas = 3;// Total desired replicas
+  int32 updated_replicas = 4;// Replicas with updated spec
+  int32 available_replicas = 5;// Replicas available to serve traffic
+  int32 unavailable_replicas = 6;// Replicas not yet ready
+  repeated Condition conditions = 7;// Deployment conditions
+}
+
+// Condition message to describe the state of deployment
+message Condition {
+  string type = 1;// Condition type (Available, Progressing, Failed)
+  string status = 2;// True, False, or Unknown
+  string reason = 3;// Brief reason for the condition's last transition
+  string message = 4;// Human-readable message
+  string last_update_time = 5;// Last update timestamp
+  string last_transition_time = 6;// Last transition timestamp
 }
