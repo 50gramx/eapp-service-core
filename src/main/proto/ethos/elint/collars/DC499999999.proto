@@ -267,6 +267,6 @@ message Condition {
   string status = 2;// True, False, or Unknown
   string reason = 3;// Brief reason for the condition's last transition
   string message = 4;// Human-readable message
-  string last_update_time = 5;// Last update timestamp
-  string last_transition_time = 6;// Last transition timestamp
+  google.protobuf.Timestamp last_update_time = 5;// Last update timestamp
+  google.protobuf.Timestamp last_transition_time = 6;// Last transition timestamp
 }
