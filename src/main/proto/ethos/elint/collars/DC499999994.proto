@@ -60,9 +60,6 @@ message SkincareProduct {
   string country_of_origin = 19;// Country of manufacture
 
 
-  
-
-
   // -------------------------------------------------------
   // ----------- COLLAR ENTITIES STARTS --------------------
   // -------------------------------------------------------
