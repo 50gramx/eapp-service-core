@@ -1,0 +1,337 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "ethos/elint/entities/space_knowledge_domain_file.proto";
+
+package elint.collars;
+
+/** 
+
+BEFORE DELIVERY ON PG: 
+Decentralised this domain collar
+Regions to be added as sep collar 
+Brand to be added as sep collar tied2org
+
+**/
+
+message DC499999994 {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+
+
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // -------------------------------------------------------
+
+  SkincareProduct skincare_product = 5000;
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // ---------------- 6000+ contact @support ---------------
+  // -------------------------------------------------------
+
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+
+message SkincareProduct {
+  string id = 1;// Unique identifier (Primary Key)
+  string name = 2;// Product name
+  string brand_id = 3;// Foreign Key referencing Brand (brands table)
+  string category_id = 4;// Foreign Key referencing Category (categories table)
+  string sub_category_id = 5;// Foreign Key referencing Sub-Category (sub_categories table)
+
+  // Pricing and Availability
+  double price = 6;// Selling price
+  double mrp = 7;// Maximum Retail Price (optional)
+  bool is_in_stock = 8;// Availability status
+  int32 stock_quantity = 9;// Quantity available
+  repeated string seller_locations = 10;// Available seller locations
+  string batch_number = 17;// Batch number
+  string expiry_date = 18;// Expiry date
+  string country_of_origin = 19;// Country of manufacture
+
+
+  
+
+
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // -------------------------------------------------------
+
+  // Description and Claims
+  DetailedDescription description = 5001;// Expanded description and claims
+  // Ingredients and Composition
+  Ingredients ingredients = 5002;// Expanded ingredients and composition details
+  // Skin and Scientific Compatibility
+  SkinCompatibility compatibility = 5010;// Detailed compatibility information
+  // Target Audience
+  TargetAudience target_audience = 5015;// Detailed target audience information
+  // Packaging and Logistics
+  PackagingAndLogistics logistics = 5016;// Detailed packaging and logistics info
+  // Certifications and Compliance
+  repeated string certifications = 5017;// Certifications (e.g., FDA approved)
+  // Marketing and SEO
+  SeoAndMarketing marketing = 5018;// Expanded SEO and marketing details
+  // Images
+  ProductImages images = 5021;// Specialized images for various sections
+  // Reviews and Ratings
+  Reviews reviews = 5024;// Detailed reviews
+  // Related or Additional Products
+  RelatedProducts related_products = 5027;// Related products (pre/post usage)
+
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+  // ---------------- ONLY 1000 ENTITIES -------------------
+  // ---------------- RANGES 5000 to 6000 ------------------
+  // ---------------- 6000+ contact @support ---------------
+  // -------------------------------------------------------
+  // -------------------------------------------------------
+  // ------------ EPME - Ethos Pods Multiverse Entity ------
+  // ------------ EPOGE - Ethos Pods Open Galaxy Entity ----
+  // ------------ EPPGE - Ethos Pods Private Galaxy Entity -
+  // ------------ EPSE - Ethos Pods Space Entity -----------
+  // ------------ EPDE - Ethos Pods Domain Entity -----------
+  // -------------------------------------------------------
+  // -------------------------------------------------------
+}
+
+// Detailed description and claims
+message DetailedDescription {
+  string id = 1;
+  string product_id = 2;
+  string overview = 3;// Brief overview of the product
+  string key_claims = 4;// Claims supported by science (e.g., "reduces wrinkles in 4 weeks")
+  string clinical_tests = 5;// Summary of clinical test results
+  string consumer_feedback = 6;// Feedback statistics (e.g., "95% noticed smoother skin")
+}
+
+// Expanded ingredients and composition
+message Ingredients {
+  string id = 1;
+  string product_id = 2;
+
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+  
+  repeated string active_ingredients = 5003;// List of active ingredients (e.g., "Retinol, Niacinamide")
+  repeated string inactive_ingredients = 5004;// Supporting ingredients (e.g., stabilizers, carriers)
+  repeated string allergens = 5005;// Known allergens
+  repeated IngredientDetail ingredient_details = 5006;// Detailed ingredient info
+  SafetyParameters safety_parameters = 5007;// Global and regional safety standards
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+  
+  
+}
+
+message IngredientDetail {
+  string id = 1;
+  string ingredient_id = 2;
+  string name = 2;// Ingredient name
+  string function = 3;// Function (e.g., "exfoliant", "moisturizer")
+  string source = 4;// Source (e.g., "plant-based", "synthetic")
+  string concentration = 5;// Concentration percentage
+  string safety_rating = 6;// Safety rating (e.g., EWG score)
+}
+
+message SafetyParameters {
+  string id = 1;
+  string ingredient_id = 2;
+
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+  repeated string global_safety_standards = 5008;// List of global safety standards met
+  repeated string indian_safety_standards = 5009;// List of Indian safety standards met
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+}
+
+// Detailed skin and scientific compatibility
+message SkinCompatibility {
+  string id = 1;
+  string ingredient_id = 2;
+  string dermatology_approval = 3;// Approval by dermatologists
+
+  
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+
+  repeated string suitable_skin_types = 5011;// Skin types (e.g., dry, oily)
+  repeated string unsuitable_conditions = 5012;// Conditions to avoid use (e.g., eczema)
+  repeated string supported_scientific_studies = 5014;// References to studies
+  repeated string environmental_factors = 5014;// Environmental factors it combats (e.g., pollution)
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+}
+
+// Detailed target audience
+message TargetAudience {
+  string id = 1;
+  string product_id = 2;
+  string demographic = 3;// Demographics (e.g., "women aged 25-45")
+  string use_case = 4;// Use cases (e.g., "daily moisturizing")
+  string lifestyle = 5;// Lifestyle relevance (e.g., "outdoorsy, minimal skincare routine")
+  string concerns = 6;// Specific concerns (e.g., "fine lines, dark spots")
+  string application_guide = 7;// Step-by-step application guide
+}
+
+// Expanded packaging and logistics
+message PackagingAndLogistics {
+  string id = 1;
+  string product_id = 2;
+  string packaging_type = 3;// Packaging type (e.g., jar, pump bottle)
+  double weight_in_grams = 4;// Weight of the product
+  string dimensions = 5;// Product dimensions
+  string storage_instructions = 6;// Storage requirements (e.g., "store in a cool, dry place")
+  bool recyclable_packaging = 7;// Is the packaging recyclable
+  string logistics_partner = 8;// Shipping partner
+  double shipping_weight = 9;// Shipping weight
+  string return_policy = 10;// Return policy details
+  int32 shelf_life_days = 11;// Shelf life in days
+}
+
+// Detailed SEO and marketing
+message SeoAndMarketing {
+  string id = 1;
+  string product_id = 2;
+  string promotional_video_url = 3;// URL for promotional videos
+  string social_media_handles = 4;// Brand's social media handles
+    
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+
+  repeated Keyword keywords = 5019;// SEO keywords
+  repeated Tagline taglines = 5020;// Marketing taglines
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+  
+}
+
+message Keyword {
+  string id = 1;// Unique ID (Primary Key for keywords table)
+  string sam_id = 2;
+  string term = 3;// Keyword term
+  int32 priority = 4;// Priority (e.g., 1 for high, 3 for low)
+}
+
+message Tagline {
+  string id = 1;// Unique ID (Primary Key for taglines table)
+  string sam_id = 2;
+  string content = 3;// Tagline content
+  int32 priority = 4;// Priority
+}
+
+// Specialized product images
+message ProductImages {
+  string id = 1;
+  string product_id = 2;
+  string primary_image = 3;// Main product image
+  string packaging_image = 4;// Packaging design image
+  string logistics_image = 5;// Image for logistics (e.g., dimensions, weight)
+
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+
+  repeated string application_images = 5022;// Images showing product application
+  repeated string ingredient_images = 5023;// Images highlighting key ingredients
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+}
+
+// Detailed reviews
+message Reviews {
+  string id = 1;
+  string product_id = 2;
+  double average_rating = 3;// Average rating
+  int32 number_of_reviews = 4;// Total number of reviews
+
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+
+  repeated Review detailed_reviews = 5025;// Detailed review entries
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+}
+
+message Review {
+  string id = 1;// Unique review ID
+  string reviews_id = 2;
+  string user_id = 2;// Reviewer ID (Foreign Key to users table)
+  string user_name = 3;// Reviewer name
+  string title = 4;// Review title
+  string content = 5;// Review content
+  double rating = 6;// Rating score
+  string timestamp = 7;// Review timestamp
+  bool is_verified_purchase = 8;// Verified purchase flag
+
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+  
+  repeated string images = 5026;// User-uploaded images
+  
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+  
+}
+
+// Related products
+message RelatedProducts {
+  string id = 1;// Unique review ID
+  string product_id = 2;
+  
+  // -------------------------------------------------------
+  // ----------- COLLAR ENTITIES STARTS --------------------
+  // -------------------------------------------------------
+  
+  repeated RelatedProduct pre_related_products = 5028;// Products used before this
+  repeated RelatedProduct post_related_products = 5029;// Products used after this
+
+  // -------------------------------------------------------
+  // ----------------- COLLAR ENTITIES ENDS ----------------
+  // -------------------------------------------------------
+}
+
+message RelatedProduct {
+  string id = 1;// Unique review ID
+  string rps_id = 2;
+  string product_id = 1;// Related product ID (Foreign Key to products table)
+  string name = 2;// Name of related product
+  string relation_type = 3;// Relationship type (e.g., "complementary")
+  string usage_context = 4;// When to use (e.g., before/after)
+  string image_url = 5;// Image of the related product
+  string description = 6;// Brief description
+}
