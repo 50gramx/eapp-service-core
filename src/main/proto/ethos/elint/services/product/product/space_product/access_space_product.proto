@@ -27,7 +27,7 @@ import "ethos/elint/services/product/identity/space/access_space.proto";
 
 // Service Definitions
 service AccessSpaceProductService {
-  rpc SpaceProductAccessToken(elint.services.product.identity.space.SpaceServicesAccessAuthDetails) returns (SpaceServicesAccessTokenResponse) {
+  rpc SpaceProductAccessToken(elint.services.product.identity.space.SpaceServicesAccessAuthDetails) returns (SpaceProductAccessTokenResponse) {
   };
   rpc ValidateSpaceProductServices(SpaceProductServicesAccessAuthDetails) returns (ValidateSpaceProductServicesResponse) {
   };
@@ -35,7 +35,7 @@ service AccessSpaceProductService {
 
 // Message Definitions
 // TODO: Create Request Params
-message SpaceProductsAccessTokenResponse {
+message SpaceProductAccessTokenResponse {
   // Product Parameters
   SpaceProductServicesAccessAuthDetails space_product_services_access_auth_details = 1;
   bool space_product_services_access_done = 2;

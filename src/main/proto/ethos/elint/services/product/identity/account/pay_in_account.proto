@@ -25,7 +25,6 @@ import "ethos/elint/entities/galaxy.proto";
 import "ethos/elint/entities/generic.proto";
 import "ethos/elint/services/product/identity/account/access_account.proto";
 
-import "ethos/elint/services/product/knowledge/space_knowledge/access_space_knowledge.proto";
 import "ethos/elint/services/product/knowledge/space_knowledge_domain/create_space_knowledge_domain.proto";
 
 service PayInAccountService {

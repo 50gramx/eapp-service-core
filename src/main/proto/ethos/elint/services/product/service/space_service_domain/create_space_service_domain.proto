@@ -25,7 +25,6 @@ import public "google/protobuf/timestamp.proto";
 import "ethos/elint/entities/generic.proto";
 import "ethos/elint/entities/space_service_domain.proto";
 import "ethos/elint/services/product/service/space_service/access_space_service.proto";
-import "ethos/elint/services/product/service/space_service_domain/access_space_service_domain.proto";
 import "ethos/elint/collars/DC499999998.proto";
 import "ethos/elint/collars/DC499999999.proto";
 

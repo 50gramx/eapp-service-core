@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
-import "ethos/elint/entities/space_knowledge_domain_file.proto";
 
 package elint.collars;
 
