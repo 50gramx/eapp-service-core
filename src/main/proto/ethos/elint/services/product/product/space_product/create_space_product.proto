@@ -1,0 +1,50 @@
+/*************************************************************************
+*
+* AMIT KUMAR KHETAN CONFIDENTIAL
+* __________________
+*
+*  [2017] - [2021] Amit Kumar Khetan
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Amit Kumar Khetan and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Amit Kumar Khetan
+* and its suppliers and may be covered by U.S. and Foreign Patents,
+* patents in process, and are protected by trade secret or copyright law.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Amit Kumar Khetan.
+*/
+
+syntax = "proto3";
+package elint.services.product.product.space;
+
+import public "google/protobuf/timestamp.proto";
+
+import "ethos/elint/services/product/identity/space/access_space.proto";
+import "ethos/elint/services/product/product/space_product/access_space_product.proto";
+
+// Service Definitions
+service CreateSpaceProductService {
+  rpc CreateAccountSpaceProduct(CreateAccountSpaceProductRequest) returns (CreateAccountSpaceProductResponse) {
+  };
+}
+
+// Message Definitions
+message CreateAccountSpaceProductRequest {
+  // Auth Properties
+  elint.services.product.identity.space.SpaceServicesAccessAuthDetails space_services_access_auth_details = 1;
+  // Create Properties
+  string space_product_name = 2;
+  // Meta Properties
+  google.protobuf.Timestamp requested_at = 6;
+}
+
+message CreateAccountSpaceProductResponse {
+  // Service Response Properties
+  SpaceProductServicesAccessAuthDetails space_product_services_access_auth_details = 1;
+  // Meta Properties
+  bool create_account_space_product_done = 2;
+  string create_account_space_product_message = 3;
+}
