@@ -29,7 +29,7 @@ import "ethos/elint/services/product/product/space_product_domain/access_space_p
 import "ethos/elint/collars/DC499999994.proto";
 
 
-service CreateSpaceServiceDomainService {
+service CreateSpaceProductDomainService {
   rpc CreateDC499999994(CreateDC499999994SPDRequest) returns (elint.entity.ResponseMeta) {};
 }
 

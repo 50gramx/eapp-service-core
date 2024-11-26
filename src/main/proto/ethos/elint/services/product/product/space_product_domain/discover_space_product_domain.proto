@@ -22,4 +22,4 @@ package elint.services.product.product.domain;
 
 
 // Service Definitions
-service DiscoverSpaceServiceDomainService {}
+service DiscoverSpaceProductDomainService {}

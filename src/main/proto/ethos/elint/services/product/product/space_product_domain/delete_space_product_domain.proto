@@ -20,4 +20,4 @@
 syntax = "proto3";
 package elint.services.product.product.domain;
 
-service DeleteSpaceServiceDomainService {}
+service DeleteSpaceProductDomainService {}
