@@ -108,6 +108,8 @@ job("Distribute Core Domain Packages") {
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/service/space_service/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/service/space_service_domain/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/product/space_product/*.proto,
+                ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/product/space_product_domain/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/cognitive/assist/context/*.proto,
                 ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/cognitive/assist/knowledge/*.proto,
             """.trimIndent()
@@ -612,6 +614,64 @@ job("Distribute Core Domain Packages") {
                 version = api.parameters["VERSION_NUMBER"],
             )
             // to fail the deployment, use ...deployments.fail()
+        }
+
+        requirements {
+            workerTags("windows-pool")
+        }
+    }
+}
+
+job("Test Core Domain Capability Contract Behaviours") {
+  
+	startOn {
+        gitPush {
+            anyBranchMatching {
+                +"release/*"
+                +"master"
+            }
+        }
+    }
+
+    // check out eapp-python-domain to /mnt/space/work/eapp-python-domain
+    git("eapp-python-domain")
+    // check out eapp-nodejs-domain to /mnt/space/work/eapp-nodejs-domain
+    git("eapp-nodejs-domain")
+    // check out eapp-dart-domain to /mnt/space/work/eapp-dart-domain
+    git("eapp-dart-domain")
+    // check out eapp-kotlin-domain to /mnt/space/work/eapp-kotlin-domain
+    git("eapp-kotlin-domain")
+    // check out eapp-swift-domain to /mnt/space/work/eapp-swift-domain
+    git("eapp-swift-domain")
+
+	parameters {
+      text("EAPP_PROTO_SRC_DIR", value = "/mnt/space/work/eapp-service-core/src/main/proto")
+      text("EAPP_PROTO_PYTHON_OUT_DIR", value = "/mnt/space/work/eapp-python-domain/src/eapp_python_domain")
+      text("EAPP_PROTO_NODEJS_OUT_DIR", value = "/mnt/space/work/eapp-nodejs-domain/eapp-nodejs-domain")
+      text("EAPP_PROTO_DART_OUT_DIR", value = "/mnt/space/work/eapp-dart-domain/src/eapp_dart_domain")
+      text("EAPP_PROTO_KOTLIN_OUT_DIR", value = "/mnt/space/work/eapp-kotlin-domain/eapp-nodejs-domain")
+      text("EAPP_PROTO_SWIFT_OUT_DIR", value = "/mnt/space/work/eapp-swift-domain/eapp-nodejs-domain")
+
+      text("EAPP_CORE_DOMAIN_DIR", value = "/mnt/space/work/eapp-service-core")
+      text("EAPP_PYTHON_DOMAIN_DIR", value = "/mnt/space/work/eapp-python-domain")
+      text("EAPP_NODEJS_DOMAIN_DIR", value = "/mnt/space/work/eapp-nodejs-domain")
+      text("EAPP_DART_DOMAIN_DIR", value = "/mnt/space/work/eapp-dart-domain")
+      text("EAPP_KOTLIN_DOMAIN_DIR", value = "/mnt/space/work/eapp-kotlin-domain")
+      text("EAPP_SWIFT_DOMAIN_DIR", value = "/mnt/space/work/eapp-swift-domain")
+    }
+
+
+    container(displayName = "Setup Version", image = "amazoncorretto:17-alpine") {
+        kotlinScript { api ->
+            // Get the current year and month
+            val currentYear = (LocalDate.now().year % 100).toString().padStart(2, '0')
+            val currentMonth = LocalDate.now().monthValue.toString()
+
+            // Get the execution number from environment variables
+            val currentExecution = System.getenv("JB_SPACE_EXECUTION_NUMBER")
+
+            // Set the VERSION_NUMBER parameter
+            api.parameters["VERSION_NUMBER"] = "$currentYear.$currentMonth.$currentExecution"
         }
 
         requirements {
