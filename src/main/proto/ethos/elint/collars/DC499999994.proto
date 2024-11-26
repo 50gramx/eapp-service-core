@@ -74,19 +74,19 @@ message SkincareProduct {
   // Skin and Scientific Compatibility
   SkinCompatibility compatibility = 5010;// Detailed compatibility information
   // Target Audience
-  TargetAudience target_audience = 5015;// Detailed target audience information
+  TargetAudience target_audience = 5016;// Detailed target audience information
   // Packaging and Logistics
-  PackagingAndLogistics logistics = 5016;// Detailed packaging and logistics info
+  PackagingAndLogistics logistics = 5017;// Detailed packaging and logistics info
   // Certifications and Compliance
-  repeated string certifications = 5017;// Certifications (e.g., FDA approved)
+  repeated string certifications = 5018;// Certifications (e.g., FDA approved)
   // Marketing and SEO
-  SeoAndMarketing marketing = 5018;// Expanded SEO and marketing details
+  SeoAndMarketing marketing = 5019;// Expanded SEO and marketing details
   // Images
-  ProductImages images = 5021;// Specialized images for various sections
+  ProductImages images = 5022;// Specialized images for various sections
   // Reviews and Ratings
-  Reviews reviews = 5024;// Detailed reviews
+  Reviews reviews = 5025;// Detailed reviews
   // Related or Additional Products
-  RelatedProducts related_products = 5027;// Related products (pre/post usage)
+  RelatedProducts related_products = 5028;// Related products (pre/post usage)
 
 
   // -------------------------------------------------------
@@ -141,11 +141,11 @@ message Ingredients {
 message IngredientDetail {
   string id = 1;
   string ingredient_id = 2;
-  string name = 2;// Ingredient name
-  string function = 3;// Function (e.g., "exfoliant", "moisturizer")
-  string source = 4;// Source (e.g., "plant-based", "synthetic")
-  string concentration = 5;// Concentration percentage
-  string safety_rating = 6;// Safety rating (e.g., EWG score)
+  string name = 3;// Ingredient name
+  string function = 4;// Function (e.g., "exfoliant", "moisturizer")
+  string source = 5;// Source (e.g., "plant-based", "synthetic")
+  string concentration = 6;// Concentration percentage
+  string safety_rating = 7;// Safety rating (e.g., EWG score)
 }
 
 message SafetyParameters {
@@ -177,7 +177,7 @@ message SkinCompatibility {
   repeated string suitable_skin_types = 5011;// Skin types (e.g., dry, oily)
   repeated string unsuitable_conditions = 5012;// Conditions to avoid use (e.g., eczema)
   repeated string supported_scientific_studies = 5014;// References to studies
-  repeated string environmental_factors = 5014;// Environmental factors it combats (e.g., pollution)
+  repeated string environmental_factors = 5015;// Environmental factors it combats (e.g., pollution)
 
   // -------------------------------------------------------
   // ----------------- COLLAR ENTITIES ENDS ----------------
@@ -221,8 +221,8 @@ message SeoAndMarketing {
   // ----------- COLLAR ENTITIES STARTS --------------------
   // -------------------------------------------------------
 
-  repeated Keyword keywords = 5019;// SEO keywords
-  repeated Tagline taglines = 5020;// Marketing taglines
+  repeated Keyword keywords = 5020;// SEO keywords
+  repeated Tagline taglines = 5021;// Marketing taglines
 
   // -------------------------------------------------------
   // ----------------- COLLAR ENTITIES ENDS ----------------
@@ -256,8 +256,8 @@ message ProductImages {
   // ----------- COLLAR ENTITIES STARTS --------------------
   // -------------------------------------------------------
 
-  repeated string application_images = 5022;// Images showing product application
-  repeated string ingredient_images = 5023;// Images highlighting key ingredients
+  repeated string application_images = 5023;// Images showing product application
+  repeated string ingredient_images = 5024;// Images highlighting key ingredients
 
   // -------------------------------------------------------
   // ----------------- COLLAR ENTITIES ENDS ----------------
@@ -275,7 +275,7 @@ message Reviews {
   // ----------- COLLAR ENTITIES STARTS --------------------
   // -------------------------------------------------------
 
-  repeated Review detailed_reviews = 5025;// Detailed review entries
+  repeated Review detailed_reviews = 5026;// Detailed review entries
 
   // -------------------------------------------------------
   // ----------------- COLLAR ENTITIES ENDS ----------------
@@ -285,19 +285,19 @@ message Reviews {
 message Review {
   string id = 1;// Unique review ID
   string reviews_id = 2;
-  string user_id = 2;// Reviewer ID (Foreign Key to users table)
-  string user_name = 3;// Reviewer name
-  string title = 4;// Review title
-  string content = 5;// Review content
-  double rating = 6;// Rating score
-  string timestamp = 7;// Review timestamp
-  bool is_verified_purchase = 8;// Verified purchase flag
+  string user_id = 3;// Reviewer ID (Foreign Key to users table)
+  string user_name = 4;// Reviewer name
+  string title = 5;// Review title
+  string content = 6;// Review content
+  double rating = 7;// Rating score
+  string timestamp = 8;// Review timestamp
+  bool is_verified_purchase = 9;// Verified purchase flag
 
   // -------------------------------------------------------
   // ----------- COLLAR ENTITIES STARTS --------------------
   // -------------------------------------------------------
   
-  repeated string images = 5026;// User-uploaded images
+  repeated string images = 5027;// User-uploaded images
   
   // -------------------------------------------------------
   // ----------------- COLLAR ENTITIES ENDS ----------------
@@ -314,8 +314,8 @@ message RelatedProducts {
   // ----------- COLLAR ENTITIES STARTS --------------------
   // -------------------------------------------------------
   
-  repeated RelatedProduct pre_related_products = 5028;// Products used before this
-  repeated RelatedProduct post_related_products = 5029;// Products used after this
+  repeated RelatedProduct pre_related_products = 5029;// Products used before this
+  repeated RelatedProduct post_related_products = 5030;// Products used after this
 
   // -------------------------------------------------------
   // ----------------- COLLAR ENTITIES ENDS ----------------
@@ -325,10 +325,10 @@ message RelatedProducts {
 message RelatedProduct {
   string id = 1;// Unique review ID
   string rps_id = 2;
-  string product_id = 1;// Related product ID (Foreign Key to products table)
-  string name = 2;// Name of related product
-  string relation_type = 3;// Relationship type (e.g., "complementary")
-  string usage_context = 4;// When to use (e.g., before/after)
-  string image_url = 5;// Image of the related product
-  string description = 6;// Brief description
+  string product_id = 3;// Related product ID (Foreign Key to products table)
+  string name = 4;// Name of related product
+  string relation_type = 5;// Relationship type (e.g., "complementary")
+  string usage_context = 6;// When to use (e.g., before/after)
+  string image_url = 7;// Image of the related product
+  string description = 8;// Brief description
 }
