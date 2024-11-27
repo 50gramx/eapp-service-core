@@ -43,6 +43,6 @@ message AuthWithCollarID {
 }
 
 message DeleteResponse {
-  bool success = 1;                 // Indicates if the operation was successful
-  string message = 2;               // Optional message for additional context
+  bool success = 1;                 
+  string message = 2;               
 }
