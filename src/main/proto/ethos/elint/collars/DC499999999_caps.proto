@@ -13,7 +13,7 @@ package elint.collars;
 service DC499999999EPME5000Capabilities {
   rpc Create(AuthWithDeployment) returns (elint.entity.ResponseMeta);
   rpc List(elint.services.product.service.domain.SpaceServiceDomainServicesAccessAuthDetails) returns (RepeatedDC499999999);
-  rpc Get(AuthWithCollarID) returns (elint.collars.Deployment);
+  rpc Get(SSDAuthWithCollarID) returns (elint.collars.Deployment);
   rpc Delete(AuthWithDeployment) returns (elint.entity.ResponseMeta);
 }
 
@@ -37,7 +37,7 @@ message RepeatedDC499999999 {
   repeated elint.collars.DC499999999 collars = 2;
 }
 
-message AuthWithCollarID {
+message SSDAuthWithCollarID {
   elint.services.product.service.domain.SpaceServiceDomainServicesAccessAuthDetails auth = 1;
   string collar_id = 2;
 }
