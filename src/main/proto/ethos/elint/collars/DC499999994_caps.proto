@@ -12,13 +12,13 @@ package elint.collars;
 // -------------------------------------------------------
 service DC499999994EPME5000Capabilities {
   rpc Create(AuthWithSkincareProduct) returns (elint.entity.ResponseMeta);
-  rpc List(elint.services.product.service.domain.SpaceServiceDomainServicesAccessAuthDetails) returns (RepeatedDC499999994);
+  rpc List(elint.services.product.product.domain.SpaceProductDomainServicesAccessAuthDetails) returns (RepeatedDC499999994);
   rpc Get(AuthWithCollarID) returns (elint.collars.SkincareProduct);
   rpc Delete(AuthWithSkincareProduct) returns (elint.entity.ResponseMeta);
 }
 
 message AuthWithSkincareProduct {
-  elint.services.product.service.domain.SpaceServiceDomainServicesAccessAuthDetails auth = 1;
+  elint.services.product.product.domain.SpaceProductDomainServicesAccessAuthDetails auth = 1;
   elint.collars.SkincareProduct skincare_product = 2;
 }
 
