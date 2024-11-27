@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+import "ethos/elint/entities/space_service.proto";
+import "ethos/elint/collars/DC499999994.proto";
+import "ethos/elint/entities/generic.proto";
+import "ethos/elint/services/product/product/space_product_domain/access_space_product_domain.proto";
+
+package elint.collars;
+
+// -------------------------------------------------------
+// gRPC Service Definition
+// -------------------------------------------------------
+service DC499999994EPME5000Capabilities {
+  rpc Create(AuthWithSkincareProduct) returns (elint.entity.ResponseMeta);
+  rpc List(elint.services.product.service.domain.SpaceServiceDomainServicesAccessAuthDetails) returns (RepeatedDC499999994);
+  rpc Get(AuthWithCollarID) returns (elint.collars.SkincareProduct);
+  rpc Delete(AuthWithSkincareProduct) returns (elint.entity.ResponseMeta);
+}
+
+message AuthWithSkincareProduct {
+  elint.services.product.service.domain.SpaceServiceDomainServicesAccessAuthDetails auth = 1;
+  elint.collars.SkincareProduct skincare_product = 2;
+}
+
+
+message RepeatedDC499999994 {
+  elint.entity.ResponseMeta meta = 1;
+  repeated elint.collars.DC499999994 collars = 2;
+}
+
+message AuthWithCollarID {
+  elint.services.product.product.domain.SpaceProductDomainServicesAccessAuthDetails auth = 1;
+  string collar_id = 2;
+}
