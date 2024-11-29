@@ -40,6 +40,7 @@ message DC499999994 {
 
   google.protobuf.Timestamp created_at = 5;
   google.protobuf.Timestamp updated_at = 6;
+  elint.entity.SpaceKnowledgeDomain product_images_domain = 20;
 }
 
 
@@ -59,7 +60,6 @@ message SkincareProduct {
   string batch_number = 17;// Batch number
   string expiry_date = 18;// Expiry date
   string country_of_origin = 19;// Country of manufacture
-  elint.entity.SpaceKnowledgeDomain product_images_domain = 20;
 
 
   // -------------------------------------------------------
