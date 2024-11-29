@@ -14,7 +14,7 @@ package elint.collars;
 service DC499999994EPME5000Capabilities {
   rpc Create(AuthWithSkincareProduct) returns (elint.entity.ResponseMeta);
   rpc List(elint.services.product.product.domain.SpaceProductDomainServicesAccessAuthDetails) returns (RepeatedDC499999994);
-  rpc Get(SPDAuthWithCollarID) returns (elint.collars.SkincareProduct);
+  rpc Get(SPDAuthWithCollarID) returns (elint.collars.DC499999994);
   rpc Delete(AuthWithSkincareProduct) returns (elint.entity.ResponseMeta);
 }
 
