@@ -51,32 +51,32 @@ GREY: rgb(105,105,105)
 
 
 enum SpaceKnowledgeDomainCollarEnum {
-    // A SALARIED PROFESSIONAL
-    WHITE_COLLAR = 0;  // The term "white-collar worker" was coined in the 1930s by Upton Sinclair, an American writer who referenced the word in connection to clerical, administrative and managerial functions during the 1930s.[2] A white-collar worker is a salaried professional, typically referring to general office workers and management.
-    // WORKING CLASS (working class who performs manual labor and either earns an hourly wage or is paid piece rate for the amount of work done)
-    BLUE_COLLAR = 1; // A blue-collar worker is a member of the working class who performs manual labor and either earns an hourly wage or is paid piece rate for the amount of work done. This term was first used in 1924.[3]
-    // BLUE COLLAR + SERVICE JOBS (work in positions such as waiters, retail clerks, salespersons, and many other positions involving relations with people)
-    PINK_COLLAR = 2; // A pink-collar worker is also a member of the working class who performs in the service industry. They work in positions such as waiters, retail clerks, salespersons, and many other positions involving relations with people. The term was coined in the late 1970s as a phrase to describe jobs that were typically held by women; now the meaning has changed to encompass all service jobs.[4][5][6]
-    // WHITE COLLAR + BLUE COLLAR + (high skilled multi-disciplinarian or knowledge worker who combines intellectual labor) (such as academic/scientific research, engineering technicians and advanced technology industries)
-    GOLD_COLLAR = 3; // A gold-collar worker are high skilled multi-disciplinarian or knowledge worker who combines intellectual labor—which is typically white-collar—with the manual labor of blue-collar positions. Armed with highly specialized knowledge, gold-collar workers usually engage in problem-solving or complex technical work in fields such as academic/scientific research, engineering technicians and advanced technology industries.[7]
-    // GOVERNMENT WORKERS OF ALL TYPES (In China, it also refers to Communist Party officials in private companies)
-    RED_COLLAR = 4; // Government workers of all types;[9] derived from compensation received from red ink budget. In China, it also refers to Communist Party officials in private companies.[10]
-    // WHITE COLLAR + BLUE COLLAR + SKILLED WORKERS (information technology workers)
-    PURPLE_COLLAR = 5; // – Skilled workers, typically someone who is both white and blue collar; an example is information technology workers. They are principally white-collar, but perform blue-collar tasks with some regularity, such as engineers and technicians.
-    // nontraditional education paths
-    NEW_COLLAR = 6; // New collar – develops technical and soft skills needed to work in the contemporary technology industry through nontraditional education paths
-    // Artists and "free spirits" (people who work, but not for payment)
-    NO_COLLAR = 7; // No collar – Artists and "free spirits" who tend to privilege passion and personal growth over financial gain. This term was popularized on the reality game show Survivor: Worlds Apart, which used No Collar (in addition to White and Blue Collar) as the tribal divisions;[11] also, people who work, but not for payment.[9]
-    // PRISON INMATES
-    ORANGE_COLLAR = 8; // Orange collar – Prison laborers, named for the orange jumpsuits commonly worn by inmates.[9][12]
-    // 
-    GREEN_COLLAR = 9; // Green collar – Workers in a wide range of professions relating to the environment and renewable energy.
-    SCARLET_COLLAR = 10; // Scarlet collar – Workers in the sex industry[9]
-    BROWN_COLLAR = 11; // Brown collar – Military personnel
-    STEEL_COLLAR = 12; // Steel collar - Robots, particularly in manufacturing that typically replace blue collar jobs.
-    BLACK_COLLAR = 13; // Black collar – Manual laborers in industries in which workers generally become very dirty, such as mining or oil-drilling;[9][13] has also been used to describe workers in illegal professions.
-    GREY_COLLAR = 14; // Grey collar – workforce that is not classified in blue collar nor white collar. It is occasionally used to describe elderly individuals working beyond the age of retirement, as well as those occupations incorporating elements of both blue- and white-collar.
-    SKD_I_AM_COLLAR = 15; // TODO: add doc
+  // A SALARIED PROFESSIONAL
+  WHITE_COLLAR = 0;// The term "white-collar worker" was coined in the 1930s by Upton Sinclair, an American writer who referenced the word in connection to clerical, administrative and managerial functions during the 1930s.[2] A white-collar worker is a salaried professional, typically referring to general office workers and management.
+  // WORKING CLASS (working class who performs manual labor and either earns an hourly wage or is paid piece rate for the amount of work done)
+  BLUE_COLLAR = 1;// A blue-collar worker is a member of the working class who performs manual labor and either earns an hourly wage or is paid piece rate for the amount of work done. This term was first used in 1924.[3]
+  // BLUE COLLAR + SERVICE JOBS (work in positions such as waiters, retail clerks, salespersons, and many other positions involving relations with people)
+  PINK_COLLAR = 2;// A pink-collar worker is also a member of the working class who performs in the service industry. They work in positions such as waiters, retail clerks, salespersons, and many other positions involving relations with people. The term was coined in the late 1970s as a phrase to describe jobs that were typically held by women; now the meaning has changed to encompass all service jobs.[4][5][6]
+  // WHITE COLLAR + BLUE COLLAR + (high skilled multi-disciplinarian or knowledge worker who combines intellectual labor) (such as academic/scientific research, engineering technicians and advanced technology industries)
+  GOLD_COLLAR = 3;// A gold-collar worker are high skilled multi-disciplinarian or knowledge worker who combines intellectual labor—which is typically white-collar—with the manual labor of blue-collar positions. Armed with highly specialized knowledge, gold-collar workers usually engage in problem-solving or complex technical work in fields such as academic/scientific research, engineering technicians and advanced technology industries.[7]
+  // GOVERNMENT WORKERS OF ALL TYPES (In China, it also refers to Communist Party officials in private companies)
+  RED_COLLAR = 4;// Government workers of all types;[9] derived from compensation received from red ink budget. In China, it also refers to Communist Party officials in private companies.[10]
+  // WHITE COLLAR + BLUE COLLAR + SKILLED WORKERS (information technology workers)
+  PURPLE_COLLAR = 5;// – Skilled workers, typically someone who is both white and blue collar; an example is information technology workers. They are principally white-collar, but perform blue-collar tasks with some regularity, such as engineers and technicians.
+  // nontraditional education paths
+  NEW_COLLAR = 6;// New collar – develops technical and soft skills needed to work in the contemporary technology industry through nontraditional education paths
+  // Artists and "free spirits" (people who work, but not for payment)
+  NO_COLLAR = 7;// No collar – Artists and "free spirits" who tend to privilege passion and personal growth over financial gain. This term was popularized on the reality game show Survivor: Worlds Apart, which used No Collar (in addition to White and Blue Collar) as the tribal divisions;[11] also, people who work, but not for payment.[9]
+  // PRISON INMATES
+  ORANGE_COLLAR = 8;// Orange collar – Prison laborers, named for the orange jumpsuits commonly worn by inmates.[9][12]
+  // 
+  GREEN_COLLAR = 9;// Green collar – Workers in a wide range of professions relating to the environment and renewable energy.
+  SCARLET_COLLAR = 10;// Scarlet collar – Workers in the sex industry[9]
+  BROWN_COLLAR = 11;// Brown collar – Military personnel
+  STEEL_COLLAR = 12;// Steel collar - Robots, particularly in manufacturing that typically replace blue collar jobs.
+  BLACK_COLLAR = 13;// Black collar – Manual laborers in industries in which workers generally become very dirty, such as mining or oil-drilling;[9][13] has also been used to describe workers in illegal professions.
+  GREY_COLLAR = 14;// Grey collar – workforce that is not classified in blue collar nor white collar. It is occasionally used to describe elderly individuals working beyond the age of retirement, as well as those occupations incorporating elements of both blue- and white-collar.
+  SKD_I_AM_COLLAR = 15;// TODO: add doc
 }
 
 //
@@ -87,26 +87,26 @@ enum SpaceKnowledgeDomainCollarEnum {
 //}
 
 message SpaceKnowledgeDomain {
-    string space_knowledge_domain_id = 1;
-    string space_knowledge_domain_name = 2;
-    string space_knowledge_domain_description = 3;
-    SpaceKnowledgeDomainCollarEnum space_knowledge_domain_collar_enum = 4;
-    bool space_knowledge_domain_isolated = 5;
-    elint.entity.SpaceKnowledge space_knowledge = 6;
-    google.protobuf.Timestamp created_at = 7;
-    google.protobuf.Timestamp last_updated_at = 8;
+  string space_knowledge_domain_id = 1;
+  string space_knowledge_domain_name = 2;
+  string space_knowledge_domain_description = 3;
+  SpaceKnowledgeDomainCollarEnum space_knowledge_domain_collar_enum = 4;
+  bool space_knowledge_domain_isolated = 5;
+  elint.entity.SpaceKnowledge space_knowledge = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp last_updated_at = 8;
 }
 
 
 message SpaceKnowledgeDomainInferringAccount {
-    string inferring_account_id = 1;
-    string space_knowledge_id = 2;
-    string account_id = 3;
-    google.protobuf.Timestamp inferred_at = 4;
+  string inferring_account_id = 1;
+  string space_knowledge_id = 2;
+  string account_id = 3;
+  google.protobuf.Timestamp inferred_at = 4;
 }
 
 message RankedAnswer {
-    string context_id = 1;
-    float para_rank = 2;
-    string answer = 3;
+  string context_id = 1;
+  float para_rank = 2;
+  string answer = 3;
 }

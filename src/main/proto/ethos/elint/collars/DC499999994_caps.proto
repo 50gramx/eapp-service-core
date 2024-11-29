@@ -33,5 +33,6 @@ message RepeatedDC499999994 {
 
 message SPDAuthWithCollarID {
   elint.services.product.product.domain.SpaceProductDomainServicesAccessAuthDetails auth = 1;
-  string collar_id = 2;
+  elint.services.product.knowledge.space.SpaceKnowledgeServicesAccessAuthDetails sk_auth = 2;
+  string collar_id = 11;
 }
