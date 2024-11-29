@@ -1,6 +1,8 @@
 syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
+import "ethos/elint/entities/space_knowledge_domain.proto";
+import "ethos/elint/entities/space_knowledge_domain_file.proto";
 
 package elint.collars;
 
@@ -57,6 +59,7 @@ message SkincareProduct {
   string batch_number = 17;// Batch number
   string expiry_date = 18;// Expiry date
   string country_of_origin = 19;// Country of manufacture
+  elint.entity.SpaceKnowledgeDomain product_images_domain = 20;
 
 
   // -------------------------------------------------------
@@ -247,16 +250,16 @@ message Tagline {
 message ProductImages {
   string id = 1;
   string product_id = 2;
-  string primary_image = 3;// Main product image
-  string packaging_image = 4;// Packaging design image
-  string logistics_image = 5;// Image for logistics (e.g., dimensions, weight)
+  string primary_image_id = 3;// Main product image
+  string packaging_image_id = 4;// Packaging design image
+  string logistics_image_id = 5;// Image for logistics (e.g., dimensions, weight)
 
   // -------------------------------------------------------
   // ----------- COLLAR ENTITIES STARTS --------------------
   // -------------------------------------------------------
 
-  repeated string application_images = 5023;// Images showing product application
-  repeated string ingredient_images = 5024;// Images highlighting key ingredients
+  repeated string application_image_ids = 5023;// Images showing product application
+  repeated string ingredient_image_ids = 5024;// Images highlighting key ingredients
 
   // -------------------------------------------------------
   // ----------------- COLLAR ENTITIES ENDS ----------------
