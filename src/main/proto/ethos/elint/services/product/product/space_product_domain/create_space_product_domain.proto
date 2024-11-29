@@ -24,6 +24,7 @@ import public "google/protobuf/timestamp.proto";
 
 import "ethos/elint/entities/generic.proto";
 import "ethos/elint/entities/space_product_domain.proto";
+import "ethos/elint/services/product/knowledge/space_knowledge/access_space_knowledge.proto";
 import "ethos/elint/services/product/product/space_product/access_space_product.proto";
 import "ethos/elint/services/product/product/space_product_domain/access_space_product_domain.proto";
 import "ethos/elint/collars/DC499999994.proto";
@@ -36,9 +37,10 @@ service CreateSpaceProductDomainService {
 message CreateDC499999994SPDRequest {
   // Auth Properties
   elint.services.product.product.space.SpaceProductServicesAccessAuthDetails auth = 1;
+  elint.services.product.knowledge.space.SpaceKnowledgeServicesAccessAuthDetails kauth = 2;
   // Create Properties
-  string name = 2;
-  string description = 3;
-  bool is_isolated = 4;
-  elint.collars.DC499999994 dc499999994 = 5;
+  string name = 11;
+  string description = 12;
+  bool is_isolated = 13;
+  elint.collars.DC499999994 dc499999994 = 14;
 }
