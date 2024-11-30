@@ -23,27 +23,36 @@ package elint.services.product.knowledge.file;
 import "ethos/elint/entities/generic.proto";
 import "ethos/elint/entities/space_knowledge_domain_file.proto";
 import "ethos/elint/entities/account.proto";
+import "ethos/elint/services/product/knowledge/space_knowledge_domain/access_space_knowledge_domain.proto";
 
 // Service Definition
 service DiscoverKnowledgeDomainFileService {
-    rpc GetFileDetails (GetFileDetailsRequest) returns (elint.entity.SpaceKnowledgeDomainFile) {
-    };
-    rpc FileExistsByID (FileExistsByIDRequest) returns (FileExistsByIDResponse) {
-    };
+  rpc GetFileDetails(GetFileDetailsRequest) returns (elint.entity.SpaceKnowledgeDomainFile) {
+  };
+  rpc FileExistsByID(FileExistsByIDRequest) returns (FileExistsByIDResponse) {
+  };
+  rpc Download(stream DownloadRequest) returns (stream DownloadResponse) {
+  };
 }
 
 // Message Definitions
 message GetFileDetailsRequest {
-    elint.entity.AccountSpaceKnowledgeDomainFileAccessMeta account_knowledge_domain_file_access_meta = 1;
-    string file_id = 2;
+  elint.entity.AccountSpaceKnowledgeDomainFileAccessMeta account_knowledge_domain_file_access_meta = 1;
+  string file_id = 2;
 }
 
 message FileExistsByIDRequest {
-    elint.entity.AccountSpaceKnowledgeDomainFileAccessMeta account_knowledge_domain_file_access_meta = 1;
-    string file_id = 2;
+  elint.entity.AccountSpaceKnowledgeDomainFileAccessMeta account_knowledge_domain_file_access_meta = 1;
+  string file_id = 2;
 }
 message FileExistsByIDResponse {
-    bool file_exists = 1;
+  bool file_exists = 1;
 }
 
 
+message DownloadRequest {
+  elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails skd_auth = 1;
+}
+message DownloadResponse {
+  bytes file_buffer = 1;// What is the file contents in buffer?
+}
