@@ -52,6 +52,7 @@ message FileExistsByIDResponse {
 
 message DownloadRequest {
   elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails skd_auth = 1;
+  elint.entity.SpaceKnowledgeDomainFile file = 11;
 }
 message DownloadResponse {
   bytes file_buffer = 1;// What is the file contents in buffer?
