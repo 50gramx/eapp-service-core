@@ -31,7 +31,7 @@ service DiscoverKnowledgeDomainFileService {
   };
   rpc FileExistsByID(FileExistsByIDRequest) returns (FileExistsByIDResponse) {
   };
-  rpc Download(stream DownloadRequest) returns (stream DownloadResponse) {
+  rpc Download(DownloadRequest) returns (stream DownloadResponse) {
   };
 }
 
