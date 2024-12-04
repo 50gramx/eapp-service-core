@@ -27,7 +27,7 @@ import "ethos/elint/services/product/knowledge/space_knowledge_domain/access_spa
 
 // Service Definition
 service DiscoverKnowledgeDomainFileService {
-  rpc GetFileDetails(GetFileDetailsRequest) returns (elint.entity.SpaceKnowledgeDomainFile) {
+  rpc GetFileByID(GetFileByIDRequest) returns (elint.entity.SpaceKnowledgeDomainFile) {
   };
   rpc FileExistsByID(FileExistsByIDRequest) returns (FileExistsByIDResponse) {
   };
@@ -36,8 +36,8 @@ service DiscoverKnowledgeDomainFileService {
 }
 
 // Message Definitions
-message GetFileDetailsRequest {
-  elint.entity.AccountSpaceKnowledgeDomainFileAccessMeta account_knowledge_domain_file_access_meta = 1;
+message GetFileByIDRequest {
+  elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails skd_auth = 1;
   string file_id = 2;
 }
 
@@ -54,6 +54,7 @@ message DownloadRequest {
   elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails skd_auth = 1;
   elint.entity.SpaceKnowledgeDomainFile file = 11;
 }
+
 message DownloadResponse {
   bytes file_buffer = 1;// What is the file contents in buffer?
 }
