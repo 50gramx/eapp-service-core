@@ -7,8 +7,34 @@ on:
   workflow_dispatch:
 
 jobs:
-  compile-and-publish:
+  setup-protoc:
     runs-on: ubuntu-latest
+    outputs:
+      protoc-path: ${{ steps.install-protoc.outputs.path }}
+    steps:
+      - name: Install protoc compiler
+        id: install-protoc
+        run: |
+          # Download protoc compiler (using a valid version)
+          wget https://github.com/protocolbuffers/protobuf/releases/download/v25.1/protoc-25.1-linux-x86_64.zip
+          
+          # Extract to user directory
+          unzip protoc-25.1-linux-x86_64.zip -d $HOME/protoc
+          chmod +x $HOME/protoc/bin/protoc
+          
+          # Set output for other jobs
+          echo "path=$HOME/protoc/bin" >> $GITHUB_OUTPUT
+          
+          # Verify protoc installation
+          $HOME/protoc/bin/protoc --version
+
+  compile-python:
+    needs: setup-protoc
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.build.outputs.version }}
+      tar-file: ${{ steps.build.outputs.tar-file }}
+      wheel-file: ${{ steps.build.outputs.wheel-file }}
     steps:
       - name: Checkout System Contracts
         uses: actions/checkout@v4
@@ -24,44 +50,6 @@ jobs:
         run: |
           pip install build setuptools wheel protobuf grpcio-tools
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install Node.js dependencies
-        run: |
-          npm install -g protobufjs
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '11'
-
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: '3.0.0'
-
-      - name: Install protoc compiler and dependencies
-        run: |
-          # Download protoc compiler (using a valid version)
-          wget https://github.com/protocolbuffers/protobuf/releases/download/v25.1/protoc-25.1-linux-x86_64.zip
-          
-          # Extract to user directory instead of /usr/local
-          unzip protoc-25.1-linux-x86_64.zip -d $HOME/protoc
-          chmod +x $HOME/protoc/bin/protoc
-          
-          # Add to PATH
-          echo "$HOME/protoc/bin" >> $GITHUB_PATH
-          
-          # Verify protoc installation
-          protoc --version
-          
-          # Install Dart protobuf compiler
-          dart pub global activate protoc_plugin
-
       - name: Compile Protobuf for Python
         run: |
           cd system-contracts
@@ -69,7 +57,7 @@ jobs:
           
           # Compile all .proto files to Python
           for proto_file in $(find src/main/proto -name "*.proto"); do
-            protoc --python_out=../python-packages/src/eapp_python_domain/ethos \
+            ${{ needs.setup-protoc.outputs.protoc-path }}/protoc --python_out=../python-packages/src/eapp_python_domain/ethos \
                    --proto_path=src/main/proto \
                    "$proto_file"
           done
@@ -90,15 +78,89 @@ jobs:
           mkdir -p src/eapp_python_domain
           echo '# Python protobuf client package' > src/eapp_python_domain/__init__.py
 
+      - name: Build Python Package
+        id: build
+        run: |
+          cd python-packages
+          
+          # Build package
+          python -m build
+          
+          # Create unique version
+          VERSION="0.1.0.$(date +%s)"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          
+          # Get file names
+          TAR_FILE=$(ls dist/*.tar.gz | head -1)
+          WHEEL_FILE=$(ls dist/*.whl | head -1)
+          echo "tar-file=$(basename $TAR_FILE)" >> $GITHUB_OUTPUT
+          echo "wheel-file=$(basename $WHEEL_FILE)" >> $GITHUB_OUTPUT
+
+      - name: Publish Python Package
+        env:
+          GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          cd python-packages
+          
+          # Create release in python-domain repo
+          gh release create v${{ steps.build.outputs.version }} \
+            --repo ${{ github.repository_owner }}/eapp-python-domain \
+            --title "Release v${{ steps.build.outputs.version }}" \
+            --notes "Python protobuf client package" \
+            --draft=false \
+            --prerelease=false
+          
+          # Upload package files
+          TAR_FILE=$(ls dist/*.tar.gz | head -1)
+          WHEEL_FILE=$(ls dist/*.whl | head -1)
+          gh release upload v${{ steps.build.outputs.version }} "$TAR_FILE" "$WHEEL_FILE" \
+            --repo ${{ github.repository_owner }}/eapp-python-domain \
+            --clobber
+          
+          # Create package index
+          mkdir -p packages
+          echo '<!DOCTYPE html>' > packages/index.html
+          echo '<html><head><title>Python Packages</title></head><body>' >> packages/index.html
+          echo '<h1>Python Packages</h1><ul>' >> packages/index.html
+          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v${{ steps.build.outputs.version }}/${{ steps.build.outputs.tar-file }}\">${{ steps.build.outputs.tar-file }}</a></li>" >> packages/index.html
+          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v${{ steps.build.outputs.version }}/${{ steps.build.outputs.wheel-file }}\">${{ steps.build.outputs.wheel-file }}</a></li>" >> packages/index.html
+          echo '</ul></body></html>' >> packages/index.html
+
+      - name: Commit Python Package Index
+        run: |
+          cd python-packages
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add packages/
+          git commit -m "Add package index for v${{ steps.build.outputs.version }}" || echo "No changes to commit"
+          git push origin master
+
+  compile-nodejs:
+    needs: setup-protoc
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout System Contracts
+        uses: actions/checkout@v4
+        with:
+          path: system-contracts
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Node.js dependencies
+        run: |
+          npm install -g protobufjs
+
       - name: Compile Protobuf for Node.js
         run: |
           cd system-contracts
           mkdir -p ../nodejs-packages
           
-          # Compile all .proto files to JavaScript using protobufjs
+          # Compile all .proto files to JavaScript
           for proto_file in $(find src/main/proto -name "*.proto"); do
-            # Use protoc to generate JavaScript
-            protoc --js_out=import_style=commonjs,binary:../nodejs-packages \
+            ${{ needs.setup-protoc.outputs.protoc-path }}/protoc --js_out=import_style=commonjs,binary:../nodejs-packages \
                    --proto_path=src/main/proto \
                    "$proto_file"
           done
@@ -115,98 +177,10 @@ jobs:
           echo '  }' >> package.json
           echo '}' >> package.json
           
-          # Create index.js to export all protobuf modules
           echo '// Node.js protobuf client package' > index.js
           echo 'module.exports = require("./protobuf");' >> index.js
 
-      - name: Compile Protobuf for Java/Kotlin
-        run: |
-          cd system-contracts
-          mkdir -p ../kotlin-packages/src/main/java
-          
-          # Compile all .proto files to Java
-          for proto_file in $(find src/main/proto -name "*.proto"); do
-            protoc --java_out=../kotlin-packages/src/main/java \
-                   --proto_path=src/main/proto \
-                   "$proto_file"
-          done
-          
-          # Create Kotlin package structure
-          cd ../kotlin-packages
-          echo 'plugins {' > build.gradle.kts
-          echo '    kotlin("jvm") version "1.8.0"' >> build.gradle.kts
-          echo '    `java-library`' >> build.gradle.kts
-          echo '}' >> build.gradle.kts
-          echo 'group = "com.ethosverse"' >> build.gradle.kts
-          echo 'version = "0.1.0"' >> build.gradle.kts
-          echo 'repositories { mavenCentral() }' >> build.gradle.kts
-          echo 'dependencies { implementation("com.google.protobuf:protobuf-java:3.21.12") }' >> build.gradle.kts
-
-      - name: Compile Protobuf for Dart
-        run: |
-          cd system-contracts
-          mkdir -p ../dart-packages/lib
-          
-          # Compile all .proto files to Dart
-          for proto_file in $(find src/main/proto -name "*.proto"); do
-            protoc --dart_out=../dart-packages/lib \
-                   --proto_path=src/main/proto \
-                   "$proto_file"
-          done
-          
-          # Create Dart package structure
-          cd ../dart-packages
-          echo 'name: eapp_dart_domain' > pubspec.yaml
-          echo 'description: Dart protobuf client for EAPP system contracts' >> pubspec.yaml
-          echo 'version: 0.1.0' >> pubspec.yaml
-          echo 'environment:' >> pubspec.yaml
-          echo '  sdk: ">=2.17.0 <4.0.0"' >> pubspec.yaml
-          echo 'dependencies:' >> pubspec.yaml
-          echo '  protobuf: ^3.0.0' >> pubspec.yaml
-          echo 'dev_dependencies:' >> pubspec.yaml
-          echo '  test: ^1.24.0' >> pubspec.yaml
-
-      - name: Build and Publish Python Package
-        env:
-          GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
-        run: |
-          cd python-packages
-          
-          # Build package
-          python -m build
-          
-          # Create unique version
-          VERSION="0.1.0.$(date +%s)"
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          
-          # Create release in python-domain repo
-          gh release create v$VERSION \
-            --repo ${{ github.repository_owner }}/eapp-python-domain \
-            --title "Release v$VERSION" \
-            --notes "Python protobuf client package" \
-            --draft=false \
-            --prerelease=false
-          
-          # Upload package files
-          TAR_FILE=$(ls dist/*.tar.gz | head -1)
-          WHEEL_FILE=$(ls dist/*.whl | head -1)
-          gh release upload v$VERSION "$TAR_FILE" "$WHEEL_FILE" \
-            --repo ${{ github.repository_owner }}/eapp-python-domain \
-            --clobber
-          
-          # Create package index
-          mkdir -p packages
-          TAR_BASENAME=$(basename "$TAR_FILE")
-          WHEEL_BASENAME=$(basename "$WHEEL_FILE")
-          
-          echo '<!DOCTYPE html>' > packages/index.html
-          echo '<html><head><title>Python Packages</title></head><body>' >> packages/index.html
-          echo '<h1>Python Packages</h1><ul>' >> packages/index.html
-          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v$VERSION/$TAR_BASENAME\">$TAR_BASENAME</a></li>" >> packages/index.html
-          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v$VERSION/$WHEEL_BASENAME\">$WHEEL_BASENAME</a></li>" >> packages/index.html
-          echo '</ul></body></html>' >> packages/index.html
-
-      - name: Build and Publish Node.js Package
+      - name: Publish Node.js Package
         env:
           GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
@@ -231,7 +205,45 @@ jobs:
             --repo ${{ github.repository_owner }}/eapp-nodejs-domain \
             --clobber
 
-      - name: Build and Publish Kotlin Package
+  compile-kotlin:
+    needs: setup-protoc
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout System Contracts
+        uses: actions/checkout@v4
+        with:
+          path: system-contracts
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Compile Protobuf for Java/Kotlin
+        run: |
+          cd system-contracts
+          mkdir -p ../kotlin-packages/src/main/java
+          
+          # Compile all .proto files to Java
+          for proto_file in $(find src/main/proto -name "*.proto"); do
+            ${{ needs.setup-protoc.outputs.protoc-path }}/protoc --java_out=../kotlin-packages/src/main/java \
+                   --proto_path=src/main/proto \
+                   "$proto_file"
+          done
+          
+          # Create Kotlin package structure
+          cd ../kotlin-packages
+          echo 'plugins {' > build.gradle.kts
+          echo '    kotlin("jvm") version "1.8.0"' >> build.gradle.kts
+          echo '    `java-library`' >> build.gradle.kts
+          echo '}' >> build.gradle.kts
+          echo 'group = "com.ethosverse"' >> build.gradle.kts
+          echo 'version = "0.1.0"' >> build.gradle.kts
+          echo 'repositories { mavenCentral() }' >> build.gradle.kts
+          echo 'dependencies { implementation("com.google.protobuf:protobuf-java:3.21.12") }' >> build.gradle.kts
+
+      - name: Publish Kotlin Package
         env:
           GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
@@ -256,7 +268,49 @@ jobs:
             --repo ${{ github.repository_owner }}/eapp-kotlin-domain \
             --clobber
 
-      - name: Build and Publish Dart Package
+  compile-dart:
+    needs: setup-protoc
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout System Contracts
+        uses: actions/checkout@v4
+        with:
+          path: system-contracts
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '3.0.0'
+
+      - name: Install Dart protobuf compiler
+        run: |
+          dart pub global activate protoc_plugin
+
+      - name: Compile Protobuf for Dart
+        run: |
+          cd system-contracts
+          mkdir -p ../dart-packages/lib
+          
+          # Compile all .proto files to Dart
+          for proto_file in $(find src/main/proto -name "*.proto"); do
+            ${{ needs.setup-protoc.outputs.protoc-path }}/protoc --dart_out=../dart-packages/lib \
+                   --proto_path=src/main/proto \
+                   "$proto_file"
+          done
+          
+          # Create Dart package structure
+          cd ../dart-packages
+          echo 'name: eapp_dart_domain' > pubspec.yaml
+          echo 'description: Dart protobuf client for EAPP system contracts' >> pubspec.yaml
+          echo 'version: 0.1.0' >> pubspec.yaml
+          echo 'environment:' >> pubspec.yaml
+          echo '  sdk: ">=2.17.0 <4.0.0"' >> pubspec.yaml
+          echo 'dependencies:' >> pubspec.yaml
+          echo '  protobuf: ^3.0.0' >> pubspec.yaml
+          echo 'dev_dependencies:' >> pubspec.yaml
+          echo '  test: ^1.24.0' >> pubspec.yaml
+
+      - name: Publish Dart Package
         env:
           GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
@@ -281,18 +335,87 @@ jobs:
             --repo ${{ github.repository_owner }}/eapp-dart-domain \
             --clobber
 
-      - name: Commit Python Package Index
+  create-central-index:
+    needs: [compile-python, compile-nodejs, compile-kotlin, compile-dart]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout System Contracts
+        uses: actions/checkout@v4
+
+      - name: Create Central Package Index
         run: |
-          cd python-packages
+          # Create central package index
+          mkdir -p packages
+          
+          echo '<!DOCTYPE html>' > packages/index.html
+          echo '<html>' >> packages/index.html
+          echo '<head>' >> packages/index.html
+          echo '  <title>EAPP System Contracts - Multi-Language Packages</title>' >> packages/index.html
+          echo '  <style>' >> packages/index.html
+          echo '    body { font-family: Arial, sans-serif; margin: 40px; }' >> packages/index.html
+          echo '    .language { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }' >> packages/index.html
+          echo '    .language h2 { color: #333; margin-top: 0; }' >> packages/index.html
+          echo '    .install-code { background: #f5f5f5; padding: 10px; border-radius: 3px; font-family: monospace; }' >> packages/index.html
+          echo '    .repo-link { color: #0366d6; text-decoration: none; }' >> packages/index.html
+          echo '    .repo-link:hover { text-decoration: underline; }' >> packages/index.html
+          echo '  </style>' >> packages/index.html
+          echo '</head>' >> packages/index.html
+          echo '<body>' >> packages/index.html
+          echo '  <h1>EAPP System Contracts - Multi-Language Packages</h1>' >> packages/index.html
+          echo '  <p>Generated protobuf client packages for all supported languages:</p>' >> packages/index.html
+          
+          # Python section
+          echo '  <div class="language">' >> packages/index.html
+          echo '    <h2>🐍 Python</h2>' >> packages/index.html
+          echo '    <p><strong>Repository:</strong> <a href="https://github.com/50gramx/eapp-python-domain" class="repo-link">eapp-python-domain</a></p>' >> packages/index.html
+          echo '    <p><strong>Package Index:</strong> <a href="https://raw.githubusercontent.com/50gramx/eapp-python-domain/master/packages/index.html" class="repo-link">View Packages</a></p>' >> packages/index.html
+          echo '    <p><strong>Install:</strong></p>' >> packages/index.html
+          echo '    <div class="install-code">pip install --index-url https://raw.githubusercontent.com/50gramx/eapp-python-domain/master/packages/index.html eapp-python-domain</div>' >> packages/index.html
+          echo '  </div>' >> packages/index.html
+          
+          # Node.js section
+          echo '  <div class="language">' >> packages/index.html
+          echo '    <h2>🟨 Node.js</h2>' >> packages/index.html
+          echo '    <p><strong>Repository:</strong> <a href="https://github.com/50gramx/eapp-nodejs-domain" class="repo-link">eapp-nodejs-domain</a></p>' >> packages/index.html
+          echo '    <p><strong>Releases:</strong> <a href="https://github.com/50gramx/eapp-nodejs-domain/releases" class="repo-link">View Releases</a></p>' >> packages/index.html
+          echo '    <p><strong>Install:</strong></p>' >> packages/index.html
+          echo '    <div class="install-code">npm install eapp-nodejs-domain</div>' >> packages/index.html
+          echo '  </div>' >> packages/index.html
+          
+          # Kotlin section
+          echo '  <div class="language">' >> packages/index.html
+          echo '    <h2>☕ Kotlin/Java</h2>' >> packages/index.html
+          echo '    <p><strong>Repository:</strong> <a href="https://github.com/50gramx/eapp-kotlin-domain" class="repo-link">eapp-kotlin-domain</a></p>' >> packages/index.html
+          echo '    <p><strong>Releases:</strong> <a href="https://github.com/50gramx/eapp-kotlin-domain/releases" class="repo-link">View Releases</a></p>' >> packages/index.html
+          echo '    <p><strong>Install:</strong></p>' >> packages/index.html
+          echo '    <div class="install-code">implementation "com.ethosverse:eapp-kotlin-domain:0.1.0"</div>' >> packages/index.html
+          echo '  </div>' >> packages/index.html
+          
+          # Dart section
+          echo '  <div class="language">' >> packages/index.html
+          echo '    <h2>🎯 Dart</h2>' >> packages/index.html
+          echo '    <p><strong>Repository:</strong> <a href="https://github.com/50gramx/eapp-dart-domain" class="repo-link">eapp-dart-domain</a></p>' >> packages/index.html
+          echo '    <p><strong>Releases:</strong> <a href="https://github.com/50gramx/eapp-dart-domain/releases" class="repo-link">View Releases</a></p>' >> packages/index.html
+          echo '    <p><strong>Install:</strong></p>' >> packages/index.html
+          echo '    <div class="install-code">dependencies:<br>  eapp_dart_domain: ^0.1.0</div>' >> packages/index.html
+          echo '  </div>' >> packages/index.html
+          
+          echo '  <hr>' >> packages/index.html
+          echo '  <p><em>Generated automatically by GitHub Actions when protobuf files are updated.</em></p>' >> packages/index.html
+          echo '</body></html>' >> packages/index.html
+
+      - name: Commit Central Index
+        run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add packages/
-          git commit -m "Add package index for v${{ env.VERSION }}" || echo "No changes to commit"
+          git commit -m "Update central package index" || echo "No changes to commit"
           git push origin master
 
       - name: Completion
         run: |
           echo "Protobuf distribution completed!"
+          echo "Central Index: https://html-preview.github.io/?url=https://raw.githubusercontent.com/50gramx/eapp-system-contracts/master/packages/index.html"
           echo "Python: https://github.com/50gramx/eapp-python-domain/releases"
           echo "Node.js: https://github.com/50gramx/eapp-nodejs-domain/releases"
           echo "Kotlin: https://github.com/50gramx/eapp-kotlin-domain/releases"
