@@ -119,7 +119,7 @@ jobs:
           echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v${{ env.VERSION }}/$WHEEL_BASENAME\">$WHEEL_BASENAME</a></li>" >> packages/index.html
           echo '</ul>' >> packages/index.html
           echo '<p>Install with:</p>' >> packages/index.html
-          echo '<pre>pip install --index-url https://raw.githubusercontent.com/50gramx/eapp-python-domain/main/packages/index.html eapp-python-domain</pre>' >> packages/index.html
+          echo '<pre>pip install --index-url https://raw.githubusercontent.com/50gramx/eapp-python-domain/master/packages/index.html eapp-python-domain</pre>' >> packages/index.html
           echo '</body></html>' >> packages/index.html
 
       - name: Create GitHub Release
@@ -169,4 +169,4 @@ jobs:
         run: |
           echo "Test release system completed!"
           echo "Check: https://github.com/50gramx/eapp-python-domain/releases/tag/v${{ env.VERSION }}"
-          echo "Index: https://raw.githubusercontent.com/50gramx/eapp-python-domain/main/packages/index.html" 
+          echo "Index: https://raw.githubusercontent.com/50gramx/eapp-python-domain/master/packages/index.html" 
