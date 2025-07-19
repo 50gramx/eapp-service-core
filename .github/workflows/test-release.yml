@@ -135,6 +135,8 @@ jobs:
           prerelease: false
 
       - name: Upload package files to release
+        env:
+          GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
           cd eapp-python-domain
           
