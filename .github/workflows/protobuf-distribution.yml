@@ -206,7 +206,7 @@ jobs:
           
           # Create package index from template
           mkdir -p ../packages
-          cp ../../system-contracts/templates/dart-package-index.html ../packages/index.html
+          cp ../../../system-contracts/templates/dart-package-index.html ../packages/index.html
           
           # Replace placeholders
           sed -i "s/{{VERSION}}/${{ steps.build.outputs.version }}/g" ../packages/index.html
