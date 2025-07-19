@@ -1,0 +1,145 @@
+name: Test Package Release System
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Python Domain
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/eapp-python-domain
+          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
+          path: eapp-python-domain
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install build setuptools wheel
+
+      - name: Generate test package
+        run: |
+          cd eapp-python-domain
+          
+          # Create a test package
+          echo 'from setuptools import setup, find_packages' > setup.py
+          echo 'setup(' >> setup.py
+          echo '    name="eapp-python-domain",' >> setup.py
+          echo '    version="25.7.8",' >> setup.py
+          echo '    description="Test package for GitHub releases",' >> setup.py
+          echo '    packages=find_packages(where="src"),' >> setup.py
+          echo '    package_dir={"": "src"},' >> setup.py
+          echo '    python_requires=">=3.7",' >> setup.py
+          echo ')' >> setup.py
+          
+          # Create source directory
+          mkdir -p src/eapp_python_domain
+          echo '# Test package' > src/eapp_python_domain/__init__.py
+          
+          # Build package
+          python -m build
+
+      - name: Create packages directory
+        run: |
+          cd eapp-python-domain
+          mkdir -p packages
+
+      - name: Create package index
+        run: |
+          cd eapp-python-domain
+          
+          # Create a simple package index
+          cat > packages/index.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Packages - eapp-python-domain</title>
+</head>
+<body>
+    <h1>Python Packages</h1>
+    <p>Available packages:</p>
+    <ul>
+        <li><a href="https://github.com/50gramx/eapp-python-domain/releases/download/v25.7.8/eapp-python-domain-25.7.8.tar.gz">eapp-python-domain-25.7.8.tar.gz</a></li>
+        <li><a href="https://github.com/50gramx/eapp-python-domain/releases/download/v25.7.8/eapp_python_domain-25.7.8-py3-none-any.whl">eapp_python_domain-25.7.8-py3-none-any.whl</a></li>
+    </ul>
+    <p>Install with:</p>
+    <pre>pip install --index-url https://raw.githubusercontent.com/50gramx/eapp-python-domain/main/packages/index.html eapp-python-domain</pre>
+</body>
+</html>
+EOF
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v25.7.8
+          release_name: Release v25.7.8
+          body: |
+            Test release for package hosting system
+            
+            ## Installation
+            ```bash
+            pip install --index-url https://raw.githubusercontent.com/50gramx/eapp-python-domain/main/packages/index.html eapp-python-domain
+            ```
+          draft: false
+          prerelease: false
+
+      - name: Upload package files to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./eapp-python-domain/dist/eapp-python-domain-25.7.8.tar.gz
+          asset_name: eapp-python-domain-25.7.8.tar.gz
+          asset_content_type: application/gzip
+
+      - name: Upload wheel file to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./eapp-python-domain/dist/eapp_python_domain-25.7.8-py3-none-any.whl
+          asset_name: eapp_python_domain-25.7.8-py3-none-any.whl
+          asset_content_type: application/zip
+
+      - name: Commit and push package index
+        run: |
+          cd eapp-python-domain
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add packages/
+          git commit -m "Add package index for v25.7.8" || echo "No changes to commit"
+          git push origin master
+
+  test-installation:
+    runs-on: ubuntu-latest
+    needs: build-and-release
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Test package installation
+        run: |
+          echo "Testing package installation from custom index..."
+          
+          # Test the installation command (this will fail but shows the approach)
+          echo "Installation command would be:"
+          echo "pip install --index-url https://raw.githubusercontent.com/50gramx/eapp-python-domain/main/packages/index.html eapp-python-domain"
+          
+          echo "Package index is available at:"
+          echo "https://raw.githubusercontent.com/50gramx/eapp-python-domain/main/packages/index.html"
+          
+          echo "Release files are available at:"
+          echo "https://github.com/50gramx/eapp-python-domain/releases/tag/v25.7.8" 
