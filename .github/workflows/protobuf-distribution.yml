@@ -51,35 +51,35 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/eapp-python-domain
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
           path: eapp-python-domain
           
       - name: Checkout Node.js Domain
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/eapp-nodejs-domain
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
           path: eapp-nodejs-domain
           
       - name: Checkout Dart Domain
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/eapp-dart-domain
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
           path: eapp-dart-domain
           
       - name: Checkout Kotlin Domain
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/eapp-kotlin-domain
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
           path: eapp-kotlin-domain
           
       - name: Checkout Swift Domain
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/eapp-swift-domain
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
           path: eapp-swift-domain
 
       - name: Configure Proto Includes
@@ -135,7 +135,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/eapp-python-domain
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
           path: eapp-python-domain
 
       - name: Setup Python
@@ -197,7 +197,7 @@ jobs:
           echo "[github]" >> ~/.pypirc
           echo "repository = https://github.com/${{ github.repository_owner }}/eapp-python-domain/packages/pypi" >> ~/.pypirc
           echo "username = ${{ github.actor }}" >> ~/.pypirc
-          echo "password = ${{ secrets.GITHUB_TOKEN }}" >> ~/.pypirc
+          echo "password = ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}" >> ~/.pypirc
           
           twine upload -r github dist/*
 
@@ -223,7 +223,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/eapp-nodejs-domain
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
           path: eapp-nodejs-domain
 
       - name: Setup Node.js
@@ -265,7 +265,7 @@ jobs:
           cd ${{ github.workspace }}/eapp-nodejs-domain
           # Configure npm for GitHub Packages
           echo "@${{ github.repository_owner }}:registry=https://npm.pkg.github.com/" > .npmrc
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}" >> .npmrc
           npm publish
 
       - name: Commit and push Node.js changes
@@ -290,7 +290,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/eapp-dart-domain
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
           path: eapp-dart-domain
 
       - name: Setup Dart
@@ -336,7 +336,7 @@ jobs:
           cd ${{ github.workspace }}/eapp-dart-domain
           # Configure Dart for GitHub Packages
           echo "publish_to: https://dart.pkg.github.com/${{ github.repository_owner }}/" >> pubspec.yaml
-          echo "${{ secrets.GITHUB_TOKEN }}" | dart pub token add https://dart.pkg.github.com/${{ github.repository_owner }}/
+          echo "${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}" | dart pub token add https://dart.pkg.github.com/${{ github.repository_owner }}/
           dart pub publish --force --skip-validation
 
       - name: Commit and push Dart changes
@@ -361,7 +361,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/eapp-kotlin-domain
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
           path: eapp-kotlin-domain
 
       - name: Setup Java
@@ -417,7 +417,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/eapp-swift-domain
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
           path: eapp-swift-domain
 
       - name: Install protobuf compiler
