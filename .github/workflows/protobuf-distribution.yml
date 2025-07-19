@@ -1,142 +1,19 @@
-name: Protobuf Distribution Pipeline
+name: Protobuf Distribution
 
 on:
   push:
-    branches:
-      - master
-      - release/*
+    branches: [ master ]
+    paths: [ 'src/main/proto/**' ]
   workflow_dispatch:
-    inputs:
-      version_override:
-        description: 'Override version number (optional)'
-        required: false
-        type: string
-
-env:
-  EAPP_PROTO_SRC_DIR: ${{ github.workspace }}/src/main/proto
-  VERSION_NUMBER: ${{ github.run_number }}
 
 jobs:
-  setup-version:
+  compile-and-publish:
     runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.version.outputs.version }}
     steps:
-      - name: Setup Version
-        id: version
-        run: |
-          if [ "${{ github.event.inputs.version_override }}" != "" ]; then
-            echo "version=${{ github.event.inputs.version_override }}" >> $GITHUB_OUTPUT
-          else
-            # Generate version like 24.01.123 (year.month.build_number)
-            YEAR=$(date +%y)
-            MONTH=$(date +%m)
-            BUILD_NUMBER=${{ github.run_number }}
-            echo "version=$YEAR.$MONTH.$BUILD_NUMBER" >> $GITHUB_OUTPUT
-          fi
-          echo "Generated version: ${{ steps.version.outputs.version }}"
-
-  configure-protobuf:
-    runs-on: ubuntu-latest
-    needs: setup-version
-    outputs:
-      proto-includes: ${{ steps.configure.outputs.proto-includes }}
-    steps:
-      - name: Checkout repositories
+      - name: Checkout System Contracts
         uses: actions/checkout@v4
         with:
-          path: eapp-system-contracts
-          
-      - name: Checkout Python Domain
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository_owner }}/eapp-python-domain
-          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
-          path: eapp-python-domain
-          
-      - name: Checkout Node.js Domain
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository_owner }}/eapp-nodejs-domain
-          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
-          path: eapp-nodejs-domain
-          
-      - name: Checkout Dart Domain
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository_owner }}/eapp-dart-domain
-          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
-          path: eapp-dart-domain
-          
-      - name: Checkout Kotlin Domain
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository_owner }}/eapp-kotlin-domain
-          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
-          path: eapp-kotlin-domain
-          
-      - name: Checkout Swift Domain
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository_owner }}/eapp-swift-domain
-          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
-          path: eapp-swift-domain
-
-      - name: Configure Proto Includes
-        id: configure
-        run: |
-          EAPP_PROTO_SRC_DIR="${{ github.workspace }}/eapp-system-contracts/src/main/proto"
-          
-          PROTO_INCLUDE_DIRS="
-            ${EAPP_PROTO_SRC_DIR}/google/api/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/entities/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/collars/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/account/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/account_assistant/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/galaxy/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/machine/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/organisation/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/space/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/space_things/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/identity/universe/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/action/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/conversation/message/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/conversation/message/account/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/conversation/message/account_assistant/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/service/space_service/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/service/space_service_domain/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/product/space_product/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/product/product/space_product_domain/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/cognitive/assist/context/*.proto
-            ${EAPP_PROTO_SRC_DIR}/ethos/elint/services/cognitive/assist/knowledge/*.proto
-          "
-          
-          # Convert to space-separated string
-          PROTO_INCLUDES=$(echo "$PROTO_INCLUDE_DIRS" | tr '\n' ' ' | sed 's/  */ /g' | sed 's/^ *//' | sed 's/ *$//')
-          
-          echo "proto-includes=$PROTO_INCLUDES" >> $GITHUB_OUTPUT
-          echo "Configured proto includes: $PROTO_INCLUDES"
-
-  python-domain:
-    runs-on: ubuntu-latest
-    needs: [setup-version, configure-protobuf]
-    steps:
-      - name: Checkout repositories
-        uses: actions/checkout@v4
-        with:
-          path: eapp-system-contracts
-          
-      - name: Checkout Python Domain
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository_owner }}/eapp-python-domain
-          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
-          path: eapp-python-domain
+          path: system-contracts
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -145,322 +22,206 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          python -m pip install --upgrade pip setuptools wheel
-          pip install protobuf==4.25.1
-          pip install grpcio-tools==1.60.0
-          pip install grpcio==1.60.0
-          pip install twine
-
-      - name: Clean previous Python domain
-        run: |
-          rm -rf ${{ github.workspace }}/eapp-python-domain/src/eapp_python_domain/ethos
-          rm -rf ${{ github.workspace }}/eapp-python-domain/src/eapp_python_domain/gramx
-
-      - name: Generate Python protobuf code
-        run: |
-          EAPP_PROTO_SRC_DIR="${{ github.workspace }}/eapp-system-contracts/src/main/proto"
-          EAPP_PROTO_PYTHON_OUT_DIR="${{ github.workspace }}/eapp-python-domain/src/eapp_python_domain"
-          PROTO_INCLUDES="${{ needs.configure-protobuf.outputs.proto-includes }}"
-          
-          echo "Generating Python protobuf code..."
-          echo "Source: $EAPP_PROTO_SRC_DIR"
-          echo "Output: $EAPP_PROTO_PYTHON_OUT_DIR"
-          echo "Includes: $PROTO_INCLUDES"
-          
-          python -m grpc_tools.protoc \
-            --python_out="$EAPP_PROTO_PYTHON_OUT_DIR" \
-            --grpc_python_out="$EAPP_PROTO_PYTHON_OUT_DIR" \
-            --pyi_out="$EAPP_PROTO_PYTHON_OUT_DIR" \
-            -I "$EAPP_PROTO_SRC_DIR" \
-            $PROTO_INCLUDES
-          
-          # Create __init__.py files
-          find "$EAPP_PROTO_PYTHON_OUT_DIR/ethos" -type d -exec touch {}/__init__.py \;
-
-      - name: Update Python package version
-        run: |
-          cd ${{ github.workspace }}/eapp-python-domain
-          sed -i "s/version='[^']*'/version='${{ needs.setup-version.outputs.version }}'/" setup.py
-
-      - name: Build Python package
-        run: |
-          cd ${{ github.workspace }}/eapp-python-domain
-          python setup.py sdist
-
-      - name: Publish Python package to GitHub Packages
-        if: github.ref == 'refs/heads/master'
-        run: |
-          cd ${{ github.workspace }}/eapp-python-domain
-          
-          # Use GitHub Packages with proper authentication
-          echo '[distutils]' > ~/.pypirc
-          echo 'index-servers = github' >> ~/.pypirc
-          echo '[github]' >> ~/.pypirc
-          echo 'repository = https://pypi.pkg.github.com/50gramx' >> ~/.pypirc
-          echo 'username = ${{ github.actor }}' >> ~/.pypirc
-          echo 'password = ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}' >> ~/.pypirc
-          python -m twine upload -r github dist/*
-
-      - name: Commit and push Python changes
-        run: |
-          cd ${{ github.workspace }}/eapp-python-domain
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add .
-          git commit -m "Update protobuf generated code - version ${{ needs.setup-version.outputs.version }}"
-          git push
-
-  nodejs-domain:
-    runs-on: ubuntu-latest
-    needs: [setup-version, configure-protobuf]
-    steps:
-      - name: Checkout repositories
-        uses: actions/checkout@v4
-        with:
-          path: eapp-system-contracts
-          
-      - name: Checkout Node.js Domain
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository_owner }}/eapp-nodejs-domain
-          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
-          path: eapp-nodejs-domain
+          pip install build setuptools wheel protobuf grpcio-tools
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          registry-url: ${{ secrets.NODEJS_REGISTRY_URL }}
 
       - name: Install Node.js dependencies
         run: |
-          npm install -g grpc-tools
-
-      - name: Clean previous Node.js domain
-        run: |
-          rm -rf ${{ github.workspace }}/eapp-nodejs-domain/eapp-nodejs-domain/ethos
-          rm -rf ${{ github.workspace }}/eapp-nodejs-domain/eapp-nodejs-domain/gramx
-
-      - name: Generate Node.js protobuf code
-        run: |
-          EAPP_PROTO_SRC_DIR="${{ github.workspace }}/eapp-system-contracts/src/main/proto"
-          EAPP_PROTO_NODEJS_OUT_DIR="${{ github.workspace }}/eapp-nodejs-domain/eapp-nodejs-domain"
-          PROTO_INCLUDES="${{ needs.configure-protobuf.outputs.proto-includes }}"
-          
-          echo "Generating Node.js protobuf code..."
-          grpc_tools_node_protoc \
-            --js_out=import_style=commonjs,binary:"$EAPP_PROTO_NODEJS_OUT_DIR" \
-            --grpc_out=grpc_js:"$EAPP_PROTO_NODEJS_OUT_DIR" \
-            -I "$EAPP_PROTO_SRC_DIR" \
-            $PROTO_INCLUDES
-
-      - name: Update Node.js package version
-        run: |
-          cd ${{ github.workspace }}/eapp-nodejs-domain
-          npm version ${{ needs.setup-version.outputs.version }} --no-git-tag-version
-
-      - name: Build and publish Node.js package to GitHub Packages
-        if: github.ref == 'refs/heads/master'
-        run: |
-          cd ${{ github.workspace }}/eapp-nodejs-domain
-          # Configure npm for GitHub Packages
-          echo "@${{ github.repository_owner }}:registry=https://npm.pkg.github.com/" > .npmrc
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}" >> .npmrc
-          npm publish
-
-      - name: Commit and push Node.js changes
-        run: |
-          cd ${{ github.workspace }}/eapp-nodejs-domain
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add .
-          git commit -m "Update protobuf generated code - version ${{ needs.setup-version.outputs.version }}"
-          git push
-
-  dart-domain:
-    runs-on: ubuntu-latest
-    needs: [setup-version, configure-protobuf]
-    steps:
-      - name: Checkout repositories
-        uses: actions/checkout@v4
-        with:
-          path: eapp-system-contracts
-          
-      - name: Checkout Dart Domain
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository_owner }}/eapp-dart-domain
-          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
-          path: eapp-dart-domain
-
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
-
-      - name: Install Dart dependencies
-        run: |
-          dart pub global activate protoc_plugin
-          export PATH="$PATH":"$HOME/.pub-cache/bin"
-
-      - name: Install protobuf compiler
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y protobuf-compiler
-
-      - name: Clean previous Dart domain
-        run: |
-          rm -rf ${{ github.workspace }}/eapp-dart-domain/src/eapp_dart_domain/ethos
-          rm -rf ${{ github.workspace }}/eapp-dart-domain/src/eapp_dart_domain/gramx
-
-      - name: Generate Dart protobuf code
-        run: |
-          EAPP_PROTO_SRC_DIR="${{ github.workspace }}/eapp-system-contracts/src/main/proto"
-          EAPP_PROTO_DART_OUT_DIR="${{ github.workspace }}/eapp-dart-domain/src/eapp_dart_domain"
-          PROTO_INCLUDES="${{ needs.configure-protobuf.outputs.proto-includes }}"
-          
-          echo "Generating Dart protobuf code..."
-          protoc \
-            --dart_out=grpc:"$EAPP_PROTO_DART_OUT_DIR/lib" \
-            google/protobuf/timestamp.proto \
-            google/protobuf/any.proto \
-            -I "$EAPP_PROTO_SRC_DIR" \
-            $PROTO_INCLUDES
-
-      - name: Update Dart package version
-        run: |
-          cd ${{ github.workspace }}/eapp-dart-domain
-          sed -i "s/version: .*/version: ${{ needs.setup-version.outputs.version }}/" pubspec.yaml
-
-      - name: Build and publish Dart package to GitHub Packages
-        if: github.ref == 'refs/heads/master'
-        run: |
-          cd ${{ github.workspace }}/eapp-dart-domain
-          # Configure Dart for GitHub Packages
-          echo "publish_to: https://dart.pkg.github.com/${{ github.repository_owner }}/" >> pubspec.yaml
-          echo "${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}" | dart pub token add https://dart.pkg.github.com/${{ github.repository_owner }}/
-          dart pub publish --force --skip-validation
-
-      - name: Commit and push Dart changes
-        run: |
-          cd ${{ github.workspace }}/eapp-dart-domain
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add .
-          git commit -m "Update protobuf generated code - version ${{ needs.setup-version.outputs.version }}"
-          git push
-
-  kotlin-domain:
-    runs-on: ubuntu-latest
-    needs: [setup-version, configure-protobuf]
-    steps:
-      - name: Checkout repositories
-        uses: actions/checkout@v4
-        with:
-          path: eapp-system-contracts
-          
-      - name: Checkout Kotlin Domain
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository_owner }}/eapp-kotlin-domain
-          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
-          path: eapp-kotlin-domain
+          npm install -g protobuf2ts
 
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '11'
 
-      - name: Install protobuf compiler
+      - name: Install Java dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y protobuf-compiler
+          # Download protoc compiler
+          wget https://github.com/protocolbuffers/protobuf/releases/download/v3.21.12/protoc-3.21.12-linux-x86_64.zip
+          unzip protoc-3.21.12-linux-x86_64.zip -d /usr/local
+          chmod +x /usr/local/bin/protoc
 
-      - name: Clean previous Kotlin domain
+      - name: Compile Protobuf for Python
         run: |
-          rm -rf ${{ github.workspace }}/eapp-kotlin-domain/eapp-nodejs-domain/ethos
-          rm -rf ${{ github.workspace }}/eapp-kotlin-domain/eapp-nodejs-domain/gramx
-
-      - name: Generate Kotlin protobuf code
-        run: |
-          EAPP_PROTO_SRC_DIR="${{ github.workspace }}/eapp-system-contracts/src/main/proto"
-          EAPP_PROTO_KOTLIN_OUT_DIR="${{ github.workspace }}/eapp-kotlin-domain/eapp-nodejs-domain"
-          PROTO_INCLUDES="${{ needs.configure-protobuf.outputs.proto-includes }}"
+          cd system-contracts
+          mkdir -p ../python-packages/src/eapp_python_domain/ethos
           
-          echo "Generating Kotlin protobuf code..."
-          # Note: This requires the protoc-gen-grpc-kotlin plugin
-          # You may need to install it or use a different approach
-          protoc \
-            --plugin=protoc-gen-grpckt=/usr/local/bin/protoc-gen-grpc-kotlin \
-            --grpckt_out="$EAPP_PROTO_KOTLIN_OUT_DIR" \
-            -I "$EAPP_PROTO_SRC_DIR" \
-            $PROTO_INCLUDES
+          # Compile all .proto files to Python
+          for proto_file in $(find src/main/proto -name "*.proto"); do
+            protoc --python_out=../python-packages/src/eapp_python_domain/ethos \
+                   --proto_path=src/main/proto \
+                   "$proto_file"
+          done
+          
+          # Create Python package structure
+          cd ../python-packages
+          echo 'from setuptools import setup, find_packages' > setup.py
+          echo 'setup(' >> setup.py
+          echo '    name="eapp-python-domain",' >> setup.py
+          echo '    version="0.1.0",' >> setup.py
+          echo '    description="Python protobuf client for EAPP system contracts",' >> setup.py
+          echo '    packages=find_packages(where="src"),' >> setup.py
+          echo '    package_dir={"": "src"},' >> setup.py
+          echo '    python_requires=">=3.7",' >> setup.py
+          echo '    install_requires=["protobuf>=3.21.0", "grpcio>=1.50.0"],' >> setup.py
+          echo ')' >> setup.py
+          
+          mkdir -p src/eapp_python_domain
+          echo '# Python protobuf client package' > src/eapp_python_domain/__init__.py
 
-      - name: Commit and push Kotlin changes
+      - name: Compile Protobuf for Node.js
         run: |
-          cd ${{ github.workspace }}/eapp-kotlin-domain
+          cd system-contracts
+          mkdir -p ../nodejs-packages
+          
+          # Compile all .proto files to TypeScript
+          for proto_file in $(find src/main/proto -name "*.proto"); do
+            protobuf2ts "$proto_file" --out ../nodejs-packages
+          done
+          
+          # Create Node.js package structure
+          cd ../nodejs-packages
+          echo '{' > package.json
+          echo '  "name": "eapp-nodejs-domain",' >> package.json
+          echo '  "version": "0.1.0",' >> package.json
+          echo '  "description": "Node.js protobuf client for EAPP system contracts",' >> package.json
+          echo '  "main": "index.js",' >> package.json
+          echo '  "types": "index.d.ts",' >> package.json
+          echo '  "dependencies": {' >> package.json
+          echo '    "protobufjs": "^7.0.0"' >> package.json
+          echo '  }' >> package.json
+          echo '}' >> package.json
+
+      - name: Compile Protobuf for Java/Kotlin
+        run: |
+          cd system-contracts
+          mkdir -p ../kotlin-packages/src/main/java
+          
+          # Compile all .proto files to Java
+          for proto_file in $(find src/main/proto -name "*.proto"); do
+            protoc --java_out=../kotlin-packages/src/main/java \
+                   --proto_path=src/main/proto \
+                   "$proto_file"
+          done
+          
+          # Create Kotlin package structure
+          cd ../kotlin-packages
+          echo 'plugins {' > build.gradle.kts
+          echo '    kotlin("jvm") version "1.8.0"' >> build.gradle.kts
+          echo '    `java-library`' >> build.gradle.kts
+          echo '}' >> build.gradle.kts
+          echo 'group = "com.ethosverse"' >> build.gradle.kts
+          echo 'version = "0.1.0"' >> build.gradle.kts
+          echo 'repositories { mavenCentral() }' >> build.gradle.kts
+          echo 'dependencies { implementation("com.google.protobuf:protobuf-java:3.21.12") }' >> build.gradle.kts
+
+      - name: Build and Publish Python Package
+        env:
+          GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          cd python-packages
+          
+          # Build package
+          python -m build
+          
+          # Create unique version
+          VERSION="0.1.0.$(date +%s)"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          
+          # Create release in python-domain repo
+          gh release create v$VERSION \
+            --repo ${{ github.repository_owner }}/eapp-python-domain \
+            --title "Release v$VERSION" \
+            --notes "Python protobuf client package" \
+            --draft=false \
+            --prerelease=false
+          
+          # Upload package files
+          TAR_FILE=$(ls dist/*.tar.gz | head -1)
+          WHEEL_FILE=$(ls dist/*.whl | head -1)
+          gh release upload v$VERSION "$TAR_FILE" "$WHEEL_FILE" \
+            --repo ${{ github.repository_owner }}/eapp-python-domain \
+            --clobber
+          
+          # Create package index
+          mkdir -p packages
+          TAR_BASENAME=$(basename "$TAR_FILE")
+          WHEEL_BASENAME=$(basename "$WHEEL_FILE")
+          
+          echo '<!DOCTYPE html>' > packages/index.html
+          echo '<html><head><title>Python Packages</title></head><body>' >> packages/index.html
+          echo '<h1>Python Packages</h1><ul>' >> packages/index.html
+          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v$VERSION/$TAR_BASENAME\">$TAR_BASENAME</a></li>" >> packages/index.html
+          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v$VERSION/$WHEEL_BASENAME\">$WHEEL_BASENAME</a></li>" >> packages/index.html
+          echo '</ul></body></html>' >> packages/index.html
+
+      - name: Build and Publish Node.js Package
+        env:
+          GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          cd nodejs-packages
+          
+          # Create unique version
+          VERSION="0.1.0.$(date +%s)"
+          
+          # Create release in nodejs-domain repo
+          gh release create v$VERSION \
+            --repo ${{ github.repository_owner }}/eapp-nodejs-domain \
+            --title "Release v$VERSION" \
+            --notes "Node.js protobuf client package" \
+            --draft=false \
+            --prerelease=false
+          
+          # Create tarball
+          tar -czf eapp-nodejs-domain-$VERSION.tar.gz *
+          
+          # Upload package file
+          gh release upload v$VERSION eapp-nodejs-domain-$VERSION.tar.gz \
+            --repo ${{ github.repository_owner }}/eapp-nodejs-domain \
+            --clobber
+
+      - name: Build and Publish Kotlin Package
+        env:
+          GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          cd kotlin-packages
+          
+          # Create unique version
+          VERSION="0.1.0.$(date +%s)"
+          
+          # Create release in kotlin-domain repo
+          gh release create v$VERSION \
+            --repo ${{ github.repository_owner }}/eapp-kotlin-domain \
+            --title "Release v$VERSION" \
+            --notes "Kotlin protobuf client package" \
+            --draft=false \
+            --prerelease=false
+          
+          # Create JAR file (simplified)
+          jar -cf eapp-kotlin-domain-$VERSION.jar -C src/main/java .
+          
+          # Upload package file
+          gh release upload v$VERSION eapp-kotlin-domain-$VERSION.jar \
+            --repo ${{ github.repository_owner }}/eapp-kotlin-domain \
+            --clobber
+
+      - name: Commit Python Package Index
+        run: |
+          cd python-packages
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add .
-          git commit -m "Update protobuf generated code - version ${{ needs.setup-version.outputs.version }}"
-          git push
+          git add packages/
+          git commit -m "Add package index for v${{ env.VERSION }}" || echo "No changes to commit"
+          git push origin master
 
-  swift-domain:
-    runs-on: ubuntu-latest
-    needs: [setup-version, configure-protobuf]
-    steps:
-      - name: Checkout repositories
-        uses: actions/checkout@v4
-        with:
-          path: eapp-system-contracts
-          
-      - name: Checkout Swift Domain
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository_owner }}/eapp-swift-domain
-          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
-          path: eapp-swift-domain
-
-      - name: Install protobuf compiler
+      - name: Completion
         run: |
-          sudo apt-get update
-          sudo apt-get install -y protobuf-compiler
-
-      - name: Clean previous Swift domain
-        run: |
-          rm -rf ${{ github.workspace }}/eapp-swift-domain/eapp-nodejs-domain/ethos
-          rm -rf ${{ github.workspace }}/eapp-swift-domain/eapp-nodejs-domain/gramx
-
-      - name: Generate Swift protobuf code
-        run: |
-          EAPP_PROTO_SRC_DIR="${{ github.workspace }}/eapp-system-contracts/src/main/proto"
-          EAPP_PROTO_SWIFT_OUT_DIR="${{ github.workspace }}/eapp-swift-domain/eapp-nodejs-domain"
-          PROTO_INCLUDES="${{ needs.configure-protobuf.outputs.proto-includes }}"
-          
-          echo "Generating Swift protobuf code..."
-          protoc --include_imports \
-            --include_source_info \
-            --descriptor_set_out="$EAPP_PROTO_SWIFT_OUT_DIR/api_descriptor.pb" \
-            --swift_out="$EAPP_PROTO_SWIFT_OUT_DIR" \
-            --grpc-swift_out=Client=true,Server=false:"$EAPP_PROTO_SWIFT_OUT_DIR" \
-            -I "$EAPP_PROTO_SRC_DIR" \
-            $PROTO_INCLUDES
-
-      - name: Commit and push Swift changes
-        run: |
-          cd ${{ github.workspace }}/eapp-swift-domain
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add .
-          git commit -m "Update protobuf generated code - version ${{ needs.setup-version.outputs.version }}"
-          git push
-
-  notify-completion:
-    runs-on: ubuntu-latest
-    needs: [python-domain, nodejs-domain, dart-domain, kotlin-domain, swift-domain]
-    if: always()
-    steps:
-      - name: Notify completion
-        run: |
-          echo "Protobuf distribution pipeline completed!"
-          echo "Version: ${{ needs.setup-version.outputs.version }}"
-          echo "All domain packages have been updated and published." 
+          echo "Protobuf distribution completed!"
+          echo "Python: https://github.com/50gramx/eapp-python-domain/releases"
+          echo "Node.js: https://github.com/50gramx/eapp-nodejs-domain/releases"
+          echo "Kotlin: https://github.com/50gramx/eapp-kotlin-domain/releases" 
