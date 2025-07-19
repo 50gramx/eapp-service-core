@@ -229,17 +229,8 @@ jobs:
           # Replace timestamp placeholder
           sed -i "s/{{TIMESTAMP}}/$(date -u)/g" packages/index.html
 
-      - name: Commit Central Index
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add packages/
-          git commit -m "Update central package index" || echo "No changes to commit"
-          git push origin master
-
       - name: Completion
         run: |
           echo "Protobuf distribution completed!"
-          echo "Central Index: https://html-preview.github.io/?url=https://raw.githubusercontent.com/50gramx/eapp-system-contracts/master/packages/index.html"
           echo "Python: https://github.com/50gramx/eapp-python-domain/releases"
           echo "Dart: https://github.com/50gramx/eapp-dart-domain/releases" 
