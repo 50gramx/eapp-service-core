@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EAPP System Contracts - Multi-Language Packages</title>
+  <style>
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .header {
+      text-align: center;
+      color: white;
+      margin-bottom: 40px;
+    }
+    .header h1 {
+      font-size: 3em;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .header p {
+      font-size: 1.2em;
+      opacity: 0.9;
+      margin: 10px 0;
+    }
+    .content {
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .language-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin: 30px 0;
+    }
+    .language {
+      border: 2px solid #e1e8ed;
+      border-radius: 12px;
+      padding: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .language:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border-color: #667eea;
+    }
+    .language::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+    }
+    .language h2 {
+      color: #2c3e50;
+      margin: 0 0 15px 0;
+      font-size: 1.5em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .language h2 .emoji {
+      font-size: 1.2em;
+    }
+    .language p {
+      color: #5a6c7d;
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+    .language .repo-link {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .language .repo-link:hover {
+      color: #764ba2;
+      text-decoration: underline;
+    }
+    .install-code {
+      background: #2c3e50;
+      color: #ecf0f1;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      margin: 15px 0;
+      font-size: 0.9em;
+      line-height: 1.4;
+      overflow-x: auto;
+    }
+    .install-code .highlight {
+      color: #3498db;
+    }
+    .footer {
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 2px solid #e1e8ed;
+      text-align: center;
+      color: #7f8c8d;
+    }
+    .footer p {
+      margin: 5px 0;
+    }
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin: 30px 0;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat .number {
+      font-size: 2em;
+      font-weight: bold;
+      color: #667eea;
+    }
+    .stat .label {
+      color: #7f8c8d;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🏗️ EAPP System Contracts</h1>
+      <p>Multi-Language Package Distribution Hub</p>
+      <p>Generated protobuf client packages for all supported languages</p>
+    </div>
+    
+    <div class="content">
+      <div class="stats">
+        <div class="stat">
+          <div class="number">4</div>
+          <div class="label">Languages</div>
+        </div>
+        <div class="stat">
+          <div class="number">Auto</div>
+          <div class="label">Generated</div>
+        </div>
+        <div class="stat">
+          <div class="number">24/7</div>
+          <div class="label">CI/CD</div>
+        </div>
+      </div>
+      
+      <div class="language-grid">
+        <!-- Python Section -->
+        <div class="language">
+          <h2><span class="emoji">🐍</span> Python</h2>
+          <p><strong>Repository:</strong> <a href="https://github.com/50gramx/eapp-python-domain" class="repo-link">eapp-python-domain</a></p>
+          <p><strong>Package Index:</strong> <a href="https://raw.githubusercontent.com/50gramx/eapp-python-domain/master/packages/index.html" class="repo-link">View Packages</a></p>
+          <p><strong>Install:</strong></p>
+          <div class="install-code">
+            pip install --index-url <span class="highlight">https://raw.githubusercontent.com/50gramx/eapp-python-domain/master/packages/index.html</span> eapp-python-domain
+          </div>
+        </div>
+        
+        <!-- Node.js Section -->
+        <div class="language">
+          <h2><span class="emoji">🟨</span> Node.js</h2>
+          <p><strong>Repository:</strong> <a href="https://github.com/50gramx/eapp-nodejs-domain" class="repo-link">eapp-nodejs-domain</a></p>
+          <p><strong>Releases:</strong> <a href="https://github.com/50gramx/eapp-nodejs-domain/releases" class="repo-link">View Releases</a></p>
+          <p><strong>Install:</strong></p>
+          <div class="install-code">
+            npm install <span class="highlight">eapp-nodejs-domain</span>
+          </div>
+        </div>
+        
+        <!-- Kotlin Section -->
+        <div class="language">
+          <h2><span class="emoji">☕</span> Kotlin/Java</h2>
+          <p><strong>Repository:</strong> <a href="https://github.com/50gramx/eapp-kotlin-domain" class="repo-link">eapp-kotlin-domain</a></p>
+          <p><strong>Releases:</strong> <a href="https://github.com/50gramx/eapp-kotlin-domain/releases" class="repo-link">View Releases</a></p>
+          <p><strong>Install:</strong></p>
+          <div class="install-code">
+            implementation <span class="highlight">"com.ethosverse:eapp-kotlin-domain:0.1.0"</span>
+          </div>
+        </div>
+        
+        <!-- Dart Section -->
+        <div class="language">
+          <h2><span class="emoji">🎯</span> Dart</h2>
+          <p><strong>Repository:</strong> <a href="https://github.com/50gramx/eapp-dart-domain" class="repo-link">eapp-dart-domain</a></p>
+          <p><strong>Releases:</strong> <a href="https://github.com/50gramx/eapp-dart-domain/releases" class="repo-link">View Releases</a></p>
+          <p><strong>Install:</strong></p>
+          <div class="install-code">
+            dependencies:<br>
+            &nbsp;&nbsp;<span class="highlight">eapp_dart_domain: ^0.1.0</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer">
+        <p><strong>Generated:</strong> Sat Jul 19 16:11:50 UTC 2025</p>
+        <p><strong>Repository:</strong> <a href="https://github.com/50gramx/eapp-system-contracts" class="repo-link">eapp-system-contracts</a></p>
+        <p><em>Auto-generated by GitHub Actions when protobuf files are updated.</em></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 
