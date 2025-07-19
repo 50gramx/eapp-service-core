@@ -56,13 +56,18 @@ jobs:
         run: |
           cd eapp-python-domain
           
-          echo "Uploading package to organization-level GitHub Packages..."
+          echo "Uploading package using correct GitHub Packages format..."
           
-          # Use organization-level GitHub Packages URL
-          python -m twine upload --verbose \
-            --repository-url https://github.com/50gramx/packages/pypi \
-            --username ${{ github.actor }} \
-            --password ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }} \
-            dist/*
+          # Create .pypirc with correct GitHub Packages format
+          echo '[distutils]' > ~/.pypirc
+          echo 'index-servers = github' >> ~/.pypirc
+          echo '' >> ~/.pypirc
+          echo '[github]' >> ~/.pypirc
+          echo 'repository = https://pypi.pkg.github.com/50gramx' >> ~/.pypirc
+          echo 'username = ${{ github.actor }}' >> ~/.pypirc
+          echo 'password = ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}' >> ~/.pypirc
+          
+          # Upload using twine with repository flag
+          python -m twine upload --verbose -r github dist/*
           
           echo "Upload completed!" 

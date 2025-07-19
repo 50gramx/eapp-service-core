@@ -192,8 +192,14 @@ jobs:
         run: |
           cd ${{ github.workspace }}/eapp-python-domain
           
-          # Use organization-level GitHub Packages with proper authentication
-          python -m twine upload --username ${{ github.actor }} --password ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }} --repository-url https://github.com/50gramx/packages/pypi dist/*
+          # Use GitHub Packages with proper authentication
+          echo '[distutils]' > ~/.pypirc
+          echo 'index-servers = github' >> ~/.pypirc
+          echo '[github]' >> ~/.pypirc
+          echo 'repository = https://pypi.pkg.github.com/50gramx' >> ~/.pypirc
+          echo 'username = ${{ github.actor }}' >> ~/.pypirc
+          echo 'password = ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}' >> ~/.pypirc
+          python -m twine upload -r github dist/*
 
       - name: Commit and push Python changes
         run: |
