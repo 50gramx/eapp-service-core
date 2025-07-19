@@ -44,6 +44,10 @@ jobs:
           
           # Build package
           python -m build
+          
+          # List what files were created
+          echo "Files created in dist/:"
+          ls -la dist/
 
       - name: Create packages directory
         run: |
@@ -54,6 +58,12 @@ jobs:
         run: |
           cd eapp-python-domain
           
+          # Get the actual file names from dist/
+          TAR_FILE=$(ls dist/*.tar.gz | head -1)
+          WHEEL_FILE=$(ls dist/*.whl | head -1)
+          
+          echo "Using files: $TAR_FILE and $WHEEL_FILE"
+          
           # Create a simple package index
           echo '<!DOCTYPE html>' > packages/index.html
           echo '<html>' >> packages/index.html
@@ -62,7 +72,8 @@ jobs:
           echo '<h1>Python Packages</h1>' >> packages/index.html
           echo '<p>Available packages:</p>' >> packages/index.html
           echo '<ul>' >> packages/index.html
-          echo '<li><a href="https://github.com/50gramx/eapp-python-domain/releases/download/v25.7.8/eapp-python-domain-25.7.8.tar.gz">eapp-python-domain-25.7.8.tar.gz</a></li>' >> packages/index.html
+          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v25.7.8/$(basename $TAR_FILE)\">$(basename $TAR_FILE)</a></li>" >> packages/index.html
+          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v25.7.8/$(basename $WHEEL_FILE)\">$(basename $WHEEL_FILE)</a></li>" >> packages/index.html
           echo '</ul>' >> packages/index.html
           echo '<p>Install with:</p>' >> packages/index.html
           echo '<pre>pip install --index-url https://raw.githubusercontent.com/50gramx/eapp-python-domain/main/packages/index.html eapp-python-domain</pre>' >> packages/index.html
@@ -81,14 +92,28 @@ jobs:
           prerelease: false
 
       - name: Upload package files to release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./eapp-python-domain/dist/eapp-python-domain-25.7.8.tar.gz
-          asset_name: eapp-python-domain-25.7.8.tar.gz
-          asset_content_type: application/gzip
+        run: |
+          cd eapp-python-domain
+          
+          # Get the actual file names
+          TAR_FILE=$(ls dist/*.tar.gz | head -1)
+          WHEEL_FILE=$(ls dist/*.whl | head -1)
+          
+          echo "Uploading $TAR_FILE and $WHEEL_FILE"
+          
+          # Upload tar.gz file
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/gzip" \
+            --data-binary @"$TAR_FILE" \
+            "${{ steps.create_release.outputs.upload_url }}?name=$(basename $TAR_FILE)"
+          
+          # Upload wheel file
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/zip" \
+            --data-binary @"$WHEEL_FILE" \
+            "${{ steps.create_release.outputs.upload_url }}?name=$(basename $WHEEL_FILE)"
 
       - name: Commit and push package index
         run: |
