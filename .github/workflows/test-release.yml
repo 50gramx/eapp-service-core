@@ -105,8 +105,9 @@ jobs:
           TAR_BASENAME=$(basename "$TAR_FILE")
           WHEEL_BASENAME=$(basename "$WHEEL_FILE")
           
-          SANITIZED_TAR_NAME=$(echo "$TAR_BASENAME" | sed 's/\.\([0-9]\)/_\1/g' | sed 's/\.tar\.gz$/.tar.gz/')
-          SANITIZED_WHEEL_NAME=$(echo "$WHEEL_BASENAME" | sed 's/\.\([0-9]\)/_\1/g' | sed 's/\.whl$/.whl/')
+          # Create simple, safe names: eapp_python_domain-25.7.8.1752925060.tar.gz -> eapp-python-domain-source.tar.gz
+          SANITIZED_TAR_NAME="eapp-python-domain-source.tar.gz"
+          SANITIZED_WHEEL_NAME="eapp-python-domain-wheel.whl"
           
           echo "Sanitized names for index: $SANITIZED_TAR_NAME and $SANITIZED_WHEEL_NAME"
           
@@ -147,13 +148,13 @@ jobs:
           
           echo "Uploading $TAR_FILE and $WHEEL_FILE"
           
-          # Sanitize filenames for GitHub (replace dots with underscores except for extensions)
+          # Sanitize filenames for GitHub (use simple, safe names)
           TAR_BASENAME=$(basename "$TAR_FILE")
           WHEEL_BASENAME=$(basename "$WHEEL_FILE")
           
-          # Create sanitized names: eapp_python_domain-25.7.8.1752924639.tar.gz -> eapp_python_domain-25_7_8_1752924639.tar.gz
-          SANITIZED_TAR_NAME=$(echo "$TAR_BASENAME" | sed 's/\.\([0-9]\)/_\1/g' | sed 's/\.tar\.gz$/.tar.gz/')
-          SANITIZED_WHEEL_NAME=$(echo "$WHEEL_BASENAME" | sed 's/\.\([0-9]\)/_\1/g' | sed 's/\.whl$/.whl/')
+          # Create simple, safe names: eapp_python_domain-25.7.8.1752925060.tar.gz -> eapp-python-domain-source.tar.gz
+          SANITIZED_TAR_NAME="eapp-python-domain-source.tar.gz"
+          SANITIZED_WHEEL_NAME="eapp-python-domain-wheel.whl"
           
           echo "Sanitized names: $SANITIZED_TAR_NAME and $SANITIZED_WHEEL_NAME"
           
