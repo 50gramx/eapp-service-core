@@ -23,16 +23,32 @@ jobs:
         run: |
           pip install twine
 
-      - name: Create test package
+      - name: Create package via GitHub API
         run: |
-          cd eapp-python-domain
-          echo 'from setuptools import setup' > setup.py
-          echo 'setup(name="test-package", version="0.1.0")' >> setup.py
-          python setup.py sdist
+          echo "Creating package via GitHub API..."
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository_owner }}/eapp-python-domain/packages \
+            -d '{
+              "package_type": "pypi",
+              "name": "eapp-python-domain"
+            }' || echo "Package might already exist"
 
       - name: Test package upload with verbose output
         run: |
           cd eapp-python-domain
           
-          echo "Testing package upload with proper GitHub authentication..."
-          python -m twine upload --verbose --username ${{ github.actor }} --password ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }} --repository-url https://github.com/${{ github.repository_owner }}/eapp-python-domain/packages/pypi dist/* 
+          echo "Testing package upload with GitHub Packages API..."
+          
+          # Create a .pypirc file with the correct format for GitHub Packages
+          echo '[distutils]' > ~/.pypirc
+          echo 'index-servers = github' >> ~/.pypirc
+          echo '' >> ~/.pypirc
+          echo '[github]' >> ~/.pypirc
+          echo 'repository = https://github.com/${{ github.repository_owner }}/eapp-python-domain/packages/pypi' >> ~/.pypirc
+          echo 'username = ${{ github.actor }}' >> ~/.pypirc
+          echo 'password = ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}' >> ~/.pypirc
+          
+          # Test upload with the configured .pypirc
+          python -m twine upload --verbose -r github dist/* 
