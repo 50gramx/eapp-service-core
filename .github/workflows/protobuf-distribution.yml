@@ -113,8 +113,98 @@ jobs:
           git commit -m "Update protobuf generated code and package index for v${{ steps.build.outputs.version }}" || echo "No changes to commit"
           git push origin master
 
+  compile-dart:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout System Contracts
+        uses: actions/checkout@v4
+        with:
+          path: system-contracts
+
+      - name: Checkout Dart Domain
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/eapp-dart-domain
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: dart-domain
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '3.0.0'
+
+      - name: Install protobuf compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler
+
+      - name: Install Dart protobuf compiler
+        run: |
+          dart pub global activate protoc_plugin
+          export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+      - name: Compile Protobuf for Dart
+        run: |
+          cd system-contracts
+          
+          # Clean previous generated files
+          rm -rf ../dart-domain/src/eapp_dart_domain/ethos
+          mkdir -p ../dart-domain/src/eapp_dart_domain/ethos
+          
+          # Generate Dart protobuf code using the working approach
+          protoc \
+            --dart_out=grpc:"../dart-domain/src/eapp_dart_domain/ethos" \
+            google/protobuf/timestamp.proto \
+            google/protobuf/any.proto \
+            -I src/main/proto \
+            $(find src/main/proto -name "*.proto")
+
+      - name: Build Dart Package
+        id: build
+        run: |
+          cd dart-domain
+          
+          # Update version in pubspec.yaml
+          VERSION="0.1.0.$(date +%s)"
+          sed -i "s/version: .*/version: $VERSION/" pubspec.yaml
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          
+          # Get dependencies
+          dart pub get
+
+      - name: Publish Dart Package
+        env:
+          GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          cd dart-domain
+          
+          # Create release in dart-domain repo
+          gh release create v${{ steps.build.outputs.version }} \
+            --repo ${{ github.repository_owner }}/eapp-dart-domain \
+            --title "Release v${{ steps.build.outputs.version }}" \
+            --notes "Dart protobuf client package" \
+            --draft=false \
+            --prerelease=false
+          
+          # Create tarball
+          tar -czf eapp-dart-domain-${{ steps.build.outputs.version }}.tar.gz *
+          
+          # Upload package file
+          gh release upload v${{ steps.build.outputs.version }} eapp-dart-domain-${{ steps.build.outputs.version }}.tar.gz \
+            --repo ${{ github.repository_owner }}/eapp-dart-domain \
+            --clobber
+
+      - name: Commit Dart Changes
+        run: |
+          cd dart-domain
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Update protobuf generated code for v${{ steps.build.outputs.version }}" || echo "No changes to commit"
+          git push origin master
+
   create-central-index:
-    needs: [compile-python]
+    needs: [compile-python, compile-dart]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout System Contracts
@@ -141,4 +231,5 @@ jobs:
         run: |
           echo "Protobuf distribution completed!"
           echo "Central Index: https://html-preview.github.io/?url=https://raw.githubusercontent.com/50gramx/eapp-system-contracts/master/packages/index.html"
-          echo "Python: https://github.com/50gramx/eapp-python-domain/releases" 
+          echo "Python: https://github.com/50gramx/eapp-python-domain/releases"
+          echo "Dart: https://github.com/50gramx/eapp-dart-domain/releases" 
