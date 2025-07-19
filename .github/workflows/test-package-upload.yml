@@ -42,22 +42,27 @@ jobs:
               "name": "eapp-python-domain"
             }' || echo "Package might already exist"
 
-      - name: Test package upload with verbose output
+      - name: Setup GitHub CLI
+        run: |
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+          sudo apt update
+          sudo apt install gh
+
+      - name: Test package upload with environment variables
+        env:
+          TWINE_USERNAME: ${{ github.actor }}
+          TWINE_PASSWORD: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
           cd eapp-python-domain
           
-          echo "Testing package upload with GitHub Packages API..."
-          echo "Checking for dist files:"
-          ls -la dist/
+          echo "Uploading package with environment variables..."
           
-          # Create a .pypirc file with the correct format for GitHub Packages
-          echo '[distutils]' > ~/.pypirc
-          echo 'index-servers = github' >> ~/.pypirc
-          echo '' >> ~/.pypirc
-          echo '[github]' >> ~/.pypirc
-          echo 'repository = https://github.com/${{ github.repository_owner }}/eapp-python-domain/packages/pypi' >> ~/.pypirc
-          echo 'username = ${{ github.actor }}' >> ~/.pypirc
-          echo 'password = ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}' >> ~/.pypirc
+          # Use GitHub Packages with the correct URL format
+          python -m twine upload --verbose \
+            --repository-url https://github.com/${{ github.repository_owner }}/eapp-python-domain/packages/pypi \
+            --username ${{ github.actor }} \
+            --password ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }} \
+            dist/*
           
-          # Test upload with the configured .pypirc
-          python -m twine upload --verbose -r github dist/* 
+          echo "Upload completed!" 
