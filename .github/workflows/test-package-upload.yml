@@ -1,0 +1,45 @@
+name: Test Package Upload
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Python Domain
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/eapp-python-domain
+          token: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
+          path: eapp-python-domain
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install twine
+
+      - name: Create test package
+        run: |
+          cd eapp-python-domain
+          echo 'from setuptools import setup' > setup.py
+          echo 'setup(name="test-package", version="0.1.0")' >> setup.py
+          python setup.py sdist
+
+      - name: Test package upload with verbose output
+        run: |
+          cd eapp-python-domain
+          
+          echo '[distutils]' > ~/.pypirc
+          echo 'index-servers = github' >> ~/.pypirc
+          echo '[github]' >> ~/.pypirc
+          echo 'repository = https://github.com/${{ github.repository_owner }}/eapp-python-domain/packages/pypi' >> ~/.pypirc
+          echo 'username = ${{ github.actor }}' >> ~/.pypirc
+          echo 'password = ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}' >> ~/.pypirc
+          
+          echo "Testing package upload with verbose output..."
+          twine upload --verbose -r github dist/* 
