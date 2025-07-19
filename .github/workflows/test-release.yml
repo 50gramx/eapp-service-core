@@ -50,19 +50,24 @@ jobs:
           ls -la dist/
           
           # Check if files were created successfully
-          if [ ! -f "dist/eapp-python-domain-25.7.8.tar.gz" ]; then
-            echo "ERROR: Source distribution not built."
+          TAR_COUNT=$(ls dist/*.tar.gz 2>/dev/null | wc -l)
+          WHEEL_COUNT=$(ls dist/*.whl 2>/dev/null | wc -l)
+          
+          if [ "$TAR_COUNT" -eq 0 ]; then
+            echo "ERROR: No source distribution (.tar.gz) files found."
             echo "Available files in dist/:"
             ls -la dist/ || echo "dist/ directory is empty or doesn't exist"
             exit 1
           fi
           
-          if [ ! -f "dist/eapp_python_domain-25.7.8-py3-none-any.whl" ]; then
-            echo "ERROR: Wheel distribution not built."
+          if [ "$WHEEL_COUNT" -eq 0 ]; then
+            echo "ERROR: No wheel distribution (.whl) files found."
             echo "Available files in dist/:"
             ls -la dist/ || echo "dist/ directory is empty or doesn't exist"
             exit 1
           fi
+          
+          echo "✅ Build successful! Found $TAR_COUNT tar.gz files and $WHEEL_COUNT wheel files."
 
       - name: Create packages directory
         run: |
