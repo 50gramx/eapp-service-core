@@ -162,7 +162,7 @@ jobs:
       - name: Build Dart Package
         id: build
         run: |
-          cd dart-domain
+          cd dart-domain/src/eapp_dart_domain
           
           # Update version in pubspec.yaml
           VERSION="0.1.0.$(date +%s)"
@@ -176,7 +176,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
-          cd dart-domain
+          cd dart-domain/src/eapp_dart_domain
           
           # Create release in dart-domain repo
           gh release create v${{ steps.build.outputs.version }} \
