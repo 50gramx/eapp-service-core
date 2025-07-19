@@ -191,15 +191,9 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: |
           cd ${{ github.workspace }}/eapp-python-domain
-          # Configure pypirc for GitHub Packages
-          echo "[distutils]" > ~/.pypirc
-          echo "index-servers = github" >> ~/.pypirc
-          echo "[github]" >> ~/.pypirc
-          echo "repository = https://github.com/${{ github.repository_owner }}/eapp-python-domain/packages/pypi" >> ~/.pypirc
-          echo "username = ${{ github.actor }}" >> ~/.pypirc
-          echo "password = ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}" >> ~/.pypirc
           
-          twine upload -r github dist/*
+          # Use GitHub Packages with proper authentication
+          echo "${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}" | python -m twine upload --username ${{ github.actor }} --password-stdin --repository-url https://github.com/${{ github.repository_owner }}/eapp-python-domain/packages/pypi dist/*
 
       - name: Commit and push Python changes
         run: |

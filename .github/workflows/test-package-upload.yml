@@ -34,12 +34,5 @@ jobs:
         run: |
           cd eapp-python-domain
           
-          echo '[distutils]' > ~/.pypirc
-          echo 'index-servers = github' >> ~/.pypirc
-          echo '[github]' >> ~/.pypirc
-          echo 'repository = https://github.com/${{ github.repository_owner }}/eapp-python-domain/packages/pypi' >> ~/.pypirc
-          echo 'username = ${{ github.actor }}' >> ~/.pypirc
-          echo 'password = ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}' >> ~/.pypirc
-          
-          echo "Testing package upload with verbose output..."
-          twine upload --verbose -r github dist/* 
+          echo "Testing package upload with proper GitHub authentication..."
+          echo "${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}" | python -m twine upload --verbose --username ${{ github.actor }} --password-stdin --repository-url https://github.com/${{ github.repository_owner }}/eapp-python-domain/packages/pypi dist/* 
