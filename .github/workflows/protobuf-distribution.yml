@@ -59,12 +59,12 @@ jobs:
         run: |
           cd python-domain
           
-          # Update version in setup.py
+          # Update version in setup.py (preserve existing structure)
           VERSION="0.1.0.$(date +%s)"
           sed -i "s/version='[^']*'/version='$VERSION'/" setup.py
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           
-          # Build package
+          # Build package using existing setup.py
           python -m build
           
           # Get file names
@@ -79,7 +79,16 @@ jobs:
         run: |
           cd python-domain
           
+          # Debug: Check authentication
+          echo "Checking GitHub authentication..."
+          gh auth status
+          
+          # Debug: Check repository access
+          echo "Checking repository access..."
+          gh repo view ${{ github.repository_owner }}/eapp-python-domain
+          
           # Create release in python-domain repo
+          echo "Creating release v${{ steps.build.outputs.version }}..."
           gh release create v${{ steps.build.outputs.version }} \
             --repo ${{ github.repository_owner }}/eapp-python-domain \
             --title "Release v${{ steps.build.outputs.version }}" \
@@ -90,6 +99,7 @@ jobs:
           # Upload package files
           TAR_FILE=$(ls dist/*.tar.gz | head -1)
           WHEEL_FILE=$(ls dist/*.whl | head -1)
+          echo "Uploading $TAR_FILE and $WHEEL_FILE..."
           gh release upload v${{ steps.build.outputs.version }} "$TAR_FILE" "$WHEEL_FILE" \
             --repo ${{ github.repository_owner }}/eapp-python-domain \
             --clobber
