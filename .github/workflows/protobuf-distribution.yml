@@ -59,8 +59,8 @@ jobs:
         run: |
           cd python-domain
           
-          # Update version in setup.py (preserve existing structure)
-          VERSION="0.1.0.$(date +%s)"
+          # Update version in setup.py (use year.month.timestamp format)
+          VERSION="$(date +%Y.%m).$(date +%s)"
           sed -i "s/version='[^']*'/version='$VERSION'/" setup.py
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           
@@ -174,8 +174,8 @@ jobs:
         run: |
           cd dart-domain/src/eapp_dart_domain
           
-          # Update version in pubspec.yaml (use valid Dart format)
-          VERSION="0.1.0+$(date +%s)"
+          # Update version in pubspec.yaml (use year.month.timestamp format)
+          VERSION="$(date +%Y.%m)+$(date +%s)"
           sed -i "s/version: .*/version: $VERSION/" pubspec.yaml
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           
