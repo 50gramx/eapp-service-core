@@ -106,14 +106,15 @@ jobs:
             --repo ${{ github.repository_owner }}/eapp-python-domain \
             --clobber
           
-          # Create package index
+          # Create package index from template
           mkdir -p packages
-          echo '<!DOCTYPE html>' > packages/index.html
-          echo '<html><head><title>Python Packages</title></head><body>' >> packages/index.html
-          echo '<h1>Python Packages</h1><ul>' >> packages/index.html
-          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v${{ steps.build.outputs.version }}/${{ steps.build.outputs.tar-file }}\">${{ steps.build.outputs.tar-file }}</a></li>" >> packages/index.html
-          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v${{ steps.build.outputs.version }}/${{ steps.build.outputs.wheel-file }}\">${{ steps.build.outputs.wheel-file }}</a></li>" >> packages/index.html
-          echo '</ul></body></html>' >> packages/index.html
+          cp ../system-contracts/templates/python-package-index.html packages/index.html
+          
+          # Replace placeholders
+          sed -i "s/{{VERSION}}/${{ steps.build.outputs.version }}/g" packages/index.html
+          sed -i "s/{{TAR_FILE}}/${{ steps.build.outputs.tar-file }}/g" packages/index.html
+          sed -i "s/{{WHEEL_FILE}}/${{ steps.build.outputs.wheel-file }}/g" packages/index.html
+          sed -i "s/{{TIMESTAMP}}/$(date -u)/g" packages/index.html
 
       - name: Commit Python Package Index
         run: |
@@ -375,65 +376,12 @@ jobs:
 
       - name: Create Central Package Index
         run: |
-          # Create central package index
+          # Create central package index from template
           mkdir -p packages
+          cp templates/central-package-index.html packages/index.html
           
-          echo '<!DOCTYPE html>' > packages/index.html
-          echo '<html>' >> packages/index.html
-          echo '<head>' >> packages/index.html
-          echo '  <title>EAPP System Contracts - Multi-Language Packages</title>' >> packages/index.html
-          echo '  <style>' >> packages/index.html
-          echo '    body { font-family: Arial, sans-serif; margin: 40px; }' >> packages/index.html
-          echo '    .language { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }' >> packages/index.html
-          echo '    .language h2 { color: #333; margin-top: 0; }' >> packages/index.html
-          echo '    .install-code { background: #f5f5f5; padding: 10px; border-radius: 3px; font-family: monospace; }' >> packages/index.html
-          echo '    .repo-link { color: #0366d6; text-decoration: none; }' >> packages/index.html
-          echo '    .repo-link:hover { text-decoration: underline; }' >> packages/index.html
-          echo '  </style>' >> packages/index.html
-          echo '</head>' >> packages/index.html
-          echo '<body>' >> packages/index.html
-          echo '  <h1>EAPP System Contracts - Multi-Language Packages</h1>' >> packages/index.html
-          echo '  <p>Generated protobuf client packages for all supported languages:</p>' >> packages/index.html
-          
-          # Python section
-          echo '  <div class="language">' >> packages/index.html
-          echo '    <h2>🐍 Python</h2>' >> packages/index.html
-          echo '    <p><strong>Repository:</strong> <a href="https://github.com/50gramx/eapp-python-domain" class="repo-link">eapp-python-domain</a></p>' >> packages/index.html
-          echo '    <p><strong>Package Index:</strong> <a href="https://raw.githubusercontent.com/50gramx/eapp-python-domain/master/packages/index.html" class="repo-link">View Packages</a></p>' >> packages/index.html
-          echo '    <p><strong>Install:</strong></p>' >> packages/index.html
-          echo '    <div class="install-code">pip install --index-url https://raw.githubusercontent.com/50gramx/eapp-python-domain/master/packages/index.html eapp-python-domain</div>' >> packages/index.html
-          echo '  </div>' >> packages/index.html
-          
-          # Node.js section
-          echo '  <div class="language">' >> packages/index.html
-          echo '    <h2>🟨 Node.js</h2>' >> packages/index.html
-          echo '    <p><strong>Repository:</strong> <a href="https://github.com/50gramx/eapp-nodejs-domain" class="repo-link">eapp-nodejs-domain</a></p>' >> packages/index.html
-          echo '    <p><strong>Releases:</strong> <a href="https://github.com/50gramx/eapp-nodejs-domain/releases" class="repo-link">View Releases</a></p>' >> packages/index.html
-          echo '    <p><strong>Install:</strong></p>' >> packages/index.html
-          echo '    <div class="install-code">npm install eapp-nodejs-domain</div>' >> packages/index.html
-          echo '  </div>' >> packages/index.html
-          
-          # Kotlin section
-          echo '  <div class="language">' >> packages/index.html
-          echo '    <h2>☕ Kotlin/Java</h2>' >> packages/index.html
-          echo '    <p><strong>Repository:</strong> <a href="https://github.com/50gramx/eapp-kotlin-domain" class="repo-link">eapp-kotlin-domain</a></p>' >> packages/index.html
-          echo '    <p><strong>Releases:</strong> <a href="https://github.com/50gramx/eapp-kotlin-domain/releases" class="repo-link">View Releases</a></p>' >> packages/index.html
-          echo '    <p><strong>Install:</strong></p>' >> packages/index.html
-          echo '    <div class="install-code">implementation "com.ethosverse:eapp-kotlin-domain:0.1.0"</div>' >> packages/index.html
-          echo '  </div>' >> packages/index.html
-          
-          # Dart section
-          echo '  <div class="language">' >> packages/index.html
-          echo '    <h2>🎯 Dart</h2>' >> packages/index.html
-          echo '    <p><strong>Repository:</strong> <a href="https://github.com/50gramx/eapp-dart-domain" class="repo-link">eapp-dart-domain</a></p>' >> packages/index.html
-          echo '    <p><strong>Releases:</strong> <a href="https://github.com/50gramx/eapp-dart-domain/releases" class="repo-link">View Releases</a></p>' >> packages/index.html
-          echo '    <p><strong>Install:</strong></p>' >> packages/index.html
-          echo '    <div class="install-code">dependencies:<br>  eapp_dart_domain: ^0.1.0</div>' >> packages/index.html
-          echo '  </div>' >> packages/index.html
-          
-          echo '  <hr>' >> packages/index.html
-          echo '  <p><em>Generated automatically by GitHub Actions when protobuf files are updated.</em></p>' >> packages/index.html
-          echo '</body></html>' >> packages/index.html
+          # Replace timestamp placeholder
+          sed -i "s/{{TIMESTAMP}}/$(date -u)/g" packages/index.html
 
       - name: Commit Central Index
         run: |
