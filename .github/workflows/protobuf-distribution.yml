@@ -39,12 +39,23 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
 
-      - name: Install Java dependencies
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '3.0.0'
+
+      - name: Install protoc compiler and dependencies
         run: |
-          # Download protoc compiler
-          wget https://github.com/protocolbuffers/protobuf/releases/download/v3.21.12/protoc-3.21.12-linux-x86_64.zip
-          unzip protoc-3.21.12-linux-x86_64.zip -d /usr/local
+          # Download protoc compiler (using a valid version)
+          wget https://github.com/protocolbuffers/protobuf/releases/download/v25.1/protoc-25.1-linux-x86_64.zip
+          unzip protoc-25.1-linux-x86_64.zip -d /usr/local
           chmod +x /usr/local/bin/protoc
+          
+          # Verify protoc installation
+          protoc --version
+          
+          # Install Dart protobuf compiler
+          dart pub global activate protoc_plugin
 
       - name: Compile Protobuf for Python
         run: |
@@ -125,6 +136,30 @@ jobs:
           echo 'version = "0.1.0"' >> build.gradle.kts
           echo 'repositories { mavenCentral() }' >> build.gradle.kts
           echo 'dependencies { implementation("com.google.protobuf:protobuf-java:3.21.12") }' >> build.gradle.kts
+
+      - name: Compile Protobuf for Dart
+        run: |
+          cd system-contracts
+          mkdir -p ../dart-packages/lib
+          
+          # Compile all .proto files to Dart
+          for proto_file in $(find src/main/proto -name "*.proto"); do
+            protoc --dart_out=../dart-packages/lib \
+                   --proto_path=src/main/proto \
+                   "$proto_file"
+          done
+          
+          # Create Dart package structure
+          cd ../dart-packages
+          echo 'name: eapp_dart_domain' > pubspec.yaml
+          echo 'description: Dart protobuf client for EAPP system contracts' >> pubspec.yaml
+          echo 'version: 0.1.0' >> pubspec.yaml
+          echo 'environment:' >> pubspec.yaml
+          echo '  sdk: ">=2.17.0 <4.0.0"' >> pubspec.yaml
+          echo 'dependencies:' >> pubspec.yaml
+          echo '  protobuf: ^3.0.0' >> pubspec.yaml
+          echo 'dev_dependencies:' >> pubspec.yaml
+          echo '  test: ^1.24.0' >> pubspec.yaml
 
       - name: Build and Publish Python Package
         env:
@@ -216,6 +251,31 @@ jobs:
             --repo ${{ github.repository_owner }}/eapp-kotlin-domain \
             --clobber
 
+      - name: Build and Publish Dart Package
+        env:
+          GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          cd dart-packages
+          
+          # Create unique version
+          VERSION="0.1.0.$(date +%s)"
+          
+          # Create release in dart-domain repo
+          gh release create v$VERSION \
+            --repo ${{ github.repository_owner }}/eapp-dart-domain \
+            --title "Release v$VERSION" \
+            --notes "Dart protobuf client package" \
+            --draft=false \
+            --prerelease=false
+          
+          # Create tarball
+          tar -czf eapp-dart-domain-$VERSION.tar.gz *
+          
+          # Upload package file
+          gh release upload v$VERSION eapp-dart-domain-$VERSION.tar.gz \
+            --repo ${{ github.repository_owner }}/eapp-dart-domain \
+            --clobber
+
       - name: Commit Python Package Index
         run: |
           cd python-packages
@@ -230,4 +290,5 @@ jobs:
           echo "Protobuf distribution completed!"
           echo "Python: https://github.com/50gramx/eapp-python-domain/releases"
           echo "Node.js: https://github.com/50gramx/eapp-nodejs-domain/releases"
-          echo "Kotlin: https://github.com/50gramx/eapp-kotlin-domain/releases" 
+          echo "Kotlin: https://github.com/50gramx/eapp-kotlin-domain/releases"
+          echo "Dart: https://github.com/50gramx/eapp-dart-domain/releases" 
