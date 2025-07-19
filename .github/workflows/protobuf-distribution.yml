@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/eapp-python-domain
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PROTOBUF_TOKEN }}
           path: python-domain
 
       - name: Setup Python
@@ -75,7 +75,7 @@ jobs:
 
       - name: Publish Python Package
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN }}
         run: |
           cd python-domain
           
@@ -135,7 +135,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/eapp-dart-domain
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PROTOBUF_TOKEN }}
           path: dart-domain
 
       - name: Setup Dart
@@ -184,7 +184,7 @@ jobs:
 
       - name: Publish Dart Package
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN }}
         run: |
           cd dart-domain/src/eapp_dart_domain
           
