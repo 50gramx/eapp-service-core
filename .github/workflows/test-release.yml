@@ -48,6 +48,21 @@ jobs:
           # List what files were created
           echo "Files created in dist/:"
           ls -la dist/
+          
+          # Check if files were created successfully
+          if [ ! -f "dist/eapp-python-domain-25.7.8.tar.gz" ]; then
+            echo "ERROR: Source distribution not built."
+            echo "Available files in dist/:"
+            ls -la dist/ || echo "dist/ directory is empty or doesn't exist"
+            exit 1
+          fi
+          
+          if [ ! -f "dist/eapp_python_domain-25.7.8-py3-none-any.whl" ]; then
+            echo "ERROR: Wheel distribution not built."
+            echo "Available files in dist/:"
+            ls -la dist/ || echo "dist/ directory is empty or doesn't exist"
+            exit 1
+          fi
 
       - name: Create packages directory
         run: |
