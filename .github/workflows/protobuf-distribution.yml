@@ -174,8 +174,8 @@ jobs:
         run: |
           cd dart-domain/src/eapp_dart_domain
           
-          # Update version in pubspec.yaml (use year.month.short_unique format)
-          VERSION="$(date +%Y).$(date +%m)+$(date +%s | tail -c 3)"
+          # Update version in pubspec.yaml (use year.month.patch format)
+          VERSION="$(date +%Y).$(date +%m).$(date +%s | tail -c 3)"
           sed -i "s/version: .*/version: $VERSION/" pubspec.yaml
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           
@@ -203,6 +203,15 @@ jobs:
           gh release upload v${{ steps.build.outputs.version }} eapp-dart-domain-${{ steps.build.outputs.version }}.tar.gz \
             --repo ${{ github.repository_owner }}/eapp-dart-domain \
             --clobber
+          
+          # Create package index from template
+          mkdir -p ../packages
+          cp ../../system-contracts/templates/dart-package-index.html ../packages/index.html
+          
+          # Replace placeholders
+          sed -i "s/{{VERSION}}/${{ steps.build.outputs.version }}/g" ../packages/index.html
+          sed -i "s/{{TAR_FILE}}/eapp-dart-domain-${{ steps.build.outputs.version }}.tar.gz/g" ../packages/index.html
+          sed -i "s/{{TIMESTAMP}}/$(date -u)/g" ../packages/index.html
 
       - name: Commit Dart Changes
         run: |
