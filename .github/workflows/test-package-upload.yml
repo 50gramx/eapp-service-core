@@ -35,4 +35,4 @@ jobs:
           cd eapp-python-domain
           
           echo "Testing package upload with proper GitHub authentication..."
-          echo "${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}" | python -m twine upload --verbose --username ${{ github.actor }} --password-stdin --repository-url https://github.com/${{ github.repository_owner }}/eapp-python-domain/packages/pypi dist/* 
+          python -m twine upload --verbose --username ${{ github.actor }} --password ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }} --repository-url https://github.com/${{ github.repository_owner }}/eapp-python-domain/packages/pypi dist/* 
