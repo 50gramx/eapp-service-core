@@ -56,11 +56,11 @@ jobs:
         run: |
           cd eapp-python-domain
           
-          echo "Uploading package with environment variables..."
+          echo "Uploading package to organization-level GitHub Packages..."
           
-          # Use GitHub Packages with the correct URL format
+          # Use organization-level GitHub Packages URL
           python -m twine upload --verbose \
-            --repository-url https://github.com/${{ github.repository_owner }}/eapp-python-domain/packages/pypi \
+            --repository-url https://github.com/50gramx/packages/pypi \
             --username ${{ github.actor }} \
             --password ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }} \
             dist/*

@@ -192,8 +192,8 @@ jobs:
         run: |
           cd ${{ github.workspace }}/eapp-python-domain
           
-          # Use GitHub Packages with proper authentication
-          python -m twine upload --username ${{ github.actor }} --password ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }} --repository-url https://github.com/${{ github.repository_owner }}/eapp-python-domain/packages/pypi dist/*
+          # Use organization-level GitHub Packages with proper authentication
+          python -m twine upload --username ${{ github.actor }} --password ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }} --repository-url https://github.com/50gramx/packages/pypi dist/*
 
       - name: Commit and push Python changes
         run: |
