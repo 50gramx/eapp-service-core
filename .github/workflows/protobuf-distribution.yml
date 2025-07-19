@@ -174,8 +174,8 @@ jobs:
         run: |
           cd dart-domain/src/eapp_dart_domain
           
-          # Update version in pubspec.yaml (use year.month.timestamp format)
-          VERSION="$(date +%Y.%m)+$(date +%s)"
+          # Update version in pubspec.yaml (use valid Dart format with shorter build number)
+          VERSION="$(date +%Y).$(date +%m).0+$(date +%s | tail -c 6)"
           sed -i "s/version: .*/version: $VERSION/" pubspec.yaml
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           
