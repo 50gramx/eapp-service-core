@@ -133,6 +133,7 @@ jobs:
           body: Test release for package hosting system
           draft: false
           prerelease: false
+          repo: ${{ github.repository_owner }}/eapp-python-domain
 
       - name: Upload package files to release
         env:
