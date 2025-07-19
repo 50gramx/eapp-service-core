@@ -27,7 +27,7 @@ jobs:
         run: |
           cd eapp-python-domain
           echo 'from setuptools import setup' > setup.py
-          echo 'setup(name="test-package", version="0.1.0")' >> setup.py
+          echo 'setup(name="50gramx-test-package", version="0.1.0")' >> setup.py
           python setup.py sdist
 
       - name: Create package via GitHub API
@@ -36,10 +36,10 @@ jobs:
           curl -X POST \
             -H "Authorization: token ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository_owner }}/eapp-python-domain/packages \
+            https://api.github.com/orgs/50gramx/packages \
             -d '{
               "package_type": "pypi",
-              "name": "eapp-python-domain"
+              "name": "50gramx-test-package"
             }' || echo "Package might already exist"
 
       - name: Setup GitHub CLI
