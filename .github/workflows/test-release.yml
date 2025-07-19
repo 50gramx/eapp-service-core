@@ -101,15 +101,11 @@ jobs:
           
           echo "Using files: $TAR_FILE and $WHEEL_FILE"
           
-          # Sanitize filenames for GitHub (same logic as upload step)
+          # Use actual filenames for the index (no sanitization needed)
           TAR_BASENAME=$(basename "$TAR_FILE")
           WHEEL_BASENAME=$(basename "$WHEEL_FILE")
           
-          # Create simple, safe names: eapp_python_domain-25.7.8.1752925060.tar.gz -> eapp-python-domain-source.tar.gz
-          SANITIZED_TAR_NAME="eapp-python-domain-source.tar.gz"
-          SANITIZED_WHEEL_NAME="eapp-python-domain-wheel.whl"
-          
-          echo "Sanitized names for index: $SANITIZED_TAR_NAME and $SANITIZED_WHEEL_NAME"
+          echo "Using actual filenames for index: $TAR_BASENAME and $WHEEL_BASENAME"
           
           # Create a simple package index
           echo '<!DOCTYPE html>' > packages/index.html
@@ -119,8 +115,8 @@ jobs:
           echo '<h1>Python Packages</h1>' >> packages/index.html
           echo '<p>Available packages:</p>' >> packages/index.html
           echo '<ul>' >> packages/index.html
-          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v${{ env.VERSION }}/$SANITIZED_TAR_NAME\">$SANITIZED_TAR_NAME</a></li>" >> packages/index.html
-          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v${{ env.VERSION }}/$SANITIZED_WHEEL_NAME\">$SANITIZED_WHEEL_NAME</a></li>" >> packages/index.html
+          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v${{ env.VERSION }}/$TAR_BASENAME\">$TAR_BASENAME</a></li>" >> packages/index.html
+          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v${{ env.VERSION }}/$WHEEL_BASENAME\">$WHEEL_BASENAME</a></li>" >> packages/index.html
           echo '</ul>' >> packages/index.html
           echo '<p>Install with:</p>' >> packages/index.html
           echo '<pre>pip install --index-url https://raw.githubusercontent.com/50gramx/eapp-python-domain/main/packages/index.html eapp-python-domain</pre>' >> packages/index.html
@@ -148,31 +144,10 @@ jobs:
           
           echo "Uploading $TAR_FILE and $WHEEL_FILE"
           
-          # Sanitize filenames for GitHub (use simple, safe names)
-          TAR_BASENAME=$(basename "$TAR_FILE")
-          WHEEL_BASENAME=$(basename "$WHEEL_FILE")
-          
-          # Create simple, safe names: eapp_python_domain-25.7.8.1752925060.tar.gz -> eapp-python-domain-source.tar.gz
-          SANITIZED_TAR_NAME="eapp-python-domain-source.tar.gz"
-          SANITIZED_WHEEL_NAME="eapp-python-domain-wheel.whl"
-          
-          echo "Sanitized names: $SANITIZED_TAR_NAME and $SANITIZED_WHEEL_NAME"
-          
-          # Upload tar.gz file using multipart form data
-          curl -X POST \
-            -H "Authorization: token ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}" \
-            -F "name=$SANITIZED_TAR_NAME" \
-            -F "label=Source Distribution" \
-            -F "file=@$TAR_FILE" \
-            "${{ steps.create_release.outputs.upload_url }}"
-          
-          # Upload wheel file using multipart form data
-          curl -X POST \
-            -H "Authorization: token ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}" \
-            -F "name=$SANITIZED_WHEEL_NAME" \
-            -F "label=Wheel Distribution" \
-            -F "file=@$WHEEL_FILE" \
-            "${{ steps.create_release.outputs.upload_url }}"
+          # Use GitHub CLI to upload files (more reliable than curl)
+          gh release upload v${{ env.VERSION }} "$TAR_FILE" "$WHEEL_FILE" \
+            --repo ${{ github.repository_owner }}/eapp-python-domain \
+            --clobber
 
       - name: Commit and push package index
         run: |
