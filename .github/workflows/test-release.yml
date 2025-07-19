@@ -27,11 +27,15 @@ jobs:
         run: |
           cd eapp-python-domain
           
+          # Create a unique version based on timestamp
+          VERSION="25.7.8.$(date +%s)"
+          echo "Using version: $VERSION"
+          
           # Create a test package
           echo 'from setuptools import setup, find_packages' > setup.py
           echo 'setup(' >> setup.py
           echo '    name="eapp-python-domain",' >> setup.py
-          echo '    version="25.7.8",' >> setup.py
+          echo "    version=\"$VERSION\"," >> setup.py
           echo '    description="Test package for GitHub releases",' >> setup.py
           echo '    packages=find_packages(where="src"),' >> setup.py
           echo '    package_dir={"": "src"},' >> setup.py
@@ -42,16 +46,26 @@ jobs:
           mkdir -p src/eapp_python_domain
           echo '# Test package' > src/eapp_python_domain/__init__.py
           
+          # Show what we're about to build
+          echo "Current directory: $(pwd)"
+          echo "setup.py contents:"
+          cat setup.py
+          echo "Directory structure:"
+          find . -type f -name "*.py" | head -10
+          
           # Build package
+          echo "Building package..."
           python -m build
           
           # List what files were created
           echo "Files created in dist/:"
-          ls -la dist/
+          ls -la dist/ || echo "dist/ directory not found"
           
           # Check if files were created successfully
           TAR_COUNT=$(ls dist/*.tar.gz 2>/dev/null | wc -l)
           WHEEL_COUNT=$(ls dist/*.whl 2>/dev/null | wc -l)
+          
+          echo "Found $TAR_COUNT tar.gz files and $WHEEL_COUNT wheel files"
           
           if [ "$TAR_COUNT" -eq 0 ]; then
             echo "ERROR: No source distribution (.tar.gz) files found."
@@ -68,6 +82,9 @@ jobs:
           fi
           
           echo "✅ Build successful! Found $TAR_COUNT tar.gz files and $WHEEL_COUNT wheel files."
+          
+          # Store version for later steps
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Create packages directory
         run: |
@@ -92,8 +109,8 @@ jobs:
           echo '<h1>Python Packages</h1>' >> packages/index.html
           echo '<p>Available packages:</p>' >> packages/index.html
           echo '<ul>' >> packages/index.html
-          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v25.7.8/$(basename $TAR_FILE)\">$(basename $TAR_FILE)</a></li>" >> packages/index.html
-          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v25.7.8/$(basename $WHEEL_FILE)\">$(basename $WHEEL_FILE)</a></li>" >> packages/index.html
+          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v${{ env.VERSION }}/$(basename $TAR_FILE)\">$(basename $TAR_FILE)</a></li>" >> packages/index.html
+          echo "<li><a href=\"https://github.com/50gramx/eapp-python-domain/releases/download/v${{ env.VERSION }}/$(basename $WHEEL_FILE)\">$(basename $WHEEL_FILE)</a></li>" >> packages/index.html
           echo '</ul>' >> packages/index.html
           echo '<p>Install with:</p>' >> packages/index.html
           echo '<pre>pip install --index-url https://raw.githubusercontent.com/50gramx/eapp-python-domain/main/packages/index.html eapp-python-domain</pre>' >> packages/index.html
@@ -105,8 +122,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v25.7.8
-          release_name: Release v25.7.8
+          tag_name: v${{ env.VERSION }}
+          release_name: Release v${{ env.VERSION }}
           body: Test release for package hosting system
           draft: false
           prerelease: false
@@ -141,11 +158,11 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add packages/
-          git commit -m "Add package index for v25.7.8" || echo "No changes to commit"
+          git commit -m "Add package index for v${{ env.VERSION }}" || echo "No changes to commit"
           git push origin master
 
       - name: Test completion
         run: |
           echo "Test release system completed!"
-          echo "Check: https://github.com/50gramx/eapp-python-domain/releases/tag/v25.7.8"
+          echo "Check: https://github.com/50gramx/eapp-python-domain/releases/tag/v${{ env.VERSION }}"
           echo "Index: https://raw.githubusercontent.com/50gramx/eapp-python-domain/main/packages/index.html" 
