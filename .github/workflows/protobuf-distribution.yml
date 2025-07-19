@@ -31,7 +31,7 @@ jobs:
 
       - name: Install Node.js dependencies
         run: |
-          npm install -g protobuf2ts
+          npm install -g protobufjs
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -79,9 +79,12 @@ jobs:
           cd system-contracts
           mkdir -p ../nodejs-packages
           
-          # Compile all .proto files to TypeScript
+          # Compile all .proto files to JavaScript using protobufjs
           for proto_file in $(find src/main/proto -name "*.proto"); do
-            protobuf2ts "$proto_file" --out ../nodejs-packages
+            # Use protoc to generate JavaScript
+            protoc --js_out=import_style=commonjs,binary:../nodejs-packages \
+                   --proto_path=src/main/proto \
+                   "$proto_file"
           done
           
           # Create Node.js package structure
@@ -91,11 +94,14 @@ jobs:
           echo '  "version": "0.1.0",' >> package.json
           echo '  "description": "Node.js protobuf client for EAPP system contracts",' >> package.json
           echo '  "main": "index.js",' >> package.json
-          echo '  "types": "index.d.ts",' >> package.json
           echo '  "dependencies": {' >> package.json
           echo '    "protobufjs": "^7.0.0"' >> package.json
           echo '  }' >> package.json
           echo '}' >> package.json
+          
+          # Create index.js to export all protobuf modules
+          echo '// Node.js protobuf client package' > index.js
+          echo 'module.exports = require("./protobuf");' >> index.js
 
       - name: Compile Protobuf for Java/Kotlin
         run: |
