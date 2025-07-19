@@ -75,7 +75,7 @@ jobs:
 
       - name: Publish Python Package
         env:
-          GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd python-domain
           
@@ -184,7 +184,7 @@ jobs:
 
       - name: Publish Dart Package
         env:
-          GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd dart-domain/src/eapp_dart_domain
           
