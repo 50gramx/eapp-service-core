@@ -124,16 +124,20 @@ jobs:
 
       - name: Create GitHub Release
         id: create_release
-        uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ env.VERSION }}
-          release_name: Release v${{ env.VERSION }}
-          body: Test release for package hosting system
-          draft: false
-          prerelease: false
-          repo: ${{ github.repository_owner }}/eapp-python-domain
+          GH_TOKEN: ${{ secrets.PROTOBUF_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          # Create release in eapp-python-domain repository
+          gh release create v${{ env.VERSION }} \
+            --repo ${{ github.repository_owner }}/eapp-python-domain \
+            --title "Release v${{ env.VERSION }}" \
+            --notes "Test release for package hosting system" \
+            --draft=false \
+            --prerelease=false
+          
+          # Get the upload URL for later use
+          UPLOAD_URL=$(gh api repos/${{ github.repository_owner }}/eapp-python-domain/releases/tags/v${{ env.VERSION }} --jq '.upload_url')
+          echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
 
       - name: Upload package files to release
         env:
