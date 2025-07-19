@@ -60,7 +60,7 @@ jobs:
           cd python-domain
           
           # Update version in setup.py (use year.month.short_unique format)
-          VERSION="$(date +%Y).$(date +%m).$(date +%s | tail -c 6)"
+          VERSION="$(date +%Y).$(date +%m).$(date +%s | tail -c 3)"
           sed -i "s/version='[^']*'/version='$VERSION'/" setup.py
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           
@@ -175,7 +175,7 @@ jobs:
           cd dart-domain/src/eapp_dart_domain
           
           # Update version in pubspec.yaml (use year.month.short_unique format)
-          VERSION="$(date +%Y).$(date +%m).0+$(date +%s | tail -c 6)"
+          VERSION="$(date +%Y).$(date +%m)+$(date +%s | tail -c 3)"
           sed -i "s/version: .*/version: $VERSION/" pubspec.yaml
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           
